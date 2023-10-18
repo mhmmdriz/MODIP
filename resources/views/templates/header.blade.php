@@ -14,11 +14,11 @@
       <div class="nav-item dropdown">
         <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
           {{-- terdapat method auth() pada laravel, untuk mengambil semua data milik user yang sudah login --}}
-          @if (auth()->user()->level == "Mahasiswa")
+          @if (auth()->user()->level == "mahasiswa")
             Welcome back,  {{ auth()->user()->mahasiswa->nama }}
-          @elseif(auth()->user()->level == "Dosen")
+          @elseif(auth()->user()->level == "dosenwali")
             Welcome back,  {{ auth()->user()->dosen_wali->nama }}
-          @elseif(auth()->user()->level == "Departemen")
+          @elseif(auth()->user()->level == "departemen")
             Welcome back,  {{ auth()->user()->departemen->nama }}
           @else
             Welcome back,  {{ auth()->user()->operator->nama }}

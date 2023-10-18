@@ -48,4 +48,9 @@ class LoginController extends Controller
     
         return redirect('/');
     }
+
+    public function dosen(){
+        return view("dosenwali.khususdosen");
+    }
+    
 }

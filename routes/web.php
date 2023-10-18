@@ -14,12 +14,19 @@ use App\Http\Controllers\LoginController;
 |
 */
 
-Route::get('/', function () {
-    return view('dashboard.index');
-})->middleware('auth');
 
-Route::get('/login', [LoginController::class, 'index'])->name('login')->middleware('guest');
+Route::middleware('guest')-> group(function () {
+    Route::get('/login', [LoginController::class, 'index'])->name('login');
+    
+    Route::post('/login', [LoginController::class, 'authenticate']);
+});
 
-Route::post('/login', [LoginController::class, 'authenticate']);
+Route::middleware('auth')->group(function () {
+    Route::get('/', function () {
+        return view('dashboard.index');
+    });
+    Route::post('/logout', [LoginController::class, 'logout']);
 
-Route::post('/logout', [LoginController::class, 'logout']);
+    Route::get('/dosen', [LoginController::class, 'dosen'])->middleware('user.role:dosenwali');
+    
+});
