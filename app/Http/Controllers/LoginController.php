@@ -52,5 +52,20 @@ class LoginController extends Controller
     public function dosen(){
         return view("dosenwali.khususdosen");
     }
+
+    public function dashboard(){
+        if(auth()->user()->level == "mahasiswa"){
+            return view("dashboard.mahasiswa");
+        }
+        if(auth()->user()->level == "dosenwali"){
+            return view("dashboard.dosenwali");
+        }
+        if(auth()->user()->level == "departemen"){
+            return view("dashboard.departemen");
+        }
+        if(auth()->user()->level == "operator"){
+            return view("dashboard.operator");
+        }
+    }
     
 }
