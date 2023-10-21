@@ -17,8 +17,12 @@ use App\Http\Controllers\MahasiswaController;
 
 
 Route::middleware('guest')-> group(function () {
+    Route::get('/', function () {
+        return redirect('/login');
+    });
+
     Route::get('/login', [LoginController::class, 'index'])->name('login');
-    
+
     Route::post('/login', [LoginController::class, 'authenticate']);
 });
 
