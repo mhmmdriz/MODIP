@@ -1,7 +1,8 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\LoginController;
+use App\Http\Controllers\Login\LoginController;
+use App\Http\Controllers\MahasiswaController;
 
 /*
 |--------------------------------------------------------------------------
@@ -22,10 +23,15 @@ Route::middleware('guest')-> group(function () {
 });
 
 Route::middleware('auth')->group(function () {
-    Route::get('/', [LoginController::class, 'dashboard']);
+    Route::get('/dashboard', [LoginController::class,'dashboard']);
 
     Route::post('/logout', [LoginController::class, 'logout']);
 
     Route::get('/dosen', [LoginController::class, 'dosen'])->middleware('user.role:dosenwali');
+    
+});
+
+Route::middleware(['auth', 'user.role:operator'])->group(function () {
+    Route::get('/akunMHS', [MahasiswaController::class, 'index']);
     
 });

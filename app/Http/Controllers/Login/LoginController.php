@@ -1,7 +1,8 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Login;
 
+use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\RedirectResponse;
@@ -31,7 +32,7 @@ class LoginController extends Controller
             // penjelasan lebih lanjut ada di docs
             // dd(auth());
 
-            return redirect()->intended('/');
+            return redirect()->intended('/dashboard');
         }
         
         // jika ingin menggunakan flash message saja menggunakan with
@@ -46,7 +47,7 @@ class LoginController extends Controller
     
         $request->session()->regenerateToken();
     
-        return redirect('/');
+        return redirect('/login');
     }
 
     public function dosen(){
@@ -55,16 +56,16 @@ class LoginController extends Controller
 
     public function dashboard(){
         if(auth()->user()->level == "mahasiswa"){
-            return view("dashboard.mahasiswa");
+            return view("mahasiswa.dashboard");
         }
         if(auth()->user()->level == "dosenwali"){
-            return view("dashboard.dosenwali");
+            return view("dosenwali.dashboard");
         }
         if(auth()->user()->level == "departemen"){
-            return view("dashboard.departemen");
+            return view("departemen.dashboard");
         }
         if(auth()->user()->level == "operator"){
-            return view("dashboard.operator");
+            return view("operator.dashboard");
         }
     }
     
