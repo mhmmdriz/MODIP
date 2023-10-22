@@ -10,10 +10,10 @@ class Mahasiswa extends Model
     use HasFactory;
 
     protected $table = "mahasiswa";
-    protected $primarykey = "NIM";
+    protected $primarykey = "nim";
 
     public function user()
     {
-        return $this->hasOne(User::class, 'username', 'NIM');
+        return $this->hasOne(User::class, 'username', 'nim');
     }
 }

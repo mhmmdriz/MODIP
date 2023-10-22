@@ -30,3 +30,21 @@ if (darkTheme === 'enabled') { //setiap reload
 else {
   disableDarkTheme();
 }
+
+// AJAX Search Akun_MHS milik Operator
+function updateMhsTable(keyword){
+  console.log(keyword);
+  $.ajax({
+    type: 'GET',
+    url: '/ajaxAkunMHS',
+    data: {'keyword':keyword},
+    success: function(response) {
+      $('#tabelMHS').html(response.html);
+      console.log(response.html);
+    },
+    error: function(response) {
+      console.log('Error:', response);
+    }
+  });
+}
+
