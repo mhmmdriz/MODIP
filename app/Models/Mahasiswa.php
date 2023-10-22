@@ -10,6 +10,7 @@ class Mahasiswa extends Model
     use HasFactory;
 
     protected $table = "mahasiswa";
+    protected $primarykey = "NIM";
 
     public function user()
     {

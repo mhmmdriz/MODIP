@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Models\Mahasiswa;
 use App\Http\Requests\StoreMahasiswaRequest;
 use App\Http\Requests\UpdateMahasiswaRequest;
+use App\Models\User;
+use Illuminate\Support\Facades\Hash;
 
 class MahasiswaController extends Controller
 {
@@ -13,7 +15,11 @@ class MahasiswaController extends Controller
      */
     public function index()
     {
-        return view("operator.akun_mhs.index");
+        $data_mhs = Mahasiswa::all();
+
+        return view("operator.akun_mhs.index", [
+            "data_mhs" => $data_mhs,
+        ]);
     }
 
     /**
