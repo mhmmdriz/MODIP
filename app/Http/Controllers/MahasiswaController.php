@@ -6,7 +6,9 @@ use App\Models\Mahasiswa;
 use App\Http\Requests\StoreMahasiswaRequest;
 use App\Http\Requests\UpdateMahasiswaRequest;
 use App\Models\User;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Http\Request;
 
 class MahasiswaController extends Controller
 {
@@ -68,5 +70,13 @@ class MahasiswaController extends Controller
     public function destroy(Mahasiswa $mahasiswa)
     {
         //
+    }
+
+    public function updateTableMhs(Request $request){
+        $data_mhs = Mahasiswa::whereRaw("nim LIKE '%$request->keyword%' OR nama LIKE '%$request->keyword%'")->get();
+
+        $view = view('ajax.operator.update_mhs')->with('data_mhs', $data_mhs)->render();
+
+        return response()->json(['html' => $view]);
     }
 }
