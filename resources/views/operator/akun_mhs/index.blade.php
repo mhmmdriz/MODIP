@@ -39,7 +39,7 @@
             <tr>
               <td>{{ ++$i }}</td>
               <td>{{ $mhs->nama }}</td>
-              <td>{{ $mhs->NIM }}</td>
+              <td>{{ $mhs->nim }}</td>
               {{-- <td></td> --}}
               <td>{{ $mhs->user->password }}</td>
               <td>
