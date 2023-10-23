@@ -9,6 +9,7 @@ class Departemen extends Model
 {
     use HasFactory;
     
+    public $timestamps = false;
     protected $table = "departemen";
 
     public function user()

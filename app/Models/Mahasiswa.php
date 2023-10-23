@@ -11,6 +11,8 @@ class Mahasiswa extends Model
 
     protected $table = "mahasiswa";
     protected $primarykey = "nim";
+    public $timestamps = false;
+    protected $guarded = [];
 
     public function user()
     {

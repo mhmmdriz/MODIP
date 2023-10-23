@@ -9,6 +9,7 @@ class Operator extends Model
 {
     use HasFactory;
 
+    public $timestamps = false;
     protected $table = "operator";
 
     public function user()

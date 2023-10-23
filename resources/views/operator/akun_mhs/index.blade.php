@@ -13,7 +13,7 @@
     </div>
     <div class="col-md-auto ms-auto">
       <button type="button" class="btn btn-primary btn-sm">Export List Akun</button>
-      <button type="button" class="btn btn-primary btn-sm">Generate Akun</button>
+      <button type="button" class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#modalGenerate">Generate Akun</button>
     </div>
   </div>
 
@@ -42,7 +42,7 @@
                 <td>{{ $mhs->nama }}</td>
                 <td>{{ $mhs->nim }}</td>
                 <td>{{ $mhs->angkatan}}</td>
-                <td>{{ $mhs->user->status}}</td>
+                <td>{{ $mhs->status}}</td>
                 <td>
                   <a class="btn btn-warning btn-sm" href="/buku/{{ $mhs->isbn }}/edit">Reset Password</a>
                   <form action="/buku/{{ $mhs->isbn }}" method="post" class="d-inline">
@@ -62,5 +62,6 @@
     </div>
   </div>
 
+@include('operator.akun_mhs.modal_generate_mhs')
 
 @endsection

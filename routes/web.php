@@ -36,6 +36,6 @@ Route::middleware('auth')->group(function () {
 });
 
 Route::middleware(['auth', 'user.role:operator'])->group(function () {
-    Route::get('/akunMHS', [MahasiswaController::class, 'index']);
+    Route::resource('/akunMHS', MahasiswaController::class);
     Route::get('/ajaxAkunMHS', [MahasiswaController::class,'updateTableMhs']);
 });

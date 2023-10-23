@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Models\Mahasiswa;
-use App\Http\Requests\StoreMahasiswaRequest;
 use App\Http\Requests\UpdateMahasiswaRequest;
 use App\Models\User;
 use Illuminate\Support\Facades\DB;
@@ -35,9 +34,27 @@ class MahasiswaController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(StoreMahasiswaRequest $request)
+    public function store(Request $request)
     {
-        //
+        $validatedData = $request->validate([
+            'nama' => 'required|max:255',
+            'nim' => 'required|min:14|max:14',
+            'angkatan' => 'required',
+            'status' => 'required',
+        ]);
+
+        Mahasiswa::create($validatedData);
+
+        $userData = [
+            'username'=> $validatedData['nim'],
+            'level' => 'mahasiswa',
+            'password' => Hash::make("password"),
+            'status'=> 'aktif',
+        ];
+
+        User::create($userData);
+
+        return redirect('/akunMHS');
     }
 
     /**
@@ -75,7 +92,7 @@ class MahasiswaController extends Controller
     public function updateTableMhs(Request $request){
         $data_mhs = Mahasiswa::whereRaw("nim LIKE '%$request->keyword%' OR nama LIKE '%$request->keyword%'")->get();
 
-        $view = view('ajax.operator.update_mhs')->with('data_mhs', $data_mhs)->render();
+        $view = view('operator.ajax.update_mhs')->with('data_mhs', $data_mhs)->render();
 
         return response()->json(['html' => $view]);
     }
