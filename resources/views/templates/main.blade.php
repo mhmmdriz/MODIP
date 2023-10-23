@@ -12,7 +12,7 @@
       <a class="navbar-brand" href="/dashboard"><b>MODIP</b></a>
 
       <div class="ms-auto me-4">
-        <i class="bi bi-sun-fill" id="theme" style="font-size: 20px"></i>
+        <i class="bi bi-sun-fill" id="theme" style="font-size: 20px" role="button"></i>
       </div>
 
       @auth
