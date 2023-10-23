@@ -55,7 +55,7 @@
   </div>
 </div>
 
-@if($errors->has(['nama', 'nim', 'angkatan', 'status']))
+@if($errors->has('nama') OR $errors->has('nim') OR $errors->has('angkatan') OR $errors->has('status'))
   <script>
     $(document).ready(function () {
       $('#modalGenerate').modal('show');

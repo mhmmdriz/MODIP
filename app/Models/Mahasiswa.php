@@ -18,4 +18,10 @@ class Mahasiswa extends Model
     {
         return $this->hasOne(User::class, 'username', 'nim');
     }
+
+    public function getRouteKeyName()
+    {
+        return 'nim';
+    }
+
 }

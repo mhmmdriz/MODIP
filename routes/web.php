@@ -37,6 +37,9 @@ Route::middleware('auth')->group(function () {
 
 Route::middleware(['auth', 'user.role:operator'])->group(function () {
     Route::resource('/akunMHS', MahasiswaController::class);
+    
+    Route::delete('/akunMHS/{nim}', [MahasiswaController::class, 'destroy']);
     Route::post('/akunMHS/importExcel', [MahasiswaController::class, 'storeImport']);
+    Route::post('/akunMHS/exportExcel', [MahasiswaController::class, 'exportData']);
     Route::get('/ajaxAkunMHS', [MahasiswaController::class,'updateTableMhs']);
 });
