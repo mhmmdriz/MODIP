@@ -9,6 +9,7 @@ class DosenWali extends Model
 {
     use HasFactory;
 
+    public $timestamps = false;
     protected $table = "dosen_wali";
 
     public function user()

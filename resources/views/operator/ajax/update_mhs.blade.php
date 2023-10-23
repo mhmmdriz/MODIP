@@ -13,13 +13,12 @@
   @endphp
 
   @foreach ($data_mhs as $mhs)
-    {{-- @dd($mhs->user->password) --}}
     <tr>
       <td>{{ ++$i }}</td>
       <td>{{ $mhs->nama }}</td>
       <td>{{ $mhs->nim }}</td>
       <td>{{ $mhs->angkatan}}</td>
-      <td>{{ $mhs->user->status}}</td>
+      <td>{{ $mhs->status}}</td>
       <td>
         <a class="btn btn-warning btn-sm" href="/buku/{{ $mhs->isbn }}/edit">Reset Password</a>
         <form action="/buku/{{ $mhs->isbn }}" method="post" class="d-inline">
