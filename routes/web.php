@@ -37,5 +37,6 @@ Route::middleware('auth')->group(function () {
 
 Route::middleware(['auth', 'user.role:operator'])->group(function () {
     Route::resource('/akunMHS', MahasiswaController::class);
+    Route::post('/akunMHS/importExcel', [MahasiswaController::class, 'storeImport']);
     Route::get('/ajaxAkunMHS', [MahasiswaController::class,'updateTableMhs']);
 });
