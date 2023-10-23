@@ -13,6 +13,7 @@
     </div>
     <div class="col-md-auto ms-auto">
       <button type="button" class="btn btn-primary btn-sm">Export List Akun</button>
+      <button type="button" class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#modalImport">Import Akun</button>
       <button type="button" class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#modalGenerate">Generate Akun</button>
     </div>
   </div>
@@ -63,5 +64,6 @@
   </div>
 
 @include('operator.akun_mhs.modal_generate_mhs')
+@include('operator.akun_mhs.modal_import_excel')
 
 @endsection

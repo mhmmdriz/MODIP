@@ -8,6 +8,9 @@ use App\Models\User;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Http\Request;
+use Maatwebsite\Excel\Facades\Excel;
+use App\Imports\UserImport;
+use App\Imports\MahasiswaImport;
 
 class MahasiswaController extends Controller
 {
@@ -53,6 +56,17 @@ class MahasiswaController extends Controller
         ];
 
         User::create($userData);
+
+        return redirect('/akunMHS');
+    }
+
+    public function storeImport(Request $request){
+        $validatedData = $request->validate([
+            'fileExcel' => 'required',
+        ]);
+
+        Excel::import(new UserImport, request()->file('fileExcel'));
+        Excel::import(new MahasiswaImport, request()->file('fileExcel'));
 
         return redirect('/akunMHS');
     }
