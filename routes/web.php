@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Login\LoginController;
 use App\Http\Controllers\MahasiswaController;
+use App\Http\Controllers\MahasiswaTaskController;
 
 /*
 |--------------------------------------------------------------------------
@@ -27,7 +28,7 @@ Route::middleware('guest')-> group(function () {
 });
 
 Route::middleware('auth')->group(function () {
-    Route::get('/dashboard', [LoginController::class,'dashboard']);
+    Route::get('/dashboard', [LoginController::class,'dashboard'])->middleware('is.first.login');
 
     Route::post('/logout', [LoginController::class, 'logout']);
 
@@ -42,4 +43,12 @@ Route::middleware(['auth', 'user.role:operator'])->group(function () {
     Route::post('/akunMHS/importExcel', [MahasiswaController::class, 'storeImport']);
     Route::post('/akunMHS/exportExcel', [MahasiswaController::class, 'exportData']);
     Route::get('/ajaxAkunMHS', [MahasiswaController::class,'updateTableMhs']);
+});
+
+Route::middleware(['auth','user.role:mahasiswa'])->group(function () {
+    Route::get('/firstLogin', [MahasiswaTaskController::class,'firstLogin']);
+    Route::middleware('is.first.login')->group(function () {
+        // error role lain tidak bisa ke dashboard
+        // Route::get('/dashboard', [LoginController::class,'dashboard']);
+    });
 });
