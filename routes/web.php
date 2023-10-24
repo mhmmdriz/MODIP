@@ -43,3 +43,9 @@ Route::middleware(['auth', 'user.role:operator'])->group(function () {
     Route::post('/akunMHS/exportExcel', [MahasiswaController::class, 'exportData']);
     Route::get('/ajaxAkunMHS', [MahasiswaController::class,'updateTableMhs']);
 });
+
+Route::middleware(['auth', 'user.role:mahasiswa'])->group(function () {
+    Route::get('/profile', [MahasiswaController::class, 'viewProfile']);
+    Route::get('/profile-edit', [MahasiswaController::class, 'editProfile']);
+    Route::put('/profile/edit/{mahasiswa}', [MahasiswaController::class, 'updateProfile']);
+});

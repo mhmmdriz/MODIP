@@ -4,6 +4,7 @@
 <div class="row d-flex justify-content-center">
   <div class="col my-3">
     <div class="card mb-3 bg-body-tertiary">
+      <a href="/profile" style="text-decoration: none; color: inherit;" class="bi bi-pencil-square position-absolute end-0 m-2"></a>
       <div class="row">
         <div class="col-md-auto m-4">
           <img src="{{ asset("storage/profile_photo/default.jpg") }}" alt="" style="border-radius:50%; width:120px">
@@ -15,12 +16,8 @@
             </div>
           </div>
           <hr>
-          <div>{{ auth()->user()->mahasiswa->nim }}</div>
-          <div class="row">
-            <div class="col">
-              Fakultas Sains dan Matematika
-            </div>
-          </div>
+          <div>NIM: {{ auth()->user()->mahasiswa->nim }}</div>
+          <div>Angkatan: {{ auth()->user()->mahasiswa->angkatan }}</div>
         </div>
       </div>
     </div>
@@ -48,13 +45,13 @@
         <div class="d-flex justify-content-center align-items-end" style="height: 2rem"><h5><b>Status Akademik</b></h5></div>
         <div class="d-flex col-12" style="height: 5rem">
           <div class="d-flex col-5 flex-column justify-content-center align-items-center">
-            <div>2023/2024 Gasal</div>
+            <div>{{ $thn_ajar }} {{ $smt }}</div>
           </div>
           <div class="d-flex col-2 flex-column justify-content-center align-items-center">
-            <div>Semester 6</div>
+            <div>Semester {{ $semester }}</div>
           </div>
           <div class="d-flex col-5 flex-column justify-content-center align-items-center">
-            <div>Status: Aktif</div>
+            <div>Status: {{ ucfirst(auth()->user()->mahasiswa->status) }}</div>
           </div>
         </div>
       </div>

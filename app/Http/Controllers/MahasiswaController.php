@@ -116,10 +116,35 @@ class MahasiswaController extends Controller
     }
 
     public function updateTableMhs(Request $request){
-        $data_mhs = Mahasiswa::whereRaw("nim LIKE '%$request->keyword%' OR nama LIKE '%$request->keyword%' OR angkatan LIKE '%$request->keyword%' OR status LIKE '%$request->keyword%'")->get();
+        $data_mhs = Mahasiswa::whereRaw("nim LIKE '%$request->keyword%' OR nama LIKE '%$request->keyword%'")->get();
 
         $view = view('operator.ajax.update_mhs')->with('data_mhs', $data_mhs)->render();
 
         return response()->json(['html' => $view]);
+    }
+
+    public function viewProfile(){
+        return view('mahasiswa.profile.index');
+    }
+
+    public function editProfile(){
+        return view('mahasiswa.profile.edit');
+    }
+
+    public function updateProfile(Request $request, Mahasiswa $mahasiswa){
+        $rules = [
+            'no_telp' => 'required|numeric',
+            'email_sso' => 'required',
+            'email_pribadi' => 'required',
+            'alamat' => 'required',
+            'kabupaten_kota' => 'required',
+            'provinsi' => 'required',
+        ];
+        
+        $validatedData = $request->validate($rules);
+
+        Mahasiswa::where('nim', $mahasiswa->nim)->update($validatedData);
+
+        return redirect('/profile');
     }
 }
