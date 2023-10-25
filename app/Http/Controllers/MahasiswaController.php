@@ -116,7 +116,7 @@ class MahasiswaController extends Controller
     }
 
     public function updateTableMhs(Request $request){
-        $data_mhs = Mahasiswa::whereRaw("nim LIKE '%$request->keyword%' OR nama LIKE '%$request->keyword%'")->get();
+        $data_mhs = Mahasiswa::whereRaw("nim LIKE '%$request->keyword%' OR nama LIKE '%$request->keyword%' OR angkatan LIKE '%$request->keyword%' OR status LIKE '%$request->keyword%'")->get();
 
         $view = view('operator.ajax.update_mhs')->with('data_mhs', $data_mhs)->render();
 
