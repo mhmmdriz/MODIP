@@ -122,4 +122,29 @@ class MahasiswaController extends Controller
 
         return response()->json(['html' => $view]);
     }
+
+    public function viewProfile(){
+        return view('mahasiswa.profile.index');
+    }
+
+    public function editProfile(){
+        return view('mahasiswa.profile.edit');
+    }
+
+    public function updateProfile(Request $request, Mahasiswa $mahasiswa){
+        $rules = [
+            'no_telp' => 'required|numeric',
+            'email_sso' => 'required',
+            'email_pribadi' => 'required',
+            'alamat' => 'required',
+            'kabupaten_kota' => 'required',
+            'provinsi' => 'required',
+        ];
+        
+        $validatedData = $request->validate($rules);
+
+        Mahasiswa::where('nim', $mahasiswa->nim)->update($validatedData);
+
+        return redirect('/profile');
+    }
 }
