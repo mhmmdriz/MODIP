@@ -57,23 +57,10 @@ class LoginController extends Controller
 
     public function dashboard(){
         if(auth()->user()->level == "mahasiswa"){
-            $curr_date = Carbon::now()->setTimezone('Asia/Jakarta');
-            $curr_year = $curr_date->year;
-            $angkatan = auth()->user()->mahasiswa->angkatan;
-            $semester = ($curr_year - $angkatan)*2+1;
-            if ($curr_date->month <= 6) {
-                $smt = "Genap";
-                $thn_ajar = strval($curr_year-1).'/'.strval($curr_year);
-                $semester -= 1;
-            } else {
-                $smt = "Gasal";
-                $thn_ajar = strval($curr_year).'/'.strval($curr_year+1);
-            }
-            return view("mahasiswa.dashboard", [
-                'smt' => $smt,
-                'thn_ajar' => $thn_ajar,
-                'semester' => $semester,
-            ]);
+            $mahasiswa = auth()->user()->mahasiswa;
+            $semesterInfo = $mahasiswa->calculateSemesterAndThnAjar();
+            
+            return view("mahasiswa.dashboard", $semesterInfo);
         }
         if(auth()->user()->level == "dosenwali"){
             return view("dosenwali.dashboard");
