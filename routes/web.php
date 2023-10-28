@@ -1,8 +1,10 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\Login\LoginController;
+use App\Http\Controllers\IRSController;
+use App\Http\Controllers\FileController;
 use App\Http\Controllers\MahasiswaController;
+use App\Http\Controllers\Login\LoginController;
 use App\Http\Controllers\MahasiswaTaskController;
 
 /*
@@ -33,7 +35,9 @@ Route::middleware('auth')->group(function () {
     Route::post('/logout', [LoginController::class, 'logout']);
 
     Route::get('/dosen', [LoginController::class, 'dosen'])->middleware('user.role:dosenwali');
-    
+
+    Route::get('/photo/{photoname}', [FileController::class, 'showProfilePhoto'])->where('photoname', '.*');
+    Route::get('/scan-irs/{filename}', [FileController::class, 'showIRS'])->where('filename', '.*');
 });
 
 Route::middleware(['auth', 'user.role:operator'])->group(function () {
@@ -56,4 +60,7 @@ Route::middleware(['auth','user.role:mahasiswa'])->group(function () {
     Route::get('/profile', [MahasiswaController::class, 'viewProfile']);
     Route::get('/profile-edit', [MahasiswaController::class, 'editProfile']);
     Route::put('/profile/edit/{mahasiswa}', [MahasiswaController::class, 'updateProfile']);
+    Route::get('/irs', [IRSController::class, 'index']);
+    Route::put('/irs', [IRSController::class, 'updateOrInsert']);
+    // Route::get('/scan-irs/irs/{filename}', [IRSController::class, 'showIRS']);
 });
