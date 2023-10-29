@@ -60,7 +60,7 @@ class MahasiswaController extends Controller
 
         User::create($userData);
 
-        return redirect('/akunMHS');
+        return redirect('/akunMHS')->with('success','Akun Mahasiswa Berhasil Ditambahkan');
     }
 
     public function storeImport(Request $request){
@@ -71,7 +71,7 @@ class MahasiswaController extends Controller
         Excel::import(new UserImport, request()->file('fileExcel'));
         Excel::import(new MahasiswaImport, request()->file('fileExcel'));
 
-        return redirect('/akunMHS');
+        return redirect('/akunMHS')->with('success','Import Akun Mahasiswa Berhasil');
     }
 
     /**
