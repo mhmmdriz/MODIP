@@ -25,7 +25,7 @@ class Mahasiswa extends Model
     }
 
     public function khs(){
-        return $this->hasMany(IRS::class, 'nim', 'nim');
+        return $this->hasMany(KHS::class, 'nim', 'nim');
     }
 
     public function getRouteKeyName()
@@ -57,16 +57,22 @@ class Mahasiswa extends Model
 
     public function getIRSArray($semester){
         $irs = $this->irs;
-        $smtIrsArray = $irs->pluck('smt')->toArray();
+        $smtIRSArray = $irs->pluck('smt')->toArray();
         $arrIRS = [];
         $j = 0;
         // dd($smtIrsArray);
-        if(!empty($smtIrsArray)){
+        if(!empty($smtIRSArray)){
             for($i = 0; $i < $semester; $i++){
-                if($smtIrsArray[$j] == $i + 1){
-                    $arrIRS[$i] = $irs->where('smt', $smtIrsArray[$j])->first();
-                    $j++;
-                }else{
+                if($j <= count($smtIRSArray)-1){
+                    if($smtIRSArray[$j] == $i + 1){
+                        $arrIRS[$i] = $irs->where('smt', $smtIRSArray[$j])->first();
+                        $j++;
+                    }
+                    else{
+                        $arrIRS[$i] = null;
+                    }
+                }
+                else{
                     $arrIRS[$i] = null;
                 }
             }
@@ -80,10 +86,10 @@ class Mahasiswa extends Model
         foreach($irs as $i){
             $SKSk += $i->sks;
         }
-
+        // dd($smt);
         return [
             'arrIRS' => $arrIRS,
-            'smtIrsArray' => $smtIrsArray,
+            // 'smtIRSArray' => $smtIRSArray,
             'SKSk' => $SKSk,
         ];
 
@@ -91,21 +97,28 @@ class Mahasiswa extends Model
 
     public function getKHSArray($semester){
         $khs = $this->khs;
-        $smtIrsArray = $khs->pluck('smt')->toArray();
-        $arrIRS = [];
+        $smtKHSArray = $khs->pluck('smt')->toArray();
+        $arrKHS = [];
         $j = 0;
-        if(!empty($smtIrsArray)){
+        
+        if(!empty($smtKHSArray)){
             for($i = 0; $i < $semester; $i++){
-                if($smtIrsArray[$j] == $i + 1){
-                    $arrIRS[$i] = $khs->where('smt', $smtIrsArray[$j])->first();
-                    $j++;
-                }else{
-                    $arrIRS[$i] = null;
+                if($j <= count($smtKHSArray)-1){
+                    if($smtKHSArray[$j] == $i + 1){
+                        $arrKHS[$i] = $khs->where('smt', $smtKHSArray[$j])->first();
+                        $j++;
+                    }
+                    else{
+                        $arrKHS[$i] = null;
+                    }
+                }
+                else{
+                    $arrKHS[$i] = null;
                 }
             }
         }else{
             for($i = 0; $i < $semester; $i++){
-                $arrIRS[$i] = null;
+                $arrKHS[$i] = null;
             }
         }
 
@@ -113,10 +126,10 @@ class Mahasiswa extends Model
         foreach($khs as $k){
             $SKSk += $k->sks;
         }
-
+        
         return [
-            'arrIRS' => $arrIRS,
-            'smtIrsArray' => $smtIrsArray,
+            'arrKHS' => $arrKHS,
+            // 'smtKHSArray' => $smtKHSArray,
             'SKSk' => $SKSk,
         ];
 

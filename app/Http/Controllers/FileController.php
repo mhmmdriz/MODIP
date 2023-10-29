@@ -13,6 +13,12 @@ class FileController extends Controller
         $path = Storage::path('\\'.$filename);
         return response()->file($path);
     }
+    
+    public function showKHS($filename)
+    {   
+        $path = Storage::path('\\'.$filename);
+        return response()->file($path);
+    }
 
     public function showProfilePhoto($photoname){
         $path = Storage::path('\\'.$photoname);

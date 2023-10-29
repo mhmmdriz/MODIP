@@ -1,11 +1,11 @@
-<div class="modal fade" id="modalIRS" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal fade" id="modalKHS" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog modal-dialog-centered">
     <div class="modal-content">
       <div class="modal-header">
         <h1 class="modal-title fs-5" id="modalLabel"></h1>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
-      <form action="/irs/" method="POST" enctype="multipart/form-data">
+      <form action="/khs/" method="POST" enctype="multipart/form-data">
         @csrf
         @method('put')
         <div class="modal-body">
@@ -19,14 +19,24 @@
               </div>
             @enderror
           </div>
+          
+          <div class="mb-3">
+            <label for="ips" class="form-label">IPs</label>
+            <input type="text" class="form-control @error('ips') is-invalid @enderror" name="ips" value="{{ old('ips') }}" id="inputips">
+            @error('ips')
+              <div class="invalid-feedback">
+                {{ $message }}
+              </div>
+            @enderror
+          </div>
 
-          <input type="hidden" name="scan_irs_old" id="scan_irs_old" value="{{ old('scan_irs_old') }}">
+          <input type="hidden" name="scan_khs_old" id="scan_khs_old" value="{{ old('scan_khs_old') }}">
 
           <div class="mb-3">
-            <label for="scan_irs" class="form-label">Scan IRS (PDF)</label>
+            <label for="scan_khs" class="form-label">Scan KHS (PDF)</label>
             <a href="" style="display: block;" id="link-pdf" target="_blank"></a>
-            <input class="form-control @error('scan_irs') is-invalid @enderror" type="file" id="scan_irs" name="scan_irs">
-            @error('scan_irs')
+            <input class="form-control @error('scan_khs') is-invalid @enderror" type="file" id="scan_khs" name="scan_khs">
+            @error('scan_khs')
                 <div class="invalid-feedback">
                   {{ $message }}
                 </div>
@@ -47,14 +57,14 @@
   <script>
     $(document).ready(function () {
       var smt = $("#smt").val();
-      var scanirs = $("#scan_irs_old").val();
-      console.log(scanirs);
-      $('#modalIRS').modal('show');
-      $('#modalLabel').text('Edit IRS Semester {{ old('smt') }}');
-      if (scanirs != '') {
-        $('#link-pdf').text("scan-irs-" + smt + ".pdf");
+      var scankhs = $("#scan_khs_old").val();
+      console.log(scankhs);
+      $('#modalKHS').modal('show');
+      $('#modalLabel').text('Edit KHS Semester {{ old('smt') }}');
+      if (scankhs != '') {
+        $('#link-pdf').text("scan-khs-" + smt + ".pdf");
         $('#link-pdf').css("margin-bottom", "10px");
-        $('#link-pdf').attr("href", "/scan-irs/" + (scanirs));
+        $('#link-pdf').attr("href", "/scan-khs/" + (scankhs));
       }
     });
   </script>

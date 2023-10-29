@@ -18,18 +18,18 @@ class KHSController extends Controller
         $semester = $semesterInfo['semester'];
         
         $dataKHS = $mahasiswa->getKHSArray($semester);
-        $smtIrsArray = $dataKHS['smtIrsArray'];
-        $arrIRS = $dataKHS['arrIRS'];
+        // $smtKhsArray = $dataKHS['smtKhsArray'];
+        $arrKHS = $dataKHS['arrKHS'];
         $SKSk = $dataKHS['SKSk'];
 
         // dump($SKSk);
-        // dump($smtIrsArray);
-        // dd($arrIRS);
+        // dump($smtKhsArray);
+        // dd($arrKHS);
 
-        return view('mahasiswa.irs.index', [
-            'irs' => $arrIRS,
+        return view('mahasiswa.khs.index', [
+            'khs' => $arrKHS,
             'semester' => $semester,
-            'smtIrsArray' => $smtIrsArray,
+            // 'smtKhsArray' => $smtKhsArray,
             'SKSk' => $SKSk,
         ]);
     }
@@ -39,25 +39,27 @@ class KHSController extends Controller
      */
     public function updateOrInsert(Request $request)
     {
+        // dd($request->all());
         $rules = [
             'sks' => 'required',
+            'ips' => 'required',
         ];
 
-        if ($request->scan_irs_old == null) {
-            $rules['scan_irs'] = 'required|mimes:pdf|max:10000';
+        if ($request->scan_khs_old == null) {
+            $rules['scan_khs'] = 'required|mimes:pdf|max:10000';
         }else{
-            Storage::delete("private/".$request->scan_irs_old);
+            Storage::delete("private/".$request->scan_khs_old);
         }
 
         $validatedData = $request->validate($rules);
         $mahasiswa = auth()->user()->mahasiswa;
         
         $validatedData['nama'] = $mahasiswa->nama;
-        if($request->scan_irs != null){
-            $validatedData ["scan_irs"] = $request->file('scan_irs')->store('private/irs');
+        if($request->scan_khs != null){
+            $validatedData ["scan_khs"] = $request->file('scan_khs')->store('private/khs');
         }
 
-        if($request->scan_irs_old == null){
+        if($request->scan_khs_old == null){
             $validatedData['smt'] = $request->smt;
             $validatedData['nim'] = $mahasiswa->nim;
             $validatedData['validasi'] = 0;
@@ -66,6 +68,6 @@ class KHSController extends Controller
             KHS::where("smt", $request->smt)->where("nim",$mahasiswa->nim)->update($validatedData);
         }
 
-        return redirect('/irs')->with('success', "Data IRS Semester $request->smt Berhasil Diubah!");
+        return redirect('/khs')->with('success', "Data KHS Semester $request->smt Berhasil Diubah!");
     }
 }

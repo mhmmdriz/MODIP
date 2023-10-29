@@ -41,18 +41,18 @@
         
         <div class="col-1 py-4 text-center ">
           @if ($khs[$i-1] == null)
-            IP: ~
+            IPS: ~
           @else
-            IP: {{ $khs[$i-1]->ip }}
+            IPS: {{ $khs[$i-1]->ips }}
           @endif
         </div>
         
         <div class="col-3 py-4 text-center">
 
           @if ($khs[$i-1] == null)
-            Scan khs : <span class="text-danger">belum</span>
+            Scan KHS : <span class="text-danger">belum</span>
           @else
-            Scan khs : <span class="text-success">sudah</span>
+            Scan KHS : <span class="text-success">sudah</span>
           @endif    
 
         </div>
@@ -73,9 +73,10 @@
 
         <div class="col-1 bg-body-secondary text-center py-4">
           @if ($khs[$i-1] == null)
-          <div class="modalIRSButton" type="button" data-bs-toggle="modal" data-bs-target="#modalIRS" data-smt="{{ $i }}">
+          <div class="modalKHSButton" type="button" data-bs-toggle="modal" data-bs-target="#modalKHS" data-smt="{{ $i }}">
           @else
-          <div class="modalIRSButton" type="button" data-bs-toggle="modal" data-bs-target="#modalIRS" data-smt="{{ $i }}" data-scan-irs="{{ $irs[$i-1]->scan_irs }}" data-sks="{{ $irs[$i-1]->sks }}">
+          <div class="modalKHSButton" type="button" data-bs-toggle="modal" data-bs-target="#modalKHS" 
+          data-smt="{{ $i }}" data-scan-khs="{{ $khs[$i-1]->scan_khs }}" data-sks="{{ $khs[$i-1]->sks }}" data-ips="{{ $khs[$i-1]->ips }}">
           @endif
             <h4 class="m-0" >
               <i class="bi bi-pencil-square"></i>

@@ -22,18 +22,18 @@ class IRSController extends Controller
         $semester = $semesterInfo['semester'];
         
         $dataIRS = $mahasiswa->getIRSArray($semester);
-        $smtIrsArray = $dataIRS['smtIrsArray'];
+        // $smtIRSArray = $dataIRS['smtIRSArray'];
         $arrIRS = $dataIRS['arrIRS'];
         $SKSk = $dataIRS['SKSk'];
 
         // dump($SKSk);
-        // dump($smtIrsArray);
+        // dump($smtIRSArray);
         // dd($arrIRS);
 
         return view('mahasiswa.irs.index', [
             'irs' => $arrIRS,
             'semester' => $semester,
-            'smtIrsArray' => $smtIrsArray,
+            // 'smtIRSArray' => $smtIRSArray,
             'SKSk' => $SKSk,
         ]);
     }
