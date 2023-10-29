@@ -46,14 +46,24 @@
           <h5>Status</h5>
         </div>
       </div>
-      <div class="row justify-content-center">
-        <div class="col-auto bg-body-secondary  ">
-          <h5>Belum Ambil</h5>
+      <div class="row mt-3 justify-content-center">
+        <div class="col-auto bg-body-secondary rounded border ">
+          <h3>Belum Ambil</h3>
         </div>
       </div>
     </div>
-    <div class="col-4 border-start text-center">
-
+    
+    <div class="col-4 text-center py-3 border-start">
+      <div class="row">
+        <div class="col">
+          <h5>Nilai</h5>
+        </div>
+      </div>
+      <div class="row mt-3 justify-content-center">
+        <div class="col-auto bg-body-secondary rounded border ">
+          <h3>A</h3>
+        </div>
+      </div>
     </div>
   </div>
 </div>
