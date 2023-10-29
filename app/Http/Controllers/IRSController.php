@@ -50,7 +50,7 @@ class IRSController extends Controller
         if ($request->scan_irs_old == null) {
             $rules['scan_irs'] = 'required|mimes:pdf|max:10000';
         }else{
-            Storage::delete("private/".$request->scan_irs_old);
+            Storage::delete($request->scan_irs_old);
         }
 
         $validatedData = $request->validate($rules);

@@ -48,7 +48,7 @@ class KHSController extends Controller
         if ($request->scan_khs_old == null) {
             $rules['scan_khs'] = 'required|mimes:pdf|max:10000';
         }else{
-            Storage::delete("private/".$request->scan_khs_old);
+            Storage::delete($request->scan_khs_old);
         }
 
         $validatedData = $request->validate($rules);

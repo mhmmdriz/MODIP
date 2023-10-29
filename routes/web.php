@@ -7,6 +7,7 @@ use App\Http\Controllers\FileController;
 use App\Http\Controllers\MahasiswaController;
 use App\Http\Controllers\Login\LoginController;
 use App\Http\Controllers\MahasiswaTaskController;
+use App\Http\Controllers\PKLController;
 
 /*
 |--------------------------------------------------------------------------
@@ -66,5 +67,7 @@ Route::middleware(['auth','user.role:mahasiswa'])->group(function () {
     Route::put('/irs', [IRSController::class, 'updateOrInsert']);
     Route::get('/khs', [KHSController::class, 'index']);
     Route::put('/khs', [KHSController::class, 'updateOrInsert']);
+    Route::get('/pkl', [PKLController::class, 'index']);
+    Route::put('/pkl', [PKLController::class, 'updateOrInsert']);
     // Route::get('/scan-irs/irs/{filename}', [IRSController::class, 'showIRS']);
 });

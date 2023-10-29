@@ -28,6 +28,16 @@ class Mahasiswa extends Model
         return $this->hasMany(KHS::class, 'nim', 'nim');
     }
 
+    public function pkl()
+    {
+        return $this->hasOne(PKL::class, 'nim', 'nim');
+    }
+    
+    public function skripsi()
+    {
+        return $this->hasOne(skripsi::class, 'nim', 'nim');
+    }
+
     public function getRouteKeyName()
     {
         return 'nim';
