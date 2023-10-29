@@ -6,7 +6,7 @@
   <div class="card p-0 mb-3">
     <div class="card-header">Edit Profile</div>
     <div class="card-body">
-      <form action="/profile/edit/{{ auth()->user()->mahasiswa->nim }}" method="POST" class="needs-validation">
+      <form action="/profile-edit" method="POST" class="needs-validation">
         @csrf
         @method('put')
         <div class="mb-3">
@@ -22,15 +22,6 @@
           <label for="email_sso" class="form-label">Email SSO</label>
           <input type="email" class="form-control @error('email_sso') is-invalid @enderror" id="email_sso" name="email_sso" value="{{ old('email_sso', auth()->user()->mahasiswa->email_sso) }}">
           @error('email_sso')
-              <div class="invalid-feedback">
-                  {{ $message }}
-              </div>
-          @enderror
-        </div>
-        <div class="mb-3">
-          <label for="email_pribadi" class="form-label">Email Pribadi</label>
-          <input type="text" class="form-control @error('email_pribadi') is-invalid @enderror" id="email_pribadi" name="email_pribadi" value="{{ old('email_pribadi', auth()->user()->mahasiswa->email_pribadi) }}">
-          @error('email_pribadi')
               <div class="invalid-feedback">
                   {{ $message }}
               </div>

@@ -54,15 +54,14 @@ Route::middleware(['auth', 'user.role:operator'])->group(function () {
 
 
 Route::middleware(['auth','user.role:mahasiswa'])->group(function () {
-    Route::get('/firstLogin', [MahasiswaTaskController::class,'firstLogin']);
-    Route::middleware('is.first.login')->group(function () {
-        // error role lain tidak bisa ke dashboard
-        // Route::get('/dashboard', [LoginController::class,'dashboard']);
-    });
+    Route::get('/firstLogin', [MahasiswaTaskController::class,'firstLogin'])->middleware('is.datapribadiupdated');
+   
+    Route::put('/firstLogin', [MahasiswaTaskController::class, 'updateDataPribadi']);
 
     Route::get('/profile', [MahasiswaController::class, 'viewProfile']);
     Route::get('/profile-edit', [MahasiswaController::class, 'editProfile']);
-    Route::put('/profile/edit/{mahasiswa}', [MahasiswaController::class, 'updateProfile']);
+    Route::put('/profile-edit', [MahasiswaController::class, 'updateProfile']);
+    
     Route::get('/irs', [IRSController::class, 'index']);
     Route::put('/irs', [IRSController::class, 'updateOrInsert']);
     Route::get('/khs', [KHSController::class, 'index']);
