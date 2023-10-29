@@ -44,7 +44,7 @@ class MahasiswaController extends Controller
     {
         $validatedData = $request->validate([
             'nama' => 'required|max:255',
-            'nim' => 'required|min:14|max:14',
+            'nim' => 'required|unique:mahasiswa|min:14|max:14',
             'angkatan' => 'required',
             'status' => 'required',
         ]);
@@ -55,7 +55,7 @@ class MahasiswaController extends Controller
             'username'=> $validatedData['nim'],
             'level' => 'mahasiswa',
             'password' => Hash::make("password"),
-            'status'=> 'aktif',
+            'status'=> 1,
         ];
 
         User::create($userData);
