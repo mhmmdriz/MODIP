@@ -24,6 +24,10 @@ class Mahasiswa extends Model
         return $this->hasMany(IRS::class, 'nim', 'nim');
     }
 
+    public function khs(){
+        return $this->hasMany(IRS::class, 'nim', 'nim');
+    }
+
     public function getRouteKeyName()
     {
         return 'nim';
@@ -55,13 +59,19 @@ class Mahasiswa extends Model
         $irs = $this->irs;
         $smtIrsArray = $irs->pluck('smt')->toArray();
         $arrIRS = [];
-
         $j = 0;
-        for($i = 0; $i < $semester; $i++){
-            if($smtIrsArray[$j] == $i + 1){
-                $arrIRS[$i] = $irs->where('smt', $smtIrsArray[$j])->first();
-                $j++;
-            }else{
+        // dd($smtIrsArray);
+        if(!empty($smtIrsArray)){
+            for($i = 0; $i < $semester; $i++){
+                if($smtIrsArray[$j] == $i + 1){
+                    $arrIRS[$i] = $irs->where('smt', $smtIrsArray[$j])->first();
+                    $j++;
+                }else{
+                    $arrIRS[$i] = null;
+                }
+            }
+        }else{
+            for($i = 0; $i < $semester; $i++){
                 $arrIRS[$i] = null;
             }
         }
@@ -69,6 +79,39 @@ class Mahasiswa extends Model
         $SKSk = 0;
         foreach($irs as $i){
             $SKSk += $i->sks;
+        }
+
+        return [
+            'arrIRS' => $arrIRS,
+            'smtIrsArray' => $smtIrsArray,
+            'SKSk' => $SKSk,
+        ];
+
+    }
+
+    public function getKHSArray($semester){
+        $khs = $this->khs;
+        $smtIrsArray = $khs->pluck('smt')->toArray();
+        $arrIRS = [];
+        $j = 0;
+        if(!empty($smtIrsArray)){
+            for($i = 0; $i < $semester; $i++){
+                if($smtIrsArray[$j] == $i + 1){
+                    $arrIRS[$i] = $khs->where('smt', $smtIrsArray[$j])->first();
+                    $j++;
+                }else{
+                    $arrIRS[$i] = null;
+                }
+            }
+        }else{
+            for($i = 0; $i < $semester; $i++){
+                $arrIRS[$i] = null;
+            }
+        }
+
+        $SKSk = 0;
+        foreach($khs as $k){
+            $SKSk += $k->sks;
         }
 
         return [
