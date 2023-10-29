@@ -38,7 +38,17 @@
           </div>
           <div class="mb-3">
             <label for="status" class="form-label">Status</label>
-            <input type="text" class="form-control @error('status') is-invalid @enderror" name="status" value="{{ old('status') }}">
+
+            <select class="form-control @error('status') is-invalid @enderror" name="status" aria-label="Default select example">
+              <option value="" selected>Pilih status</option>
+              <option value="Aktif" {{ (old('status') == "Aktif")?"selected":"" }}>Aktif</option>
+              <option value="Cuti" {{ (old('status') == "Cuti")?"selected":"" }}>Cuti</option>
+              <option value="Mangkir" {{ (old('status') == "Mangkir")?"selected":"" }}>Mangkir</option>
+              <option value="DO" {{ (old('status') == "DO")?"selected":"" }}>DO</option>
+              <option value="Undur Diri" {{ (old('status') == "Undur Diri")?"selected":"" }}>Undur Diri</option>
+              <option value="Lulus" {{ (old('status') == "Lulus")?"selected":"" }}>Lulus</option>
+              <option value="Meninggal Dunia" {{ (old('status') == "Meninggal Dunia")?"selected":"" }}>Meninggal Dunia</option>
+            </select>
             @error('status')
               <div class="invalid-feedback">
                 {{ $message }}
