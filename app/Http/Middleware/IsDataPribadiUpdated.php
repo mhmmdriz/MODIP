@@ -6,7 +6,7 @@ use Closure;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
 
-class IsFirstLogin
+class IsDataPribadiUpdated
 {
     /**
      * Handle an incoming request.
@@ -17,8 +17,8 @@ class IsFirstLogin
     {
         $user = auth()->user();
         if ($user->level == "mahasiswa") {
-            if ($user->mahasiswa->email_sso == null) {
-                return redirect("/firstLogin");
+            if ($user->mahasiswa->email_sso != null) {
+                return redirect("/dashboard");
             }
         }
         return $next($request);

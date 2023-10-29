@@ -131,11 +131,10 @@ class MahasiswaController extends Controller
         return view('mahasiswa.profile.edit');
     }
 
-    public function updateProfile(Request $request, Mahasiswa $mahasiswa){
+    public function updateProfile(Request $request){
         $rules = [
             'no_telp' => 'required|numeric',
             'email_sso' => 'required',
-            'email_pribadi' => 'required',
             'alamat' => 'required',
             'kabupaten_kota' => 'required',
             'provinsi' => 'required',
@@ -143,7 +142,7 @@ class MahasiswaController extends Controller
         
         $validatedData = $request->validate($rules);
 
-        Mahasiswa::where('nim', $mahasiswa->nim)->update($validatedData);
+        Mahasiswa::where('nim', auth()->user()->mahasiswa->nim)->update($validatedData);
 
         return redirect('/profile');
     }

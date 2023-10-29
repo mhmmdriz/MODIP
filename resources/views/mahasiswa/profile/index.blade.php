@@ -4,7 +4,11 @@
 <div class="card bg-body-tertiary mb-3">
   <div class="row">
     <div class="col-md-auto m-4">
-      <img src="{{ asset("storage/profile_photo/default.jpg") }}" alt="" style="border-radius:50%; width:120px">
+      @if (auth()->user()->mahasiswa->foto_profil == null)
+        <img src="/photo/private/profile_photo/default.jpg" alt="" style="border-radius:50%; width:120px">
+      @else
+        <img src="/photo/private/profile_photo/{{ auth()->user()->mahasiswa->foto_profil }}" alt="" style="border-radius:50%; width:120px">
+      @endif
     </div>
     <div class="col m-4">
       <h5><b>{{ auth()->user()->mahasiswa->nama }}</b></h5>
@@ -33,10 +37,6 @@
         <tr>
           <td class="bg-transparent">Email SSO</td>
           <td class="bg-transparent">: {{ auth()->user()->mahasiswa->email_sso }}</td>
-        </tr>
-        <tr>
-          <td class="bg-transparent">Email Pribadi</td>
-          <td class="bg-transparent">: {{ auth()->user()->mahasiswa->email_pribadi }}</td>
         </tr>
         <tr>
           <td class="bg-transparent">Alamat</td>
