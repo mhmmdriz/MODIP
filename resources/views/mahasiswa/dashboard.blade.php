@@ -7,7 +7,7 @@
       <a href="/profile" style="text-decoration: none; color: inherit;" class="bi bi-pencil-square position-absolute end-0 m-2"></a>
       <div class="row">
         <div class="col-md-auto m-4">
-          <img src="/photo/profile_photo/default.jpg" alt="" style="border-radius:50%; width:120px">
+          <img src="/photo/private/profile_photo/default.jpg" alt="" style="border-radius:50%; width:120px">
         </div>
         <div class="col m-4">
           <div class="row">

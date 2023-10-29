@@ -62,5 +62,7 @@ Route::middleware(['auth','user.role:mahasiswa'])->group(function () {
     Route::put('/profile/edit/{mahasiswa}', [MahasiswaController::class, 'updateProfile']);
     Route::get('/irs', [IRSController::class, 'index']);
     Route::put('/irs', [IRSController::class, 'updateOrInsert']);
+    Route::get('/khs', [IRSController::class, 'index']);
+    Route::put('/khs', [IRSController::class, 'updateOrInsert']);
     // Route::get('/scan-irs/irs/{filename}', [IRSController::class, 'showIRS']);
 });

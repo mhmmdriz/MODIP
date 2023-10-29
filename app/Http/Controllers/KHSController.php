@@ -2,29 +2,25 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\IRS;
-use App\Http\Requests\StoreIRSRequest;
-use App\Http\Requests\UpdateIRSRequest;
-use Illuminate\Support\Facades\Storage;
-use Illuminate\Support\Facades\File;
+use App\Models\KHS;
+use App\Http\Requests\StoreKHSRequest;
+use App\Http\Requests\UpdateKHSRequest;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 
-class IRSController extends Controller
+class KHSController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
     public function index()
     {
         $mahasiswa = auth()->user()->mahasiswa;
         $semesterInfo = $mahasiswa->calculateSemesterAndThnAjar();
         $semester = $semesterInfo['semester'];
         
-        $dataIRS = $mahasiswa->getIRSArray($semester);
-        $smtIrsArray = $dataIRS['smtIrsArray'];
-        $arrIRS = $dataIRS['arrIRS'];
-        $SKSk = $dataIRS['SKSk'];
+        $dataKHS = $mahasiswa->getKHSArray($semester);
+        $smtIrsArray = $dataKHS['smtIrsArray'];
+        $arrIRS = $dataKHS['arrIRS'];
+        $SKSk = $dataKHS['SKSk'];
 
         // dump($SKSk);
         // dump($smtIrsArray);
@@ -65,12 +61,10 @@ class IRSController extends Controller
             $validatedData['smt'] = $request->smt;
             $validatedData['nim'] = $mahasiswa->nim;
             $validatedData['validasi'] = 0;
-            IRS::create($validatedData);
+            KHS::create($validatedData);
         }else{
-            IRS::where("smt", $request->smt)->where("nim",$mahasiswa->nim)->update($validatedData);
+            KHS::where("smt", $request->smt)->where("nim",$mahasiswa->nim)->update($validatedData);
         }
-
-        
 
         return redirect('/irs')->with('success', "Data IRS Semester $request->smt Berhasil Diubah!");
     }
