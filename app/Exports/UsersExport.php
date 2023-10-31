@@ -23,11 +23,11 @@ class UsersExport implements FromQuery, WithHeadings
     {
         if($this->angkatan == '') {
             // return Mahasiswa::query()->join('users', 'users.username', '=', 'nim')->orderBy('nim', 'asc');
-            return Mahasiswa::query()->select("nim", "nama", "angkatan", "tahun_ajaran", "jalur_masuk", "status", "no_telp")->orderBy('nim', 'asc');
+            return Mahasiswa::query()->select("nim", "nama", "angkatan", "jalur_masuk", "status", "no_telp")->orderBy('nim', 'asc');
         }
         else {
             // return Mahasiswa::query()->where('angkatan', $this->angkatan)->join('users', 'users.username', '=', 'nim')->orderBy('nim', 'asc');
-            return Mahasiswa::query()->select("nim", "nama", "angkatan", "tahun_ajaran", "jalur_masuk", "status", "no_telp")->where('angkatan', $this->angkatan)->orderBy('nim', 'asc');
+            return Mahasiswa::query()->select("nim", "nama", "angkatan", "jalur_masuk", "status", "no_telp")->where('angkatan', $this->angkatan)->orderBy('nim', 'asc');
         }
     }
 
@@ -38,6 +38,6 @@ class UsersExport implements FromQuery, WithHeadings
      */
     public function headings(): array
     {
-        return ["nim", "nama", "angkatan", "tahun_ajaran", "jalur_masuk", "status", "no_telp"];
+        return ["nim", "nama", "angkatan", "jalur_masuk", "status", "no_telp"];
     }
 }

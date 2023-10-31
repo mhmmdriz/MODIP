@@ -15,19 +15,27 @@ class MahasiswaTaskController extends Controller
         $rules = [
             'jalur_masuk' => 'required',
             'no_telp' => 'required|numeric',
-            'email_sso' => 'required|regex:/^[a-zA-Z]+@students\.undip\.ac\.id$/',
+            'email_sso' => 'required|unique:mahasiswa|regex:/^[a-zA-Z]+@students\.undip\.ac\.id$/',
             'alamat' => 'required',
             'kabupaten_kota' => 'required',
             'provinsi' => 'required',
+            'password' => 'required',
+            'konfirmasi_password' => 'required|same:password',
+            
         ];
 
         $errorMassages = [
             'email_sso.regex' => 'Email SSO harus berakhiran @students.undip.ac.id',
+            'konfirmasi_password.same' => 'Konfirmasi password harus sama dengan password',
         ];
         
         $validatedData = $request->validate($rules, $errorMassages);
-        
+        $new_password = bcrypt($validatedData['password']);
+        unset($validatedData['password']);
+        unset($validatedData['konfirmasi_password']);
+
         Mahasiswa::where('nim', auth()->user()->mahasiswa->nim)->update($validatedData);
+        auth()->user()->update(['password' => $new_password]); //syntax highlight error, tapi bisa jalan
 
         return redirect("/dashboard");
     }
