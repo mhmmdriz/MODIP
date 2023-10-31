@@ -6,7 +6,7 @@
     <div class="card mb-3 bg-body-tertiary">
       <div class="row">
         <div class="col-md-auto m-4">
-          <img src="{{ asset("storage/profile_photo/default.jpg") }}" alt="" style="border-radius:50%; width:120px">
+          <img src="/photo/private/profile_photo/default.jpg" alt="" style="border-radius:50%; width:120px">
         </div>
         <div class="col m-4">
           <div class="row">
