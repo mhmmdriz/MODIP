@@ -108,9 +108,9 @@ class MahasiswaController extends Controller
      */
     public function destroy(string $nim)
     {
-        Mahasiswa::where('nim',$nim)->delete();
-
         User::where('username',$nim)->delete();
+        
+        Mahasiswa::where('nim',$nim)->delete();
 
         return redirect('/akunMHS')->with('success','Akun Mahasiswa Berhasil Dihapus');
     }
