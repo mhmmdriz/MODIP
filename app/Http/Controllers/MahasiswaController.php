@@ -134,13 +134,17 @@ class MahasiswaController extends Controller
     public function updateProfile(Request $request){
         $rules = [
             'no_telp' => 'required|numeric',
-            'email_sso' => 'required',
+            'email_sso' => 'required|regex:/^[a-zA-Z]+@students\.undip\.ac\.id$/',
             'alamat' => 'required',
             'kabupaten_kota' => 'required',
             'provinsi' => 'required',
         ];
+
+        $errorMassages = [
+            'email_sso.regex' => 'Email SSO harus berakhiran @students.undip.ac.id',
+        ];
         
-        $validatedData = $request->validate($rules);
+        $validatedData = $request->validate($rules, $errorMassages);
 
         Mahasiswa::where('nim', auth()->user()->mahasiswa->nim)->update($validatedData);
 
