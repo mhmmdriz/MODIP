@@ -24,12 +24,12 @@ class MahasiswaTaskController extends Controller
             
         ];
 
-        $errorMassages = [
+        $errorMessages = [
             'email_sso.regex' => 'Email SSO harus berakhiran @students.undip.ac.id',
             'konfirmasi_password.same' => 'Konfirmasi password harus sama dengan password',
         ];
         
-        $validatedData = $request->validate($rules, $errorMassages);
+        $validatedData = $request->validate($rules, $errorMessages);
         $new_password = bcrypt($validatedData['password']);
         unset($validatedData['password']);
         unset($validatedData['konfirmasi_password']);

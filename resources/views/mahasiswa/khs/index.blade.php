@@ -2,7 +2,7 @@
 
 @section('container')
 @if (session()->has('success'))
-  <div class="alert alert-success alert-dismissible fade show col-lg-8" role="alert">
+  <div class="alert alert-success alert-dismissible fade show" role="alert">
     {{ session('success') }}
     <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
   </div>
@@ -72,12 +72,17 @@
         </div>
 
         <div class="col-1 bg-body-secondary text-center py-4">
-          @if ($khs[$i-1] == null)
-          <div class="modalKHSButton" type="button" data-bs-toggle="modal" data-bs-target="#modalKHS" data-smt="{{ $i }}">
+          @if ($i == 1 || $khs[$i-2] != null)
+            @if ($khs[$i-1] == null)
+            <div class="modalKHSButton" type="button" data-bs-toggle="modal" data-bs-target="#modalKHS" data-smt="{{ $i }}">
+            @else
+            <div class="modalKHSButton" type="button" data-bs-toggle="modal" data-bs-target="#modalKHS" 
+            data-smt="{{ $i }}" data-scan-khs="{{ $khs[$i-1]->scan_khs }}" data-sks="{{ $khs[$i-1]->sks }}" data-ips="{{ $khs[$i-1]->ips }}">
+            @endif
           @else
-          <div class="modalKHSButton" type="button" data-bs-toggle="modal" data-bs-target="#modalKHS" 
-          data-smt="{{ $i }}" data-scan-khs="{{ $khs[$i-1]->scan_khs }}" data-sks="{{ $khs[$i-1]->sks }}" data-ips="{{ $khs[$i-1]->ips }}">
+            <div class="modalAlert" type="button" data-bs-toggle="modal" data-bs-target="#modalAlert">
           @endif
+
             <h4 class="m-0" >
               <i class="bi bi-pencil-square"></i>
             </h4>
@@ -91,6 +96,7 @@
 
 </div>
 
+@include('mahasiswa.khs.modal_alert')
 @include('mahasiswa.khs.modal_edit_khs')
 <script src="js/modal.js"></script>
 

@@ -2,7 +2,7 @@
 
 @section('container')
 @if (session()->has('success'))
-  <div class="alert alert-success alert-dismissible fade show col-lg-8" role="alert">
+  <div class="alert alert-success alert-dismissible fade show" role="alert">
     {{ session('success') }}
     <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
   </div>
@@ -64,10 +64,14 @@
         </div>
 
         <div class="col-1 bg-body-secondary text-center py-4">
-          @if ($irs[$i-1] == null)
-          <div class="modalIRSButton" type="button" data-bs-toggle="modal" data-bs-target="#modalIRS" data-smt="{{ $i }}">
+          @if ($i == 1 || $irs[$i-2] != null)
+            @if ($irs[$i-1] == null)
+            <div class="modalIRSButton" type="button" data-bs-toggle="modal" data-bs-target="#modalIRS" data-smt="{{ $i }}">
+            @else
+            <div class="modalIRSButton" type="button" data-bs-toggle="modal" data-bs-target="#modalIRS" data-smt="{{ $i }}" data-scan-irs="{{ $irs[$i-1]->scan_irs }}" data-sks="{{ $irs[$i-1]->sks }}">
+            @endif
           @else
-          <div class="modalIRSButton" type="button" data-bs-toggle="modal" data-bs-target="#modalIRS" data-smt="{{ $i }}" data-scan-irs="{{ $irs[$i-1]->scan_irs }}" data-sks="{{ $irs[$i-1]->sks }}">
+            <div class="modalAlert" type="button" data-bs-toggle="modal" data-bs-target="#modalAlert">
           @endif
             <h4 class="m-0" >
               <i class="bi bi-pencil-square"></i>
@@ -83,6 +87,7 @@
 </div>
 
 @include('mahasiswa.irs.modal_edit_irs')
+@include('mahasiswa.irs.modal_alert')
 <script src="js/modal.js"></script>
 
 @endsection
