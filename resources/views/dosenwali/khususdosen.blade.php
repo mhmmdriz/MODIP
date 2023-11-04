@@ -1,1 +1,0 @@
-Ini halaman khusus dosen wali
