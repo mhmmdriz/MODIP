@@ -11,7 +11,7 @@
 <div class="card bg-body-tertiary mb-3">
   <div class="row d-flex justify-content-center mt-3">
     <div class="col-auto">
-      <h5>Data IRS</h5>
+      <h5>Data KHS</h5>
     </div>
   </div>
 
@@ -36,30 +36,37 @@
           </div>
           <div class="row mb-2">
             <div class="col-auto text-center ">
-              @if ($irs[$i-1] == null)
+              @if ($khs[$i-1] == null)
                 Jumlah SKS: ~
               @else
-                Jumlah SKS: {{ $irs[$i-1]->sks }}
+                Jumlah SKS: {{ $khs[$i-1]->sks }}
+              @endif
+            </div>
+
+            <div class="col-auto text-center ">
+              @if ($khs[$i-1] == null)
+                IPs: ~
+              @else
+                IPs: {{ $khs[$i-1]->ips }}
               @endif
             </div>
             
             <div class="col-auto text-center">
-              @if ($irs[$i-1] == null)
+              @if ($khs[$i-1] == null)
                 Scan IRS : <span class="text-danger">belum</span>
               @else
                 Scan IRS : 
-                <a href="/scan-irs/{{ $irs[$i-1]->scan_irs }}" target="__blank" class="text-success text-decoration-none">
-                  scanIrs{{ $i }}.pdf
+                <a href="/scan-khs/{{ $khs[$i-1]->scan_khs }}" target="__blank" class="text-success text-decoration-none">
+                  scanKHS{{ $i }}.pdf
                 </a>
               @endif    
             </div>
             
             <div class="col-auto text-center">
-    
-              @if ($irs[$i-1] == null)
+              @if ($khs[$i-1] == null)
                 Validasi : <span class="text-danger">belum</span>
               @else
-                @if ($irs[$i-1]->validasi == 0)
+                @if ($khs[$i-1]->validasi == 0)
                   Validasi : <span id="info_validasi{{ $i }}" class="text-danger">belum</span>
                 @else
                   Validasi : <span id="info_validasi{{ $i }}" class="text-success">sudah</span>
@@ -71,20 +78,21 @@
         </div>
         
         <div class="col-auto my-auto ms-auto">
-          @if ($irs[$i-1] != null)
-            @if ($irs[$i-1]->validasi == 0)
-              <button type="button" class="btn btn-success btn-sm validasi" data-nim="{{ $nim }}" data-smt="{{ $i }}" data-progress="irs">Validasi</button>
+          @if ($khs[$i-1] != null)
+            @if ($khs[$i-1]->validasi == 0)
+              <button type="button" class="btn btn-success btn-sm validasi" data-nim="{{ $nim }}" data-smt="{{ $i }}" data-progress="khs">Validasi</button>
             @else
-              <button type="button" class="btn btn-danger btn-sm validasi" data-nim="{{ $nim }}" data-smt="{{ $i }}" data-progress="irs">Batalkan Validasi</button>
+              <button type="button" class="btn btn-danger btn-sm validasi" data-nim="{{ $nim }}" data-smt="{{ $i }}" data-progress="khs">Batalkan Validasi</button>
             @endif
           @endif
         </div>
 
         <div class="col-1 my-auto ms-auto me-2">
-          @if ($irs[$i-1] == null)
-          <div class="modalIRSButton" type="button" data-bs-toggle="modal" data-bs-target="#modalIRS" data-smt="{{ $i }}">
+          @if ($khs[$i-1] == null)
+          <div class="modalKHSButton" type="button" data-bs-toggle="modal" data-bs-target="#modalKHS" data-smt="{{ $i }}">
           @else
-          <div class="modalIRSButton" type="button" data-bs-toggle="modal" data-bs-target="#modalIRS" data-smt="{{ $i }}" data-scan-irs="{{ $irs[$i-1]->scan_irs }}" data-sks="{{ $irs[$i-1]->sks }}">
+          <div class="modalKHSButton" type="button" data-bs-toggle="modal" data-bs-target="#modalKHS" 
+          data-smt="{{ $i }}" data-scan-khs="{{ $khs[$i-1]->scan_khs }}" data-sks="{{ $khs[$i-1]->sks }}" data-ips="{{ $khs[$i-1]->ips }}">
           @endif
           <h4 class="m-0">
             <i class="bi bi-pencil-square"></i>
@@ -101,12 +109,8 @@
 </div>
 
 <script src="/js/modal.js"></script>
-@include('dosenwali.irs.modal_edit_irs')
+@include('dosenwali.khs.modal_edit_khs')
 <script src="/js/validasi.js"></script>
-{{-- <script>
-  let tes = "{{ $nim }}";
 
-  console.log(tes);
-</script> --}}
 @endsection
 

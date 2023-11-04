@@ -40,6 +40,7 @@ $(document).ready(function() {
     // reset setelah validasi dilanggar
     $('#inputsks').removeClass("is-invalid");
     $('#scan_khs').removeClass("is-invalid");
+    $('#inputips').removeClass("is-invalid");
 
     // Get the data attributes from the button
     var smt = $(this).data('smt');
