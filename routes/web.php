@@ -10,6 +10,7 @@ use App\Http\Controllers\Login\LoginController;
 use App\Http\Controllers\MahasiswaTaskController;
 use App\Http\Controllers\PKLController;
 use App\Http\Controllers\DosenWali\IRSController as DoswalIRSController;
+use App\Http\Controllers\DosenWali\KHSController as DoswalKHSController;
 
 
 /*
@@ -88,4 +89,6 @@ Route::middleware(['auth', 'user.role:dosenwali'])->group(function () {
     Route::get("/irsPerwalian/{angkatan}", [DoswalIRSController::class, 'listMhsAngkatan']);
     Route::get('/irsPerwalian/{angkatan}/{nim}', [DoswalIRSController::class, 'showIRSMhs']);
     Route::post("/validateIRS", [DoswalIRSController::class,"validateIRS"]);
+    Route::get("/khsPerwalian", [DoswalKHSController::class, 'index']);
+    Route::get("/khsPerwalian/{angkatan}", [DoswalKHSController::class, 'listMhsAngkatan']);
 });
