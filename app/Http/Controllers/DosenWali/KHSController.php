@@ -39,6 +39,26 @@ class KHSController extends Controller
         return view("dosenwali.khs.list_mhs",[
             "data_mhs"=> $data_mhs,
             "data_khs"=> $data_khs,
+            "angkatan"=> $angkatan,
+        ]);
+    }
+
+    public function showKHSMhs($angkatan, $nim){
+        $mahasiswa = Mahasiswa::where("nim", $nim)->first();
+        $semesterInfo = $mahasiswa->calculateSemesterAndThnAjar();
+        $semester = $semesterInfo['semester'];
+        
+        $dataKHS = KHS::get()->where('nim', $nim);
+        $SKSk = $dataKHS->sum('sks');
+        $IPk = $dataKHS->avg('ips');
+        dd($dataKHS);
+        
+        return view('dosenwali.khs.show_khs', [
+            'nim' => $nim,
+            'dataKHS' => $dataKHS,
+            'SKSk' => $SKSk,
+            'IPk' => $IPk,
+            'semester' => $semester,
         ]);
     }
 
