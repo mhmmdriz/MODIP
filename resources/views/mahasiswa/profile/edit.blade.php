@@ -55,8 +55,8 @@
           @enderror
         </div>
 
-        <button type="submit" class="btn btn-primary me-2">Submit</button>
-        <a href="/profile" class="btn btn-danger">Cancel</a>
+        <button type="submit" class="btn btn-primary me-2">Simpan Perubahan</button>
+        <a href="/profile" class="btn btn-danger">Batal</a>
       </form>
     </div>
   </div>

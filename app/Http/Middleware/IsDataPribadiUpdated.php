@@ -4,6 +4,7 @@ namespace App\Http\Middleware;
 
 use Closure;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
 use Symfony\Component\HttpFoundation\Response;
 
 class IsDataPribadiUpdated
@@ -17,7 +18,7 @@ class IsDataPribadiUpdated
     {
         $user = auth()->user();
         if ($user->level == "mahasiswa") {
-            if ($user->mahasiswa->email_sso != null) {
+            if (!Hash::check("password", $user->password)) {
                 return redirect("/dashboard");
             }
         }

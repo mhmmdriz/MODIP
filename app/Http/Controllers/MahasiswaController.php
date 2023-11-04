@@ -8,6 +8,7 @@ use App\Models\User;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Http\Request;
+use Illuminate\Validation\Rule;
 use Maatwebsite\Excel\Facades\Excel;
 use App\Imports\UserImport;
 use App\Imports\MahasiswaImport;
@@ -115,21 +116,55 @@ class MahasiswaController extends Controller
 
     public function updateProfile(Request $request){
         $rules = [
-            'no_telp' => 'required|numeric',
-            'email_sso' => 'required|regex:/^[a-zA-Z]+@students\.undip\.ac\.id$/',
-            'alamat' => 'required',
+            'no_telp' => 'required|max:15|regex:/^[0-9]{1,15}$/',
+            'email_sso' => [
+                'required',
+                Rule::unique('mahasiswa')->ignore(auth()->user()->mahasiswa, 'email_sso'),
+                'regex:/^[a-zA-Z]+@students\.undip\.ac\.id$/',
+            ],
+            'alamat' => 'required|max:255',
             'kabupaten_kota' => 'required',
             'provinsi' => 'required',
         ];
 
         $errorMassages = [
-            'email_sso.regex' => 'Email SSO harus berakhiran @students.undip.ac.id',
+            'email_sso.regex' => 'Email SSO harus berakhiran dengan domain students.undip.ac.id',
         ];
         
         $validatedData = $request->validate($rules, $errorMassages);
 
         Mahasiswa::where('nim', auth()->user()->mahasiswa->nim)->update($validatedData);
 
-        return redirect('/profile');
+        return redirect('/profile')->with('success', 'Profile berhasil diubah');
+    }
+
+    public function editPassword(){
+        return view('mahasiswa.profile.edit_password');
+    }
+
+    public function updatePassword(Request $request){
+        $rules = [
+            'password_lama' => [
+                'required',
+                'min:8',
+                'max:16',
+                'regex:/^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/',
+                function ($attribute, $value, $fail) {
+                    if (!Hash::check($value, auth()->user()->password)) {
+                        $fail('Password lama salah');
+                    }
+                },
+            ],
+            'password_baru' => 'required|min:8|max:16|regex:/^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/',
+            'konfirmasi_password' => 'required|same:password_baru',
+        ];
+
+        $validatedData = $request->validate($rules);
+
+        $user = auth()->user();
+        $user->password = Hash::make($validatedData['password_baru']);
+        $user->save(); //syntax highlight error, tapi bisa jalan
+
+        return redirect('/profile')->with('success', 'Password berhasil diubah');
     }
 }

@@ -10,7 +10,13 @@
       @method('put')
       <div class="mb-3">
         <label for="jalur_masuk" class="form-label">Jalur Masuk</label>
-        <input type="text" class="form-control @error('jalur_masuk') is-invalid @enderror" id="jalur_masuk" name="jalur_masuk" value="{{ old('jalur_masuk') }}">
+        <select class="form-control @error('jalur_masuk') is-invalid @enderror" name="jalur_masuk" aria-label="Default select example">
+          <option value="" selected>--Pilih Jalur Masuk--</option>
+          <option value="SNMPTN" {{ (old('jalur_masuk') == "SNMPTN")?"selected":"" }}>SNMPTN</option>
+          <option value="SBMPTN" {{ (old('jalur_masuk') == "SBMPTN")?"selected":"" }}>SBMPTN</option>
+          <option value="Mandiri" {{ (old('jalur_masuk') == "Mandiri")?"selected":"" }}>Mandiri</option>
+          <option value="Lainnya" {{ (old('jalur_masuk') == "Lainnya")?"selected":"" }}>Lainnya</option>
+        </select>
         @error('jalur_masuk')
           <div class="invalid-feedback">
             {{ $message }}

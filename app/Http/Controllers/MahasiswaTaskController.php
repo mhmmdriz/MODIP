@@ -14,19 +14,20 @@ class MahasiswaTaskController extends Controller
     public function updateDataPribadi(Request $request){
         $rules = [
             'jalur_masuk' => 'required',
-            'no_telp' => 'required|numeric',
+            'no_telp' => 'required|max:15|regex:/^[0-9]{1,15}$/',
             'email_sso' => 'required|unique:mahasiswa|regex:/^[a-zA-Z]+@students\.undip\.ac\.id$/',
-            'alamat' => 'required',
+            'alamat' => 'required|max:255',
             'kabupaten_kota' => 'required',
             'provinsi' => 'required',
-            'password' => 'required',
+            'password' => 'required|min:8|max:16|regex:/^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/',
             'konfirmasi_password' => 'required|same:password',
             
         ];
 
         $errorMessages = [
-            'email_sso.regex' => 'Email SSO harus berakhiran @students.undip.ac.id',
-            'konfirmasi_password.same' => 'Konfirmasi password harus sama dengan password',
+            'email_sso.regex' => 'Email SSO must end with a domain students.undip.ac.id',
+            'password.regex' => 'Password must contain at least one letter and one number',
+            'konfirmasi_password.same' => 'Konfirmasi password must be the same as password',
         ];
         
         $validatedData = $request->validate($rules, $errorMessages);
