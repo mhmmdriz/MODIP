@@ -3,7 +3,7 @@
 @section('container')
   <div class="row d-flex justify-content-center mt-5 mb-2">
     <div class="col-md-auto">
-      <h5>Akun Mahasiswa</h5>
+      <h5>Daftar Mahasiswa Angkatan {{ $angkatan }}</h5>
     </div>
   </div>
 
@@ -39,7 +39,7 @@
                 <td>{{ $mhs->status}}</td>
                 <td>{{ $mhs->sksk}}</td>
                 <td>
-                  <a class="btn btn-primary btn-sm" href="/akunMHS/{{ $mhs->nim }}/reset">Detail IRS</a>
+                  <a class="btn btn-primary btn-sm" href="/irsPerwalian/{{ $angkatan }}/{{ $mhs->nim }}">Detail IRS</a>
                 </td>
               </tr>
             @endforeach
