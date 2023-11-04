@@ -6,7 +6,7 @@
   <div class="card p-0 mb-3">
     <div class="card-header">Edit Password</div>
     <div class="card-body">
-      <form action="/profile-edit-password" method="POST" class="needs-validation">
+      <form action="/profile/edit-password" method="POST" class="needs-validation">
         @csrf
         @method('put')
         <div class="mb-3">

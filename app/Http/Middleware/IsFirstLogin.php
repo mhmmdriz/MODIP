@@ -4,7 +4,7 @@ namespace App\Http\Middleware;
 
 use Closure;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Hash;
+// use Illuminate\Support\Facades\Hash;
 use Symfony\Component\HttpFoundation\Response;
 
 class IsFirstLogin
@@ -18,7 +18,7 @@ class IsFirstLogin
     {
         $user = auth()->user();
         if ($user->level == "mahasiswa") {
-            if (Hash::check("password", $user->password)) {
+            if ($user->mahasiswa->email_sso == null) {
                 return redirect("/firstLogin");
             }
         }
