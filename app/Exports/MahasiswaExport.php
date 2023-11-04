@@ -2,14 +2,14 @@
 
 namespace App\Exports;
 
-// use App\Invoice;
 use App\Models\Mahasiswa;
-use App\Models\User;
 use Maatwebsite\Excel\Concerns\FromQuery;
 use Maatwebsite\Excel\Concerns\Exportable;
 use Maatwebsite\Excel\Concerns\WithHeadings;
+use Maatwebsite\Excel\Concerns\WithColumnFormatting;
+use PhpOffice\PhpSpreadsheet\Cell\DataType;
 
-class UsersExport implements FromQuery, WithHeadings
+class MahasiswaExport implements FromQuery, WithHeadings
 {
     use Exportable;
 
@@ -40,4 +40,5 @@ class UsersExport implements FromQuery, WithHeadings
     {
         return ["nim", "nama", "angkatan", "jalur_masuk", "status", "no_telp"];
     }
+    
 }

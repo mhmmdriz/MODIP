@@ -9,6 +9,13 @@ use Maatwebsite\Excel\Concerns\WithHeadingRow;
 
 class UserImport implements ToModel, WithHeadingRow
 {
+
+    public $level = 0;
+    public function __construct($level)
+    {
+        $this->level = $level;
+    }
+
     /**
     * @param array $row
     *
@@ -19,7 +26,7 @@ class UserImport implements ToModel, WithHeadingRow
         return new User([
             "username"=> $row["nim"] ?? $row['nip'] ?? $row['departemen_id'],
             "password"=> Hash::make("password"),
-            "level"=> $row["level"],
+            "level"=> $this->level,
             "status"=> 1,
         ]);
     }
