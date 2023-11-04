@@ -1,6 +1,14 @@
 @extends('templates.main')
 
 @section('container')
+
+@if (session()->has('success'))
+  <div class="alert alert-success alert-dismissible fade show" role="alert">
+    {{ session('success') }}
+    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+  </div>
+@endif
+
 <div class="card bg-body-tertiary mb-3">
   <div class="row">
     <div class="col-md-auto m-4">
@@ -52,7 +60,7 @@
         </tr>
       </table>
       <a href="/profile-edit" class="btn btn-primary me-2" role="button">Edit Profil</a>
-      <a href="/profile-account" class="btn btn-secondary" role="button">Ganti Password</a>
+      <a href="/profile-edit-password" class="btn btn-secondary" role="button">Ganti Password</a>
     </div>
   </div>
 </div>
