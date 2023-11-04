@@ -11,7 +11,8 @@ use Illuminate\Http\Request;
 use Maatwebsite\Excel\Facades\Excel;
 use App\Imports\UserImport;
 use App\Imports\MahasiswaImport;
-use App\Exports\UsersExport;
+use App\Exports\MahasiswaExport;
+use App\Models\DosenWali;
 
 class MahasiswaController extends Controller
 {
@@ -22,19 +23,13 @@ class MahasiswaController extends Controller
     {
         $data_mhs = Mahasiswa::all();
         $data_angkatan = $data_mhs->pluck('angkatan')->unique()->values();
+        $data_doswal = DosenWali::all();
 
         return view("operator.akun_mhs.index", [
             "data_mhs" => $data_mhs,
-            "data_angkatan" => $data_angkatan
+            "data_angkatan" => $data_angkatan,
+            "data_doswal" => $data_doswal,
         ]);
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
     }
 
     /**
@@ -47,6 +42,7 @@ class MahasiswaController extends Controller
             'nim' => 'required|unique:mahasiswa|min:14|max:14',
             'angkatan' => 'required',
             'status' => 'required',
+            'dosen_wali' => 'required',
         ]);
 
         Mahasiswa::create($validatedData);
@@ -68,39 +64,14 @@ class MahasiswaController extends Controller
             'fileExcel' => 'required',
         ]);
 
-        Excel::import(new UserImport, request()->file('fileExcel'));
+        Excel::import(new UserImport("mahasiswa"), request()->file('fileExcel'));
         Excel::import(new MahasiswaImport, request()->file('fileExcel'));
 
         return redirect('/akunMHS')->with('success','Import Akun Mahasiswa Berhasil');
     }
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(Mahasiswa $mahasiswa)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(Mahasiswa $mahasiswa)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(UpdateMahasiswaRequest $request, Mahasiswa $mahasiswa)
-    {
-        //
-    }
-
-
     public function exportData(Request $request){
-        return (new UsersExport($request->angkatanExport))->download('akun_mhs.xlsx');
+        return (new MahasiswaExport($request->angkatanExport))->download('akun_mhs.xlsx');
     }
 
     /**
@@ -112,7 +83,18 @@ class MahasiswaController extends Controller
         
         Mahasiswa::where('nim',$nim)->delete();
 
-        return redirect('/akunMHS')->with('success','Akun Mahasiswa Berhasil Dihapus');
+        return redirect('/akunMHS')->with('success',"Akun Mahasiswa dengan NIM $nim Berhasil Dihapus");
+    }
+
+    public function resetPassword(String $nim)
+    {
+        $userData = [
+            'password' => Hash::make("password"),
+        ];
+
+        User::where('username', $nim)->update($userData);
+
+        return redirect('/akunMHS')->with('success', "Password Akun Mahasiswa dengan NIM $nim Berhasil Direset");
     }
 
     public function updateTableMhs(Request $request){

@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\DosenWaliController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\IRSController;
 use App\Http\Controllers\KHSController;
@@ -45,11 +46,18 @@ Route::middleware('auth')->group(function () {
 
 Route::middleware(['auth', 'user.role:operator'])->group(function () {
     Route::resource('/akunMHS', MahasiswaController::class);
-    
     Route::delete('/akunMHS/{nim}', [MahasiswaController::class, 'destroy']);
+    Route::get('/akunMHS/{nim}/reset', [MahasiswaController::class, 'resetPassword']);
     Route::post('/akunMHS/importExcel', [MahasiswaController::class, 'storeImport']);
     Route::post('/akunMHS/exportExcel', [MahasiswaController::class, 'exportData']);
     Route::get('/ajaxAkunMHS', [MahasiswaController::class,'updateTableMhs']);
+    
+    Route::resource('/akunDosenWali', DosenWaliController::class);
+    Route::delete('/akunDosenWali/{nip}', [DosenWaliController::class, 'destroy']);
+    Route::get('/akunDosenWali/{nip}/reset', [DosenWaliController::class, 'resetPassword']);
+    Route::post('/akunDosenWali/importExcel', [DosenWaliController::class, 'storeImport']);
+    Route::get('/exportAkunDosenWali', [DosenWaliController::class, 'exportData']);
+    Route::get('/ajaxAkunDoswal', [DosenWaliController::class,'updateTableDoswal']);
 });
 
 

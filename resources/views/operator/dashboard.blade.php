@@ -36,7 +36,7 @@
     </a>
   </div>
   <div class="col-md-4 col-sm-6">
-    <a href="" style="text-decoration: none">
+    <a href="/akunDosenWali" style="text-decoration: none">
       <div class="card bg-body-tertiary d-flex align-items-center py-2">      
         <h5><b>Akun Dosen Wali</b></h5>
         <i class="bi bi-suitcase-lg-fill" style="font-size:70px;"></i>

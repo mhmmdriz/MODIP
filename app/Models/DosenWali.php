@@ -11,6 +11,8 @@ class DosenWali extends Model
 
     public $timestamps = false;
     protected $table = "dosen_wali";
+    protected $primarykey = "nip";
+    protected $guarded = [];
 
     public function user()
     {
