@@ -69,10 +69,10 @@ Route::middleware(['auth','user.role:mahasiswa'])->group(function () {
     Route::put('/firstLogin', [MahasiswaTaskController::class, 'updateDataPribadi']);
 
     Route::get('/profile', [MahasiswaController::class, 'viewProfile']);
-    Route::get('/profile-edit', [MahasiswaController::class, 'editProfile']);
-    Route::put('/profile-edit', [MahasiswaController::class, 'updateProfile']);
-    Route::get('/profile-edit-password', [MahasiswaController::class, 'editPassword']);
-    Route::put('/profile-edit-password', [MahasiswaController::class, 'updatePassword']);
+    Route::get('/profile/edit', [MahasiswaController::class, 'editProfile']);
+    Route::put('/profile/edit', [MahasiswaController::class, 'updateProfile']);
+    Route::get('/profile/edit-password', [MahasiswaController::class, 'editPassword']);
+    Route::put('/profile/edit-password', [MahasiswaController::class, 'updatePassword']);
     
     Route::get('/irs', [IRSController::class, 'index']);
     Route::put('/irs', [IRSController::class, 'updateOrInsert']);

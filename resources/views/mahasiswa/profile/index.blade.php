@@ -59,8 +59,8 @@
           <td class="bg-transparent">: {{ auth()->user()->mahasiswa->provinsi }}</td>
         </tr>
       </table>
-      <a href="/profile-edit" class="btn btn-primary me-2" role="button">Edit Profil</a>
-      <a href="/profile-edit-password" class="btn btn-secondary" role="button">Ganti Password</a>
+      <a href="/profile/edit" class="btn btn-primary me-2" role="button">Edit Profil</a>
+      <a href="/profile/edit-password" class="btn btn-secondary" role="button">Ganti Password</a>
     </div>
   </div>
 </div>
