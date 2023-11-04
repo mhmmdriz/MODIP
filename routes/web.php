@@ -86,7 +86,6 @@ Route::middleware(['auth','user.role:mahasiswa'])->group(function () {
 Route::middleware(['auth', 'user.role:dosenwali'])->group(function () {
     Route::get("/irsPerwalian", [DoswalIRSController::class, 'index']);
     Route::get("/irsPerwalian/{angkatan}", [DoswalIRSController::class, 'listMhsAngkatan']);
-    // Route::get('/tes', function () {
-    //     return view('dosenwali.irs.tes');
-    // });
+    Route::get('/irsPerwalian/{angkatan}/{nim}', [DoswalIRSController::class, 'showIRSMhs']);
+    Route::post("/validateIRS", [DoswalIRSController::class,"validateIRS"]);
 });
