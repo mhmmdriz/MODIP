@@ -88,7 +88,12 @@ Route::middleware(['auth', 'user.role:dosenwali'])->group(function () {
     Route::get("/irsPerwalian", [DoswalIRSController::class, 'index']);
     Route::get("/irsPerwalian/{angkatan}", [DoswalIRSController::class, 'listMhsAngkatan']);
     Route::get('/irsPerwalian/{angkatan}/{nim}', [DoswalIRSController::class, 'showIRSMhs']);
+    Route::put('/irsPerwalian/{angkatan}/{nim}/update', [DoswalIRSController::class, 'updateIRSMhs']);
     Route::post("/validateIRS", [DoswalIRSController::class,"validateIRS"]);
+
     Route::get("/khsPerwalian", [DoswalKHSController::class, 'index']);
     Route::get("/khsPerwalian/{angkatan}", [DoswalKHSController::class, 'listMhsAngkatan']);
+    Route::get('/khsPerwalian/{angkatan}/{nim}', [DoswalKHSController::class, 'showKHSMhs']);
+    Route::put('/khsPerwalian/{angkatan}/{nim}/update', [DoswalKHSController::class, 'updateKHSMhs']);
+    Route::post("/validateKHS", [DoswalKHSController::class,"validateKHS"]);
 });

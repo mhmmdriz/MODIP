@@ -46,7 +46,7 @@
               <td>~</td>
             @endif
             <td>
-              <a class="btn btn-primary btn-sm" href="/khs/Perwalian/{{ $mhs->nim }}">Detail KHS</a>
+              <a class="btn btn-primary btn-sm" href="/khsPerwalian/{{ $mhs->angkatan }}/{{ $mhs->nim }}">Detail KHS</a>
             </td>
           </tr>
         @endforeach

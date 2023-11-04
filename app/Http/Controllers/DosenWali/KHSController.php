@@ -42,6 +42,49 @@ class KHSController extends Controller
         ]);
     }
 
+    public function showKHSMhs($angkatan, $nim){
+        $mahasiswa = Mahasiswa::where("nim","=",$nim)->first();
+        $semesterInfo = $mahasiswa->calculateSemesterAndThnAjar();
+        $semester = $semesterInfo['semester'];
+        
+        $dataKHS = $mahasiswa->getKHSArray($semester);
+        $arrKHS = $dataKHS['arrKHS'];
+        $SKSk = $dataKHS['SKSk'];
+
+        return view('dosenwali.khs.show_khs', [
+            'nim' => $nim,
+            'khs' => $arrKHS,
+            'semester' => $semester,
+            // 'smtIRSArray' => $smtIRSArray,
+            'SKSk' => $SKSk,
+            'angkatan' => $angkatan
+        ]);
+    }
+
+    public function updateKHSMhs($angkatan, $nim, Request $request){
+        $validated_data = $request->validate([
+            'sks' => 'required',
+            'ips' => 'required',
+        ]);
+
+        KHS::where('nim','=',$nim)->where('smt', '=', $request->smt)->update($validated_data);
+
+        return redirect("/khsPerwalian/$angkatan/$nim")->with('success', "Data KHS Semester $request->smt Berhasil Diubah!");
+    }
+
+    public function validateKHS(){
+        if(request('validasi') == 1){
+            KHS::where('nim', '=', request('nim'))->where('smt', '=', request('smt'))->update(['validasi' => 1]);
+        }else{
+            KHS::where('nim', '=', request('nim'))->where('smt', '=', request('smt'))->update(['validasi' => 0]);
+        }
+
+        return response()->json([
+            'status' => 'success',
+            'message' => request('validasi'),
+        ]);
+    }
+
     /**
      * Show the form for creating a new resource.
      */

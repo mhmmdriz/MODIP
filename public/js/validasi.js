@@ -1,42 +1,16 @@
 $(document).ready(function() {
-  $('.modalIRSButton').click(function() {
-    // reset setelah validasi dilanggar
-    $('#inputsks').removeClass("is-invalid");
-    $('#scan_irs').removeClass("is-invalid");
-
-    // Get the data attributes from the button
-    var smt = $(this).data('smt');
-    var sks = $(this).data('sks');
-    var scanirs = $(this).data('scan-irs');
-    var linkpdf = $('#link-pdf');
-
-    if (typeof sks === 'undefined') {
-      sks = null;
-    }
-    
-    // Set the data in the modal
-    $('#modalLabel').text("Edit IRS Semester " + smt);
-
-    if (typeof scanirs === 'undefined') {
-      scanirs = null;
-      linkpdf.css("margin-bottom", "initial");
-      linkpdf.text(null);
-    }else{
-      linkpdf.text("scan-irs-" + smt + ".pdf");
-      linkpdf.css("margin-bottom", "10px");
+  function validateData(data, progress){
+    let url = "";
+    if(progress == "khs"){
+      url = "/validateKHS";
+    }else if(progress == "irs"){
+      url = "/validateIRS";
+    }else if(progress == "pkl"){
+      url = "/validatePKL";
+    }else if(progress == "skripsi"){
+      url = "/validateSkripsi";
     }
 
-    linkpdf.attr("href", "/scan-irs/" + (scanirs));
-    $('#scan_irs_old').val(scanirs);
-
-    console.log(scanirs);
-
-    document.getElementById("smt").value = smt;
-    document.getElementById("inputsks").value = sks;
-  });
-
-
-  function validateIRS(data){
     $.ajaxSetup({
       headers: {
         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -45,7 +19,7 @@ $(document).ready(function() {
 
     $.ajax({
       type: 'POST',
-      url: '/validateIRS',
+      url: url,
       data: data,
       success: function(response) {
         console.log(response.message);
@@ -56,14 +30,15 @@ $(document).ready(function() {
     });
   }
 
-  $('#validasi').click(function() {
+  $('.validasi').click(function() {
     var nim = $(this).data('nim');
     var smt = $(this).data('smt');
-    var infoValidasi = document.getElementById("info_validasi");
+    var progress = $(this).data('progress');
+    var infoValidasi = document.getElementById("info_validasi" + smt);
 
     data = {
       nim: nim,
-      smt: smt
+      smt: smt,
     };
     
     if(this.classList.contains('btn-success')){
@@ -84,7 +59,7 @@ $(document).ready(function() {
       data['validasi'] = 0;
     }
     
-    validateIRS(data);
+    validateData(data, progress);
 
     console.log(data);
   });

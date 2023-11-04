@@ -60,7 +60,18 @@ class IRSController extends Controller
             'semester' => $semester,
             // 'smtIRSArray' => $smtIRSArray,
             'SKSk' => $SKSk,
+            'angkatan'=> $angkatan
         ]);
+    }
+
+    public function updateIRSMhs($angkatan, $nim, Request $request){
+        $validated_data = $request->validate([
+            'sks' => 'required',
+        ]);
+
+        IRS::where('nim','=',$nim)->where('smt', '=', $request->smt)->update($validated_data);
+
+        return redirect("/irsPerwalian/$angkatan/$nim")->with('success', "Data IRS Semester $request->smt Berhasil Diubah!");
     }
 
     public function validateIRS(){
