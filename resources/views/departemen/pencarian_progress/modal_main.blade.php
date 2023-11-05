@@ -2,15 +2,17 @@
   <div class="modal-dialog modal-dialog modal-dialog-centered modal-dialog-scrollable">
     <div class="modal-content">
       <div class="modal-header">
-        <h1 class="modal-title fs-5" id="exampleModalLabel">Modal title</h1>
+        <h1 class="modal-title fs-5 title-main" id="exampleModalLabel"></h1>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
-        ...
+        <button type="button" class="btn btn-primary btn-irs" data-bs-toggle="modal" data-bs-target="#modalIRS">IRS</button>
+        <button type="button" class="btn btn-primary btn-khs" data-bs-toggle="modal" data-bs-target="#modalKHS">KHS</button>
+        <button type="button" class="btn btn-primary btn-pkl">PKL</button>
+        <button type="button" class="btn btn-primary btn-skripsi">Skripsi</button>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary">Save changes</button>
       </div>
     </div>
   </div>
