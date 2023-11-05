@@ -16,6 +16,11 @@
   </div>
 </div>
 
+<div class="card p-2 ps-3 mb-2 bg-body-tertiary">
+  <div>Nama: {{ $nama }}</div>
+  <div>NIM: {{ $nim }}</div>
+</div>
+
 <div class="card bg-body-tertiary mb-3">
   <div class="row m-2 position-absolute" style="right: 0">
     <div class="col-auto ms-auto">
@@ -84,18 +89,18 @@
         </div>
       </div>
       <div class="row mb-3 justify-content-center">
-        <div class="col-auto bg-body-secondary rounded border ">
-          <h3>{{ (isset($dataSkripsi->status))?$dataSkripsi->status:"~" }}</h3>
+        <div class="col-auto {{ (isset($dataSkripsi->status) && $dataSkripsi->status == "Lulus")?"bg-success":"bg-body-secondary" }} rounded border text-white">
+          <h3 class="my-1">{{ (isset($dataSkripsi->status))?$dataSkripsi->status:"~" }}</h3>
         </div>
       </div>
       <div class="row">
         <div class="col">
-          <h6>Lama Studi (Dalam Semester)</h6>
+          <h6>Semester Skripsi</h6>
         </div>
       </div>
       <div class="row">
         <div class="col">
-          <h4>{{ $semester }}</h4>
+          <h4>{{ (isset($dataSkripsi->semester))?$dataSkripsi->semester:"~" }}</h4>
         </div>
       </div>
     </div>
@@ -108,7 +113,7 @@
       </div>
       <div class="row justify-content-center">
         <div class="col-auto bg-body-secondary rounded border">
-          <h3>{{ (isset($dataSkripsi->nilai))?$dataSkripsi->nilai:"~" }}</h3>
+          <h3 class="my-1">{{ (isset($dataSkripsi->nilai))?$dataSkripsi->nilai:"~" }}</h3>
         </div>
       </div>
 

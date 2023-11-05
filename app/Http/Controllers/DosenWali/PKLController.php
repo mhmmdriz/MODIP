@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\PKL;
 use App\Models\Mahasiswa;
 use Illuminate\Http\Request;
+use Carbon\Carbon;
 
 class PKLController extends Controller
 {
@@ -24,54 +25,108 @@ class PKLController extends Controller
     {
         $data_mhs = Mahasiswa::get()->where("dosen_wali", auth()->user()->username)->where("angkatan", $angkatan);
 
-        $data_khs = PKL::get();
+        $data_pkl = PKL::pluck('validasi', 'nim')->toArray();
+        // dd($data_pkl);
         
         return view("dosenwali.pkl.list_mhs",[
             "data_mhs"=> $data_mhs,
-            "data_khs"=> $data_khs,
+            "data_pkl"=> $data_pkl,
+            'angkatan' => $angkatan,
         ]);
     }
 
-    public function showKHSMhs($angkatan, $nim){
+    public function showPKLMhs($angkatan, $nim){
         $mahasiswa = Mahasiswa::where("nim","=",$nim)->first();
-        $semesterInfo = $mahasiswa->calculateSemesterAndThnAjar();
-        $semester = $semesterInfo['semester'];
         
-        $dataKHS = $mahasiswa->getKHSArray($semester);
-        $arrKHS = $dataKHS['arrKHS'];
-        $SKSk = $dataKHS['SKSk'];
+        $dataPKL = $mahasiswa->pkl;
 
-        return view('dosenwali.khs.show_khs', [
+        return view('dosenwali.pkl.show_pkl', [
             'nim' => $nim,
-            'khs' => $arrKHS,
-            'semester' => $semester,
-            // 'smtIRSArray' => $smtIRSArray,
-            'SKSk' => $SKSk,
-            'angkatan' => $angkatan
+            'nama' => $mahasiswa->nama,
+            'dataPKL' => $dataPKL,
+            'angkatan' => $angkatan,
         ]);
     }
 
-    public function updateKHSMhs($angkatan, $nim, Request $request){
-        $validated_data = $request->validate([
-            'sks' => 'required',
-            'ips' => 'required',
-        ]);
-
-        PKL::where('nim','=',$nim)->where('smt', '=', $request->smt)->update($validated_data);
-
-        return redirect("/khsPerwalian/$angkatan/$nim")->with('success', "Data KHS Semester $request->smt Berhasil Diubah!");
-    }
-
-    public function validateKHS(){
-        if(request('validasi') == 1){
-            PKL::where('nim', '=', request('nim'))->where('smt', '=', request('smt'))->update(['validasi' => 1]);
-        }else{
-            PKL::where('nim', '=', request('nim'))->where('smt', '=', request('smt'))->update(['validasi' => 0]);
+    public function updatePKLMhs($angkatan, $nim, Request $request){
+        $status = $request->status;
+        $mahasiswa = Mahasiswa::where('nim', $nim)->first();
+        // $nim = $mahasiswa->nim;
+        $nama = $mahasiswa->nama;
+        $validasi = 0;
+        // dd($request->status_old);
+        if ($status == ""){
+            return redirect("/pklPerwalian/$angkatan/$nim");
         }
+        if ($request->status_old == null){
+            if ($status == "Belum Ambil"){
+                PKL::create(['nim' => $nim, 'nama' => $nama, 'status' => $status, 'validasi' => $validasi]);
+            } else if ($status == "Sedang Ambil") {
+                PKL::create(['nim' => $nim, 'nama' => $nama, 'status' => $status, 'validasi' => $validasi]);
+            } else {
+                $rules = [ 
+                    'tanggal_seminar' => 'required',
+                    'nilai' => 'required',
+                ];
+                
+                $tgl_seminar = Carbon::parse($request->tanggal_seminar);
+                $semester = ($tgl_seminar->year - $mahasiswa->angkatan) * 2 + 1;
+                if ($tgl_seminar->gt(Carbon::createFromDate($tgl_seminar->year, 2, 15)) && $tgl_seminar->lte(Carbon::createFromDate($tgl_seminar->year, 8, 15))) {
+                    $semester -= 1;
+                } else if ($tgl_seminar->lte(Carbon::createFromDate($tgl_seminar->year, 2, 15))) {
+                    $semester -= 2;
+                }
+                $validatedData = $request->validate($rules);
+                if($request->scan_basp != null){
+                    $validatedData ["scan_basp"] = $request->file('scan_basp')->store('private/pkl');
+                }
+                $validatedData['semester'] = $semester;
+                $validatedData['nim'] = $nim;
+                $validatedData['nama'] = $nama;
+                $validatedData['status'] = $status;
+                $validatedData['validasi'] = $validasi;
+                // dd($semester);
+                PKL::create($validatedData);
+            }
+        } else {
+            if ($status == "Belum Ambil"){
+                PKL::where("nim", $nim)->update(['status' => $status, 'semester' => null, 'tanggal_seminar' => null, 'nilai' => null, 'scan_basp' => null]);
+            } else if ($status == "Sedang Ambil") {
+                PKL::where("nim", $nim)->update(['status' => $status, 'semester' => null, 'tanggal_seminar' => null, 'nilai' => null, 'scan_basp' => null]);
+            } else {
+                $rules = [ 
+                    'tanggal_seminar' => 'required',
+                    'nilai' => 'required',
+                ];
+                
+                $tgl_seminar = Carbon::parse($request->tanggal_seminar);
+                $semester = ($tgl_seminar->year - $mahasiswa->angkatan) * 2 + 1;
+                if ($tgl_seminar->gt(Carbon::createFromDate($tgl_seminar->year, 2, 15)) && $tgl_seminar->lte(Carbon::createFromDate($tgl_seminar->year, 8, 15))) {
+                    $semester -= 1;
+                } else if ($tgl_seminar->lte(Carbon::createFromDate($tgl_seminar->year, 2, 15))) {
+                    $semester -= 2;
+                }
+                $validatedData = $request->validate($rules);
+                if($request->scan_basp != null){
+                    $validatedData ["scan_basp"] = $request->file('scan_basp')->store('private/pkl');
+                }
+                $validatedData['semester'] = $semester;
+                // $validatedData['nim'] = $nim; 1
+                // $validatedData['nama'] = $nama; 2
+                $validatedData['status'] = $status;
+                // $validatedData['validasi'] = $validasi; 3
+                // dd($semester);
+                PKL::where("nim", $nim)->update($validatedData);
+            }
+            
+        }
+        return redirect("/pklPerwalian/$angkatan/$nim")->with('success', "Data PKL Berhasil Diubah!");
+    }
 
-        return response()->json([
-            'status' => 'success',
-            'message' => request('validasi'),
-        ]);
+    public function validatePKL($angkatan, $nim, $validate){
+
+        PKL::where('nim', '=', $nim)->update(['validasi' => $validate]);
+
+        return redirect("/pklPerwalian/$angkatan/$nim");
     }
 }

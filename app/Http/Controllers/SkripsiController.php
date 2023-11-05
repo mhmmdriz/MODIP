@@ -17,13 +17,9 @@ class SkripsiController extends Controller
     public function index()
     {   
         $mahasiswa = auth()->user()->mahasiswa;
-        $semesterInfo = $mahasiswa->calculateSemesterAndThnAjar();
-        $semester = $semesterInfo['semester'];
-        
         $dataSkripsi = $mahasiswa->skripsi;
 
         return view('mahasiswa.skripsi.index', [
-            'semester' => $semester,
             'dataSkripsi' => $dataSkripsi,
         ]);
     }

@@ -4,7 +4,7 @@
 
 <div class="row d-flex justify-content-center mt-5 mb-2">
   <div class="col-md-auto">
-    <h5>Akun Mahasiswa</h5>
+    <h5>Daftar Skripsi Mahasiswa Angkatan {{ $angkatan }}</h5>
   </div>
 </div>
 
@@ -23,8 +23,7 @@
           <th>Nama Mahasiswa</th>
           <th>NIM/Username</th>
           <th>Status</th>
-          <th>SKSk</th>
-          <th>IPk</th>
+          <th>Validasi</th>
           <th>Action</th>
         </tr>
 
@@ -38,11 +37,13 @@
             <td>{{ $mhs->nama }}</td>
             <td>{{ $mhs->nim }}</td>
             <td>{{ $mhs->status}}</td>
-            @if (isset($data_khs[$mhs->nim]))
-              <td>{{ $data_khs[$mhs->nim]['sksk'] }}</td>
-              <td>{{ $data_khs[$mhs->nim]['ipk'] }}</td>
+            @if (isset($data_skripsi[$mhs->nim]))
+              @if ($data_skripsi[$mhs->nim] == 1)
+                <td class="text-success">Sudah</td>
+              @else
+                <td class="text-danger">Belum</td>
+              @endif
             @else
-              <td>~</td>
               <td>~</td>
             @endif
             <td>
