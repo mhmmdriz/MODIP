@@ -43,24 +43,24 @@ class KHSController extends Controller
         ]);
     }
 
-    public function showKHSMhs($angkatan, $nim){
-        $mahasiswa = Mahasiswa::where("nim", $nim)->first();
-        $semesterInfo = $mahasiswa->calculateSemesterAndThnAjar();
-        $semester = $semesterInfo['semester'];
+    // public function showKHSMhs($angkatan, $nim){
+    //     $mahasiswa = Mahasiswa::where("nim", $nim)->first();
+    //     $semesterInfo = $mahasiswa->calculateSemesterAndThnAjar();
+    //     $semester = $semesterInfo['semester'];
         
-        $dataKHS = KHS::get()->where('nim', $nim);
-        $SKSk = $dataKHS->sum('sks');
-        $IPk = $dataKHS->avg('ips');
-        dd($dataKHS);
+    //     $dataKHS = KHS::get()->where('nim', $nim);
+    //     $SKSk = $dataKHS->sum('sks');
+    //     $IPk = $dataKHS->avg('ips');
+    //     dd($dataKHS);
         
-        return view('dosenwali.khs.show_khs', [
-            'nim' => $nim,
-            'dataKHS' => $dataKHS,
-            'SKSk' => $SKSk,
-            'IPk' => $IPk,
-            'semester' => $semester,
-        ]);
-    }
+    //     return view('dosenwali.khs.show_khs', [
+    //         'nim' => $nim,
+    //         'dataKHS' => $dataKHS,
+    //         'SKSk' => $SKSk,
+    //         'IPk' => $IPk,
+    //         'semester' => $semester,
+    //     ]);
+    // }
 
     public function showKHSMhs($angkatan, $nim){
         $mahasiswa = Mahasiswa::where("nim","=",$nim)->first();
@@ -68,6 +68,8 @@ class KHSController extends Controller
         $semester = $semesterInfo['semester'];
         
         $dataKHS = $mahasiswa->getKHSArray($semester);
+        $IPk = KHS::get()->where('nim', $nim)->avg('ips');
+        // dd($dataKHS['arrKHS']);
         $arrKHS = $dataKHS['arrKHS'];
         $SKSk = $dataKHS['SKSk'];
 
@@ -77,6 +79,7 @@ class KHSController extends Controller
             'semester' => $semester,
             // 'smtIRSArray' => $smtIRSArray,
             'SKSk' => $SKSk,
+            'IPk' => $IPk,
             'angkatan' => $angkatan
         ]);
     }
