@@ -8,8 +8,8 @@
       <div class="modal-body">
         <button type="button" class="btn btn-primary btn-irs" data-bs-toggle="modal" data-bs-target="#modalIRS">IRS</button>
         <button type="button" class="btn btn-primary btn-khs" data-bs-toggle="modal" data-bs-target="#modalKHS">KHS</button>
-        <button type="button" class="btn btn-primary btn-pkl">PKL</button>
-        <button type="button" class="btn btn-primary btn-skripsi">Skripsi</button>
+        <button type="button" class="btn btn-primary btn-pkl" data-bs-toggle="modal" data-bs-target="#modalPKL">PKL</button>
+        <button type="button" class="btn btn-primary btn-skripsi" data-bs-toggle="modal" data-bs-target="#modalSkripsi">Skripsi</button>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>

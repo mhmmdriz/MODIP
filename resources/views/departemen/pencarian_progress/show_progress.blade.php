@@ -46,7 +46,11 @@
     data-khs="{{ isset($arrKHS[$i]) ? $arrKHS[$i] : ''}}"
     data-pkl="{{ $data_pkl }}"
     data-skripsi="{{ $data_skripsi }}">
-      @if (isset($arrIRS[$i]) && isset($arrKHS[$i]))
+      @if(!is_null($data_skripsi) && $data_skripsi->semester == $i + 1 && $data_skripsi->status == 'Lulus' && $data_skripsi->validasi == 1)
+        <div class="card bg-success d-flex align-items-center text-center py-2">
+      @elseif (!is_null($data_pkl) && $data_pkl->semester == $i + 1 && $data_pkl->status == 'Lulus' && $data_pkl->validasi == 1)    
+        <div class="card bg-warning d-flex align-items-center text-center py-2">
+      @elseif (isset($arrIRS[$i]) && isset($arrKHS[$i]) && $arrIRS[$i]->validasi == 1 && $arrKHS[$i]->validasi == 1)
         <div class="card bg-primary d-flex align-items-center text-center py-2">   
       @else
         <div class="card bg-danger d-flex align-items-center text-center py-2">      

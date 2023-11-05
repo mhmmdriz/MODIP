@@ -17,6 +17,13 @@ $(document).ready(function() {
       $(".sks-irs").html(irs.sks);
       $(".link-scan-irs").html("scanIRS" + smt + ".pdf");
       $(".link-scan-irs").attr("href", "/scan-irs/"+ irs.scan_irs);
+      if(irs.validasi == 1){
+        $(".validasi-irs").addClass("text-success");
+        $(".validasi-irs").html("Sudah divalidasi");
+      }else{
+        $(".validasi-irs").addClass("text-danger");
+        $(".validasi-irs").html("Belum divalidasi");
+      }
     }
     
     if(khs == ""){
@@ -27,44 +34,55 @@ $(document).ready(function() {
       $(".ips-khs").html(khs.ips);
       $(".link-scan-khs").html("scanKHS" + smt + ".pdf");
       $(".link-scan-khs").attr("href", "/scan-khs/"+ khs.scan_khs);
+      if(khs.validasi == 1){
+        $(".validasi-khs").addClass("text-success");
+        $(".validasi-khs").html("Sudah divalidasi");
+      }else{
+        $(".validasi-khs").addClass("text-danger");
+        $(".validasi-khs").html("Belum divalidasi");
+      }
     }
     
-    if(pkl == ""){
+    if(pkl == "" || pkl.semester != smt){
       $(".btn-pkl").addClass("disabled");
     }else{
       $(".btn-pkl").removeClass("disabled");
+      $(".semester-pkl").html(pkl.semester);
+      $(".status-pkl").html(pkl.status);
+      $(".tanggal-seminar-pkl").html(pkl.tanggal_lulus);
+      $(".nilai-pkl").html(pkl.nilai);
+      $(".link-scan-pkl").html("scanPKL.pdf");
+      $(".link-scan-pkl").attr("href", "/scan-pkl/"+ pkl.scan_basp);
+      if(pkl.validasi == 1){
+        $(".validasi-pkl").addClass("text-success");
+        $(".validasi-pkl").html("Sudah divalidasi");
+      }else{
+        $(".validasi-pkl").addClass("text-danger");
+        $(".validasi-pkl").html("Belum divalidasi");
+      }
     }
     
-    if(skripsi == ""){
+    if(skripsi == "" || skripsi.semester != smt){
       $(".btn-skripsi").addClass("disabled");
     }else{
       $(".btn-skripsi").removeClass("disabled");
+      $(".semester-skripsi").html(skripsi.semester);
+      $(".status-skripsi").html(skripsi.status);
+      $(".tanggal-sidang-skripsi").html(skripsi.tanggal_sidang);
+      $(".tanggal-lulus-skripsi").html(skripsi.tanggal_lulus);
+      $(".nilai-skripsi").html(skripsi.nilai);
+      $(".link-scan-skripsi").html("scanSkripsi.pdf");
+      $(".link-scan-skripsi").attr("href", "/scan-skripsi/"+ skripsi.scan_bass);
+      if(skripsi.validasi == 1){
+        $(".validasi-skripsi").addClass("text-success");
+        $(".validasi-skripsi").html("Sudah divalidasi");
+      }else{
+        $(".validasi-skripsi").addClass("text-danger");
+        $(".validasi-skripsi").html("Belum divalidasi");
+      }
     }
     
-    // console.log(skripsi);
     console.log(pkl);
-
-    // console.log($(".data-smt").data('smt'))
-
-    // Set the data in the modal
-    // $('#modalLabel').text("Edit IRS Semester " + smt);
-
-    // if (typeof scanirs === 'undefined') {
-    //   scanirs = null;
-    //   linkpdf.css("margin-bottom", "initial");
-    //   linkpdf.text(null);
-    // }else{
-    //   linkpdf.text("scan-irs-" + smt + ".pdf");
-    //   linkpdf.css("margin-bottom", "10px");
-    // }
-
-    // linkpdf.attr("href", "/scan-irs/" + (scanirs));
-    // $('#scan_irs_old').val(scanirs);
-
-    // console.log(scanirs);
-
-    // document.getElementById("smt").value = smt;
-    // document.getElementById("inputsks").value = sks;
   });
 
 });
