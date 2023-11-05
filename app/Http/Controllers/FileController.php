@@ -24,4 +24,9 @@ class FileController extends Controller
         $path = Storage::path('\\'.$photoname);
         return response()->file($path);
     }
+
+    public function showSkripsi($filename){
+        $path = Storage::path('\\'.$filename);
+        return response()->file($path);
+    }
 }

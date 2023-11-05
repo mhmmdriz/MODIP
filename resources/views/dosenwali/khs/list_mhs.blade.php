@@ -2,9 +2,9 @@
 
 @section('container')
 
-<div class="row d-flex justify-content-center mt-5 mb-2">
+<div class="row d-flex justify-content-center my-2">
   <div class="col-md-auto">
-    <h5>Akun Mahasiswa</h5>
+    <h5>Data KHS Mahasiswa Angkatan {{ $angkatan }}</h5>
   </div>
 </div>
 
@@ -46,7 +46,7 @@
               <td>~</td>
             @endif
             <td>
-              <a class="btn btn-primary btn-sm" href="/khsPerwalian/{{ $mhs->angkatan }}/{{ $mhs->nim }}">Detail KHS</a>
+              <a class="btn btn-primary btn-sm" href="/khsPerwalian/{{ $angkatan }}/{{ $mhs->nim }}">Detail KHS</a>
             </td>
           </tr>
         @endforeach

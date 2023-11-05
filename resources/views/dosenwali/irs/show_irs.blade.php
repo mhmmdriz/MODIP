@@ -8,7 +8,7 @@
   </div>
 @endif
 
-<div class="card bg-body-tertiary mb-3">
+<div class="card bg-body-tertiary my-2">
   <div class="row d-flex justify-content-center mt-3">
     <div class="col-auto">
       <h5>Data IRS</h5>
@@ -80,11 +80,11 @@
           @endif
         </div>
 
-        <div class="col-1 my-auto ms-auto me-2">
+        <div class="col-auto my-auto">
           @if ($irs[$i-1] == null)
-          <div class="modalIRSButton" type="button" data-bs-toggle="modal" data-bs-target="#modalIRS" data-smt="{{ $i }}">
+            <div class="modalIRSButton" type="button" data-bs-toggle="modal" data-bs-target="#modalIRS" data-smt="{{ $i }}">
           @else
-          <div class="modalIRSButton" type="button" data-bs-toggle="modal" data-bs-target="#modalIRS" data-smt="{{ $i }}" data-scan-irs="{{ $irs[$i-1]->scan_irs }}" data-sks="{{ $irs[$i-1]->sks }}">
+            <div class="modalIRSButton" type="button" data-bs-toggle="modal" data-bs-target="#modalIRS" data-smt="{{ $i }}" data-scan-irs="{{ $irs[$i-1]->scan_irs }}" data-sks="{{ $irs[$i-1]->sks }}">
           @endif
           <h4 class="m-0">
             <i class="bi bi-pencil-square"></i>
@@ -103,10 +103,6 @@
 <script src="/js/modal.js"></script>
 @include('dosenwali.irs.modal_edit_irs')
 <script src="/js/validasi.js"></script>
-{{-- <script>
-  let tes = "{{ $nim }}";
 
-  console.log(tes);
-</script> --}}
 @endsection
 

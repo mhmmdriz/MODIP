@@ -8,7 +8,7 @@
   </div>
 @endif
 
-<div class="card bg-body-tertiary mb-3">
+<div class="card bg-body-tertiary my-2">
   <div class="row d-flex justify-content-center mt-3">
     <div class="col-auto">
       <h5>Data KHS</h5>
@@ -19,8 +19,13 @@
     <div class="col-auto">
       <p>Semester Aktif : {{ $semester }}</p>
     </div>
-    <div class="col-auto  ms-auto">
-      <p>SKSk : {{ $SKSk }}</p>
+    <div class="col-auto ms-auto row">
+      <div class="col-auto">
+        <p>SKSk : {{ $SKSk }}</p>
+      </div>
+      <div class="col-auto">
+        <p>IPk : {{ $IPk }}</p>
+      </div>
     </div>
   </div>
 
@@ -28,7 +33,7 @@
   <div class="row mx-3 mb-3">
     <div class="col bg-light-subtle rounded border">
       <div class="row">
-        <div class="col-6 col-md-auto">
+        <div class="col-6 col-md-8">
           <div class="row my-2">
             <div class="col">
               Semester {{ $i }}
@@ -43,7 +48,7 @@
               @endif
             </div>
 
-            <div class="col-auto text-center ">
+            <div class="col-auto text-center">
               @if ($khs[$i-1] == null)
                 IPs: ~
               @else
@@ -87,12 +92,11 @@
           @endif
         </div>
 
-        <div class="col-1 my-auto ms-auto me-2">
+        <div class="col-auto my-auto">
           @if ($khs[$i-1] == null)
-          <div class="modalKHSButton" type="button" data-bs-toggle="modal" data-bs-target="#modalKHS" data-smt="{{ $i }}">
+            <div class="modalKHSButton" type="button" data-bs-toggle="modal" data-bs-target="#modalKHS" data-smt="{{ $i }}">
           @else
-          <div class="modalKHSButton" type="button" data-bs-toggle="modal" data-bs-target="#modalKHS" 
-          data-smt="{{ $i }}" data-scan-khs="{{ $khs[$i-1]->scan_khs }}" data-sks="{{ $khs[$i-1]->sks }}" data-ips="{{ $khs[$i-1]->ips }}">
+            <div class="modalKHSButton" type="button" data-bs-toggle="modal" data-bs-target="#modalKHS" data-smt="{{ $i }}" data-scan-khs="{{ $khs[$i-1]->scan_khs }}" data-sks="{{ $khs[$i-1]->sks }}" data-ips="{{ $khs[$i-1]->ips }}">
           @endif
           <h4 class="m-0">
             <i class="bi bi-pencil-square"></i>
