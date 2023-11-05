@@ -78,3 +78,45 @@ $(document).ready(function() {
     document.getElementById("inputips").value = ips;
   });
 });
+
+$('.modalSkripsiButton').click(function() {
+  // reset setelah validasi dilanggar
+  $('#status').removeClass("is-invalid");
+  $('#scan_bass').removeClass("is-invalid");
+  $('#tanggal_sidang').removeClass("is-invalid");
+  $('#tanggal_lulus').removeClass("is-invalid");
+  $('#nilai').removeClass("is-invalid");
+
+  // Get the data attributes from the button
+  var status = $(this).data('status');
+  var tanggal = $(this).data('tanggal');
+  var nilai = $(this).data('nilai');
+  var scanskripsi = $(this).data('scan-skripsi');
+  var linkpdf = $('#link-pdf');
+
+  if (typeof sks === 'undefined') {
+    sks = null;
+  }
+  
+  // Set the data in the modal
+  $('#modalLabel').text("Edit Data Skripsi");
+
+  if (typeof scanskripsi === 'undefined') {
+    scanskripsi = null;
+    linkpdf.css("margin-bottom", "initial");
+    linkpdf.text(null);
+  }else{
+    linkpdf.text("scan-skripsi-" + ".pdf");
+    linkpdf.css("margin-bottom", "10px");
+  }
+
+  linkpdf.attr("href", "/scan-skripsi/" + (scanskripsi));
+  $('#scan_bass_old').val(scanskripsi);
+
+  console.log(scanskripsi);
+
+  document.getElementById("status").value = status;
+  document.getElementById("tanggal_sidang").value = tanggal;
+  document.getElementById("tanggal_lulus").value = tanggal;
+  document.getElementById("nilai").value = nilai;
+});

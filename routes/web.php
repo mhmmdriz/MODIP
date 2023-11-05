@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Departemen\ProgressStudiMhs;
 use App\Http\Controllers\DosenWaliController;
+use App\Http\Controllers\SkripsiController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\IRSController;
 use App\Http\Controllers\KHSController;
@@ -46,6 +47,8 @@ Route::middleware('auth')->group(function () {
     Route::get('/photo/{photoname}', [FileController::class, 'showProfilePhoto'])->where('photoname', '.*');
     Route::get('/scan-irs/{filename}', [FileController::class, 'showIRS'])->where('filename', '.*');
     Route::get('/scan-khs/{filename}', [FileController::class, 'showKHS'])->where('filename', '.*');
+    Route::get('/scan-skripsi/{filename}', [FileController::class, 'showSkripsi'])->where('filename', '.*');
+
 });
 
 Route::middleware(['auth', 'user.role:operator'])->group(function () {
@@ -82,6 +85,8 @@ Route::middleware(['auth','user.role:mahasiswa'])->group(function () {
     Route::put('/khs', [KHSController::class, 'updateOrInsert']);
     Route::get('/pkl', [PKLController::class, 'index']);
     Route::put('/pkl', [PKLController::class, 'updateOrInsert']);
+    Route::get('/skripsi', [SkripsiController::class, 'index']);
+    Route::put('/skripsi', [SkripsiController::class, 'updateOrInsert']);
     // Route::get('/scan-irs/irs/{filename}', [IRSController::class, 'showIRS']);
 });
 
