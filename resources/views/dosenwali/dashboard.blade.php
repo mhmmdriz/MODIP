@@ -44,7 +44,7 @@
     </a>
   </div>
   <div class="col-md-4 col-sm-6">
-    <a href="" style="text-decoration: none">
+    <a href="/pklPerwalian" style="text-decoration: none">
       <div class="card bg-body-tertiary d-flex align-items-center text-center py-2">      
         <h5><b>PKL Mahasiswa Perwalian</b></h5>
         <i class="bi bi-person-workspace" style="font-size:70px;"></i>
