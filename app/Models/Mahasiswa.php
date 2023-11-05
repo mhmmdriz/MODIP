@@ -35,7 +35,11 @@ class Mahasiswa extends Model
     
     public function skripsi()
     {
-        return $this->hasOne(skripsi::class, 'nim', 'nim');
+        return $this->hasOne(Skripsi::class, 'nim', 'nim');
+    }
+
+    public function dosenwali(){
+        return $this->belongsTo(DosenWali::class, 'dosen_wali', 'nip');
     }
 
     public function getRouteKeyName()
