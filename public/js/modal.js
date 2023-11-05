@@ -89,19 +89,26 @@ $('.modalSkripsiButton').click(function() {
 
   // Get the data attributes from the button
   var status = $(this).data('status');
-  var tanggal = $(this).data('tanggal');
+  var tanggalsidang = $(this).data('tanggal-sidang');
+  var tanggallulus = $(this).data('tanggal-lulus');
   var nilai = $(this).data('nilai');
   var scanskripsi = $(this).data('scan-skripsi');
   var linkpdf = $('#link-pdf');
 
-  if (typeof sks === 'undefined') {
-    sks = null;
+  if (typeof status === 'undefined') {
+    status = null;
+  }
+  if (typeof tanggal === 'undefined') {
+    tanggal = null;
+  }
+  if (typeof nilai === 'undefined') {
+    nilai = null;
   }
   
   // Set the data in the modal
   $('#modalLabel').text("Edit Data Skripsi");
 
-  if (typeof scanskripsi === 'undefined') {
+  if (scanskripsi === '') {
     scanskripsi = null;
     linkpdf.css("margin-bottom", "initial");
     linkpdf.text(null);
@@ -111,12 +118,56 @@ $('.modalSkripsiButton').click(function() {
   }
 
   linkpdf.attr("href", "/scan-skripsi/" + (scanskripsi));
+  $('#status_old').val(status);
   $('#scan_bass_old').val(scanskripsi);
 
-  console.log(scanskripsi);
+  // console.log(scanskripsi);
 
   document.getElementById("status").value = status;
-  document.getElementById("tanggal_sidang").value = tanggal;
-  document.getElementById("tanggal_lulus").value = tanggal;
+  document.getElementById("tanggal_sidang").value = tanggalsidang;
+  document.getElementById("tanggal_lulus").value = tanggallulus;
   document.getElementById("nilai").value = nilai;
+
+  var statusSelect = document.getElementById("status");
+  var statusSelect = document.getElementById("status");
+  var tanggalLulusContainer = document.getElementById("tanggal-lulus-container");
+  var tanggalSidangContainer = document.getElementById("tanggal-sidang-container");
+  var scanContainer = document.getElementById("scan-container");
+  var nilaiContainer = document.getElementById("nilai-container");
+
+  // Atur awal visibilitas elemen tanggal lulus
+  if (statusSelect.value === "Belum Ambil") {
+      tanggalLulusContainer.style.display = "none";
+      nilaiContainer.style.display = "none";
+      tanggalSidangContainer.style.display = "none";
+      scanContainer.style.display = "none";
+  } else if (statusSelect.value === "Lulus") {
+      tanggalLulusContainer.style.display = "block";
+      nilaiContainer.style.display = "block";
+      tanggalSidangContainer.style.display = "block";
+      scanContainer.style.display = "block";
+  } else {
+      tanggalLulusContainer.style.display = "none";
+      nilaiContainer.style.display = "none";
+      tanggalSidangContainer.style.display = "none";
+      scanContainer.style.display = "none";
+  }
+  statusSelect.addEventListener("change", function() {
+    if (statusSelect.value === "Belum Ambil") {
+        tanggalLulusContainer.style.display = "none";
+        nilaiContainer.style.display = "none";
+        tanggalSidangContainer.style.display = "none";
+        scanContainer.style.display = "none";
+    } else if (statusSelect.value === "Lulus") {
+        tanggalLulusContainer.style.display = "block";
+        nilaiContainer.style.display = "block";
+        tanggalSidangContainer.style.display = "block";
+        scanContainer.style.display = "block";
+    } else {
+        tanggalLulusContainer.style.display = "none";
+        nilaiContainer.style.display = "none";
+        tanggalSidangContainer.style.display = "none";
+        scanContainer.style.display = "none";
+    }
+  });
 });

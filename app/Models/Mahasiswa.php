@@ -54,11 +54,11 @@ class Mahasiswa extends Model
         $angkatan = $this->angkatan;
         $semester = ($curr_year - $angkatan) * 2 + 1;
 
-        if ($curr_date->gt(Carbon::createFromDate(null, 2, 15)) && $curr_date->lt(Carbon::createFromDate(null, 8, 16))) {
+        if ($curr_date->gt(Carbon::createFromDate($curr_date->year, 2, 15)) && $curr_date->lt(Carbon::createFromDate($curr_date->year, 8, 16))) {
             $smt = "Genap";
             $thn_ajar = strval($curr_year - 1) . '/' . strval($curr_year);
             $semester -= 1;
-        } else if($curr_date->gt(Carbon::createFromDate(null, 8, 15)) || $curr_date->lt(Carbon::createFromDate(null, 2, 16))) {
+        } else if($curr_date->gt(Carbon::createFromDate($curr_date->year, 8, 15)) || $curr_date->lt(Carbon::createFromDate($curr_date->year, 2, 16))) {
             $smt = "Gasal";
             $thn_ajar = strval($curr_year) . '/' . strval($curr_year + 1);
         }
