@@ -10,7 +10,10 @@
         <p class="m-0 sks-irs"></p>
         <br>
         <p class="m-0"><b>Scan IRS</b></p>
-        <a href="" class="m-0 link-scan-irs" target="__blank"></a>
+        <a href="" class="m-0 link-scan-irs d-block" target="__blank"></a>
+        <br>
+        <p class="m-0"><b>Validasi</b></p>
+        <p class="m-0 validasi-irs"></p>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modalMain">Back</button>
