@@ -1,0 +1,85 @@
+@extends('templates.main')
+
+@section('container')
+
+<div class="row justify-content-center mb-3">
+  <div class="col-auto">
+    <h4>Skripsi</h4>
+  </div>
+</div>
+
+<div class="card bg-body-tertiary mb-3">
+  <div class="row m-2">
+    <div class="col-auto ms-auto">
+      <h4 class="m-0" >
+        <div class="modalSkripsiButton" type="button" data-bs-toggle="modal" data-bs-target="#modalSkripsi">
+        <i class="bi bi-pencil-square"></i>
+      </h4>
+    </div>
+  </div>
+  <div class="row d-flex justify-content-center my-2 mx-2">
+    <div class="col-4 border-end text-center py-3">
+      <div class="row">
+        <div class="col">
+          <h5>Dosen Pembimbing</h5>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col">
+          <h5>-</h5>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col">
+          <h5>Tanggal Lulus/Sidang</h5>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col">
+          <h5>-</h5>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col">
+          <h5>Lama Studi (Dalam Semester)</h5>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col">
+          <h5>{{ $semester }}</h5>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-4 text-center py-3 ">
+      <div class="row">
+        <div class="col">
+          <h5>Status</h5>
+        </div>
+      </div>
+      <div class="row mt-3 justify-content-center">
+        <div class="col-auto bg-body-secondary rounded border ">
+          <h3>Belum Ambil</h3>
+        </div>
+      </div>
+    </div>
+    
+    <div class="col-4 text-center py-3 border-start">
+      <div class="row">
+        <div class="col">
+          <h5>Nilai</h5>
+        </div>
+      </div>
+      <div class="row mt-3 justify-content-center">
+        <div class="col-auto bg-body-secondary rounded border ">
+          <h3>A</h3>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+@include('mahasiswa.skripsi.modal_edit_skripsi')
+<script src="js/modal.js"></script>
+
+@endsection
