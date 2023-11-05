@@ -35,6 +35,6 @@
 
 </div>
 
-<script src="js/modal.js"></script>
+<script src="/js/modal.js"></script>
 
 @endsection

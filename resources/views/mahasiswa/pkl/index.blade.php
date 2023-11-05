@@ -50,8 +50,8 @@
         </div>
       </div>
       <div class="row mb-3 justify-content-center">
-        <div class="col-auto bg-body-secondary rounded border ">
-          <h3>{{ (isset($dataPKL->status))?$dataPKL->status:"~" }}</h3>
+        <div class="col-auto {{ (isset($dataPKL->status) && $dataPKL->status == "Lulus")?"bg-success":"bg-body-secondary" }} rounded border text-white">
+          <h3 class="my-1">{{ (isset($dataPKL->status))?$dataPKL->status:"~" }}</h3>
         </div>
       </div>
       <div class="row">
@@ -74,7 +74,7 @@
       </div>
       <div class="row justify-content-center">
         <div class="col-auto bg-body-secondary rounded border">
-          <h3>{{ (isset($dataPKL->nilai))?$dataPKL->nilai:"~" }}</h3>
+          <h3 class="my-1">{{ (isset($dataPKL->nilai))?$dataPKL->nilai:"~" }}</h3>
         </div>
       </div>
       <div class="row mt-3">

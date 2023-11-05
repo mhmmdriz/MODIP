@@ -110,7 +110,7 @@ Route::middleware(['auth', 'user.role:dosenwali'])->group(function () {
     Route::get("/pklPerwalian/{angkatan}", [DoswalPKLController::class, 'listMhsAngkatan']);
     Route::get('/pklPerwalian/{angkatan}/{nim}', [DoswalPKLController::class, 'showPKLMhs']);
     Route::put('/pklPerwalian/{angkatan}/{nim}/update', [DoswalPKLController::class, 'updatePKLMhs']);
-    Route::post("/validatePKL", [DoswalPKLController::class,"validateKHS"]);
+    Route::get("/pklPerwalian/{angkatan}/{nim}/validatePKL/{validate}", [DoswalPKLController::class,"validatePKL"]);
     
     Route::get("/skripsiPerwalian", [DoswalSkripsiController::class, 'index']);
     Route::get("/skripsiPerwalian/{angkatan}", [DoswalSkripsiController::class, 'listMhsAngkatan']);

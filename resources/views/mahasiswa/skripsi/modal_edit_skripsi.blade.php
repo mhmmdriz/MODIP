@@ -95,7 +95,7 @@
       $('#modalSkripsi').modal('show');
       $('#modalLabel').text('Edit Skripsi');
       if (scanskripsi != '') {
-        $('#link-pdf').text("scan-skripsi-" + smt + ".pdf");
+        $('#link-pdf').text("scan-skripsi" + ".pdf");
         $('#link-pdf').css("margin-bottom", "10px");
         $('#link-pdf').attr("href", "/scan-skripsi/" + (scanskripsi));
       }

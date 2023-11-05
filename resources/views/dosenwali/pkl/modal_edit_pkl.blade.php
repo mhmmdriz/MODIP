@@ -1,39 +1,62 @@
-<div class="modal fade" id="modalKHS" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal fade" id="modalPKL" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog modal-dialog-centered">
     <div class="modal-content">
       <div class="modal-header">
         <h1 class="modal-title fs-5" id="modalLabel"></h1>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
-      <form action="/khsPerwalian/{{ $angkatan }}/{{ $nim }}/update" method="POST" enctype="multipart/form-data">
+      <form action="/pklPerwalian/{{ $angkatan }}/{{ $nim }}/update" method="POST" enctype="multipart/form-data">
         @csrf
         @method('put')
         <div class="modal-body">
-          <input type="hidden" id="smt" name="smt" value="{{ old('smt') }}">
           <div class="mb-3">
-            <label for="sks" class="form-label">SKS</label>
-            <input type="number" class="form-control @error('sks') is-invalid @enderror" name="sks" value="{{ old('sks') }}" id="inputsks">
-            @error('sks')
+            <input type="hidden" name="status_old" id="status_old" value="{{ old('status_old') }}">
+            <label for="status" class="form-label">Status</label>
+            <select class="form-control @error('status') is-invalid @enderror" name="status" id="status" aria-label="Default select example">
+              <option value="" selected>Pilih status</option>
+              <option value="Belum Ambil" {{ (old('status') == "Belum Ambil")?"selected":"" }}>Belum Ambil</option>
+              <option value="Sedang Ambil" {{ (old('status') == "Sedang Ambil")?"selected":"" }}>Sedang Ambil</option>
+              <option value="Lulus" {{ (old('status') == "Lulus")?"selected":"" }}>Lulus</option>
+            </select>
+            @error('status')
               <div class="invalid-feedback">
                 {{ $message }}
               </div>
             @enderror
+              
           </div>
 
-          <div class="mb-3">
-            <label for="ips" class="form-label">IPs</label>
-            <input type="text" class="form-control @error('ips') is-invalid @enderror" name="ips" value="{{ old('ips') }}" id="inputips">
-            @error('ips')
-              <div class="invalid-feedback">
-                {{ $message }}
-              </div>
+          <div class="mb-3" id="tanggal-seminar-container">
+            <label for="tanggal_seminar" class="form-label">Tanggal Seminar</label>
+            <input type="date" class="form-control @error('tanggal_seminar') is-invalid @enderror" name="tanggal_seminar" value="{{ old('tanggal_seminar') }}" id="tanggal_seminar">
+            @error('tanggal_seminar')
+            <div class="invalid-feedback">
+              {{ $message }}
+            </div>
             @enderror
           </div>
 
-          <input type="hidden" name="scan_khs_old" id="scan_khs_old" value="{{ old('scan_khs_old') }}">
+          <div class="mb-3" id="nilai-container">
+              <label for="nilai" class="form-label">Nilai</label>
+              <select class="form-control @error('nilai') is-invalid @enderror" name="nilai" aria-label="Default select example" id="nilai">
+                <option value="" selected>Pilih Nilai</option>
+                <option value="A" {{ (old('nilai') == "A")?"selected":"" }}>A</option>
+                <option value="B" {{ (old('nilai') == "B")?"selected":"" }}>B</option>
+                <option value="C" {{ (old('nilai') == "C")?"selected":"" }}>C</option>
+                <option value="D" {{ (old('nilai') == "D")?"selected":"" }}>D</option>
+                <option value="E" {{ (old('nilai') == "E")?"selected":"" }}>E</option>
+              </select>
+              @error('nilai')
+                <div class="invalid-feedback">
+                  {{ $message }}
+                </div>
+              @enderror
+          </div>
 
-          <div class="mb-3">
-            <label for="scan_khs" class="form-label">Scan KHS (PDF)</label>
+          <input type="hidden" name="scan_basp_old" id="scan_basp_old" value="{{ old('scan_basp_old') }}">
+
+          <div class="mb-3" id="scan-container">
+            <label for="scan_basp" class="form-label">Scan Berita Acara Seminar PKL (PDF)</label>
             <a href="" style="display: block;" id="link-pdf" target="_blank"></a>
           </div>
           
@@ -47,18 +70,18 @@
   </div>
 </div>
 
-@if($errors->any())
+  @if($errors->any())
   <script>
     $(document).ready(function () {
-      var smt = $("#smt").val();
-      var scankhs = $("#scan_khs_old").val();
-      console.log(scankhs);
-      $('#modalKHS').modal('show');
-      $('#modalLabel').text('Edit KHS Semester {{ old('smt') }}');
-      if (scankhs != '') {
-        $('#link-pdf').text("scan-khs-" + smt + ".pdf");
+      var status = $("#status_old").val();
+      var scanspkl = $("#scan_basp_old").val();
+      // console.log(scanspkl);
+      $('#modalPKL').modal('show');
+      $('#modalLabel').text('Edit PKL');
+      if (scanspkl != '') {
+        $('#link-pdf').text("scan-pkl" + ".pdf");
         $('#link-pdf').css("margin-bottom", "10px");
-        $('#link-pdf').attr("href", "/scan-khs/" + (scankhs));
+        $('#link-pdf').attr("href", "/scan-pkl/" + (scanspkl));
       }
     });
   </script>

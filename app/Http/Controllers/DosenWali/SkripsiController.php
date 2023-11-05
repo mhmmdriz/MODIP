@@ -25,26 +25,26 @@ class SkripsiController extends Controller
     {
         $data_mhs = Mahasiswa::get()->where("dosen_wali", auth()->user()->username)->where("angkatan", $angkatan);
 
-        $data_khs = Skripsi::get();
+        $data_skripsi = Skripsi::pluck('validasi', 'nim')->toArray();
+        // dd($data_skripsi);
         
         return view("dosenwali.skripsi.list_mhs",[
             "data_mhs"=> $data_mhs,
-            "data_khs"=> $data_khs,
+            "data_skripsi"=> $data_skripsi,
+            "angkatan"=> $angkatan,
         ]);
     }
 
     public function showSkripsiMhs($angkatan, $nim){
         $mahasiswa = Mahasiswa::where("nim","=",$nim)->first();
-        $semesterInfo = $mahasiswa->calculateSemesterAndThnAjar();
-        $semester = $semesterInfo['semester'];
         
         $dataSkripsi = $mahasiswa->skripsi;
 
         return view('dosenwali.skripsi.show_skripsi', [
             'nim' => $nim,
+            'nama' => $mahasiswa->nama,
             'dataSkripsi' => $dataSkripsi,
-            'semester' => $semester,
-            'angkatan' => $angkatan
+            'angkatan' => $angkatan,
         ]);
     }
 
@@ -55,7 +55,7 @@ class SkripsiController extends Controller
         $validasi = 0;
         // dd($request->status_old);
         if ($status == ""){
-            return redirect('/skripsi');
+            return redirect("/skripsiPerwalian/$angkatan/$nim");
         }
         if ($request->status_old == null){
             if ($status == "Belum Ambil"){
