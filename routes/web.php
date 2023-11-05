@@ -14,6 +14,7 @@ use App\Http\Controllers\PKLController;
 use App\Http\Controllers\DosenWali\IRSController as DoswalIRSController;
 use App\Http\Controllers\DosenWali\KHSController as DoswalKHSController;
 use App\Http\Controllers\DosenWali\PKLController as DoswalPKLController;
+use App\Http\Controllers\DosenWali\SkripsiController as DoswalSkripsiController;
 
 
 /*
@@ -109,6 +110,13 @@ Route::middleware(['auth', 'user.role:dosenwali'])->group(function () {
     Route::get('/pklPerwalian/{angkatan}/{nim}', [DoswalPKLController::class, 'showPKLMhs']);
     Route::put('/pklPerwalian/{angkatan}/{nim}/update', [DoswalPKLController::class, 'updatePKLMhs']);
     Route::post("/validatePKL", [DoswalPKLController::class,"validateKHS"]);
+    
+    Route::get("/skripsiPerwalian", [DoswalSkripsiController::class, 'index']);
+    Route::get("/skripsiPerwalian/{angkatan}", [DoswalSkripsiController::class, 'listMhsAngkatan']);
+    Route::get('/skripsiPerwalian/{angkatan}/{nim}', [DoswalSkripsiController::class, 'showSkripsiMhs']);
+    Route::put('/skripsiPerwalian/{angkatan}/{nim}/update', [DoswalSkripsiController::class, 'updateSkripsiMhs']);
+    Route::get("/skripsiPerwalian/{angkatan}/{nim}/validateSkripsi/{validate}", [DoswalSkripsiController::class,"validateSkripsi"]);
+
 });
 
 Route::middleware(['auth', 'user.role:departemen'])->group(function () {

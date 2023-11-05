@@ -93,15 +93,13 @@
         </div>
 
         <div class="col-auto my-auto">
-          @if ($khs[$i-1] == null)
-            <div class="modalKHSButton" type="button" data-bs-toggle="modal" data-bs-target="#modalKHS" data-smt="{{ $i }}">
-          @else
+          @if ($khs[$i-1] != null)
             <div class="modalKHSButton" type="button" data-bs-toggle="modal" data-bs-target="#modalKHS" data-smt="{{ $i }}" data-scan-khs="{{ $khs[$i-1]->scan_khs }}" data-sks="{{ $khs[$i-1]->sks }}" data-ips="{{ $khs[$i-1]->ips }}">
+              <h4 class="m-0">
+                <i class="bi bi-pencil-square"></i>
+              </h4>
+            </div>
           @endif
-          <h4 class="m-0">
-            <i class="bi bi-pencil-square"></i>
-          </h4>
-          </div>
         </div>
         
       </div>
