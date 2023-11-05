@@ -40,8 +40,17 @@
 <div class="row d-flex gx-4 gy-4 mb-5">
   @for ($i = 0; $i <= 13; $i++)
   <div class="col-md-2 col-sm-6">
-    <div class="modalButton" type="button" data-bs-toggle="modal" data-bs-target="#modalMain">
-      <div class="card bg-body-tertiary d-flex align-items-center text-center py-2">      
+    <div class="modalButton" type="button" data-bs-toggle="modal" data-bs-target="#modalMain" 
+    data-smt="{{ $i + 1 }}"
+    data-irs="{{ isset($arrIRS[$i]) ? $arrIRS[$i] : ''}}"
+    data-khs="{{ isset($arrKHS[$i]) ? $arrKHS[$i] : ''}}"
+    data-pkl="{{ $data_pkl }}"
+    data-skripsi="{{ $data_skripsi }}">
+      @if (isset($arrIRS[$i]) && isset($arrKHS[$i]))
+        <div class="card bg-primary d-flex align-items-center text-center py-2">   
+      @else
+        <div class="card bg-danger d-flex align-items-center text-center py-2">      
+      @endif
         <h5><b>{{ $i + 1 }}</b></h5>
       </div>
     </div>
@@ -55,4 +64,5 @@
 @include('departemen.pencarian_progress.modal_khs')
 @include('departemen.pencarian_progress.modal_pkl')
 @include('departemen.pencarian_progress.modal_skripsi')
+<script src="/js/progress.js"></script>
 @endsection

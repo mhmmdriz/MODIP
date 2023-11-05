@@ -55,10 +55,19 @@ class ProgressStudiMhs extends Controller
         $semesterInfo = $mahasiswa->calculateSemesterAndThnAjar();
         $semester = $semesterInfo['semester'];
 
-        $dataIRS = $mahasiswa->getIRSArray($semester);
-        $arrIRS = $dataIRS['arrIRS'];
-        $dataKHS = $mahasiswa->getKHSArray($semester);
-        $arrKHS = $dataKHS['arrKHS'];
+        $arrIRS = $mahasiswa->irs;
+        $SKSkIRS = 0;
+        foreach($arrIRS as $irs){
+            $SKSkIRS += $irs->sks;
+        }
+
+        $arrKHS = $mahasiswa->khs;
+        $SKSkKHS = 0;
+        $IPK = 0;
+        foreach($arrKHS as $khs){
+            $SKSkKHS += $khs->sks;
+            $IPK += $khs->ips;
+        }
 
         $data_skripsi = Skripsi::where('nim', $nim)->first();
         $data_pkl = PKL::where('nim', $nim)->first();
@@ -72,6 +81,8 @@ class ProgressStudiMhs extends Controller
             "data_pkl" => $data_pkl,
             "arrIRS" => $arrIRS,
             "arrKHS" => $arrKHS,
+            "SKSkIRS" => $SKSkIRS,
+            "SKSkKHS" => $SKSkKHS,
         ]);
     }
 }
