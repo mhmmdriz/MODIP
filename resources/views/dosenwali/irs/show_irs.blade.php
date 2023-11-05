@@ -81,15 +81,13 @@
         </div>
 
         <div class="col-auto my-auto">
-          @if ($irs[$i-1] == null)
-            <div class="modalIRSButton" type="button" data-bs-toggle="modal" data-bs-target="#modalIRS" data-smt="{{ $i }}">
-          @else
+          @if ($irs[$i-1] != null)
             <div class="modalIRSButton" type="button" data-bs-toggle="modal" data-bs-target="#modalIRS" data-smt="{{ $i }}" data-scan-irs="{{ $irs[$i-1]->scan_irs }}" data-sks="{{ $irs[$i-1]->sks }}">
+              <h4 class="m-0">
+                <i class="bi bi-pencil-square"></i>
+              </h4>
+            </div>
           @endif
-          <h4 class="m-0">
-            <i class="bi bi-pencil-square"></i>
-          </h4>
-          </div>
         </div>
         
       </div>

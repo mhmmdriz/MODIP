@@ -1,39 +1,56 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\DosenWali;
 
+use App\Http\Controllers\Controller;
 use App\Models\Skripsi;
-use App\Http\Requests\StoreSkripsiRequest;
-use App\Http\Requests\UpdateSkripsiRequest;
+use App\Models\Mahasiswa;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Storage;
 use Carbon\Carbon;
 
 class SkripsiController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
     public function index()
-    {   
-        $mahasiswa = auth()->user()->mahasiswa;
+    {
+        $data_mhs = Mahasiswa::where("dosen_wali", auth()->user()->username)->get()->groupBy("angkatan")->map(function($item){
+            return $item->count(); 
+        });
+
+        return view("dosenwali.skripsi.index",[
+            "data_mhs" => $data_mhs,
+        ]);
+    }
+
+    public function listMhsAngkatan(String $angkatan)
+    {
+        $data_mhs = Mahasiswa::get()->where("dosen_wali", auth()->user()->username)->where("angkatan", $angkatan);
+
+        $data_khs = Skripsi::get();
+        
+        return view("dosenwali.skripsi.list_mhs",[
+            "data_mhs"=> $data_mhs,
+            "data_khs"=> $data_khs,
+        ]);
+    }
+
+    public function showSkripsiMhs($angkatan, $nim){
+        $mahasiswa = Mahasiswa::where("nim","=",$nim)->first();
         $semesterInfo = $mahasiswa->calculateSemesterAndThnAjar();
         $semester = $semesterInfo['semester'];
         
         $dataSkripsi = $mahasiswa->skripsi;
 
-        return view('mahasiswa.skripsi.index', [
-            'semester' => $semester,
+        return view('dosenwali.skripsi.show_skripsi', [
+            'nim' => $nim,
             'dataSkripsi' => $dataSkripsi,
+            'semester' => $semester,
+            'angkatan' => $angkatan
         ]);
     }
 
-    public function updateOrInsert(Request $request)
-    {
-        // dd($request->all());
+    public function updateSkripsiMhs($angkatan, $nim, Request $request){
         $status = $request->status;
-        $mahasiswa = auth()->user()->mahasiswa;
-        $nim = $mahasiswa->nim;
+        $mahasiswa = Mahasiswa::where('nim', $nim)->first();
         $nama = $mahasiswa->nama;
         $validasi = 0;
         // dd($request->status_old);
@@ -51,11 +68,6 @@ class SkripsiController extends Controller
                     'tanggal_lulus' => 'required',
                     'nilai' => 'required',
                 ];
-                if ($request->scan_bass_old == null) {
-                    $rules['scan_bass'] = 'required|mimes:pdf|max:10000';
-                }else{
-                    Storage::delete($request->scan_bass_old);
-                }
                 
                 $tgl_lulus = Carbon::parse($request->tanggal_lulus);
                 $semester = ($tgl_lulus->year - $mahasiswa->angkatan) * 2 + 1;
@@ -65,9 +77,7 @@ class SkripsiController extends Controller
                     $semester -= 2;
                 }
                 $validatedData = $request->validate($rules);
-                if($request->scan_bass != null){
-                    $validatedData ["scan_bass"] = $request->file('scan_bass')->store('private/skripsi');
-                }
+
                 $validatedData['semester'] = $semester;
                 $validatedData['nim'] = $nim;
                 $validatedData['nama'] = $nama;
@@ -79,25 +89,14 @@ class SkripsiController extends Controller
         } else {
             if ($status == "Belum Ambil"){
                 Skripsi::where("nim", $nim)->update(['semester' => null, 'status' => $status, 'tanggal_sidang' => null, 'tanggal_lulus' => null, 'nilai' => null, 'scan_bass' => null]);
-                if ($request->scan_bass_old != null) {
-                    Storage::delete($request->scan_bass_old);
-                }
             } else if ($status == "Sedang Ambil") {
                 Skripsi::where("nim", $nim)->update(['semester' => null, 'status' => $status, 'tanggal_sidang' => null, 'tanggal_lulus' => null, 'nilai' => null, 'scan_bass' => null]);
-                if ($request->scan_bass_old != null) {
-                    Storage::delete($request->scan_bass_old);
-                }
             } else {
                 $rules = [ 
                     'tanggal_sidang' => 'required',
                     'tanggal_lulus' => 'required',
                     'nilai' => 'required',
                 ];
-                if ($request->scan_bass_old == null) {
-                    $rules['scan_bass'] = 'required|mimes:pdf|max:10000';
-                }else{
-                    Storage::delete($request->scan_bass_old);
-                }
                 
                 $tgl_lulus = Carbon::parse($request->tanggal_lulus);
                 $semester = ($tgl_lulus->year - $mahasiswa->angkatan) * 2 + 1;
@@ -107,9 +106,7 @@ class SkripsiController extends Controller
                     $semester -= 2;
                 }
                 $validatedData = $request->validate($rules);
-                if($request->scan_bass != null){
-                    $validatedData ["scan_bass"] = $request->file('scan_bass')->store('private/skripsi');
-                }
+
                 $validatedData['semester'] = $semester;
                 // $validatedData['nim'] = $nim; 1
                 // $validatedData['nama'] = $nama; 2
@@ -120,9 +117,13 @@ class SkripsiController extends Controller
             }
             
         }
-        return redirect('/skripsi')->with('success', "Data Skripsi Berhasil Diubah!");
+        return redirect("/skripsiPerwalian/$angkatan/$nim")->with('success', "Data Skripsi Berhasil Diubah!");
+    }
+
+    public function validateSkripsi($angkatan, $nim, $validate){
+
+        Skripsi::where('nim', '=', $nim)->update(['validasi' => $validate]);
+
+        return redirect("/skripsiPerwalian/$angkatan/$nim");
     }
 }
-
-
-    
