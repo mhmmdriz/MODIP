@@ -121,38 +121,6 @@ class SkripsiController extends Controller
             
         }
         return redirect('/skripsi')->with('success', "Data Skripsi Berhasil Diubah!");
-
-        // else if ($status == )
-        $rules = [ 
-            'status' => 'required',
-            'tanggal' => 'required',
-            'nilai' => 'required',
-        ];
-
-        if ($request->scan_bass_old == null) {
-            $rules['scan_bass'] = 'required|mimes:pdf|max:10000';
-        }else{
-            Storage::delete($request->scan_bass_old);
-        }
-
-        $validatedData = $request->validate($rules);
-        $mahasiswa = auth()->user()->mahasiswa;
-        
-        $validatedData['nama'] = $mahasiswa->nama;
-        if($request->scan_bass != null){
-            $validatedData ["scan_bass"] = $request->file('scan_bass')->store('private/skripsi');
-        }
-
-        if($request->scan_bass_old == null){
-            $validatedData[''] = $request->smt;
-            $validatedData['nim'] = $mahasiswa->nim;
-            $validatedData['validasi'] = 0;
-            Skripsi::create($validatedData);
-        }else{
-            Skripsi::where("smt", $request->smt)->where("nim",$mahasiswa->nim)->update($validatedData);
-        }
-
-        return redirect('/skripsi')->with('success', "Data Skripsi Berhasil Diubah!");
     }
 }
 
