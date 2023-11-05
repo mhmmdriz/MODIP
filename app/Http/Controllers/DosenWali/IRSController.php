@@ -14,11 +14,10 @@ class IRSController extends Controller
      */
     public function index()
     {
-        $data_mhs = Mahasiswa::selectRaw("mahasiswa.angkatan, count(mahasiswa.angkatan) as jumlah_mhs")
-        ->join("dosen_wali","dosen_wali.nip","=","mahasiswa.dosen_wali")
-        ->where("dosen_wali.nip","=",auth()->user()->username)
-        ->groupBy("mahasiswa.angkatan")
-        ->get();
+        $data_mhs = Mahasiswa::where("dosen_wali", auth()->user()->username)->get()->groupBy("angkatan")->map(function($item){
+            return $item->count(); 
+        });
+        // dd($data_mhs);
 
         return view("dosenwali.irs.index",[
             "data_mhs" => $data_mhs,
@@ -27,21 +26,23 @@ class IRSController extends Controller
 
     public function listMhsAngkatan(String $angkatan)
     {
-        $data_mhs = Mahasiswa::selectRaw("mahasiswa.nama, mahasiswa.nim, status, SUM(sks) as sksk")
-        ->leftJoin("irs","irs.nim","=","mahasiswa.nim")
-        ->where("dosen_wali","=",auth()->user()->username)
-        ->where("angkatan","=",$angkatan)
-        ->groupBy("mahasiswa.nama", "mahasiswa.nim", "status")->get();
+        $data_mhs = Mahasiswa::get()->where("dosen_wali", auth()->user()->username)->where("angkatan", $angkatan);
+        $data_irs = IRS::get()->groupBy('nim')->map(function($item) {
+            return [
+                'sksk' => $item->sum('sks'),
+        ];
+        });
+        // dd($data_irs);
 
-        // dd($data_mhs);
         return view("dosenwali.irs.list_mhs",[
             "data_mhs"=> $data_mhs,
-            "angkatan"=> $angkatan
+            "data_irs"=> $data_irs,
+            "angkatan"=> $angkatan,
         ]);
     }
 
     public function showIRSMhs($angkatan, $nim){
-        $mahasiswa = Mahasiswa::where("nim","=",$nim)->first();
+        $mahasiswa = Mahasiswa::where("nim", $nim)->first();
         $semesterInfo = $mahasiswa->calculateSemesterAndThnAjar();
         $semester = $semesterInfo['semester'];
         

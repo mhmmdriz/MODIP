@@ -5,6 +5,9 @@ namespace App\Http\Controllers;
 use App\Models\Skripsi;
 use App\Http\Requests\StoreSkripsiRequest;
 use App\Http\Requests\UpdateSkripsiRequest;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
+use Carbon\Carbon;
 
 class SkripsiController extends Controller
 {
@@ -12,55 +15,146 @@ class SkripsiController extends Controller
      * Display a listing of the resource.
      */
     public function index()
-    {
-        //
+    {   
+        $mahasiswa = auth()->user()->mahasiswa;
+        $semesterInfo = $mahasiswa->calculateSemesterAndThnAjar();
+        $semester = $semesterInfo['semester'];
+        
+        $dataSkripsi = $mahasiswa->skripsi;
+
+        return view('mahasiswa.skripsi.index', [
+            'semester' => $semester,
+            'dataSkripsi' => $dataSkripsi,
+        ]);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
+    public function updateOrInsert(Request $request)
     {
-        //
-    }
+        // dd($request->all());
+        $status = $request->status;
+        $mahasiswa = auth()->user()->mahasiswa;
+        $nim = $mahasiswa->nim;
+        $nama = $mahasiswa->nama;
+        $validasi = 0;
+        // dd($request->status_old);
+        if ($status == ""){
+            return redirect('/skripsi');
+        }
+        if ($request->status_old == null){
+            if ($status == "Belum Ambil"){
+                Skripsi::create(['nim' => $nim, 'nama' => $nama, 'status' => $status, 'validasi' => $validasi]);
+            } else if ($status == "Sedang Ambil") {
+                Skripsi::create(['nim' => $nim, 'nama' => $nama, 'status' => $status, 'validasi' => $validasi]);
+            } else {
+                $rules = [ 
+                    'tanggal_sidang' => 'required',
+                    'tanggal_lulus' => 'required',
+                    'nilai' => 'required',
+                ];
+                if ($request->scan_bass_old == null) {
+                    $rules['scan_bass'] = 'required|mimes:pdf|max:10000';
+                }else{
+                    Storage::delete($request->scan_bass_old);
+                }
+                
+                $tgl_lulus = Carbon::parse($request->tanggal_lulus);
+                $semester = ($tgl_lulus->year - $mahasiswa->angkatan) * 2 + 1;
+                if ($tgl_lulus->gt(Carbon::createFromDate($tgl_lulus->year, 2, 15)) && $tgl_lulus->lte(Carbon::createFromDate($tgl_lulus->year, 8, 15))) {
+                    $semester -= 1;
+                } else if ($tgl_lulus->lte(Carbon::createFromDate($tgl_lulus->year, 2, 15))) {
+                    $semester -= 2;
+                }
+                $validatedData = $request->validate($rules);
+                if($request->scan_bass != null){
+                    $validatedData ["scan_bass"] = $request->file('scan_bass')->store('private/skripsi');
+                }
+                $validatedData['semester'] = $semester;
+                $validatedData['nim'] = $nim;
+                $validatedData['nama'] = $nama;
+                $validatedData['status'] = $status;
+                $validatedData['validasi'] = $validasi;
+                // dd($semester);
+                Skripsi::create($validatedData);
+            }
+        } else {
+            if ($status == "Belum Ambil"){
+                Skripsi::where("nim", $nim)->update(['status' => $status, 'tanggal_sidang' => null, 'tanggal_lulus' => null, 'nilai' => null, 'scan_bass' => null]);
+                if ($request->scan_bass_old != null) {
+                    Storage::delete($request->scan_bass_old);
+                }
+            } else if ($status == "Sedang Ambil") {
+                Skripsi::where("nim", $nim)->update(['status' => $status, 'tanggal_sidang' => null, 'tanggal_lulus' => null, 'nilai' => null, 'scan_bass' => null]);
+                if ($request->scan_bass_old != null) {
+                    Storage::delete($request->scan_bass_old);
+                }
+            } else {
+                $rules = [ 
+                    'tanggal_sidang' => 'required',
+                    'tanggal_lulus' => 'required',
+                    'nilai' => 'required',
+                ];
+                if ($request->scan_bass_old == null) {
+                    $rules['scan_bass'] = 'required|mimes:pdf|max:10000';
+                }else{
+                    Storage::delete($request->scan_bass_old);
+                }
+                
+                $tgl_lulus = Carbon::parse($request->tanggal_lulus);
+                $semester = ($tgl_lulus->year - $mahasiswa->angkatan) * 2 + 1;
+                if ($tgl_lulus->gt(Carbon::createFromDate($tgl_lulus->year, 2, 15)) && $tgl_lulus->lte(Carbon::createFromDate($tgl_lulus->year, 8, 15))) {
+                    $semester -= 1;
+                } else if ($tgl_lulus->lte(Carbon::createFromDate($tgl_lulus->year, 2, 15))) {
+                    $semester -= 2;
+                }
+                $validatedData = $request->validate($rules);
+                if($request->scan_bass != null){
+                    $validatedData ["scan_bass"] = $request->file('scan_bass')->store('private/skripsi');
+                }
+                $validatedData['semester'] = $semester;
+                // $validatedData['nim'] = $nim; 1
+                // $validatedData['nama'] = $nama; 2
+                $validatedData['status'] = $status;
+                // $validatedData['validasi'] = $validasi; 3
+                // dd($semester);
+                Skripsi::where("nim", $nim)->update($validatedData);
+            }
+            
+        }
+        return redirect('/skripsi')->with('success', "Data Skripsi Berhasil Diubah!");
 
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(StoreSkripsiRequest $request)
-    {
-        //
-    }
+        // else if ($status == )
+        $rules = [ 
+            'status' => 'required',
+            'tanggal' => 'required',
+            'nilai' => 'required',
+        ];
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(Skripsi $skripsi)
-    {
-        //
-    }
+        if ($request->scan_bass_old == null) {
+            $rules['scan_bass'] = 'required|mimes:pdf|max:10000';
+        }else{
+            Storage::delete($request->scan_bass_old);
+        }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(Skripsi $skripsi)
-    {
-        //
-    }
+        $validatedData = $request->validate($rules);
+        $mahasiswa = auth()->user()->mahasiswa;
+        
+        $validatedData['nama'] = $mahasiswa->nama;
+        if($request->scan_bass != null){
+            $validatedData ["scan_bass"] = $request->file('scan_bass')->store('private/skripsi');
+        }
 
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(UpdateSkripsiRequest $request, Skripsi $skripsi)
-    {
-        //
-    }
+        if($request->scan_bass_old == null){
+            $validatedData[''] = $request->smt;
+            $validatedData['nim'] = $mahasiswa->nim;
+            $validatedData['validasi'] = 0;
+            Skripsi::create($validatedData);
+        }else{
+            Skripsi::where("smt", $request->smt)->where("nim",$mahasiswa->nim)->update($validatedData);
+        }
 
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(Skripsi $skripsi)
-    {
-        //
+        return redirect('/skripsi')->with('success', "Data Skripsi Berhasil Diubah!");
     }
 }
+
+
+    

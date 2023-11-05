@@ -14,23 +14,22 @@
     </div>
   </div>
 
-  @foreach ($data_mhs as $mhs)
-  <a href="/irsPerwalian/{{ $mhs->angkatan }}" class="text-decoration-none" style="color:inherit;">
+  @foreach ($data_mhs as $angkatan => $jumlah_mhs)
+  <a href="/irsPerwalian/{{ $angkatan }}" class="text-decoration-none" style="color:inherit;">
     <div class="row mx-3 mb-3">
       <div class="col bg-light-subtle rounded border">
         <div class="row">
           <div class="col-auto border-end py-4 text-center" >
-            Angkatan {{ $mhs->angkatan }}
+            Angkatan {{ $angkatan }}
           </div>
           <div class="col-auto py-4 text-center ">
-            Jumlah Mahasiswa: {{ $mhs->jumlah_mhs }}
+            Jumlah Mahasiswa: {{ $jumlah_mhs }}
           </div>
         </div>
       </div>
     </div>
   </a>
   @endforeach
-
   
 
 </div>
