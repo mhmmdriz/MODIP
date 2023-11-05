@@ -18,4 +18,8 @@ class DosenWali extends Model
     {
         return $this->hasOne(User::class, 'username', 'nip');
     }
+
+    public function mahasiswa(){
+        return $this->hasMany(Mahasiswa::class, 'nip', 'dosen_wali');
+    }
 }

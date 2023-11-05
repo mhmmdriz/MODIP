@@ -32,7 +32,7 @@
           Semester {{ $i }}
         </div>
         <div class="col-3 py-4 text-center ">
-          @if ($irs[$i-1] == null)
+          @if (!isset($irs[$i-1]))
             Jumlah SKS: ~
           @else
             Jumlah SKS: {{ $irs[$i-1]->sks }}
@@ -41,7 +41,7 @@
         
         <div class="col-3 py-4 text-center">
 
-          @if ($irs[$i-1] == null)
+          @if (!isset($irs[$i-1]))
             Scan IRS : <span class="text-danger">belum</span>
           @else
             Scan IRS : <span class="text-success">sudah</span>
@@ -51,7 +51,7 @@
         
         <div class="col-3 py-4 text-center">
 
-          @if ($irs[$i-1] == null)
+          @if (!isset($irs[$i-1]))
             Validasi : <span class="text-danger">belum</span>
           @else
             @if ($irs[$i-1]->validasi == 0)
@@ -64,8 +64,8 @@
         </div>
 
         <div class="col-1 bg-body-secondary text-center py-4">
-          @if ($i == 1 || $irs[$i-2] != null)
-            @if ($irs[$i-1] == null)
+          @if ($i == 1 || isset($irs[$i-2]))
+            @if (!isset($irs[$i-1]))
             <div class="modalIRSButton" type="button" data-bs-toggle="modal" data-bs-target="#modalIRS" data-smt="{{ $i }}">
             @else
             <div class="modalIRSButton" type="button" data-bs-toggle="modal" data-bs-target="#modalIRS" data-smt="{{ $i }}" data-scan-irs="{{ $irs[$i-1]->scan_irs }}" data-sks="{{ $irs[$i-1]->sks }}">

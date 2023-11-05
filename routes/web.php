@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Departemen\ProgressStudiMhs;
 use App\Http\Controllers\DosenWaliController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\IRSController;
@@ -96,4 +97,10 @@ Route::middleware(['auth', 'user.role:dosenwali'])->group(function () {
     Route::get('/khsPerwalian/{angkatan}/{nim}', [DoswalKHSController::class, 'showKHSMhs']);
     Route::put('/khsPerwalian/{angkatan}/{nim}/update', [DoswalKHSController::class, 'updateKHSMhs']);
     Route::post("/validateKHS", [DoswalKHSController::class,"validateKHS"]);
+});
+
+Route::middleware(['auth', 'user.role:departemen'])->group(function () {
+    Route::get("/pencarianProgressStudi", [ProgressStudiMhs::class, 'index']);
+    Route::get("/ajaxProgressMHS", [ProgressStudiMhs::class, 'updateTableProgressMhs']);
+    Route::get("/pencarianProgressStudi/{nim}", [ProgressStudiMhs::class, 'showProgressMhs']);
 });
