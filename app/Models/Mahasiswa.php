@@ -62,6 +62,11 @@ class Mahasiswa extends Model
             $smt = "Gasal";
             $thn_ajar = strval($curr_year) . '/' . strval($curr_year + 1);
         }
+        if ($curr_date->lte(Carbon::createFromDate($curr_date->year, 2, 15))) {
+            $smt = "Gasal";
+            $thn_ajar = strval($curr_year) . '/' . strval($curr_year + 1);
+            $semester -= 2;
+        }
 
         return [
             'smt' => $smt,
