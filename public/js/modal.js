@@ -76,4 +76,25 @@ $(document).ready(function() {
     document.getElementById("inputsks").value = sks;
     document.getElementById("inputips").value = ips;
   });
+
+  $('.modalPKLButton').click(function () {
+    $('#modalPKLForm').on('submit', function (event) { event.preventDefault();
+    $('#modalPKLForm')[0].reset();
+    $('#modalPKLForm .form-control').removeClass('is-invalid');
+    $('#modalPKLForm .invalid-feedback').remove();
+
+    $('#modalLabel').text('Edit PKL Information');
+
+    var smt = $(this).data('smt');
+    var dospem = $(this).data('dospem');
+    var status = $(this).data('status');
+    var nilai = $(this).data('nilai');
+    var formData = new FormData(this);
+
+    $('#smt').val(smt);
+    $('#dosen_pembimbing').val(dospem);
+    $('#status_pkl').val(status);
+    $('#nilai_pkl').val(nilai);
+  });
+  });
 });
