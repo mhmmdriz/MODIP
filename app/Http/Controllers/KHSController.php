@@ -17,11 +17,20 @@ class KHSController extends Controller
         $semesterInfo = $mahasiswa->calculateSemesterAndThnAjar();
         $semester = $semesterInfo['semester'];
         
-        $dataKHS = $mahasiswa->getKHSArray($semester);
-        // $smtKhsArray = $dataKHS['smtKhsArray'];
-        $arrKHS = $dataKHS['arrKHS'];
-        $SKSk = $dataKHS['SKSk'];
+        // $dataKHS = $mahasiswa->getKHSArray($semester);
+        // // $smtKhsArray = $dataKHS['smtKhsArray'];
+        // $arrKHS = $dataKHS['arrKHS'];
+        // $SKSk = $dataKHS['SKSk'];
 
+        $arrKHS = $mahasiswa->khs;
+
+        $SKSk = 0;
+        $IPK = 0;
+        foreach($arrKHS as $khs){
+            $SKSk += $khs->sks;
+            $IPK += $khs->ips;
+        }
+        
         // dump($SKSk);
         // dump($smtKhsArray);
         // dd($arrKHS);
@@ -31,6 +40,7 @@ class KHSController extends Controller
             'semester' => $semester,
             // 'smtKhsArray' => $smtKhsArray,
             'SKSk' => $SKSk,
+            'IPK' => $IPK,
         ]);
     }
 

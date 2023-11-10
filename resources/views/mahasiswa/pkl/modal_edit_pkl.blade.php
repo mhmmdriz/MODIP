@@ -1,94 +1,94 @@
 <div class="modal fade" id="modalPKL" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h1 class="modal-title fs-5" id="modalLabel">Pengisian Data Praktik Kerja Lapangan</h1>
-          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-        </div>
-        <form action="/pkl/" method="POST" enctype="multipart/form-data">
-          @csrf
-          @method('put')
-          <div class="modal-body">
-            <input type="hidden" id="smt" name="smt" value="{{ old('smt') }}">
-            <div class="mb-3">
-                <label for="dosen_pembimbing" class="form-label">Dosen Pembimbing</label>
-                <select class="form-select" name="dosen_pembimbing" required>
-                    <option value="aaa">aaa</option>
-                    <option value="tes">tes</option>
-                </select>
-            </div>              
-            <div class="mb-3">
-                <label for="status_pkl" class="form-label">Status PKL</label>
-                <select class="form-select" name="status_pkl" id="status_pkl" onchange="checkStatus(this)">
-                  <option value="Sudah Ambil" {{ old('status_pkl') === 'Sudah Ambil' ? 'selected' : '' }}>Sudah Ambil</option>
-                  <option value="Sudah Ambil" {{ old('status_pkl') === 'Sudah Ambil' ? 'selected' : '' }}>Sedang Mengambil</option>
-                  <option value="Belum Ambil" {{ old('status_pkl') === 'Belum Ambil' ? 'selected' : '' }}>Belum Ambil</option>
-                </select>
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="modalLabel"></h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <form action="/pkl/" method="POST" enctype="multipart/form-data">
+        @csrf
+        @method('put')
+        <div class="modal-body">
+          <div class="mb-3">
+            <input type="hidden" name="status_old" id="status_old" value="{{ old('status_old') }}">
+            <label for="status" class="form-label">Status</label>
+            <select class="form-control @error('status') is-invalid @enderror" name="status" id="status" aria-label="Default select example">
+              <option value="" selected>Pilih status</option>
+              <option value="Belum Ambil" {{ (old('status') == "Belum Ambil")?"selected":"" }}>Belum Ambil</option>
+              <option value="Sedang Ambil" {{ (old('status') == "Sedang Ambil")?"selected":"" }}>Sedang Ambil</option>
+              <option value="Lulus" {{ (old('status') == "Lulus")?"selected":"" }}>Lulus</option>
+            </select>
+            @error('status')
+              <div class="invalid-feedback">
+                {{ $message }}
+              </div>
+            @enderror
+              
+          </div>
+
+          <div class="mb-3" id="tanggal-seminar-container">
+            <label for="tanggal_seminar" class="form-label">Tanggal Seminar</label>
+            <input type="date" class="form-control @error('tanggal_seminar') is-invalid @enderror" name="tanggal_seminar" value="{{ old('tanggal_seminar') }}" id="tanggal_seminar">
+            @error('tanggal_seminar')
+            <div class="invalid-feedback">
+              {{ $message }}
             </div>
-            <script>
-              function checkStatus(select) {
-                const submitButton = document.querySelector('button[type="submit"]');
-                if (select.value === 'Belum Ambil') {
-                  submitButton.setAttribute('disabled', true);
-                } else {
-                  submitButton.removeAttribute('disabled');
-                }
-              }
-            </script>                          
-            <div class="mb-3">
-                <label for="nilai_pkl" class="form-label">Nilai PKL</label>
-                <select class="form-select" name="nilai_pkl" required>
-                  <option value="A" {{ old('nilai_pkl') === 'A' ? 'selected' : '' }}>A</option>
-                  <option value="B" {{ old('nilai_pkl') === 'B' ? 'selected' : '' }}>B</option>
-                  <option value="C" {{ old('nilai_pkl') === 'C' ? 'selected' : '' }}>C</option>
-                  <option value="D" {{ old('nilai_pkl') === 'D' ? 'selected' : '' }}>D</option>
-                  <option value="E" {{ old('nilai_pkl') === 'E' ? 'selected' : '' }}>E</option>
-                </select>
-            </div>              
-            <div class="mb-3">
-              <label for="tahun" class="form-label">Tahun</label>
-              <input type="text" class="form-control" name="tahun" value="{{ old('tahun') }}" pattern="\d{4}" title="Tidak boleh selain tahun (Maks 4 digit)" required>
-            </div>
-            <div class="mb-3">
-              <label for="scan_berita_acara" class="form-label">Scan Berita Acara Seminar PKL (PDF)</label>
-              <a href="" style="display: block;" id="link-pdf" target="_blank"></a>
-              <input class="form-control @error('scan_berita_acara') is-invalid @enderror" type="file" id="scan_berita_acara" name="scan_berita_acara" required>
-              @error('scan_berita_acara')
+            @enderror
+          </div>
+
+          <div class="mb-3" id="nilai-container">
+              <label for="nilai" class="form-label">Nilai</label>
+              <select class="form-control @error('nilai') is-invalid @enderror" name="nilai" aria-label="Default select example" id="nilai">
+                <option value="" selected>Pilih Nilai</option>
+                <option value="A" {{ (old('nilai') == "A")?"selected":"" }}>A</option>
+                <option value="B" {{ (old('nilai') == "B")?"selected":"" }}>B</option>
+                <option value="C" {{ (old('nilai') == "C")?"selected":"" }}>C</option>
+                <option value="D" {{ (old('nilai') == "D")?"selected":"" }}>D</option>
+                <option value="E" {{ (old('nilai') == "E")?"selected":"" }}>E</option>
+              </select>
+              @error('nilai')
                 <div class="invalid-feedback">
                   {{ $message }}
                 </div>
               @enderror
-            </div>
           </div>
-          <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-            <button type="submit" class="btn btn-primary">Save changes</button>
+
+          <input type="hidden" name="scan_basp_old" id="scan_basp_old" value="{{ old('scan_basp_old') }}">
+
+          <div class="mb-3" id="scan-container">
+            <label for="scan_basp" class="form-label">Scan Berita Acara Seminar PKL (PDF)</label>
+            <a href="" style="display: block;" id="link-pdf" target="_blank"></a>
+            <input class="form-control @error('scan_basp') is-invalid @enderror" type="file" id="scan_basp" name="scan_basp">
+            @error('scan_basp')
+                <div class="invalid-feedback">
+                  {{ $message }}
+                </div>
+            @enderror
           </div>
-        </form>
-      </div>
+          
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+          <button type="submit" class="btn btn-primary">Save changes</button>
+        </div>
+      </form>
     </div>
   </div>
-  
-  @if($errors->any())
-    <script>
-      $(document).ready(function () {
-        var smt = $("#smt").val();
-        var scanBeritaAcara = $("#scan_berita_acara").val();
-        $('#modalPKL').modal('show');
-        $('#modalLabel').text('Edit Data PKL');
-        if (scanBeritaAcara != '') {
-          $('#link-pdf').text("scan-berita-acara-" + smt + ".pdf");
-          $('#link-pdf').css("margin-bottom", "10px");
-          $('#link-pdf').attr("href", "/scan-berita-acara/" + (scanBeritaAcara));
-        }
-      });
-    </script>
-    @else
-    <script>
-        if ($('#modalPKL').hasClass('show')) {
-            $('#modalPKL').modal('hide');
-        }
-    </script>
-@endif
+</div>
 
-  
+  @if($errors->any())
+  <script>
+    $(document).ready(function () {
+      var status = $("#status_old").val();
+      var scanspkl = $("#scan_basp_old").val();
+      // console.log(scanspkl);
+      $('#modalPKL').modal('show');
+      $('#modalLabel').text('Edit PKL');
+      if (scanspkl != '') {
+        $('#link-pdf').text("scan-pkl" + ".pdf");
+        $('#link-pdf').css("margin-bottom", "10px");
+        $('#link-pdf').attr("href", "/scan-pkl/" + (scanspkl));
+      }
+    });
+  </script>
+@endif

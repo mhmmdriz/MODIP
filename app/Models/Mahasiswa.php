@@ -35,7 +35,11 @@ class Mahasiswa extends Model
     
     public function skripsi()
     {
-        return $this->hasOne(skripsi::class, 'nim', 'nim');
+        return $this->hasOne(Skripsi::class, 'nim', 'nim');
+    }
+
+    public function dosenwali(){
+        return $this->belongsTo(DosenWali::class, 'dosen_wali', 'nip');
     }
 
     public function getRouteKeyName()
@@ -49,13 +53,19 @@ class Mahasiswa extends Model
         $curr_year = $curr_date->year;
         $angkatan = $this->angkatan;
         $semester = ($curr_year - $angkatan) * 2 + 1;
-        if ($curr_date->month <= 6) {
+
+        if ($curr_date->gt(Carbon::createFromDate($curr_date->year, 2, 15)) && $curr_date->lt(Carbon::createFromDate($curr_date->year, 8, 16))) {
             $smt = "Genap";
             $thn_ajar = strval($curr_year - 1) . '/' . strval($curr_year);
             $semester -= 1;
-        } else {
+        } else if($curr_date->gt(Carbon::createFromDate($curr_date->year, 8, 15)) || $curr_date->lt(Carbon::createFromDate($curr_date->year, 2, 16))) {
             $smt = "Gasal";
             $thn_ajar = strval($curr_year) . '/' . strval($curr_year + 1);
+        }
+        if ($curr_date->lte(Carbon::createFromDate($curr_date->year, 2, 15))) {
+            $smt = "Gasal";
+            $thn_ajar = strval($curr_year) . '/' . strval($curr_year + 1);
+            $semester -= 2;
         }
 
         return [

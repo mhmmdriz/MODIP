@@ -55,6 +55,23 @@
               </div>
             @enderror
           </div>
+          <div class="mb-3">
+            <label for="dosen_wali" class="form-label">Dosen Wali</label>
+
+            <select class="form-control @error('dosen_wali') is-invalid @enderror" name="dosen_wali" aria-label="Default select example">
+              <option value="" selected>Pilih Dosen Wali</option>
+              @foreach ($data_doswal as $doswal)
+                <option value="{{ $doswal->nip }}">{{ $doswal->nama }}</option>
+              @endforeach
+            </select>
+            @error('status')
+              <div class="invalid-feedback">
+                {{ $message }}
+              </div>
+            @enderror
+          </div>
+
+
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
@@ -65,7 +82,7 @@
   </div>
 </div>
 
-@if($errors->has('nama') OR $errors->has('nim') OR $errors->has('angkatan') OR $errors->has('status'))
+@if($errors->has('nama') OR $errors->has('nim') OR $errors->has('angkatan') OR $errors->has('status') OR $errors->has('dosen_wali'))
   <script>
     $(document).ready(function () {
       $('#modalGenerate').modal('show');

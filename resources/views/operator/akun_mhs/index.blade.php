@@ -52,7 +52,7 @@
                 <td>{{ $mhs->angkatan}}</td>
                 <td>{{ $mhs->status}}</td>
                 <td>
-                  <a class="btn btn-warning btn-sm" href="/akunMHS/{{ $mhs->isbn }}/edit">Reset Password</a>
+                  <a class="btn btn-warning btn-sm" href="/akunMHS/{{ $mhs->nim }}/reset">Reset Password</a>
                   <form action="/akunMHS/{{ $mhs->nim }}" method="post" class="d-inline">
                     @method('delete')
                     @csrf

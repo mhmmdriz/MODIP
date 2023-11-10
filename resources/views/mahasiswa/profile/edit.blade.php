@@ -6,7 +6,7 @@
   <div class="card p-0 mb-3">
     <div class="card-header">Edit Profile</div>
     <div class="card-body">
-      <form action="/profile-edit" method="POST" class="needs-validation">
+      <form action="/profile/edit" method="POST" class="needs-validation">
         @csrf
         @method('put')
         <div class="mb-3">
@@ -55,8 +55,8 @@
           @enderror
         </div>
 
-        <button type="submit" class="btn btn-primary me-2">Submit</button>
-        <a href="/profile" class="btn btn-danger">Cancel</a>
+        <button type="submit" class="btn btn-primary me-2">Simpan Perubahan</button>
+        <a href="/profile" class="btn btn-danger">Batal</a>
       </form>
     </div>
   </div>
