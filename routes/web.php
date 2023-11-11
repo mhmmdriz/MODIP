@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Departemen\ProgressStudiMhs;
+use App\Http\Controllers\Departemen\RekapListPKLController;
 use App\Http\Controllers\DosenWaliController;
 use App\Http\Controllers\SkripsiController;
 use Illuminate\Support\Facades\Route;
@@ -124,4 +125,9 @@ Route::middleware(['auth', 'user.role:departemen'])->group(function () {
     Route::get("/pencarianProgressStudi", [ProgressStudiMhs::class, 'index']);
     Route::get("/ajaxProgressMHS", [ProgressStudiMhs::class, 'updateTableProgressMhs']);
     Route::get("/pencarianProgressStudi/{nim}", [ProgressStudiMhs::class, 'showProgressMhs']);
+
+    Route::get("/rekapPKL", [RekapListPKLController::class,"rekap"]);
+    Route::get("/showListMhsPKL", [RekapListPKLController::class, "showList"]);
+    Route::post("/printListMhsPKL", [RekapListPKLController::class, "printList"]);
+    Route::post("/printRekapPKL", [RekapListPKLController::class, "printRekap"]);
 });
