@@ -11,7 +11,7 @@
         <div class="col m-4">
           <div class="row">
             <div class="col">
-              <h5><b>Operator Departemen Informatika</b></h5>
+              <h5><b>Departemen Informatika</b></h5>
             </div>
           </div>
           <hr>
@@ -36,18 +36,18 @@
     </a>
   </div>
   <div class="col-md-4 col-sm-6">
-    <a href="/khsPerwalian" style="text-decoration: none">
+    <a href="/rekapPKL" style="text-decoration: none">
       <div class="card bg-body-tertiary d-flex align-items-center text-center py-2">      
-        <h5><b>KHS Mahasiswa Perwalian</b></h5>
-        <i class="bi bi-file-earmark-text-fill" style="font-size:70px;"></i>
+        <h5><b>Rekap PKL Mahasiswa</b></h5>
+        <i class="bi bi-person-workspace" style="font-size:70px;"></i>
       </div>
     </a>
   </div>
   <div class="col-md-4 col-sm-6">
     <a href="" style="text-decoration: none">
       <div class="card bg-body-tertiary d-flex align-items-center text-center py-2">      
-        <h5><b>PKL Mahasiswa Perwalian</b></h5>
-        <i class="bi bi-person-workspace" style="font-size:70px;"></i>
+        <h5><b>Rekap Skripsi Mahasiswa</b></h5>
+        <i class="bi bi-journal-text" style="font-size:70px;"></i>
       </div>
     </a>
   </div>
