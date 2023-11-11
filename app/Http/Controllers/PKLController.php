@@ -24,9 +24,7 @@ class PKLController extends Controller
         ]);
     }
 
-<<<<<<< HEAD
-    
-=======
+
     public function updateOrInsert(Request $request)
     {
         // dd($request->all());
@@ -119,5 +117,4 @@ class PKLController extends Controller
         }
         return redirect('/pkl')->with('success', "Data PKL Berhasil Diubah!");
     }
->>>>>>> 06e0521f7efc51906aef9fb44169d4c134cda5c5
 }

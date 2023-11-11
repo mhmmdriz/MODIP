@@ -50,10 +50,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/scan-irs/{filename}', [FileController::class, 'showIRS'])->where('filename', '.*');
     Route::get('/scan-khs/{filename}', [FileController::class, 'showKHS'])->where('filename', '.*');
     Route::get('/scan-skripsi/{filename}', [FileController::class, 'showSkripsi'])->where('filename', '.*');
-<<<<<<< HEAD
-=======
     Route::get('/scan-pkl/{filename}', [FileController::class, 'showSkripsi'])->where('filename', '.*');
->>>>>>> 06e0521f7efc51906aef9fb44169d4c134cda5c5
 
 });
 
