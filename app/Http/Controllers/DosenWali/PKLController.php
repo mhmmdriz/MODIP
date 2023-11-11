@@ -1,43 +1,62 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\DosenWali;
 
+use App\Http\Controllers\Controller;
 use App\Models\PKL;
-use App\Http\Requests\StorePKLRequest;
-use App\Http\Requests\UpdatePKLRequest;
+use App\Models\Mahasiswa;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Storage;
 use Carbon\Carbon;
 
 class PKLController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
     public function index()
     {
-        $mahasiswa = auth()->user()->mahasiswa;
-        $dataPKL = $mahasiswa->pkl;
+        $data_mhs = Mahasiswa::where("dosen_wali", auth()->user()->username)->get()->groupBy("angkatan")->map(function($item){
+            return $item->count(); 
+        });
 
-        return view('mahasiswa.pkl.index', [
-            'dataPKL' => $dataPKL,
+        return view("dosenwali.pkl.index",[
+            "data_mhs" => $data_mhs,
         ]);
     }
 
-<<<<<<< HEAD
-    
-=======
-    public function updateOrInsert(Request $request)
+    public function listMhsAngkatan(String $angkatan)
     {
-        // dd($request->all());
+        $data_mhs = Mahasiswa::get()->where("dosen_wali", auth()->user()->username)->where("angkatan", $angkatan);
+
+        $data_pkl = PKL::pluck('validasi', 'nim')->toArray();
+        // dd($data_pkl);
+        
+        return view("dosenwali.pkl.list_mhs",[
+            "data_mhs"=> $data_mhs,
+            "data_pkl"=> $data_pkl,
+            'angkatan' => $angkatan,
+        ]);
+    }
+
+    public function showPKLMhs($angkatan, $nim){
+        $mahasiswa = Mahasiswa::where("nim","=",$nim)->first();
+        
+        $dataPKL = $mahasiswa->pkl;
+
+        return view('dosenwali.pkl.show_pkl', [
+            'nim' => $nim,
+            'nama' => $mahasiswa->nama,
+            'dataPKL' => $dataPKL,
+            'angkatan' => $angkatan,
+        ]);
+    }
+
+    public function updatePKLMhs($angkatan, $nim, Request $request){
         $status = $request->status;
-        $mahasiswa = auth()->user()->mahasiswa;
-        $nim = $mahasiswa->nim;
+        $mahasiswa = Mahasiswa::where('nim', $nim)->first();
+        // $nim = $mahasiswa->nim;
         $nama = $mahasiswa->nama;
         $validasi = 0;
         // dd($request->status_old);
         if ($status == ""){
-            return redirect('/pkl');
+            return redirect("/pklPerwalian/$angkatan/$nim");
         }
         if ($request->status_old == null){
             if ($status == "Belum Ambil"){
@@ -49,11 +68,6 @@ class PKLController extends Controller
                     'tanggal_seminar' => 'required',
                     'nilai' => 'required',
                 ];
-                if ($request->scan_basp_old == null) {
-                    $rules['scan_basp'] = 'required|mimes:pdf|max:10000';
-                }else{
-                    Storage::delete($request->scan_basp_old);
-                }
                 
                 $tgl_seminar = Carbon::parse($request->tanggal_seminar);
                 $semester = ($tgl_seminar->year - $mahasiswa->angkatan) * 2 + 1;
@@ -77,24 +91,13 @@ class PKLController extends Controller
         } else {
             if ($status == "Belum Ambil"){
                 PKL::where("nim", $nim)->update(['status' => $status, 'semester' => null, 'tanggal_seminar' => null, 'nilai' => null, 'scan_basp' => null]);
-                if ($request->scan_basp_old != null) {
-                    Storage::delete($request->scan_basp_old);
-                }
             } else if ($status == "Sedang Ambil") {
                 PKL::where("nim", $nim)->update(['status' => $status, 'semester' => null, 'tanggal_seminar' => null, 'nilai' => null, 'scan_basp' => null]);
-                if ($request->scan_basp_old != null) {
-                    Storage::delete($request->scan_basp_old);
-                }
             } else {
                 $rules = [ 
                     'tanggal_seminar' => 'required',
                     'nilai' => 'required',
                 ];
-                if ($request->scan_basp_old == null) {
-                    $rules['scan_basp'] = 'required|mimes:pdf|max:10000';
-                }else{
-                    Storage::delete($request->scan_basp_old);
-                }
                 
                 $tgl_seminar = Carbon::parse($request->tanggal_seminar);
                 $semester = ($tgl_seminar->year - $mahasiswa->angkatan) * 2 + 1;
@@ -117,7 +120,13 @@ class PKLController extends Controller
             }
             
         }
-        return redirect('/pkl')->with('success', "Data PKL Berhasil Diubah!");
+        return redirect("/pklPerwalian/$angkatan/$nim")->with('success', "Data PKL Berhasil Diubah!");
     }
->>>>>>> 06e0521f7efc51906aef9fb44169d4c134cda5c5
+
+    public function validatePKL($angkatan, $nim, $validate){
+
+        PKL::where('nim', '=', $nim)->update(['validasi' => $validate]);
+
+        return redirect("/pklPerwalian/$angkatan/$nim");
+    }
 }

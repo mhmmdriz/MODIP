@@ -16,6 +16,11 @@
   </div>
 </div>
 
+<div class="card p-2 ps-3 mb-2 bg-body-tertiary">
+  <div>Nama: {{ $nama }}</div>
+  <div>NIM: {{ $nim }}</div>
+</div>
+
 <div class="card bg-body-tertiary mb-3">
   <div class="row m-2 position-absolute" style="right: 0">
     <div class="col-auto ms-auto">
@@ -29,6 +34,23 @@
       </h4>
     </div>
   </div>
+
+  <div class="row m-2 position-absolute" style="bottom: 0;right: 0">
+    @if (isset($dataPKL))
+      @if ($dataPKL->status == "Lulus")
+        @if ($dataPKL->validasi == 0)
+          <a href="/pklPerwalian/{{ $angkatan }}/{{ $nim }}/validatePKL/1" class="btn btn-success btn-sm" type="button">
+            Validasi
+          </a>
+        @else
+          <a href="/pklPerwalian/{{ $angkatan }}/{{ $nim }}/validatePKL/0" class="btn btn-danger btn-sm" type="button">
+            Batal Validasi
+          </a>
+        @endif
+      @endif
+    @endif
+  </div>
+
   <div class="row d-flex justify-content-center align-items-center my-2 mx-2">
     <div class="col-4 border-end text-center py-3">
       <div class="row">
@@ -43,7 +65,7 @@
       </div>
     </div>
 
-    <div class="col-4 text-center py-3 ">
+    <div class="col-4 text-center py-3">
       <div class="row">
         <div class="col">
           <h5>Status</h5>
@@ -77,7 +99,19 @@
           <h3 class="my-1">{{ (isset($dataPKL->nilai))?$dataPKL->nilai:"~" }}</h3>
         </div>
       </div>
+
       <div class="row mt-3">
+        @if (isset($dataPKL) && !is_null($dataPKL->scan_basp))
+          <div class="col">
+            <h6 class="m-0">Scan BASS: <a href="/scan-pkl/{{ $dataPKL->scan_basp }}">scan-basp.pdf</a></h6>
+          </div>
+        @else
+          <div class="col">
+            <h6 class="m-0">Scan BASS: ~</h6>
+          </div>
+        @endif
+      </div>
+      <div class="row my-3">
         @if ((isset($dataPKL->validasi) && $dataPKL->validasi == 1))
           <div class="col">
             <h6>Validasi: <span class="text-success">Sudah</span></h6>
@@ -92,7 +126,7 @@
   </div>
 </div>
 
-@include('mahasiswa.pkl.modal_edit_pkl')
+@include('dosenwali.pkl.modal_edit_pkl')
 <script src="/js/modal.js"></script>
 
 @endsection

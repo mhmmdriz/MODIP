@@ -3,7 +3,7 @@
 @section('container')
 <div class="row d-flex justify-content-center my-3">
   <div class="col-auto">
-    <h5>Data IRS Mahasiswa Perwalian</h5>
+    <h5>Data PKL Mahasiswa Perwalian</h5>
   </div>
 </div>
 
@@ -15,7 +15,7 @@
   </div>
 
   @foreach ($data_mhs as $angkatan => $jumlah_mhs)
-  <a href="/irsPerwalian/{{ $angkatan }}" class="text-decoration-none" style="color:inherit;">
+  <a href="/pklPerwalian/{{ $angkatan }}" class="text-decoration-none" style="color:inherit;">
     <div class="row mx-3 mb-3">
       <div class="col bg-light-subtle rounded border">
         <div class="row">
@@ -30,12 +30,11 @@
     </div>
   </a>
   @endforeach
+
   
 
 </div>
 
-@include('mahasiswa.irs.modal_edit_irs')
-@include('mahasiswa.irs.modal_alert')
-<script src="js/modal.js"></script>
+<script src="/js/modal.js"></script>
 
 @endsection

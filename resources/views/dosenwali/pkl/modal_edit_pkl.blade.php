@@ -5,7 +5,7 @@
         <h1 class="modal-title fs-5" id="modalLabel"></h1>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
-      <form action="/pkl/" method="POST" enctype="multipart/form-data">
+      <form action="/pklPerwalian/{{ $angkatan }}/{{ $nim }}/update" method="POST" enctype="multipart/form-data">
         @csrf
         @method('put')
         <div class="modal-body">
@@ -58,12 +58,6 @@
           <div class="mb-3" id="scan-container">
             <label for="scan_basp" class="form-label">Scan Berita Acara Seminar PKL (PDF)</label>
             <a href="" style="display: block;" id="link-pdf" target="_blank"></a>
-            <input class="form-control @error('scan_basp') is-invalid @enderror" type="file" id="scan_basp" name="scan_basp">
-            @error('scan_basp')
-                <div class="invalid-feedback">
-                  {{ $message }}
-                </div>
-            @enderror
           </div>
           
         </div>
