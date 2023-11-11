@@ -2,3 +2,37 @@
   display: inline-block;
   width: 100px;
 }
+
+.custom-col {
+  flex: 0 0 14.2857%; /* Sesuaikan dengan 100% / jumlah kolom */
+  max-width: 14.2857%;
+}
+
+.point{
+  cursor: pointer;
+}
+
+table {
+  width:100%;
+}
+
+#tabel-rekap-pkl td:nth-child(1){
+  width: 5%;
+}
+#tabel-rekap-pkl td:nth-child(2){
+  width: 15%;
+}
+
+@media print {
+  body * {
+    visibility: hidden;
+  }
+
+  .printable, .printable * {
+    visibility: visible;
+    position: static; /* atau sesuai kebutuhan, misalnya relative, absolute, dll. */
+    top: auto;
+    left: auto;
+    margin: 0;
+  }
+}

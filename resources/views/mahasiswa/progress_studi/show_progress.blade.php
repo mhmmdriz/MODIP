@@ -68,5 +68,5 @@
 @include('departemen.pencarian_progress.modal_khs')
 @include('departemen.pencarian_progress.modal_pkl')
 @include('departemen.pencarian_progress.modal_skripsi')
-<script src="/js/progress.js"></script>
+<script src="/js/mahasiswa_progress.js"></script>
 @endsection
