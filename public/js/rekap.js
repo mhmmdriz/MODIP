@@ -18,27 +18,45 @@ $(document).ready(function() {
     });
   });
 
-  $('#btn-print-list').click(function() {
-    let rekap_pkl = document.getElementById('rekap-pkl-main');
-    let list_mhs = document.getElementById('list-mhs-pkl-print');
-    // console.log("success");
-    rekap_pkl.classList.remove('printable');
-    list_mhs.classList.add('printable');
+  $('.rekap-skripsi').click(function() {
+    let angkatan = $(this).data('angkatan');
+    let status = $(this).data('status');
 
-    window.print();
+    $.ajax({
+      type: 'GET',
+      url: '/showListMhsSkripsi',
+      data: {'angkatan':angkatan, 'status':status},
+      success: function(response) {
+        $('.list-mhs-skripsi').html(response.html);
+        console.log(response.html);
+      },
+      error: function(response) {
+        console.log('Error:', response);
+      }
+    });
   });
 
-  $('#btn-print-rekap').click(function() {
-    let rekap_pkl = document.getElementById('rekap-pkl-main');
-    let list_mhs = document.getElementById('list-mhs-pkl-print');
-    console.log("success");
-    rekap_pkl.classList.add('printable');
-    if(list_mhs != null){
-      list_mhs.classList.remove('printable');
-    }
+  // $('#btn-print-list').click(function() {
+  //   let rekap_pkl = document.getElementById('rekap-pkl-main');
+  //   let list_mhs = document.getElementById('list-mhs-pkl-print');
+  //   // console.log("success");
+  //   rekap_pkl.classList.remove('printable');
+  //   list_mhs.classList.add('printable');
 
-    window.print();
-  });
+  //   window.print();
+  // });
+
+  // $('#btn-print-rekap').click(function() {
+  //   let rekap_pkl = document.getElementById('rekap-pkl-main');
+  //   let list_mhs = document.getElementById('list-mhs-pkl-print');
+  //   console.log("success");
+  //   rekap_pkl.classList.add('printable');
+  //   if(list_mhs != null){
+  //     list_mhs.classList.remove('printable');
+  //   }
+
+  //   window.print();
+  // });
 
 });
 
