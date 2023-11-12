@@ -22,16 +22,11 @@
     <div class="col-auto ms-auto">
       <h4 class="m-0" >
         @if (isset($dataSkripsi))
-          <div class="modalSkripsiButton" type="button" data-bs-toggle="modal" data-bs-target="#modalSkripsi" 
-          data-status="{{ $dataSkripsi->status }}" data-semester="{{ $dataSkripsi->semester }}" data-tanggal-sidang="{{ $dataSkripsi->tanggal_sidang }}" 
-          data-nilai="{{ $dataSkripsi->nilai }}" data-scan-skripsi="{{ $dataSkripsi->scan_bass }}">
+          <div class="modalSkripsiButton" type="button" data-bs-toggle="modal" data-bs-target="#modalSkripsi" data-status="{{ $dataSkripsi->status }}" data-semester="{{ $dataSkripsi->semester }}" data-tanggal-sidang="{{ $dataSkripsi->tanggal_sidang }}" data-nilai="{{ $dataSkripsi->nilai }}" data-scan-skripsi="{{ $dataSkripsi->scan_bass }}">
           <i class="bi bi-pencil-square"></i>        
         @else
           <div class="modalSkripsiButton" type="button" data-bs-toggle="modal" data-bs-target="#modalSkripsi" data-status=""
-          data-semester=""
-          data-tanggal-sidang="" 
-          data-nilai="" 
-          data-scan-skripsi="">
+          data-semester="" data-tanggal-sidang="" data-nilai="" data-scan-skripsi="">
           <i class="bi bi-pencil-square"></i>        
         @endif
       </h4>

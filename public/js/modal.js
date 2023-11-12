@@ -113,7 +113,7 @@ $('.modalSkripsiButton').click(function() {
     linkpdf.css("margin-bottom", "initial");
     linkpdf.text(null);
   }else{
-    linkpdf.text("scan-skripsi-" + ".pdf");
+    linkpdf.text("scan-skripsi" + ".pdf");
     linkpdf.css("margin-bottom", "10px");
   }
 

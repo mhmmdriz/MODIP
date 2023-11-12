@@ -8,9 +8,6 @@ use App\Http\Requests\UpdateSkripsiRequest;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 
-use Carbon\Carbon;
-
-
 class SkripsiController extends Controller
 {
     /**
@@ -39,53 +36,40 @@ class SkripsiController extends Controller
         if ($status == ""){
             return redirect('/skripsi');
         }
-        if ($request->status_old == null){
-            $rules = [ 
-                'tanggal_sidang' => 'required',
-                'nilai' => 'required',
-                'semester' => 'required',
-            ];
-            if ($request->scan_bass_old == null) {
-                $rules['scan_bass'] = 'required|mimes:pdf|max:10000';
-            }else{
-                Storage::delete($request->scan_bass_old);
-            }
+        //else
+        $rules = [ 
+            'semester' => 'required',
+            'tanggal_sidang' => 'required',
+            'nilai' => 'required',
+        ];
+        if ($request->scan_bass_old == null) {
+            $rules['scan_bass'] = 'required|mimes:pdf|max:10000';
+        }else{
+            Storage::delete($request->scan_bass_old);
+        }
+        $validatedData = $request->validate($rules);
 
-            $validatedData = $request->validate($rules);
+        if ($request->status_old == null){
             $validatedData['nim'] = $nim;
             $validatedData['nama'] = $nama;
             $validatedData['status'] = $status;
             $validatedData['validasi'] = $validasi;
-            // dd($semester);
+            if($request->scan_bass != null){
+                $validatedData ["scan_bass"] = $request->file('scan_bass')->store('private/skripsi');
+            }
             Skripsi::create($validatedData);
-            }
-            
+        }
         else {
-            $rules = [ 
-                'tanggal_sidang' => 'required',
-                'semester' => 'required',
-                'nilai' => 'required',
-            ];
-            if ($request->scan_bass_old == null) {
-                $rules['scan_bass'] = 'required|mimes:pdf|max:10000';
-            }else{
-                Storage::delete($request->scan_bass_old);
-            }
-            $validatedData = $request->validate($rules);
             // $validatedData['nim'] = $nim; 1
             // $validatedData['nama'] = $nama; 2
             $validatedData['status'] = $status;
             // $validatedData['validasi'] = $validasi; 3
-            // dd($semester);
+            if($request->scan_bass != null){
+                $validatedData ["scan_bass"] = $request->file('scan_bass')->store('private/skripsi');
+            }
             Skripsi::where("nim", $nim)->update($validatedData);
         }
 
         return redirect('/skripsi')->with('success', "Data Skripsi Berhasil Diubah!");
-
      }
-            
 }
-
-
-
-    
