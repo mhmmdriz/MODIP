@@ -1,11 +1,11 @@
 <link rel="stylesheet" href="/css/style.css">
 
 <div class="row text-center">
-  <h4>Daftar {{ $status }} Lulus PKL Mahasiswa Informatika Angkatan {{ $angkatan }}</h4>
+  <h4>Daftar {{ $status }} Lulus Skripsi Mahasiswa Informatika Angkatan {{ $angkatan }}</h4>
 </div>
 
-<div class="card table-responsive px-1 printable" id="list-mhs-pkl-print"> 
-<table class="table table-stripped m-0" id="tabel-rekap-pkl">
+<div class="card table-responsive px-1 printable" id="list-mhs-skripsi-print"> 
+<table class="table table-stripped m-0" id="tabel-rekap-skripsi">
   <tr>
     <th>No</th>
     <th>NIM</th>
@@ -33,7 +33,7 @@
   <div class="col-auto ms-auto">
     {{-- <button class="btn btn-primary btn-sm" id="btn-print-list">Cetak</button> --}}
 
-    <form action="/printListMhsPKL" target="__blank" method="post">
+    <form action="/printListMhsSkripsi" target="__blank" method="post">
       @csrf
       <input type="hidden" name="objects" value="{{ json_encode($data_mhs) }}">
       <input type="hidden" name="angkatan" value="{{ $angkatan }}">

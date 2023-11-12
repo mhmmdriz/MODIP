@@ -44,7 +44,7 @@
     </a>
   </div>
   <div class="col-md-4 col-sm-6">
-    <a href="" style="text-decoration: none">
+    <a href="/rekapSkripsi" style="text-decoration: none">
       <div class="card bg-body-tertiary d-flex align-items-center text-center py-2">      
         <h5><b>Rekap Skripsi Mahasiswa</b></h5>
         <i class="bi bi-journal-text" style="font-size:70px;"></i>
@@ -52,10 +52,10 @@
     </a>
   </div>
   <div class="col-md-4 col-sm-6">
-    <a href="" style="text-decoration: none">
+    <a href="/rekapStatus" style="text-decoration: none">
       <div class="card bg-body-tertiary d-flex align-items-center text-center py-2">      
-        <h5><b>Skripsi Mahasiswa Perwalian</b></h5>
-        <i class="bi bi-journal-text" style="font-size:70px;"></i>
+        <h5><b>Rekap Status Mahasiswa</b></h5>
+        <i class="bi bi-person-badge" style="font-size:70px;"></i>
       </div>
     </a>
   </div>
