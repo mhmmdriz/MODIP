@@ -55,7 +55,7 @@
       @csrf
       <input type="hidden" name="rekap_pkl" value="{{ json_encode($rekap_pkl) }}">
       <input type="hidden" name="current_year" value="{{ $current_year }}">
-      <button class="btn btn-primary btn-sm" type="submit">Cetak</button>
+      <button class="btn btn-primary btn-sm mt-2" type="submit">Cetak</button>
     </form>
   </div>
 </div>

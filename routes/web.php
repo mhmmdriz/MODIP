@@ -1,7 +1,5 @@
 <?php
 
-use App\Http\Controllers\Departemen\ProgressStudiMhs;
-use App\Http\Controllers\Departemen\RekapListPKLController;
 use App\Http\Controllers\DosenWaliController;
 use App\Http\Controllers\SkripsiController;
 use Illuminate\Support\Facades\Route;
@@ -16,7 +14,10 @@ use App\Http\Controllers\DosenWali\IRSController as DoswalIRSController;
 use App\Http\Controllers\DosenWali\KHSController as DoswalKHSController;
 use App\Http\Controllers\DosenWali\PKLController as DoswalPKLController;
 use App\Http\Controllers\DosenWali\SkripsiController as DoswalSkripsiController;
-
+use App\Http\Controllers\Departemen\ProgressStudiMhs;
+use App\Http\Controllers\Departemen\RekapListPKLController;
+use App\Http\Controllers\Departemen\RekapListSkripsiController;
+use App\Http\Controllers\Departemen\RekapListStatusController;
 
 /*
 |--------------------------------------------------------------------------
@@ -130,4 +131,16 @@ Route::middleware(['auth', 'user.role:departemen'])->group(function () {
     Route::get("/showListMhsPKL", [RekapListPKLController::class, "showList"]);
     Route::post("/printListMhsPKL", [RekapListPKLController::class, "printList"]);
     Route::post("/printRekapPKL", [RekapListPKLController::class, "printRekap"]);
+    
+    Route::get("/rekapSkripsi", [RekapListSkripsiController::class,"rekap"]);
+    Route::get("/showListMhsSkripsi", [RekapListSkripsiController::class, "showList"]);
+    Route::post("/printListMhsSkripsi", [RekapListSkripsiController::class, "printList"]);
+    Route::post("/printRekapSkripsi", [RekapListSkripsiController::class, "printRekap"]);
+    
+    Route::get("/rekapStatus", [RekapListStatusController::class,"rekap"]);
+    // Route::get("/showListMhsStatus/{angkatan}", [RekapListStatusController::class, "showList"]);
+    Route::get("/showListMhsStatus/{angkatan}/{status?}", [RekapListStatusController::class, "showList"]);
+    Route::post("/printListMhsStatus", [RekapListStatusController::class, "printList"]);
+    Route::post("/printRekapStatus", [RekapListStatusController::class, "printRekap"]);
+
 });

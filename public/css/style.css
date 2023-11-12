@@ -36,3 +36,8 @@ table {
     margin: 0;
   }
 }
+
+.tab{
+  display: inline-block;
+  width: 75px;
+}
