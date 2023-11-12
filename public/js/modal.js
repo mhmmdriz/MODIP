@@ -39,21 +39,25 @@ $(document).ready(function() {
   $('.modalKHSButton').click(function() {
     // reset setelah validasi dilanggar
     $('#inputsks').removeClass("is-invalid");
+    $('#inputsksk').removeClass("is-invalid");
     $('#scan_khs').removeClass("is-invalid");
     $('#inputips').removeClass("is-invalid");
+    $('#inputipk').removeClass("is-invalid");
 
     // Get the data attributes from the button
     var smt = $(this).data('smt');
     var sks = $(this).data('sks');
+    var sksk = $(this).data('sksk');
     var ips = $(this).data('ips');
+    var ipk = $(this).data('ipk');
     var scankhs = $(this).data('scan-khs');
     var linkpdf = $('#link-pdf');
 
-    if (typeof sks === 'undefined') {
-      sks = null;
-    }
     if (typeof ips === 'undefined') {
       ips = null;
+    }
+    if (typeof ipk === 'undefined') {
+      ipk = null;
     }
     
     // Set the data in the modal
@@ -71,11 +75,13 @@ $(document).ready(function() {
     linkpdf.attr("href", "/scan-khs/" + (scankhs));
     $('#scan_khs_old').val(scankhs);
 
-    console.log(scankhs);
+    // console.log(scankhs);
 
     document.getElementById("smt").value = smt;
     document.getElementById("inputsks").value = sks;
+    document.getElementById("inputsksk").value = sksk;
     document.getElementById("inputips").value = ips;
+    document.getElementById("inputipk").value = ipk;
   });
 });
 
