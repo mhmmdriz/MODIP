@@ -15,6 +15,9 @@ class DosenWaliImport implements ToModel, WithHeadingRow
     */
     public function model(array $row)
     {
+        if($row["nip"] == null) {
+            return null;
+        } 
         return new DosenWali([
             "nip"=> $row["nip"],
             "nama"=> $row["nama"],

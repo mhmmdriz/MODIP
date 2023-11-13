@@ -29,4 +29,9 @@ class FileController extends Controller
         $path = Storage::path('\\'.$filename);
         return response()->file($path);
     }
+
+    public function template($filename){
+        $path = Storage::path('private\template\\'.$filename.'.xlsx');
+        return response()->download($path);
+    }
 }

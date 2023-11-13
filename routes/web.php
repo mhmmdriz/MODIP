@@ -53,7 +53,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/scan-khs/{filename}', [FileController::class, 'showKHS'])->where('filename', '.*');
     Route::get('/scan-skripsi/{filename}', [FileController::class, 'showSkripsi'])->where('filename', '.*');
     Route::get('/scan-pkl/{filename}', [FileController::class, 'showSkripsi'])->where('filename', '.*');
-
+    Route::get('/template/{filename}', [FileController::class, 'template'])->where('filename', '.*');
 });
 
 Route::middleware(['auth', 'user.role:operator'])->group(function () {
