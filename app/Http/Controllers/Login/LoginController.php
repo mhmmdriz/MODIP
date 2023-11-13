@@ -7,7 +7,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\RedirectResponse;
 use App\Models\User;
-use Carbon\Carbon;
+use App\Models\PKL;
+use App\Models\Skripsi;
 
 class LoginController extends Controller
 {
@@ -59,8 +60,41 @@ class LoginController extends Controller
         if(auth()->user()->level == "mahasiswa"){
             $mahasiswa = auth()->user()->mahasiswa;
             $semesterInfo = $mahasiswa->calculateSemesterAndThnAjar();
+            $semester = $semesterInfo['semester'];
+
+            $arrIRS = $mahasiswa->irs;
+            $SKSkIRS = 0;
+            foreach($arrIRS as $irs){
+                $SKSkIRS += $irs->sks;
+            }
+
+            $arrKHS = $mahasiswa->khs;
+            $SKSk = 0;
+            $IPk = 0;
+            $n = 0;
+            foreach($arrKHS as $khs){
+                $SKSk += $khs->sks;
+                $IPk += $khs->ips;
+                $n++;
+            }
+            $IPk = $IPk/$n;
+
+            $data_skripsi = $mahasiswa->skripsi;
+            $data_pkl = $mahasiswa->pkl;
+            // dd($arrKHS);
             
-            return view("mahasiswa.dashboard", $semesterInfo);
+            return view("mahasiswa.dashboard", $semesterInfo, [
+                "SKSk" => $SKSk,
+                "IPk" => $IPk,
+                "mahasiswa" => $mahasiswa,
+                "semester" => $semester,
+                "data_skripsi" => $data_skripsi,
+                "data_pkl" => $data_pkl,
+                "arrIRS" => $arrIRS,
+                "arrKHS" => $arrKHS,
+                "SKSkIRS" => $SKSkIRS,
+                "SKSkKHS" => $SKSk,
+            ]);
         }
         if(auth()->user()->level == "dosenwali"){
             return view("dosenwali.dashboard");

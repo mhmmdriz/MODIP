@@ -6,7 +6,6 @@ use App\Http\Controllers\Controller;
 use App\Models\Skripsi;
 use App\Models\Mahasiswa;
 use Illuminate\Http\Request;
-use Carbon\Carbon;
 
 class SkripsiController extends Controller
 {
@@ -57,66 +56,28 @@ class SkripsiController extends Controller
         if ($status == ""){
             return redirect("/skripsiPerwalian/$angkatan/$nim");
         }
+        //else
+        $rules = [ 
+            'semester' => 'required',
+            'tanggal_sidang' => 'required',
+            'nilai' => 'required',
+        ];
+        $validatedData = $request->validate($rules);
+
         if ($request->status_old == null){
-            if ($status == "Belum Ambil"){
-                Skripsi::create(['nim' => $nim, 'nama' => $nama, 'status' => $status, 'validasi' => $validasi]);
-            } else if ($status == "Sedang Ambil") {
-                Skripsi::create(['nim' => $nim, 'nama' => $nama, 'status' => $status, 'validasi' => $validasi]);
-            } else {
-                $rules = [ 
-                    'tanggal_sidang' => 'required',
-                    'tanggal_lulus' => 'required',
-                    'nilai' => 'required',
-                ];
-                
-                $tgl_lulus = Carbon::parse($request->tanggal_lulus);
-                $semester = ($tgl_lulus->year - $mahasiswa->angkatan) * 2 + 1;
-                if ($tgl_lulus->gt(Carbon::createFromDate($tgl_lulus->year, 2, 15)) && $tgl_lulus->lte(Carbon::createFromDate($tgl_lulus->year, 8, 15))) {
-                    $semester -= 1;
-                } else if ($tgl_lulus->lte(Carbon::createFromDate($tgl_lulus->year, 2, 15))) {
-                    $semester -= 2;
-                }
-                $validatedData = $request->validate($rules);
-
-                $validatedData['semester'] = $semester;
-                $validatedData['nim'] = $nim;
-                $validatedData['nama'] = $nama;
-                $validatedData['status'] = $status;
-                $validatedData['validasi'] = $validasi;
-                // dd($semester);
-                Skripsi::create($validatedData);
-            }
+            $validatedData['nim'] = $nim;
+            $validatedData['nama'] = $nama;
+            $validatedData['status'] = $status;
+            $validatedData['validasi'] = $validasi;
+            Skripsi::create($validatedData);
         } else {
-            if ($status == "Belum Ambil"){
-                Skripsi::where("nim", $nim)->update(['semester' => null, 'status' => $status, 'tanggal_sidang' => null, 'tanggal_lulus' => null, 'nilai' => null, 'scan_bass' => null]);
-            } else if ($status == "Sedang Ambil") {
-                Skripsi::where("nim", $nim)->update(['semester' => null, 'status' => $status, 'tanggal_sidang' => null, 'tanggal_lulus' => null, 'nilai' => null, 'scan_bass' => null]);
-            } else {
-                $rules = [ 
-                    'tanggal_sidang' => 'required',
-                    'tanggal_lulus' => 'required',
-                    'nilai' => 'required',
-                ];
-                
-                $tgl_lulus = Carbon::parse($request->tanggal_lulus);
-                $semester = ($tgl_lulus->year - $mahasiswa->angkatan) * 2 + 1;
-                if ($tgl_lulus->gt(Carbon::createFromDate($tgl_lulus->year, 2, 15)) && $tgl_lulus->lte(Carbon::createFromDate($tgl_lulus->year, 8, 15))) {
-                    $semester -= 1;
-                } else if ($tgl_lulus->lte(Carbon::createFromDate($tgl_lulus->year, 2, 15))) {
-                    $semester -= 2;
-                }
-                $validatedData = $request->validate($rules);
-
-                $validatedData['semester'] = $semester;
-                // $validatedData['nim'] = $nim; 1
-                // $validatedData['nama'] = $nama; 2
-                $validatedData['status'] = $status;
-                // $validatedData['validasi'] = $validasi; 3
-                // dd($semester);
-                Skripsi::where("nim", $nim)->update($validatedData);
-            }
-            
+            // $validatedData['nim'] = $nim; 1
+            // $validatedData['nama'] = $nama; 2
+            $validatedData['status'] = $status;
+            // $validatedData['validasi'] = $validasi; 3
+            Skripsi::where("nim", $nim)->update($validatedData);
         }
+
         return redirect("/skripsiPerwalian/$angkatan/$nim")->with('success', "Data Skripsi Berhasil Diubah!");
     }
 

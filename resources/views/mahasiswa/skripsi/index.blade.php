@@ -10,6 +10,7 @@
   </div>
 @endif
 
+
 <div class="row justify-content-center mb-3">
   <div class="col-auto">
     <h4>Skripsi</h4>
@@ -19,21 +20,28 @@
 <div class="card bg-body-tertiary mb-3">
   <div class="row m-2 position-absolute" style="right: 0">
     <div class="col-auto ms-auto">
-      <h4 class="m-0" >
-        @if (isset($dataSkripsi))
-          <div class="modalSkripsiButton" type="button" data-bs-toggle="modal" data-bs-target="#modalSkripsi" 
-          data-status="{{ $dataSkripsi->status }}" data-tanggal-sidang="{{ $dataSkripsi->tanggal_sidang }}" 
-          data-tanggal-lulus="{{ $dataSkripsi->tanggal_lulus }}" data-nilai="{{ $dataSkripsi->nilai }}" 
-          data-scan-skripsi="{{ $dataSkripsi->scan_bass }}">
-          <i class="bi bi-pencil-square"></i>        
-        @else
+      @if (isset($dataSkripsi))
+        @if ($dataSkripsi->validasi == 0)
+        <div class="modalSkripsiButton" type="button" data-bs-toggle="modal" data-bs-target="#modalSkripsi" data-status="{{ $dataSkripsi->status }}" data-semester="{{ $dataSkripsi->semester }}" data-tanggal-sidang="{{ $dataSkripsi->tanggal_sidang }}" data-nilai="{{ $dataSkripsi->nilai }}" data-scan-skripsi="{{ $dataSkripsi->scan_bass }}">
+          <h4 class="m-0">
+            <i class="bi bi-pencil-square"></i>
+          </h4>
+        </div>
+          @else
+          <div>
+            <h4 class="m-0">
+              <i class="bi bi-check-square"></i>
+            </h4>
+          </div>
+          @endif
+      @else
           <div class="modalSkripsiButton" type="button" data-bs-toggle="modal" data-bs-target="#modalSkripsi" data-status=""
-          ata-tanggal-sidang="" 
-          data-tanggal-lulus="" data-nilai="" 
-          data-scan-skripsi="">
-          <i class="bi bi-pencil-square"></i>        
-        @endif
-      </h4>
+          data-semester="" data-tanggal-sidang="" data-nilai="" data-scan-skripsi="">
+          <h4 class="m-0">
+            <i class="bi bi-pencil-square"></i>
+          </h4>
+        </div>
+      @endif
     </div>
   </div>
   <div class="row d-flex justify-content-center align-items-center my-2 mx-2">
@@ -46,16 +54,6 @@
       <div class="row mb-2">
         <div class="col">
           <h5>{{ (isset($dataSkripsi->tanggal_sidang))?$dataSkripsi->tanggal_sidang:"~" }}</h5>
-        </div>
-      </div>
-      <div class="row">
-        <div class="col">
-          <h6>Tanggal Lulus</h6>
-        </div>
-      </div>
-      <div class="row">
-        <div class="col">
-          <h5>{{ (isset($dataSkripsi->tanggal_lulus))?$dataSkripsi->tanggal_lulus:"~" }}</h5>
         </div>
       </div>
     </div>

@@ -19,14 +19,27 @@
 <div class="card bg-body-tertiary mb-3">
   <div class="row m-2 position-absolute" style="right: 0">
     <div class="col-auto ms-auto">
-      <h4 class="m-0" >
         @if (isset($dataPKL))
-          <div class="modalPKLButton" type="button" data-bs-toggle="modal" data-bs-target="#modalPKL" data-status="{{ $dataPKL->status }}" data-tanggal-seminar="{{ $dataPKL->tanggal_seminar }}" data-nilai="{{ $dataPKL->nilai }}" data-scan-pkl="{{ $dataPKL->scan_basp }}">
+          @if ($dataPKL->validasi == 0)
+          <div class="modalPKLButton" type="button" data-bs-toggle="modal" data-bs-target="#modalPKL" data-status="{{ $dataPKL->status }}" data-semester="{{ $dataPKL->semester }}" data-tanggal-seminar="{{ $dataPKL->tanggal_seminar }}" data-nilai="{{ $dataPKL->nilai }}" data-scan-pkl="{{ $dataPKL->scan_basp }}">
+            <h4 class="m-0" >
+              <i class="bi bi-pencil-square"></i>
+            </h4>
+          </div>
+          @else
+          <div>
+            <h4 class="m-0" >
+              <i class="bi bi-check-square"></i>
+            </h4>
+          </div>
+          @endif
         @else
-          <div class="modalPKLButton" type="button" data-bs-toggle="modal" data-bs-target="#modalPKL" data-status="" data-tanggal-seminar="" data-nilai="" data-scan-pkl="">
+          <div class="modalPKLButton" type="button" data-bs-toggle="modal" data-bs-target="#modalPKL" data-status="" data-semester="" data-tanggal-seminar="" data-nilai="" data-scan-pkl="">
+            <h4 class="m-0" >
+              <i class="bi bi-pencil-square"></i>
+            </h4>
+          </div>
         @endif
-        <i class="bi bi-pencil-square"></i>
-      </h4>
     </div>
   </div>
   <div class="row d-flex justify-content-center align-items-center my-2 mx-2">

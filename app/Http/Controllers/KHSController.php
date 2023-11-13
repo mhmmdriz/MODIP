@@ -25,22 +25,21 @@ class KHSController extends Controller
         $arrKHS = $mahasiswa->khs;
 
         $SKSk = 0;
-        $IPK = 0;
+        $IPk = 0;
+        $n = 0;
         foreach($arrKHS as $khs){
             $SKSk += $khs->sks;
-            $IPK += $khs->ips;
+            $IPk += $khs->ips;
+            $n++;
         }
-        
-        // dump($SKSk);
-        // dump($smtKhsArray);
-        // dd($arrKHS);
+        $IPk = $IPk/$n;
 
         return view('mahasiswa.khs.index', [
             'khs' => $arrKHS,
             'semester' => $semester,
             // 'smtKhsArray' => $smtKhsArray,
             'SKSk' => $SKSk,
-            'IPK' => $IPK,
+            'IPk' => $IPk,
         ]);
     }
 
@@ -52,7 +51,9 @@ class KHSController extends Controller
         // dd($request->all());
         $rules = [
             'sks' => 'required',
+            'sksk' => 'required',
             'ips' => 'required',
+            'ipk' => 'required',
         ];
 
         if ($request->scan_khs_old == null) {
