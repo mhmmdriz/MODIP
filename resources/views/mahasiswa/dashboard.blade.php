@@ -35,11 +35,11 @@
       <div class="d-flex col-12" style="height: 5rem">
         <div class="d-flex col-6 flex-column justify-content-center align-items-center">
           <div>IPK</div>
-          <div>3.99</div>
+          <div>{{ $IPk }}</div>
         </div>
         <div class="d-flex col-6 flex-column justify-content-center align-items-center">
           <div>SKSK</div>
-          <div>100</div>
+          <div>{{ $SKSk }}</div>
         </div>
       </div>
     </div>
@@ -94,5 +94,46 @@
   </div>
 
 </div>
+
+
+<div class="card bg-body-tertiary p-4 my-4">
+  <div class="text-center mb-2"><h5><b>Progress Studi</b></h5></div>
+  <div class="row d-flex gx-4 gy-4">
+    @for ($i = 0; $i <= 13; $i++)
+    <div class="col-md-2 col-sm-6">
+      @if ((!isset($arrIRS[$i]) || $arrIRS[$i]->validasi == 0) || (!isset($arrKHS[$i]) || $arrKHS[$i]->validasi == 0) && $data_skripsi->semester != $i+1  && $data_pkl->semester != $i+1)
+      <div class="modalButton">
+      @else
+      <div class="modalButton" type="button" data-bs-toggle="modal" data-bs-target="#modalMain" 
+      data-smt="{{ $i + 1 }}"
+      data-irs="{{ isset($arrIRS[$i]) ? $arrIRS[$i] : ''}}"
+      data-khs="{{ isset($arrKHS[$i]) ? $arrKHS[$i] : ''}}"
+      data-pkl="{{ $data_pkl }}"
+      data-skripsi="{{ $data_skripsi }}">
+      @endif
+        @if((!isset($arrIRS[$i]) || $arrIRS[$i]->validasi == 0) || (!isset($arrKHS[$i]) || $arrKHS[$i]->validasi == 0))
+          <div class="card bg-danger d-flex align-items-center text-center py-2">
+        @elseif(!is_null($data_skripsi) && $data_skripsi->semester == $i + 1 && $data_skripsi->status == 'Lulus' && $data_skripsi->validasi == 1)
+          <div class="card bg-success d-flex align-items-center text-center py-2">
+        @elseif (!is_null($data_pkl) && $data_pkl->semester == $i + 1 && $data_pkl->status == 'Lulus' && $data_pkl->validasi == 1)    
+          <div class="card bg-warning d-flex align-items-center text-center py-2">
+        @elseif (isset($arrIRS[$i]) && isset($arrKHS[$i]) && $arrIRS[$i]->validasi == 1 && $arrKHS[$i]->validasi == 1)
+          <div class="card bg-primary d-flex align-items-center text-center py-2">       
+        @endif
+          <h5><b>{{ $i + 1 }}</b></h5>
+        </div>
+      </div>
+    </div>
+    @endfor
+  </div>
+</div>
+
+@include('mahasiswa.progress_studi.modal_main')
+@include('mahasiswa.progress_studi.modal_irs')
+@include('mahasiswa.progress_studi.modal_khs')
+@include('mahasiswa.progress_studi.modal_pkl')
+@include('mahasiswa.progress_studi.modal_skripsi')
+<script src="/js/progress.js"></script>
+  
 @endsection
 
