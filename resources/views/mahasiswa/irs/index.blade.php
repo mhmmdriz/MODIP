@@ -67,16 +67,32 @@
           @if ($i == 1 || isset($irs[$i-2]))
             @if (!isset($irs[$i-1]))
             <div class="modalIRSButton" type="button" data-bs-toggle="modal" data-bs-target="#modalIRS" data-smt="{{ $i }}">
+              <h4 class="m-0" >
+                <i class="bi bi-pencil-square"></i>
+              </h4>
+            </div>
             @else
-            <div class="modalIRSButton" type="button" data-bs-toggle="modal" data-bs-target="#modalIRS" data-smt="{{ $i }}" data-scan-irs="{{ $irs[$i-1]->scan_irs }}" data-sks="{{ $irs[$i-1]->sks }}">
+              @if ($irs[$i-1]->validasi == 0)
+              <div class="modalIRSButton" type="button" data-bs-toggle="modal" data-bs-target="#modalIRS" data-smt="{{ $i }}" data-scan-irs="{{ $irs[$i-1]->scan_irs }}" data-sks="{{ $irs[$i-1]->sks }}">
+                <h4 class="m-0" >
+                  <i class="bi bi-pencil-square"></i>
+                </h4>
+              </div>
+              @else
+              <div><h4 class="m-0" >
+                  <i class="bi bi-check-square"></i>
+                </h4>
+              </div>
+              @endif
             @endif
           @else
             <div class="modalAlert" type="button" data-bs-toggle="modal" data-bs-target="#modalAlert">
+              <h4 class="m-0" >
+                <i class="bi bi-pencil-square"></i>
+              </h4>
+            </div>
           @endif
-            <h4 class="m-0" >
-              <i class="bi bi-pencil-square"></i>
-            </h4>
-          </div>
+            
         </div>
       </div>
     </div>

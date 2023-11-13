@@ -70,6 +70,8 @@ Route::middleware(['auth', 'user.role:operator'])->group(function () {
     Route::post('/akunDosenWali/importExcel', [DosenWaliController::class, 'storeImport']);
     Route::get('/exportAkunDosenWali', [DosenWaliController::class, 'exportData']);
     Route::get('/ajaxAkunDoswal', [DosenWaliController::class,'updateTableDoswal']);
+
+    Route::get('/download-file/{filename}', [FileController::class, 'downloadFile'])->where('filename', '.*');
 });
 
 
@@ -96,6 +98,10 @@ Route::middleware(['auth','user.role:mahasiswa'])->group(function () {
 });
 
 Route::middleware(['auth', 'user.role:dosenwali'])->group(function () {
+    // Route::get("/pencarianProgressStudi", [ProgressStudiMhs::class, 'index']);
+    // Route::get("/ajaxProgressMHS", [ProgressStudiMhs::class, 'updateTableProgressMhs']);
+    // Route::get("/pencarianProgressStudi/{nim}", [ProgressStudiMhs::class, 'showProgressMhs']);
+
     Route::get("/irsPerwalian", [DoswalIRSController::class, 'index']);
     Route::get("/irsPerwalian/{angkatan}", [DoswalIRSController::class, 'listMhsAngkatan']);
     Route::get('/irsPerwalian/{angkatan}/{nim}', [DoswalIRSController::class, 'showIRSMhs']);

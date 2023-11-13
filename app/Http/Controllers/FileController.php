@@ -30,8 +30,8 @@ class FileController extends Controller
         return response()->file($path);
     }
 
-    public function template($filename){
-        $path = Storage::path('private\template\\'.$filename.'.xlsx');
+    public function downloadFile($filename){
+        $path = Storage::path('\\'.$filename);
         return response()->download($path);
     }
 }

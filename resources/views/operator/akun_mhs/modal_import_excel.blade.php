@@ -7,15 +7,10 @@
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <form action="/akunMHS/importExcel" method="POST" enctype="multipart/form-data">
-        @csrf
-        <div class="modal-body">
-          <div class="row mb-3">
-            <label class="form-label">Template xlsx</label>
-            <div class="col-auto">
-              <a href="/template/mahasiswa" class="btn btn-primary">download</a>
-            </div>
-          </div>
-          <div class="row mb-3">
+      <div class="modal-body">
+          @csrf
+          <div class="mb-3">
+            <div class="position-absolute me-3" style="right: 0"><a href="/download-file/{{ "private/template_excel/template-generate-akun-mahasiswa.xlsx" }}">unduh template .xlsx</a></div>
             <label for="fileExcel" class="form-label">File .xlsx</label>
             <div class="col">
               <input class="form-control @error('fileExcel') is-invalid @enderror" type="file" id="fileExcel" name="fileExcel">

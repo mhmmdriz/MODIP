@@ -17,15 +17,13 @@
 
   <div class="row mx-3">
     <div class="col-auto">
-      <p>Semester Aktif : {{ $semester }}</p>
+      <p>Semester Aktif: {{ $semester }}</p>
     </div>
-    <div class="col-auto ms-auto row">
-      <div class="col-auto">
-        <p>SKSk : {{ $SKSk }}</p>
-      </div>
-      <div class="col-auto">
-        <p>IPk : {{ $IPk }}</p>
-      </div>
+    <div class="col-auto ms-auto">
+      SKSk: {{ $SKSk }}
+    </div>
+    <div class="col-auto">
+      IPk: {{ $IPk }}
     </div>
   </div>
 
@@ -41,40 +39,58 @@
           </div>
           <div class="row mb-2">
             <div class="col-auto text-center ">
-              @if ($khs[$i-1] == null)
-                Jumlah SKS: ~
-              @else
-                Jumlah SKS: {{ $khs[$i-1]->sks }}
-              @endif
+              <div>
+                @if (!isset($khs[$i-1]))
+                  SKS: ~
+                @else
+                  SKS: {{ $khs[$i-1]->sks }}
+                @endif
+              </div>
+              <div>
+                @if (!isset($khs[$i-1]))
+                  SKSk: ~
+                @else
+                  SKSk: {{ $khs[$i-1]->sksk }}
+                @endif
+              </div>
             </div>
 
             <div class="col-auto text-center">
-              @if ($khs[$i-1] == null)
-                IPs: ~
-              @else
-                IPs: {{ $khs[$i-1]->ips }}
-              @endif
+              <div>
+                @if (!isset($khs[$i-1]))
+                  IPs: ~
+                @else
+                  IPs: {{ $khs[$i-1]->ips }}
+                @endif
+              </div>
+              <div>
+                @if (!isset($khs[$i-1]))
+                  IPk: ~
+                @else
+                  IPk: {{ $khs[$i-1]->ipk }}
+                @endif
+              </div>
             </div>
             
             <div class="col-auto text-center">
-              @if ($khs[$i-1] == null)
-                Scan IRS : <span class="text-danger">belum</span>
+              @if (!isset($khs[$i-1]))
+                Scan KHS: <span class="text-danger">belum</span>
               @else
-                Scan IRS : 
-                <a href="/scan-khs/{{ $khs[$i-1]->scan_khs }}" target="__blank" class="text-success text-decoration-none">
+                Scan KHS: 
+                <a href="/scan-khs/{{ $khs[$i-1]->scan_khs }}" target="__blank" class="text-success">
                   scanKHS{{ $i }}.pdf
                 </a>
               @endif    
             </div>
             
             <div class="col-auto text-center">
-              @if ($khs[$i-1] == null)
-                Validasi : <span class="text-danger">belum</span>
+              @if (!isset($khs[$i-1]))
+                Validasi: <span class="text-danger">belum</span>
               @else
                 @if ($khs[$i-1]->validasi == 0)
-                  Validasi : <span id="info_validasi{{ $i }}" class="text-danger">belum</span>
+                  Validasi: <span id="info_validasi{{ $i }}" class="text-danger">belum</span>
                 @else
-                  Validasi : <span id="info_validasi{{ $i }}" class="text-success">sudah</span>
+                  Validasi: <span id="info_validasi{{ $i }}" class="text-success">sudah</span>
                 @endif
               @endif    
     
@@ -83,7 +99,7 @@
         </div>
         
         <div class="col-auto my-auto ms-auto">
-          @if ($khs[$i-1] != null)
+          @if (isset($khs[$i-1]))
             @if ($khs[$i-1]->validasi == 0)
               <button type="button" class="btn btn-success btn-sm validasi" data-nim="{{ $nim }}" data-smt="{{ $i }}" data-progress="khs">Validasi</button>
             @else
@@ -93,8 +109,8 @@
         </div>
 
         <div class="col-auto my-auto">
-          @if ($khs[$i-1] != null)
-            <div class="modalKHSButton" type="button" data-bs-toggle="modal" data-bs-target="#modalKHS" data-smt="{{ $i }}" data-scan-khs="{{ $khs[$i-1]->scan_khs }}" data-sks="{{ $khs[$i-1]->sks }}" data-ips="{{ $khs[$i-1]->ips }}">
+          @if (isset($khs[$i-1]))
+            <div class="modalKHSButton" type="button" data-bs-toggle="modal" data-bs-target="#modalKHS" data-smt="{{ $i }}" data-scan-khs="{{ $khs[$i-1]->scan_khs }}" data-sks="{{ $khs[$i-1]->sks }}" data-ips="{{ $khs[$i-1]->ips }}" data-sksk="{{ $khs[$i-1]->sksk }}" data-ipk="{{ $khs[$i-1]->ipk }}">
               <h4 class="m-0">
                 <i class="bi bi-pencil-square"></i>
               </h4>
