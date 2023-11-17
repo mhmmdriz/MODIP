@@ -12,8 +12,14 @@ $(document).ready(function() {
 
     if(irs == ""){
       $(".btn-irs").addClass("disabled");
+      $(".btn-irs").removeAttr("disabled");
     }else{
       $(".btn-irs").removeClass("disabled");
+      if (irs.validasi == 0) {
+        $(".btn-irs").attr("disabled", true);
+      } else {
+        $(".btn-irs").removeAttr("disabled");
+      }
       $(".sks-irs").html(irs.sks);
       $(".link-scan-irs").html("scanIRS" + smt + ".pdf");
       $(".link-scan-irs").attr("href", "/scan-irs/"+ irs.scan_irs);
@@ -21,8 +27,14 @@ $(document).ready(function() {
     
     if(khs == ""){
       $(".btn-khs").addClass("disabled");
+      $(".btn-khs").removeAttr("disabled");
     }else{
       $(".btn-khs").removeClass("disabled");
+      if (khs.validasi == 0) {
+        $(".btn-khs").attr("disabled", true);
+      } else {
+        $(".btn-khs").removeAttr("disabled");
+      }
       $(".sks-khs").html(khs.sks);
       $(".ips-khs").html(khs.ips);
       $(".link-scan-khs").html("scanKHS" + smt + ".pdf");
