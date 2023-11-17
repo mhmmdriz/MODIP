@@ -148,5 +148,5 @@ Route::middleware(['auth', 'user.role:departemen'])->group(function () {
     Route::get("/showListMhsStatus/{angkatan}/{status?}", [RekapListStatusController::class, "showList"]);
     Route::post("/printListMhsStatus", [RekapListStatusController::class, "printList"]);
     Route::post("/printRekapStatus", [RekapListStatusController::class, "printRekap"]);
-
+    Route::get("/showListStatusAjax", [RekapListStatusController::class, "showListAjax"]);
 });

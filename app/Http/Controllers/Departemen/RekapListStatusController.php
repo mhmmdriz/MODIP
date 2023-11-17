@@ -48,6 +48,26 @@ class RekapListStatusController extends Controller
         ]);
     }
 
+    public function showListAjax(Request $request){
+        $angkatan = $request->angkatan;
+
+        $whereQuery = "angkatan = $angkatan";
+
+        if($request->status != null){
+            $whereQuery .= " AND status = '".$request->status."'";
+        }
+
+        $data_mhs = Mahasiswa::whereRaw($whereQuery)->get();
+
+        $view = view('departemen.rekap_status.ajax',[
+            'data_mhs'=> $data_mhs,
+            'status' => $request->status,
+            'angkatan' => $request->angkatan,
+        ])->render();
+        return response()->json(['html' => $view]);
+        // return response()->json(['html' => $tes]);
+    }
+
     public function printList(Request $request){
         $data_mhs = json_decode($request->input('objects'), true);
         // dd($data_mhs, $request->input('status'), $request->angkatan);

@@ -36,6 +36,41 @@ $(document).ready(function() {
     });
   });
 
+  $(".rekap-status").click(function() {
+    let angkatan = $(this).data('angkatan');
+    $(".data-angkatan").attr("data-angkatan", angkatan);
+
+    $.ajax({
+      type: 'GET',
+      url: '/showListStatusAjax',
+      data: {'angkatan':angkatan},
+      success: function(response) {
+        $('.list-mhs-status').html(response.html);
+      },
+      error: function(response) {
+        console.log('Error:', response);
+      }
+    });
+
+  });
+
+  // $("#select_status").change(function() {
+  //   let angkatan = $(".data-angkatan").data('angkatan');
+  //   let status = $(this).val();
+
+  //   $.ajax({
+  //     type: 'GET',
+  //     url: '/showListStatusAjax',
+  //     data: {'angkatan':angkatan, 'status':status},
+  //     success: function(response) {
+  //       $('.list-mhs-status').html(response.html);
+  //     },
+  //     error: function(response) {
+  //       console.log('Error:', response);
+  //     }
+  //   });
+  // });
+
   // $('#btn-print-list').click(function() {
   //   let rekap_pkl = document.getElementById('rekap-pkl-main');
   //   let list_mhs = document.getElementById('list-mhs-pkl-print');
