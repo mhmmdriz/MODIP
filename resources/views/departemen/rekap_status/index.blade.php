@@ -20,8 +20,9 @@
 
 <div class="row d-flex gx-4 gy-4 mb-2">
   @for ($i = $current_year-6; $i <= $current_year; $i++)
-  <div class="col-md-4 col-sm-6">
-    <a href="/showListMhsStatus/{{ $i }}" style="text-decoration: none">
+  <div class="col-md-4 col-sm-6" data-bs-toggle="modal" data-bs-target="#modalListStatus">
+    {{-- <a href="/showListMhsStatus/{{ $i }}" style="text-decoration: none"> --}}
+    <div class="point rekap-status" data-angkatan="{{ $i }}">
       <div class="card bg-body-tertiary py-2"> 
         <div class="row text-center ">
           <h5>Angkatan {{ $i }}</h5>
@@ -78,11 +79,24 @@
             
 
       </div>
-    </a>
+    </div>
+    {{-- </a> --}}
   </div>
   @endfor
-  
+</div>
+
+
+<div class="modal fade" id="modalListStatus" tabindex="-1" aria-labelledby="modalListStatusLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-custom">
+    <div class="modal-content">
+      <div class="data-angkatan"></div>
+      <div class="list-mhs-status">
+
+      </div>
+    </div>
+  </div>
 </div>
 
 <script src="/js/rekap.js"></script>
+
 @endsection

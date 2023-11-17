@@ -51,7 +51,7 @@
   </div>
   <div class="col-auto">
     {{-- <button class="btn btn-primary btn-sm" id="btn-print-rekap">Cetak</button> --}}
-    <form action="/printRekapPKL" target="__blank" method="post">
+    <form action="/printRekapPKL" target="blank" method="post">
       @csrf
       <input type="hidden" name="rekap_pkl" value="{{ json_encode($rekap_pkl) }}">
       <input type="hidden" name="current_year" value="{{ $current_year }}">

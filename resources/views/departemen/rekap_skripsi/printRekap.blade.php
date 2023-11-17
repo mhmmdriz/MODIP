@@ -20,7 +20,7 @@
 
 <div class="col">
   <table class="table">
-    {{-- <tr>
+    <tr>
     @for ($i = $current_year - 6; $i <= $current_year; $i++)
       <td colspan="2">{{ $i }}</td>
     @endfor
@@ -48,8 +48,9 @@
       <td>0</td>  
       @endif
     @endfor
-    </tr> --}}
-    <tr>
+    </tr>
+    
+    {{-- <tr>
       <td>Angkatan</td>
       <td>Status</td>
       <td>Banyak Mahasiswa</td>
@@ -72,7 +73,7 @@
       <td>0</td>  
       @endif
     </tr>
-    @endfor
+    @endfor --}}
 
   </table>
 </div>

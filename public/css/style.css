@@ -41,3 +41,8 @@ table {
   display: inline-block;
   width: 75px;
 }
+
+.modal-custom {
+  max-width: 75%; /* Sesuaikan dengan lebar yang diinginkan */
+  width: 100%;
+}
