@@ -15,6 +15,7 @@ use App\Imports\MahasiswaImport;
 use App\Exports\MahasiswaExport;
 use App\Models\DosenWali;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\Storage;
 
 class MahasiswaController extends Controller
 {
@@ -158,11 +159,23 @@ class MahasiswaController extends Controller
             'provinsi' => 'required',
         ];
 
+        if($request->file('foto_profil')){
+            $rules['foto_profil'] = 'required|image|mimes:jpeg,png,jpg|max:2048';
+        }
+
         $errorMassages = [
             'email_sso.regex' => 'Email SSO harus berakhiran dengan domain students.undip.ac.id',
         ];
         
         $validatedData = $request->validate($rules, $errorMassages);
+
+        $foto = auth()->user()->mahasiswa->foto_profil;
+        if($request->foto_profil){
+            if($foto){
+                Storage::delete($foto);
+            }
+            $validatedData ["foto_profil"] = $request->file('foto_profil')->store('private/profile_photo');
+        }
 
         Mahasiswa::where('nim', auth()->user()->mahasiswa->nim)->update($validatedData);
 
