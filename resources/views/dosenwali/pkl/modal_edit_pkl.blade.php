@@ -88,7 +88,7 @@
       if (scanspkl != '') {
         $('#link-pdf').text("scan-pkl" + ".pdf");
         $('#link-pdf').css("margin-bottom", "10px");
-        $('#link-pdf').attr("href", "/scan-pkl/" + (scanspkl));
+        $('#link-pdf').attr("href", "/showFile/" + (scanspkl));
       }
     });
   </script>

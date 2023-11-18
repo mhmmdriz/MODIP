@@ -54,7 +54,7 @@
       if (scanirs != '') {
         $('#link-pdf').text("scan-irs-" + smt + ".pdf");
         $('#link-pdf').css("margin-bottom", "10px");
-        $('#link-pdf').attr("href", "/scan-irs/" + (scanirs));
+        $('#link-pdf').attr("href", "/showFile/" + (scanirs));
       }
     });
   </script>
