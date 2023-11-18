@@ -77,7 +77,9 @@ class LoginController extends Controller
                 $IPk += $khs->ips;
                 $n++;
             }
-            $IPk = $IPk/$n;
+            if(count($arrKHS) > 0){
+                $IPk = $IPk/$n;
+            }
 
             $data_skripsi = $mahasiswa->skripsi;
             $data_pkl = $mahasiswa->pkl;
