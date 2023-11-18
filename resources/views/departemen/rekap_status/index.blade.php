@@ -2,6 +2,13 @@
 
 @section('container')
 
+<nav aria-label="breadcrumb">
+  <ol class="breadcrumb">
+    <li class="breadcrumb-item"><a href="/dashboard">Dashboard</a></li>
+    <li class="breadcrumb-item active" aria-current="page">Rekap Status Mahasiswa</li>
+  </ol>
+</nav>
+
 <div class="row text-center mb-2">
   <h4>Rekap Status Mahasiswa</h4>
 </div>
