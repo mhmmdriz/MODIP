@@ -30,8 +30,8 @@
     <div class="col-auto ms-auto">
       SKSk: {{ $SKSk }}
     </div>
-    <div class="col-auto  ms-auto">
-      <p>IPK : {{ $SKSk }}</p>
+    <div class="col-auto">
+      IPk: {{ $IPk }}
     </div>
   </div>
 
@@ -58,29 +58,22 @@
             @endif
           </div>
         </div>
-
-        <div class="col-2 py-4 text-center ">
-          @if (!isset($khs[$i-1]))
-            Jumlah SKS: ~
-          @else
-            Jumlah SKS: {{ $khs[$i-1]->sks }}
-          @endif
-        </div>
         
-        <div class="col-1 py-4 text-center ">
-          @if (!isset($khs[$i-1]))
-            IPS: ~
-          @else
-            IPS: {{ $khs[$i-1]->ips }}
-          @endif
-        </div>
-
-        <div class="col-1 py-4 text-center ">
-          @if (!isset($khs[$i-1]))
-            IPK: ~
-          @else
-            IPK: {{ $khs[$i-1]->ipk }}
-          @endif
+        <div class="col-2 py-4 text-center ">
+          <div>
+            @if (!isset($khs[$i-1]))
+              IPs: ~
+            @else
+              IPs: {{ $khs[$i-1]->ips }}
+            @endif
+          </div>
+          <div>
+            @if (!isset($khs[$i-1]))
+              IPk: ~
+            @else
+              IPk: {{ $khs[$i-1]->ipk }}
+            @endif
+          </div>
         </div>
         
         <div class="col-2 py-4 text-center">
@@ -127,10 +120,7 @@
               @endif
             @endif
           @else
-            <div class="modalAlert" type="button" data-bs-toggle="modal" data-bs-target="#modalAlert">
-          @endif
-
-            <h4 class="m-0" >
+            <div class="modalAlert" type="button" data-bs-toggle="modal" data-bs-target="#modalAlert"><h4 class="m-0" >
               <i class="bi bi-pencil-square"></i>
             </h4>
           </div>
