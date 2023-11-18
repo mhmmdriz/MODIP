@@ -29,12 +29,13 @@
     <div class="col">
       <div class="card bg-body-tertiary">
         <div id="tabelMHS">
-          <table class="table table-stripped m-0">
+          <table class="table table-stripped m-0" id="tabel-akun-mhs">
             <tr>
               <th>No</th>
               <th>Nama Mahasiswa</th>
               <th>NIM/Username</th>
               <th>Angkatan</th>
+              <th>Dosen Wali</th>
               <th>Status</th>
               <th>Action</th>
             </tr>
@@ -50,6 +51,7 @@
                 <td>{{ $mhs->nama }}</td>
                 <td>{{ $mhs->nim }}</td>
                 <td>{{ $mhs->angkatan}}</td>
+                <td>{{ $mhs->dosenwali->nama}}</td>
                 <td>{{ $mhs->status}}</td>
                 <td>
                   <a class="btn btn-warning btn-sm" href="/akunMHS/{{ $mhs->nim }}/reset">Reset Password</a>
@@ -60,6 +62,10 @@
                       Hapus Akun
                     </button>
                   </form>
+                  <div class="btn btn-sm btn-secondary btn-edit-data" data-bs-toggle="modal" data-bs-target="#modalEdit"
+                  data-nama="{{ $mhs->nama }}" data-nim="{{ $mhs->nim }}" data-angkatan="{{ $mhs->angkatan }}" data-status="{{ $mhs->status }}" data-doswal="{{ $mhs->dosen_wali }}">
+                    Edit Data
+                  </div>
                 </td>
               </tr>
             @endforeach
@@ -70,8 +76,11 @@
     </div>
   </div>
 
-@include('operator.akun_mhs.modal_generate_mhs')
-@include('operator.akun_mhs.modal_import_excel')
-@include('operator.akun_mhs.modal_export_excel')
+  @include('operator.akun_mhs.modal_generate_mhs')
+  @include('operator.akun_mhs.modal_import_excel')
+  @include('operator.akun_mhs.modal_export_excel')
+  @include('operator.akun_mhs.modal_edit_data')
+
+  <script src="/js/akun.js"></script>
 
 @endsection

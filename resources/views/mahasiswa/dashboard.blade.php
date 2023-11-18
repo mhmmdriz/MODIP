@@ -108,7 +108,7 @@
   <div class="row d-flex gx-4 gy-4">
     @for ($i = 0; $i <= 13; $i++)
     <div class="col-md-2 col-sm-6">
-      @if ((!isset($arrIRS[$i]) || $arrIRS[$i]->validasi == 0) && (!isset($arrKHS[$i]) || $arrKHS[$i]->validasi == 0) && $data_skripsi->semester != $i+1  && $data_pkl->semester != $i+1)
+      @if ((!isset($arrIRS[$i]) || $arrIRS[$i]->validasi == 0) && (!isset($arrKHS[$i]) || $arrKHS[$i]->validasi == 0) && ($data_skripsi == null || $data_skripsi->semester != $i+1)  && ($data_pkl == null || $data_pkl->semester != $i+1))
       <div class="modalButton">
       @else
       <div class="modalButton" type="button" data-bs-toggle="modal" data-bs-target="#modalMain" 
