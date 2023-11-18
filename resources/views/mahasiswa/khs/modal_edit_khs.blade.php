@@ -84,7 +84,7 @@
       if (scankhs != '') {
         $('#link-pdf').text("scan-khs-" + smt + ".pdf");
         $('#link-pdf').css("margin-bottom", "10px");
-        $('#link-pdf').attr("href", "/scan-khs/" + (scankhs));
+        $('#link-pdf').attr("href", "/showFile/" + (scankhs));
       }
     });
   </script>

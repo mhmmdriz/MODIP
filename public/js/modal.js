@@ -27,7 +27,7 @@ $(document).ready(function() {
       linkpdf.css("margin-bottom", "10px");
     }
 
-    linkpdf.attr("href", "/scan-irs/" + (scanirs));
+    linkpdf.attr("href", "/showFile/" + (scanirs));
     $('#scan_irs_old').val(scanirs);
 
     console.log(scanirs);
@@ -72,7 +72,7 @@ $(document).ready(function() {
       linkpdf.css("margin-bottom", "10px");
     }
 
-    linkpdf.attr("href", "/scan-khs/" + (scankhs));
+    linkpdf.attr("href", "/showFile/" + (scankhs));
     $('#scan_khs_old').val(scankhs);
 
     // console.log(scankhs);
@@ -123,7 +123,7 @@ $('.modalSkripsiButton').click(function() {
     linkpdf.css("margin-bottom", "10px");
   }
 
-  linkpdf.attr("href", "/scan-skripsi/" + (scanskripsi));
+  linkpdf.attr("href", "/showFile/" + (scanskripsi));
   $('#status_old').val(status);
   $('#scan_bass_old').val(scanskripsi);
 
@@ -199,7 +199,7 @@ $('.modalPKLButton').click(function() {
     linkpdf.css("margin-bottom", "10px");
   }
 
-  linkpdf.attr("href", "/scan-pkl/" + (scanpkl));
+  linkpdf.attr("href", "/showFile/" + (scanpkl));
   $('#status_old').val(status);
   $('#scan_basp_old').val(scanpkl);
   // console.log(scanpkl);

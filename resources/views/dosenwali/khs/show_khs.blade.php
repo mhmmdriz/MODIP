@@ -77,7 +77,7 @@
                 Scan KHS: <span class="text-danger">belum</span>
               @else
                 Scan KHS: 
-                <a href="/scan-khs/{{ $khs[$i-1]->scan_khs }}" target="__blank" class="text-success">
+                <a href="/showFile/{{ $khs[$i-1]->scan_khs }}" target="__blank" class="text-success">
                   scanKHS{{ $i }}.pdf
                 </a>
               @endif    
