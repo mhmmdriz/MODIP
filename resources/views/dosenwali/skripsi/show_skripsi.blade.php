@@ -26,16 +26,11 @@
     <div class="col-auto ms-auto">
       <h4 class="m-0" >
         @if (isset($dataSkripsi))
-          <div class="modalSkripsiButton" type="button" data-bs-toggle="modal" data-bs-target="#modalSkripsi" 
-          data-status="{{ $dataSkripsi->status }}" data-tanggal-sidang="{{ $dataSkripsi->tanggal_sidang }}" 
-          data-tanggal-lulus="{{ $dataSkripsi->tanggal_lulus }}" data-nilai="{{ $dataSkripsi->nilai }}" 
-          data-scan-skripsi="{{ $dataSkripsi->scan_bass }}">
+          <div class="modalSkripsiButton" type="button" data-bs-toggle="modal" data-bs-target="#modalSkripsi" data-status="{{ $dataSkripsi->status }}" data-semester="{{ $dataSkripsi->semester }}" data-tanggal-sidang="{{ $dataSkripsi->tanggal_sidang }}" data-nilai="{{ $dataSkripsi->nilai }}" data-scan-skripsi="{{ $dataSkripsi->scan_bass }}">
           <i class="bi bi-pencil-square"></i>        
         @else
-          <div class="modalSkripsiButton" type="button" data-bs-toggle="modal" data-bs-target="#modalSkripsi" data-status=""
-          ata-tanggal-sidang="" 
-          data-tanggal-lulus="" data-nilai="" 
-          data-scan-skripsi="">
+          <div class="modalSkripsiButton" type="button" data-bs-toggle="modal" data-bs-target="#modalSkripsi" data-status="" 
+          data-semester="" data-tanggal-sidang="" data-nilai="" data-scan-skripsi="">
           <i class="bi bi-pencil-square"></i>        
         @endif
       </h4>
@@ -68,16 +63,6 @@
       <div class="row mb-2">
         <div class="col">
           <h5>{{ (isset($dataSkripsi->tanggal_sidang))?$dataSkripsi->tanggal_sidang:"~" }}</h5>
-        </div>
-      </div>
-      <div class="row">
-        <div class="col">
-          <h6>Tanggal Lulus</h6>
-        </div>
-      </div>
-      <div class="row mb-3">
-        <div class="col">
-          <h5>{{ (isset($dataSkripsi->tanggal_lulus))?$dataSkripsi->tanggal_lulus:"~" }}</h5>
         </div>
       </div>
     </div>

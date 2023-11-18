@@ -66,21 +66,27 @@ class KHSController extends Controller
         $mahasiswa = Mahasiswa::where("nim","=",$nim)->first();
         $semesterInfo = $mahasiswa->calculateSemesterAndThnAjar();
         $semester = $semesterInfo['semester'];
-        
-        $dataKHS = $mahasiswa->getKHSArray($semester);
-        $IPk = KHS::get()->where('nim', $nim)->avg('ips');
-        // dd($dataKHS['arrKHS']);
-        $arrKHS = $dataKHS['arrKHS'];
-        $SKSk = $dataKHS['SKSk'];
+
+        $arrKHS = $mahasiswa->khs;
+
+        $SKSk = 0;
+        $IPk = 0;
+        $n = 0;
+        foreach($arrKHS as $khs){
+            $SKSk += $khs->sks;
+            $IPk += $khs->ips;
+            $n++;
+        }
+        $IPk = $IPk/$n;
 
         return view('dosenwali.khs.show_khs', [
             'nim' => $nim,
+            'nama' => $mahasiswa->nama,
             'khs' => $arrKHS,
             'semester' => $semester,
-            // 'smtIRSArray' => $smtIRSArray,
             'SKSk' => $SKSk,
             'IPk' => $IPk,
-            'angkatan' => $angkatan
+            'angkatan' => $angkatan,
         ]);
     }
 

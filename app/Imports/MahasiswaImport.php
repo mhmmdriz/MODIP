@@ -16,6 +16,9 @@ class MahasiswaImport implements ToModel, WithHeadingRow
     */
     public function model(array $row)
     {
+        if($row["nim"] == null) {
+            return null;
+        } 
         return new Mahasiswa([
             "nim"=> $row["nim"],
             "nama"=> $row["nama"],

@@ -14,8 +14,6 @@
             <label for="status" class="form-label">Status</label>
             <select class="form-control @error('status') is-invalid @enderror" name="status" id="status" aria-label="Default select example">
               <option value="" selected>Pilih status</option>
-              <option value="Belum Ambil" {{ (old('status') == "Belum Ambil")?"selected":"" }}>Belum Ambil</option>
-              <option value="Sedang Ambil" {{ (old('status') == "Sedang Ambil")?"selected":"" }}>Sedang Ambil</option>
               <option value="Lulus" {{ (old('status') == "Lulus")?"selected":"" }}>Lulus</option>
             </select>
             @error('status')
@@ -23,7 +21,16 @@
                 {{ $message }}
               </div>
             @enderror
-              
+          </div>
+
+          <div class="mb-3" id="semester-container">
+            <label for="semester" class="form-label">Semester</label>
+            <input type="number" class="form-control @error('semester') is-invalid @enderror" name="semester" value="{{ old('semester') }}" id="semester">
+            @error('semester')
+            <div class="invalid-feedback">
+              {{ $message }}
+            </div>
+            @enderror
           </div>
 
           <div class="mb-3" id="tanggal-sidang-container">
@@ -36,16 +43,6 @@
             @enderror
           </div>
 
-          <div class="mb-3" id="tanggal-lulus-container">
-              <label for="tanggal_lulus" class="form-label">Tanggal Lulus</label>
-              <input type="date" class="form-control @error('tanggal_lulus') is-invalid @enderror" name="tanggal_lulus" value="{{ old('tanggal_lulus') }}" id="tanggal_lulus">
-              @error('tanggal_lulus')
-                  <div class="invalid-feedback">
-                      {{ $message }}
-                  </div>
-              @enderror
-          </div>
-          
           <div class="mb-3" id="nilai-container">
               <label for="nilai" class="form-label">Nilai</label>
               <select class="form-control @error('nilai') is-invalid @enderror" name="nilai" aria-label="Default select example" id="nilai">
@@ -96,6 +93,3 @@
   });
 </script>
 @endif
-  
-    
-

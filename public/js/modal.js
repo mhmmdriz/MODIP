@@ -53,19 +53,13 @@ $(document).ready(function() {
     var scankhs = $(this).data('scan-khs');
     var linkpdf = $('#link-pdf');
 
-    if (typeof sks === 'undefined') {
-      sks = null;
-    }
-    if (typeof sksk === 'undefined') {
-      sksk = null;
-    }
     if (typeof ips === 'undefined') {
       ips = null;
     }
     if (typeof ipk === 'undefined') {
       ipk = null;
     }
-
+    
     // Set the data in the modal
     $('#modalLabel').text("Edit KHS Semester " + smt);
 
@@ -81,7 +75,7 @@ $(document).ready(function() {
     linkpdf.attr("href", "/scan-khs/" + (scankhs));
     $('#scan_khs_old').val(scankhs);
 
-    console.log(scankhs);
+    // console.log(scankhs);
 
     document.getElementById("smt").value = smt;
     document.getElementById("inputsks").value = sks;
@@ -94,15 +88,15 @@ $(document).ready(function() {
 $('.modalSkripsiButton').click(function() {
   // reset setelah validasi dilanggar
   $('#status').removeClass("is-invalid");
+  $('#semester').removeClass("is-invalid");
   $('#scan_bass').removeClass("is-invalid");
   $('#tanggal_sidang').removeClass("is-invalid");
-  $('#tanggal_lulus').removeClass("is-invalid");
   $('#nilai').removeClass("is-invalid");
 
   // Get the data attributes from the button
   var status = $(this).data('status');
+  var semester = $(this).data('semester');
   var tanggalsidang = $(this).data('tanggal-sidang');
-  var tanggallulus = $(this).data('tanggal-lulus');
   var nilai = $(this).data('nilai');
   var scanskripsi = $(this).data('scan-skripsi');
   var linkpdf = $('#link-pdf');
@@ -125,7 +119,7 @@ $('.modalSkripsiButton').click(function() {
     linkpdf.css("margin-bottom", "initial");
     linkpdf.text(null);
   }else{
-    linkpdf.text("scan-skripsi-" + ".pdf");
+    linkpdf.text("scan-skripsi" + ".pdf");
     linkpdf.css("margin-bottom", "10px");
   }
 
@@ -136,62 +130,58 @@ $('.modalSkripsiButton').click(function() {
   // console.log(scanskripsi);
 
   document.getElementById("status").value = status;
+  document.getElementById("semester").value = semester;
   document.getElementById("tanggal_sidang").value = tanggalsidang;
-  document.getElementById("tanggal_lulus").value = tanggallulus;
   document.getElementById("nilai").value = nilai;
 
   var statusSelect = document.getElementById("status");
-  var tanggalSeminarContainer = document.getElementById("tanggal-lulus-container");
+  var semesterContainer = document.getElementById("semester-container");
   var tanggalSidangContainer = document.getElementById("tanggal-sidang-container");
   var scanContainer = document.getElementById("scan-container");
   var nilaiContainer = document.getElementById("nilai-container");
 
   // Atur awal visibilitas elemen tanggal lulus
-  if (statusSelect.value === "Belum Ambil") {
-      tanggalSeminarContainer.style.display = "none";
+  if (statusSelect.value === "") {
+      semesterContainer.style.display = "none";
       nilaiContainer.style.display = "none";
       tanggalSidangContainer.style.display = "none";
       scanContainer.style.display = "none";
   } else if (statusSelect.value === "Lulus") {
-      tanggalSeminarContainer.style.display = "block";
+      semesterContainer.style.display = "block";
       nilaiContainer.style.display = "block";
       tanggalSidangContainer.style.display = "block";
       scanContainer.style.display = "block";
-  } else {
-      tanggalSeminarContainer.style.display = "none";
-      nilaiContainer.style.display = "none";
-      tanggalSidangContainer.style.display = "none";
-      scanContainer.style.display = "none";
   }
+ 
+  
   statusSelect.addEventListener("change", function() {
-    if (statusSelect.value === "Belum Ambil") {
-        tanggalSeminarContainer.style.display = "none";
-        nilaiContainer.style.display = "none";
-        tanggalSidangContainer.style.display = "none";
-        scanContainer.style.display = "none";
-    } else if (statusSelect.value === "Lulus") {
-        tanggalSeminarContainer.style.display = "block";
+      if (statusSelect.value === "Lulus") {
+        semesterContainer.style.display = "block";
         nilaiContainer.style.display = "block";
         tanggalSidangContainer.style.display = "block";
         scanContainer.style.display = "block";
     } else {
-        tanggalSeminarContainer.style.display = "none";
+        semesterContainer.style.display = "none";
         nilaiContainer.style.display = "none";
         tanggalSidangContainer.style.display = "none";
         scanContainer.style.display = "none";
     }
+
   });
+
 });
 
 $('.modalPKLButton').click(function() {
   // reset setelah validasi dilanggar
   $('#status').removeClass("is-invalid");
+  $('#semester').removeClass("is-invalid");
   $('#tanggal_seminar').removeClass("is-invalid");
   $('#nilai').removeClass("is-invalid");
   $('#scan_basp').removeClass("is-invalid");
 
   // Get the data attributes from the button
   var status = $(this).data('status');
+  var semester = $(this).data('semester');
   var tanggalseminar = $(this).data('tanggal-seminar');
   var nilai = $(this).data('nilai');
   var scanpkl = $(this).data('scan-pkl');
@@ -215,33 +205,42 @@ $('.modalPKLButton').click(function() {
   // console.log(scanpkl);
 
   document.getElementById("status").value = status;
+  document.getElementById("semester").value = semester;
   document.getElementById("tanggal_seminar").value = tanggalseminar;
   document.getElementById("nilai").value = nilai;
 
   var statusSelect = document.getElementById("status");
+  var semesterContainer = document.getElementById("semester-container");
   var tanggalSeminarContainer = document.getElementById("tanggal-seminar-container");
   var scanContainer = document.getElementById("scan-container");
   var nilaiContainer = document.getElementById("nilai-container");
 
   // Atur awal visibilitas elemen
-  if (statusSelect.value === "Lulus") {
-      tanggalSeminarContainer.style.display = "block";
+  if (statusSelect.value === "") {
+    semesterContainer.style.display = "none";
+    nilaiContainer.style.display = "none";
+    tanggalSeminarContainer.style.display = "none";
+    scanContainer.style.display = "none";
+} else if (statusSelect.value === "Lulus") {
+    semesterContainer.style.display = "block";
+    nilaiContainer.style.display = "block";
+    tanggalSeminarContainer.style.display = "block";
+    scanContainer.style.display = "block";
+}
+
+
+statusSelect.addEventListener("change", function() {
+    if (statusSelect.value === "Lulus") {
+      semesterContainer.style.display = "block";
       nilaiContainer.style.display = "block";
+      tanggalSeminarContainer.style.display = "block";
       scanContainer.style.display = "block";
   } else {
-      tanggalSeminarContainer.style.display = "none";
+      semesterContainer.style.display = "none";
       nilaiContainer.style.display = "none";
+      tanggalSeminarContainer.style.display = "none";
       scanContainer.style.display = "none";
   }
-  statusSelect.addEventListener("change", function() {
-    if (statusSelect.value === "Lulus") {
-      tanggalSeminarContainer.style.display = "block";
-      nilaiContainer.style.display = "block";
-      scanContainer.style.display = "block";
-    } else {
-      tanggalSeminarContainer.style.display = "none";
-      nilaiContainer.style.display = "none";
-      scanContainer.style.display = "none";
-    }
+
   });
 });

@@ -21,7 +21,7 @@
           </div>
 
           <div class="mb-3">
-            <label for="sksk" class="form-label">SKSK</label>
+            <label for="sksk" class="form-label">SKSk</label>
             <input type="number" class="form-control @error('sksk') is-invalid @enderror" name="sksk" value="{{ old('sksk') }}" id="inputsksk">
             @error('sksk')
               <div class="invalid-feedback">
