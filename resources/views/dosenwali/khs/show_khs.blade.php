@@ -65,14 +65,6 @@
               </div>
             </div>
 
-            <div class="col-auto text-center ">
-              @if ($khs[$i-1] == null)
-                Jumlah SKSK: ~
-              @else
-                Jumlah SKSK: {{ $khs[$i-1]->sksk }}
-              @endif
-            </div>
-
             <div class="col-auto text-center">
               <div>
                 @if (!isset($khs[$i-1]))
@@ -88,14 +80,6 @@
                   IPk: {{ $khs[$i-1]->ipk }}
                 @endif
               </div>
-            </div>
-
-            <div class="col-auto text-center">
-              @if ($khs[$i-1] == null)
-                IPK: ~
-              @else
-                IPK: {{ $khs[$i-1]->ipk }}
-              @endif
             </div>
             
             <div class="col-auto text-center">
