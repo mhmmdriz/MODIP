@@ -13,6 +13,10 @@ class KHS extends Model
     protected $primarykey = ["smt", "nim"];
     public $timestamps = false;
     protected $guarded = [];
+    protected $fillable = [
+        // your other attributes
+        'locked',
+    ];
 
     public function mahasiswa()
     {

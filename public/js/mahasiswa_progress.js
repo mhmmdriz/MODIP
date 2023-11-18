@@ -31,7 +31,9 @@ $(document).ready(function() {
     }else{
       $(".btn-khs").removeClass("disabled");
       $(".sks-khs").html(khs.sks);
+      $(".sksk-khs").html(khs.sksk);
       $(".ips-khs").html(khs.ips);
+      $(".ipk-khs").html(khs.ipk);
       $(".link-scan-khs").html("scanKHS" + smt + ".pdf");
       $(".link-scan-khs").attr("href", "/scan-khs/"+ khs.scan_khs);
       if(khs.validasi == 1){

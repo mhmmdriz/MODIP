@@ -20,7 +20,7 @@
       <p>Semester Aktif : {{ $semester }}</p>
     </div>
     <div class="col-auto  ms-auto">
-      <p>IPK : {{ $SKSk }}</p>
+      <p>SKSK : {{ $SKSk }}</p>
     </div>
   </div>
 
@@ -38,12 +38,28 @@
             Jumlah SKS: {{ $khs[$i-1]->sks }}
           @endif
         </div>
+
+        <div class="col-2 py-4 text-center ">
+          @if (!isset($khs[$i-1]))
+            Jumlah SKSK: ~
+          @else
+            Jumlah SKSK: {{ $khs[$i-1]->sksk }}
+          @endif
+        </div>
         
         <div class="col-1 py-4 text-center ">
           @if (!isset($khs[$i-1]))
             IPS: ~
           @else
             IPS: {{ $khs[$i-1]->ips }}
+          @endif
+        </div>
+
+        <div class="col-1 py-4 text-center ">
+          @if (!isset($khs[$i-1]))
+            IPK: ~
+          @else
+            IPK: {{ $khs[$i-1]->ipk }}
           @endif
         </div>
         
@@ -82,7 +98,20 @@
           @else
             <div class="modalAlert" type="button" data-bs-toggle="modal" data-bs-target="#modalAlert">
           @endif
-
+          {{-- @foreach ($khs as $khsItem)
+              @php
+                  $isDataLocked = $khsItem->locked ?? false;
+              @endphp
+              <div class="col-auto my-auto">
+                  @if ($khsItem[$i-1] != null && !$isDataLocked)
+                      <div class="modalKHSButton" type="button" data-bs-toggle="modal" data-bs-target="#modalKHS" data-smt="{{ $i }}" data-scan-khs="{{ $khsItem[$i-1]->scan_khs }}" data-sks="{{ $khsItem[$i-1]->sks }}" data-ips="{{ $khsItem[$i-1]->ips }}">
+                          <h4 class="m-0">
+                              <i class="bi bi-pencil-square"></i>
+                          </h4>
+                      </div>
+                  @endif
+              </div>
+          @endforeach --}}
             <h4 class="m-0" >
               <i class="bi bi-pencil-square"></i>
             </h4>

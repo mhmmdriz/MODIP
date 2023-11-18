@@ -21,9 +21,29 @@
           </div>
 
           <div class="mb-3">
+            <label for="sksk" class="form-label">SKSK</label>
+            <input type="number" class="form-control @error('sksk') is-invalid @enderror" name="sksk" value="{{ old('sksk') }}" id="inputsksk">
+            @error('sksk')
+              <div class="invalid-feedback">
+                {{ $message }}
+              </div>
+            @enderror
+          </div>
+
+          <div class="mb-3">
             <label for="ips" class="form-label">IPs</label>
             <input type="text" class="form-control @error('ips') is-invalid @enderror" name="ips" value="{{ old('ips') }}" id="inputips">
             @error('ips')
+              <div class="invalid-feedback">
+                {{ $message }}
+              </div>
+            @enderror
+          </div>
+
+          <div class="mb-3">
+            <label for="ipk" class="form-label">IPK</label>
+            <input type="text" class="form-control @error('ipk') is-invalid @enderror" name="ipk" value="{{ old('ipk') }}" id="inputipk">
+            @error('ipk')
               <div class="invalid-feedback">
                 {{ $message }}
               </div>
