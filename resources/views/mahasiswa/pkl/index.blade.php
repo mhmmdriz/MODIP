@@ -91,9 +91,9 @@
           <h5>Nilai</h5>
         </div>
       </div>
-      <div class="row mt-3 justify-content-center">
-        <div class="col-auto bg-body-secondary rounded border ">
-          <h3>A</h3>
+      <div class="row justify-content-center">
+        <div class="col-auto bg-body-secondary rounded border">
+          <h3 class="my-1">{{ (isset($dataPKL->nilai))?$dataPKL->nilai:"~" }}</h3>
         </div>
       </div>
       <div class="row mt-3">
@@ -110,8 +110,6 @@
     </div>
   </div>
 </div>
-@include('mahasiswa.pkl.modal_edit_pkl')
-<script src="js/modal.js"></script>
 
 @include('mahasiswa.pkl.modal_edit_pkl')
 <script src="/js/modal.js"></script>
