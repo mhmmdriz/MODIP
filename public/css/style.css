@@ -22,6 +22,9 @@ table {
 #tabel-rekap-pkl td:nth-child(2){
   width: 15%;
 }
+#tabel-akun-mhs td:nth-child(7){
+  width: 30%;
+}
 
 @media print {
   body * {

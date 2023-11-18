@@ -221,26 +221,26 @@ $('.modalPKLButton').click(function() {
     nilaiContainer.style.display = "none";
     tanggalSeminarContainer.style.display = "none";
     scanContainer.style.display = "none";
-} else if (statusSelect.value === "Lulus") {
+  } else if (statusSelect.value === "Lulus") {
     semesterContainer.style.display = "block";
     nilaiContainer.style.display = "block";
     tanggalSeminarContainer.style.display = "block";
     scanContainer.style.display = "block";
-}
+  }
 
-
-statusSelect.addEventListener("change", function() {
+  statusSelect.addEventListener("change", function() {
     if (statusSelect.value === "Lulus") {
       semesterContainer.style.display = "block";
       nilaiContainer.style.display = "block";
       tanggalSeminarContainer.style.display = "block";
       scanContainer.style.display = "block";
-  } else {
+    } else {
       semesterContainer.style.display = "none";
       nilaiContainer.style.display = "none";
       tanggalSeminarContainer.style.display = "none";
       scanContainer.style.display = "none";
-  }
-
+    }
   });
 });
+
+// console.log("TES");

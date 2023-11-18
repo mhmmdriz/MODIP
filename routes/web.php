@@ -58,6 +58,7 @@ Route::middleware('auth')->group(function () {
 
 Route::middleware(['auth', 'user.role:operator'])->group(function () {
     Route::resource('/akunMHS', MahasiswaController::class);
+    // Route::put('/akunMHS', [MahasiswaController::class, 'update']);
     Route::delete('/akunMHS/{nim}', [MahasiswaController::class, 'destroy']);
     Route::get('/akunMHS/{nim}/reset', [MahasiswaController::class, 'resetPassword']);
     Route::post('/akunMHS/importExcel', [MahasiswaController::class, 'storeImport']);
