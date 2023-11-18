@@ -14,6 +14,7 @@ use App\Imports\UserImport;
 use App\Imports\MahasiswaImport;
 use App\Exports\MahasiswaExport;
 use App\Models\DosenWali;
+use Illuminate\Support\Facades\Validator;
 
 class MahasiswaController extends Controller
 {
@@ -38,6 +39,7 @@ class MahasiswaController extends Controller
      */
     public function store(Request $request)
     {
+        // dd();
         $validatedData = $request->validate([
             'nama' => 'required|max:255',
             'nim' => 'required|unique:mahasiswa|min:14|max:14',
@@ -58,6 +60,35 @@ class MahasiswaController extends Controller
         User::create($userData);
 
         return redirect('/akunMHS')->with('success','Akun Mahasiswa Berhasil Ditambahkan');
+    }
+
+
+    public function update(Request $request, Mahasiswa $akunMH){
+        // dd($akunMH);
+        $rules = [
+            'nama_edit' => 'required|max:255',
+            'angkatan_edit' => 'required',
+            'status_edit' => 'required',
+            'dosen_wali_edit' => 'required',
+        ];
+
+        // if($request->nim_edit != $akunMH->nim){
+        //     $rules['nim_edit'] = 'required|unique:mahasiswa,nim|min:14|max:14';
+        // }
+        
+        $validatedData = $request->validate($rules);
+
+        $validatedData = [
+            'nama' => $validatedData['nama_edit'],
+            // 'nim' => $validatedData['nim_edit'],
+            'angkatan' => $validatedData['angkatan_edit'],
+            'status' => $validatedData['status_edit'],
+            'dosen_wali' => $validatedData['dosen_wali_edit'],
+        ];
+
+        Mahasiswa::where('nim', $akunMH->nim)->update($validatedData);
+
+        return redirect('/akunMHS')->with('success',"Akun Mahasiswa dengan NIM $akunMH->nim Berhasil Diubah");
     }
 
     public function storeImport(Request $request){
