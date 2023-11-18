@@ -101,48 +101,15 @@ class KHSController extends Controller
         return redirect("/khsPerwalian/$angkatan/$nim")->with('success', "Data KHS Semester $request->smt Berhasil Diubah!");
     }
 
-    // public function validateKHS(){
-    //     if(request('validasi') == 1){
-    //         KHS::where('nim', '=', request('nim'))->where('smt', '=', request('smt'))->update(['validasi' => 1]);
-    //     }else{
-    //         KHS::where('nim', '=', request('nim'))->where('smt', '=', request('smt'))->update(['validasi' => 0]);
-    //     }
-
-    //     return response()->json([
-    //         'status' => 'success',
-    //         'message' => request('validasi'),
-    //     ]);
-    // }
-
-    //     public function validateKHS()
-    // {
-    //     $nim = request('nim');
-    //     $smt = request('smt');
-    //     $lockStatus = request('validasi') == 1 ? 1 : 0;
-
-    //     KHS::where('nim', $nim)->where('smt', $smt)->update(['validasi' => 1]);
-
-    //     // Set a session variable to indicate that the KHS is now locked
-    //     session(["khsLocked_$smt" => $lockStatus]);
-
-    //     return response()->json([
-    //         'status' => 'success',
-    //         'message' => request('validasi'),
-    //     ]);
-    // }
-
-        public function validateKHS()
-    {
-        $status = request('validasi') == 1 ? 'success' : 'failed';
-
+    public function validateKHS(){
         if(request('validasi') == 1){
-            KHS::where('nim', '=', request('nim'))->where('smt', '=', request('smt'))->update(['validasi' => 1, 'locked' => 1]);
-        } else {
+            KHS::where('nim', '=', request('nim'))->where('smt', '=', request('smt'))->update(['validasi' => 1]);
+        }else{
             KHS::where('nim', '=', request('nim'))->where('smt', '=', request('smt'))->update(['validasi' => 0]);
         }
 
         return response()->json([
-            'status' => $status,
+            'status' => 'success',
             'message' => request('validasi'),
         ]);
     }
