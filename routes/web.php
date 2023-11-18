@@ -19,6 +19,8 @@ use App\Http\Controllers\Departemen\ProgressStudiMhs;
 use App\Http\Controllers\Departemen\RekapListPKLController;
 use App\Http\Controllers\Departemen\RekapListSkripsiController;
 use App\Http\Controllers\Departemen\RekapListStatusController;
+use App\Http\Controllers\DepartemenController;
+use App\Http\Controllers\OperatorController;
 
 /*
 |--------------------------------------------------------------------------
@@ -59,6 +61,12 @@ Route::middleware('auth')->group(function () {
 });
 
 Route::middleware(['auth', 'user.role:operator'])->group(function () {
+    Route::get('/profile-op', [OperatorController::class, 'viewProfile']);
+    Route::get('/profile-op/edit', [OperatorController::class, 'editProfile']);
+    Route::put('/profile-op/edit', [OperatorController::class, 'updateProfile']);
+    Route::get('/profile-op/edit-password', [OperatorController::class, 'editPassword']);
+    Route::put('/profile-op/edit-password', [OperatorController::class, 'updatePassword']);
+
     Route::resource('/akunMHS', MahasiswaController::class);
     // Route::put('/akunMHS', [MahasiswaController::class, 'update']);
     Route::delete('/akunMHS/{nim}', [MahasiswaController::class, 'destroy']);
@@ -101,6 +109,12 @@ Route::middleware(['auth','user.role:mahasiswa'])->group(function () {
 });
 
 Route::middleware(['auth', 'user.role:dosenwali'])->group(function () {
+    Route::get('/profile', [DosenWaliController::class, 'viewProfile']);
+    Route::get('/profile/edit', [DosenWaliController::class, 'editProfile']);
+    Route::put('/profile/edit', [DosenWaliController::class, 'updateProfile']);
+    Route::get('/profile/edit-password', [DosenWaliController::class, 'editPassword']);
+    Route::put('/profile/edit-password', [DosenWaliController::class, 'updatePassword']);
+
     Route::get("/pencarianProgressStudiPerwalian", [DoswalProgressStudiMhs::class, 'index']);
     Route::get("/ajaxProgressMHSPerwalian", [DoswalProgressStudiMhs::class, 'updateTableProgressMhs']);
     Route::get("/pencarianProgressStudiPerwalian/{nim}", [DoswalProgressStudiMhs::class, 'showProgressMhs']);
@@ -132,6 +146,12 @@ Route::middleware(['auth', 'user.role:dosenwali'])->group(function () {
 });
 
 Route::middleware(['auth', 'user.role:departemen'])->group(function () {
+    Route::get('/profile', [DepartemenController::class, 'viewProfile']);
+    Route::get('/profile/edit', [DepartemenController::class, 'editProfile']);
+    Route::put('/profile/edit', [DepartemenController::class, 'updateProfile']);
+    Route::get('/profile/edit-password', [DepartemenController::class, 'editPassword']);
+    Route::put('/profile/edit-password', [DepartemenController::class, 'updatePassword']);
+
     Route::get("/pencarianProgressStudi", [ProgressStudiMhs::class, 'index']);
     Route::get("/ajaxProgressMHS", [ProgressStudiMhs::class, 'updateTableProgressMhs']);
     Route::get("/pencarianProgressStudi/{nim}", [ProgressStudiMhs::class, 'showProgressMhs']);

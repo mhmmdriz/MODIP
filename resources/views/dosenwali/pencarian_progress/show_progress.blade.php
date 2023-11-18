@@ -1,6 +1,15 @@
 @extends('templates.main')
 
 @section('container')
+
+<nav aria-label="breadcrumb">
+  <ol class="breadcrumb">
+    <li class="breadcrumb-item"><a href="/dashboard">Dashboard</a></li>
+    <li class="breadcrumb-item"><a href="/pencarianProgressStudiPerwalian">Pencarian Progress Studi Mahasiswa Perwalian</a></li>
+    <li class="breadcrumb-item active" aria-current="page">Progress Studi Mahasiswa Perwalian</li>
+  </ol>
+</nav>
+
 <div class="row d-flex justify-content-center mt-3 mb-2">
   <div class="col-md-auto">
     <h3>Progress Perkembangan Studi Mahasiswa</h3>
@@ -48,15 +57,15 @@
 <div class="row d-flex gx-4 gy-4 mb-5">
   @for ($i = 0; $i <= 13; $i++)
   <div class="col-md-2 col-sm-6">
-    @if ((!isset($arrIRS[$i]) || $arrIRS[$i]->validasi == 0) && (!isset($arrKHS[$i]) || $arrKHS[$i]->validasi == 0) && (isset($data_skripsi) && $data_skripsi->semester != $i+1)  && (isset($data_pkl) && $data_pkl->semester != $i+1))
-    <div class="modalButton">
+    @if ((!isset($arrIRS[$i]) || $arrIRS[$i]->validasi == 0) && (!isset($arrKHS[$i]) || $arrKHS[$i]->validasi == 0))
+      <div class="modalButton">
     @else
-    <div class="modalButton" type="button" data-bs-toggle="modal" data-bs-target="#modalMain" 
-    data-smt="{{ $i + 1 }}"
-    data-irs="{{ isset($arrIRS[$i]) ? $arrIRS[$i] : ''}}"
-    data-khs="{{ isset($arrKHS[$i]) ? $arrKHS[$i] : ''}}"
-    data-pkl="{{ $data_pkl }}"
-    data-skripsi="{{ $data_skripsi }}">
+      <div class="modalButton" type="button" data-bs-toggle="modal" data-bs-target="#modalMain" 
+      data-smt="{{ $i + 1 }}"
+      data-irs="{{ isset($arrIRS[$i]) ? $arrIRS[$i] : ''}}"
+      data-khs="{{ isset($arrKHS[$i]) ? $arrKHS[$i] : ''}}"
+      data-pkl="{{ $data_pkl }}"
+      data-skripsi="{{ $data_skripsi }}">
     @endif
       @if((!isset($arrIRS[$i]) || $arrIRS[$i]->validasi == 0) && (!isset($arrKHS[$i]) || $arrKHS[$i]->validasi == 0))
         <div class="card bg-danger d-flex align-items-center text-center py-2">
