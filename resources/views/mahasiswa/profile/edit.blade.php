@@ -2,6 +2,14 @@
 
 @section('container')
 
+<nav aria-label="breadcrumb">
+  <ol class="breadcrumb">
+    <li class="breadcrumb-item"><a href="/dashboard">Dashboard</a></li>
+    <li class="breadcrumb-item"><a href="/profile">Profile</a></li>
+    <li class="breadcrumb-item active" aria-current="page">Edit Profile</li>
+  </ol>
+</nav>
+
 {{-- <div class="row d-flex justify-content-center"> --}}
   <div class="card p-0 mb-3">
     <div class="card-header">Edit Profile</div>

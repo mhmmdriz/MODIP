@@ -2,7 +2,15 @@
 
 @section('container')
 
-@section('container')
+<nav aria-label="breadcrumb">
+  <ol class="breadcrumb">
+    <li class="breadcrumb-item"><a href="/dashboard">Dashboard</a></li>
+    <li class="breadcrumb-item"><a href="/pklPerwalian">PKL Mahasiswa Perwalian</a></li>
+    <li class="breadcrumb-item"><a href="/pklPerwalian/{{ $angkatan }}">Daftar Mahasiswa Perwalian</a></li>
+    <li class="breadcrumb-item active" aria-current="page">Detail PKL Mahasiswa Perwalian</li>
+  </ol>
+</nav>
+
 @if (session()->has('success'))
   <div class="alert alert-success alert-dismissible fade show" role="alert">
     {{ session('success') }}

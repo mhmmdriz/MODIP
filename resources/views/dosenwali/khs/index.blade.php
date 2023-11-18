@@ -1,6 +1,14 @@
 @extends('templates.main')
 
 @section('container')
+
+<nav aria-label="breadcrumb">
+  <ol class="breadcrumb">
+    <li class="breadcrumb-item"><a href="/dashboard">Dashboard</a></li>
+    <li class="breadcrumb-item active" aria-current="page">KHS Mahasiswa Perwalian</li>
+  </ol>
+</nav>
+
 <div class="row d-flex justify-content-center my-3">
   <div class="col-auto">
     <h5>Data KHS Mahasiswa Perwalian</h5>

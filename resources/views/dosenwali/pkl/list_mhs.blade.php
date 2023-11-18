@@ -2,6 +2,14 @@
 
 @section('container')
 
+<nav aria-label="breadcrumb">
+  <ol class="breadcrumb">
+    <li class="breadcrumb-item"><a href="/dashboard">Dashboard</a></li>
+    <li class="breadcrumb-item"><a href="/pklPerwalian">PKL Mahasiswa Perwalian</a></li>
+    <li class="breadcrumb-item active" aria-current="page">Daftar Mahasiswa Perwalian</li>
+  </ol>
+</nav>
+
 <div class="row d-flex justify-content-center mt-5 mb-2">
   <div class="col-md-auto">
     <h5>Daftar PKL Mahasiswa Angkatan {{ $angkatan }}</h5>
