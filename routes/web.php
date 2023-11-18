@@ -14,6 +14,7 @@ use App\Http\Controllers\DosenWali\IRSController as DoswalIRSController;
 use App\Http\Controllers\DosenWali\KHSController as DoswalKHSController;
 use App\Http\Controllers\DosenWali\PKLController as DoswalPKLController;
 use App\Http\Controllers\DosenWali\SkripsiController as DoswalSkripsiController;
+use App\Http\Controllers\DosenWali\ProgressStudiMhs as DoswalProgressStudiMhs;
 use App\Http\Controllers\Departemen\ProgressStudiMhs;
 use App\Http\Controllers\Departemen\RekapListPKLController;
 use App\Http\Controllers\Departemen\RekapListSkripsiController;
@@ -100,9 +101,9 @@ Route::middleware(['auth','user.role:mahasiswa'])->group(function () {
 });
 
 Route::middleware(['auth', 'user.role:dosenwali'])->group(function () {
-    // Route::get("/pencarianProgressStudi", [ProgressStudiMhs::class, 'index']);
-    // Route::get("/ajaxProgressMHS", [ProgressStudiMhs::class, 'updateTableProgressMhs']);
-    // Route::get("/pencarianProgressStudi/{nim}", [ProgressStudiMhs::class, 'showProgressMhs']);
+    Route::get("/pencarianProgressStudiPerwalian", [DoswalProgressStudiMhs::class, 'index']);
+    Route::get("/ajaxProgressMHSPerwalian", [DoswalProgressStudiMhs::class, 'updateTableProgressMhs']);
+    Route::get("/pencarianProgressStudiPerwalian/{nim}", [DoswalProgressStudiMhs::class, 'showProgressMhs']);
 
     Route::get("/irsPerwalian", [DoswalIRSController::class, 'index']);
     Route::get("/irsPerwalian/{angkatan}", [DoswalIRSController::class, 'listMhsAngkatan']);

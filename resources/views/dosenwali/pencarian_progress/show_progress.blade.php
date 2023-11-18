@@ -79,10 +79,10 @@
 </div>
 
 
-@include('departemen.pencarian_progress.modal_main')
-@include('departemen.pencarian_progress.modal_irs')
-@include('departemen.pencarian_progress.modal_khs')
-@include('departemen.pencarian_progress.modal_pkl')
-@include('departemen.pencarian_progress.modal_skripsi')
+@include('dosenwali.pencarian_progress.modal_main')
+@include('dosenwali.pencarian_progress.modal_irs')
+@include('dosenwali.pencarian_progress.modal_khs')
+@include('dosenwali.pencarian_progress.modal_pkl')
+@include('dosenwali.pencarian_progress.modal_skripsi')
 <script src="/js/progress.js"></script>
 @endsection

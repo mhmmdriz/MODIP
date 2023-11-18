@@ -7,7 +7,7 @@
       </div>
         <div class="modal-body">
           <p>
-            Isi terlebih dahulu data KHS semester sebelumnya sebelum mengisi KHS semester ini!
+            Isi terlebih dahulu <b>IRS untuk semester ini</b> atau isi terlebih dahulu <b>data KHS semester sebelumnya</b>, sebelum mengisi KHS semester ini!
           </p>
         </div>
         <div class="modal-footer">
