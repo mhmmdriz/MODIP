@@ -88,7 +88,7 @@
     if (scanskripsi != '') {
       $('#link-pdf').text("scan-skripsi" + ".pdf");
       $('#link-pdf').css("margin-bottom", "10px");
-      $('#link-pdf').attr("href", "/scan-skripsi/" + (scanskripsi));
+      $('#link-pdf').attr("href", "/showFile/" + (scanskripsi));
     }
   });
 </script>

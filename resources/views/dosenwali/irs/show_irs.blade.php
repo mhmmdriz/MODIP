@@ -58,7 +58,7 @@
                 Scan IRS : <span class="text-danger">belum</span>
               @else
                 Scan IRS : 
-                <a href="/scan-irs/{{ $irs[$i-1]->scan_irs }}" target="__blank" class="text-success text-decoration-none">
+                <a href="/showFile/{{ $irs[$i-1]->scan_irs }}" target="__blank" class="text-success text-decoration-none">
                   scanIrs{{ $i }}.pdf
                 </a>
               @endif    

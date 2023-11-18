@@ -111,7 +111,7 @@
       <div class="row mt-3">
         @if (isset($dataPKL) && !is_null($dataPKL->scan_basp))
           <div class="col">
-            <h6 class="m-0">Scan BASS: <a href="/scan-pkl/{{ $dataPKL->scan_basp }}">scan-basp.pdf</a></h6>
+            <h6 class="m-0">Scan BASS: <a href="/showFile/{{ $dataPKL->scan_basp }}">scan-basp.pdf</a></h6>
           </div>
         @else
           <div class="col">

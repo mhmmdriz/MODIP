@@ -20,9 +20,9 @@
   <div class="row">
     <div class="col-md-auto m-4">
       @if (auth()->user()->mahasiswa->foto_profil == null)
-        <img src="/photo/private/profile_photo/default.jpg" alt="" style="border-radius: 50%; width: 120px; height: 120px; object-fit: cover; display: block;">
+        <img src="/showFile/private/profile_photo/default.jpg" alt="" style="border-radius: 50%; width: 120px; height: 120px; object-fit: cover; display: block;">
       @else
-        <img src="/photo/{{ auth()->user()->mahasiswa->foto_profil }}" alt="" style="border-radius: 50%; width: 120px; height: 120px; object-fit: cover; display: block;">
+        <img src="/showFile/{{ auth()->user()->mahasiswa->foto_profil }}" alt="" style="border-radius: 50%; width: 120px; height: 120px; object-fit: cover; display: block;">
       @endif
     </div>
     <div class="col m-4">

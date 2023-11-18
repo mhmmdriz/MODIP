@@ -16,7 +16,7 @@ $(document).ready(function() {
       $(".btn-irs").removeClass("disabled");
       $(".sks-irs").html(irs.sks);
       $(".link-scan-irs").html("scanIRS" + smt + ".pdf");
-      $(".link-scan-irs").attr("href", "/scan-irs/"+ irs.scan_irs);
+      $(".link-scan-irs").attr("href", "/showFile/"+ irs.scan_irs);
       if(irs.validasi == 1){
         $(".validasi-irs").addClass("text-success");
         $(".validasi-irs").html("Sudah divalidasi");
@@ -35,7 +35,7 @@ $(document).ready(function() {
       $(".ips-khs").html(khs.ips);
       $(".ipk-khs").html(khs.ipk);
       $(".link-scan-khs").html("scanKHS" + smt + ".pdf");
-      $(".link-scan-khs").attr("href", "/scan-khs/"+ khs.scan_khs);
+      $(".link-scan-khs").attr("href", "/showFile/"+ khs.scan_khs);
       if(khs.validasi == 1){
         $(".validasi-khs").addClass("text-success");
         $(".validasi-khs").html("Sudah divalidasi");
@@ -55,7 +55,7 @@ $(document).ready(function() {
       $(".tanggal-seminar-pkl").html(pkl.tanggal_lulus);
       $(".nilai-pkl").html(pkl.nilai);
       $(".link-scan-pkl").html("scanPKL.pdf");
-      $(".link-scan-pkl").attr("href", "/scan-pkl/"+ pkl.scan_basp);
+      $(".link-scan-pkl").attr("href", "/showFile/"+ pkl.scan_basp);
       if(pkl.validasi == 1){
         $(".validasi-pkl").addClass("text-success");
         $(".validasi-pkl").html("Sudah divalidasi");
@@ -76,7 +76,7 @@ $(document).ready(function() {
       $(".tanggal-lulus-skripsi").html(skripsi.tanggal_lulus);
       $(".nilai-skripsi").html(skripsi.nilai);
       $(".link-scan-skripsi").html("scanSkripsi.pdf");
-      $(".link-scan-skripsi").attr("href", "/scan-skripsi/"+ skripsi.scan_bass);
+      $(".link-scan-skripsi").attr("href", "/showFile/"+ skripsi.scan_bass);
       if(skripsi.validasi == 1){
         $(".validasi-skripsi").addClass("text-success");
         $(".validasi-skripsi").html("Sudah divalidasi");
