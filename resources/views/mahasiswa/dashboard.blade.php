@@ -1,12 +1,13 @@
 @extends('templates.main')
 
+@section('container')
+
 <nav aria-label="breadcrumb">
   <ol class="breadcrumb">
     <li class="breadcrumb-item active" aria-current="page">Dashboard</li>
   </ol>
 </nav>
 
-@section('container')
 <div class="row d-flex justify-content-center">
   <div class="col my-3">
     <div class="card mb-3 bg-body-tertiary">
