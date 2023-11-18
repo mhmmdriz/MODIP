@@ -42,7 +42,7 @@
       <div class="d-flex col-12" style="height: 5rem">
         <div class="d-flex col-6 flex-column justify-content-center align-items-center">
           <div>IPK</div>
-          <div>{{ $IPk }}</div>
+          <div>{{ number_format($IPk,2) }}</div>
         </div>
         <div class="d-flex col-6 flex-column justify-content-center align-items-center">
           <div>SKSK</div>

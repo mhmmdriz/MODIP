@@ -33,7 +33,9 @@ class KHSController extends Controller
             $IPk += $khs->ips;
             $n++;
         }
-        $IPk = $IPk/$n;
+        if ($n != 0){
+            $IPk = $IPk/$n;
+        }
 
         return view('mahasiswa.khs.index', [
             'khs' => $arrKHS,
