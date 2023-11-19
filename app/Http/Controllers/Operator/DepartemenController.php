@@ -84,23 +84,24 @@ class DepartemenController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(String $departemen_id)
+    public function destroy(Departemen $akunDeparteman)
     {
-        Departemen::where('departemen_id', $departemen_id)->delete();
-        User::where('username', $departemen_id)->delete();
+        User::where('username', $akunDeparteman->departemen_id)->delete();
 
-        return redirect('/akunDepartemen')->with('success',"Akun Departemen dengan Departemen ID $departemen_id Berhasil Dihapus");
+        $akunDeparteman->delete();
+
+        return redirect('/akunDepartemen')->with('success',"Akun Departemen dengan Departemen ID $akunDeparteman->departemen_id Berhasil Dihapus");
     }
 
-    public function resetPassword(String $departemen_id)
+    public function resetPassword(User $user)
     {
         $userData = [
             'password' => Hash::make("password"),
         ];
 
-        User::where('username', $departemen_id)->update($userData);
+        $user->update($userData);
 
-        return redirect('/akunDepartemen')->with('success', "Password Akun Departemen dengan Departemen ID $departemen_id Berhasil Direset");
+        return redirect('/akunDepartemen')->with('success', "Password Akun Departemen dengan Departemen ID $user->username Berhasil Direset");
     }
 
 }

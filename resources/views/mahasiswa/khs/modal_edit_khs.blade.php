@@ -41,7 +41,7 @@
           </div>
 
           <div class="mb-3">
-            <label for="ipk" class="form-label">IPK</label>
+            <label for="ipk" class="form-label">IPk</label>
             <input type="text" class="form-control @error('ipk') is-invalid @enderror" name="ipk" value="{{ old('ipk') }}" id="inputipk">
             @error('ipk')
               <div class="invalid-feedback">

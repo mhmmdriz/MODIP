@@ -48,7 +48,7 @@
             <td>{{ $mhs->status}}</td>
             @if (isset($data_khs[$mhs->nim]))
               <td>{{ $data_khs[$mhs->nim]['sksk'] }}</td>
-              <td>{{ $data_khs[$mhs->nim]['ipk'] }}</td>
+              <td>{{ number_format($data_khs[$mhs->nim]['ipk'], 2) }}</td>
             @else
               <td>~</td>
               <td>~</td>

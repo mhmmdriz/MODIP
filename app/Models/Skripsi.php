@@ -11,8 +11,9 @@ class Skripsi extends Model
     use HasFactory;
 
     protected $table = 'skripsi';
-    protected $primarykey = "nim";
+    protected $primaryKey = "nim";
     public $timestamps = false;
+    public $incrementing = false;
     protected $guarded = [];
 
     public function mahasiswa()

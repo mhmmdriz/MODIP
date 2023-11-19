@@ -57,13 +57,8 @@ class KHSController extends Controller
     public function listMhsAngkatan(String $angkatan)
     {
         $data_mhs = Mahasiswa::get()->where("dosen_wali", auth()->user()->username)->where("angkatan", $angkatan);
-
-        $data_khs = KHS::get()->groupBy('nim')->map(function($item) {
-            return [
-                'sksk' => $item->sum('sks'),
-                'ipk' => $item->avg('ips'),
-        ];
-        });
+        $data_nim = $data_mhs->pluck("nim");
+        $data_khs = KHS::getSKSkIPkList($data_nim);
         // dd($data_khs);
         
         return view("dosenwali.khs.list_mhs",[
@@ -73,32 +68,11 @@ class KHSController extends Controller
         ]);
     }
 
-    // public function showKHSMhs($angkatan, $nim){
-    //     $mahasiswa = Mahasiswa::where("nim", $nim)->first();
-    //     $semesterInfo = $mahasiswa->calculateSemesterAndThnAjar();
-    //     $semester = $semesterInfo['semester'];
-        
-    //     $dataKHS = KHS::get()->where('nim', $nim);
-    //     $SKSk = $dataKHS->sum('sks');
-    //     $IPk = $dataKHS->avg('ips');
-    //     dd($dataKHS);
-        
-    //     return view('dosenwali.khs.show_khs', [
-    //         'nim' => $nim,
-    //         'dataKHS' => $dataKHS,
-    //         'SKSk' => $SKSk,
-    //         'IPk' => $IPk,
-    //         'semester' => $semester,
-    //     ]);
-    // }
-
-    public function showKHSMhs($angkatan, $nim){
-        $mahasiswa = Mahasiswa::where("nim","=",$nim)->first();
+    public function showKHSMhs($angkatan, Mahasiswa $mahasiswa){
         $semesterInfo = $mahasiswa->calculateSemesterAndThnAjar();
         $semester = $semesterInfo['semester'];
 
         $arrKHS = $mahasiswa->khs;
-
         $SKSk = 0;
         $IPk = 0;
         $n = 0;
@@ -107,11 +81,14 @@ class KHSController extends Controller
             $IPk += $khs->ips;
             $n++;
         }
-        $IPk = $IPk/$n;
+        if ($n > 0){
+            $IPk = $IPk/$n;
+        }
 
         return view('dosenwali.khs.show_khs', [
-            'nim' => $nim,
+            'nim' => $mahasiswa->nim,
             'nama' => $mahasiswa->nama,
+            'mahasiswa' => $mahasiswa,
             'khs' => $arrKHS,
             'semester' => $semester,
             'SKSk' => $SKSk,
@@ -120,22 +97,24 @@ class KHSController extends Controller
         ]);
     }
 
-    public function updateKHSMhs($angkatan, $nim, Request $request){
+    public function updateKHSMhs($angkatan, Mahasiswa $mahasiswa, Request $request){
         $validated_data = $request->validate([
             'sks' => 'required',
+            'sksk' => 'required',
             'ips' => 'required',
+            'ipk' => 'required',
         ]);
 
-        KHS::where('nim','=',$nim)->where('smt', '=', $request->smt)->update($validated_data);
+        $mahasiswa->khs()->where('smt', $request->smt)->update($validated_data);
 
-        return redirect("/khsPerwalian/$angkatan/$nim")->with('success', "Data KHS Semester $request->smt Berhasil Diubah!");
+        return redirect("/khsPerwalian/$angkatan/$mahasiswa->nim")->with('success', "Data KHS Semester $request->smt Berhasil Diubah!");
     }
 
     public function validateKHS(){
         if(request('validasi') == 1){
-            KHS::where('nim', '=', request('nim'))->where('smt', '=', request('smt'))->update(['validasi' => 1]);
+            KHS::where('nim', request('nim'))->where('smt', request('smt'))->update(['validasi' => 1]);
         }else{
-            KHS::where('nim', '=', request('nim'))->where('smt', '=', request('smt'))->update(['validasi' => 0]);
+            KHS::where('nim', request('nim'))->where('smt', request('smt'))->update(['validasi' => 0]);
         }
 
         return response()->json([

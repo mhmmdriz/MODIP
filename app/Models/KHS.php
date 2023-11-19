@@ -14,6 +14,7 @@ class KHS extends Model
     // protected $primarykey = ["smt", "nim"];
     protected $primaryKey = "nim";
     public $timestamps = false;
+    public $incrementing = false;
     protected $guarded = [];
 
     public function mahasiswa()
@@ -58,5 +59,14 @@ class KHS extends Model
             Storage::delete($request->scan_khs_old);
             KHS::where("smt", $request->smt)->where("nim",$mahasiswa->nim)->update($validatedData);
         }
+    }
+    
+    public static function getSKSkIPkList($data_nim){
+        return self::whereIn('nim', $data_nim)->get()->groupBy('nim')->map(function($item) {
+            return [
+                'sksk' => $item->sum('sks'),
+                'ipk' => $item->avg('ips'),
+            ];
+        });
     }
 }

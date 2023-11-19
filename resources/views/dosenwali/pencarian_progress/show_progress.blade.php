@@ -45,11 +45,14 @@
   </div>
 </div>
 
-<div class="row">
-  <div class="col mb-1">
+<div class="d-flex flex-row">
+  <div class="mb-1 me-auto">
     <p class="text-secondary">
       *Semua data yang tampil disini sudah divalidasi
     </p>
+  </div>
+  <div class="mb-1">
+      SKSk IRS: {{ $SKSkIRS }} | SKSk KHS: {{ $SKSkKHS }} | IPk: {{ number_format($IPk, 2) }}
   </div>
 </div>
 

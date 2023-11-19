@@ -14,6 +14,7 @@ class IRS extends Model
     // protected $primaryKey = ["smt", "nim"];
     protected $primaryKey = "nim";
     public $timestamps = false;
+    public $incrementing = false;
     protected $guarded = [];
 
     public function mahasiswa()
@@ -38,5 +39,13 @@ class IRS extends Model
             Storage::delete($request->scan_irs_old);
             self::where("smt", $request->smt)->where("nim",$mahasiswa->nim)->update($validatedData);
         }
+    }
+    
+    public static function getSKSkList($data_nim){
+        return self::whereIn('nim', $data_nim)->get()->groupBy('nim')->map(function($item) {
+            return [
+                'sksk' => $item->sum('sks'),
+            ];
+        });
     }
 }

@@ -10,7 +10,9 @@ class Operator extends Model
     use HasFactory;
 
     public $timestamps = false;
+    protected $primaryKey = "operator_id";
     protected $table = "operator";
+    public $incrementing = false;
 
     public function user()
     {

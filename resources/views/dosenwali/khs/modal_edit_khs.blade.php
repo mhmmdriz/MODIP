@@ -5,7 +5,7 @@
         <h1 class="modal-title fs-5" id="modalLabel"></h1>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
-      <form action="/khsPerwalian/{{ $angkatan }}/{{ $nim }}/update" method="POST" enctype="multipart/form-data">
+      <form action="/khsPerwalian/{{ $angkatan }}/{{ $mahasiswa->nim }}/update" method="POST" enctype="multipart/form-data">
         @csrf
         @method('put')
         <div class="modal-body">
@@ -41,7 +41,7 @@
           </div>
 
           <div class="mb-3">
-            <label for="ipk" class="form-label">IPK</label>
+            <label for="ipk" class="form-label">IPk</label>
             <input type="text" class="form-control @error('ipk') is-invalid @enderror" name="ipk" value="{{ old('ipk') }}" id="inputipk">
             @error('ipk')
               <div class="invalid-feedback">

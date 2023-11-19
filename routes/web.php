@@ -82,8 +82,7 @@ Route::middleware(['auth', 'user.role:operator'])->group(function () {
     Route::get('/ajaxAkunDoswal', [DosenWaliController::class,'updateTableDoswal']);
 
     Route::resource('/akunDepartemen', DepartemenController::class);
-    Route::delete('/akunDepartemen/{nip}', [DepartemenController::class, 'destroy']);
-    Route::get('/akunDepartemen/{nip}/reset', [DepartemenController::class, 'resetPassword']);
+    Route::get('/akunDepartemen/{user}/reset', [DepartemenController::class, 'resetPassword']);
 
     Route::get('/download-file/{filename}', [FileController::class, 'downloadFile'])->where('filename', '.*');
 });
@@ -108,18 +107,18 @@ Route::middleware(['auth', 'user.role:dosenwali'])->group(function () {
 
     Route::get("/pencarianProgressStudiPerwalian", [DoswalProgressStudiMhs::class, 'index']);
     Route::get("/ajaxProgressMHSPerwalian", [DoswalProgressStudiMhs::class, 'updateTableProgressMhs']);
-    Route::get("/pencarianProgressStudiPerwalian/{nim}", [DoswalProgressStudiMhs::class, 'showProgressMhs']);
+    Route::get("/pencarianProgressStudiPerwalian/{mahasiswa}", [DoswalProgressStudiMhs::class, 'showProgressMhs']);
 
     Route::get("/irsPerwalian", [DoswalIRSController::class, 'index']);
     Route::get("/irsPerwalian/{angkatan}", [DoswalIRSController::class, 'listMhsAngkatan']);
-    Route::get('/irsPerwalian/{angkatan}/{nim}', [DoswalIRSController::class, 'showIRSMhs']);
-    Route::put('/irsPerwalian/{angkatan}/{nim}/update', [DoswalIRSController::class, 'updateIRSMhs']);
+    Route::get('/irsPerwalian/{angkatan}/{mahasiswa}', [DoswalIRSController::class, 'showIRSMhs']);
+    Route::put('/irsPerwalian/{angkatan}/{mahasiswa}/update', [DoswalIRSController::class, 'updateIRSMhs']);
     Route::post("/validateIRS", [DoswalIRSController::class,"validateIRS"]);
 
     Route::get("/khsPerwalian", [DoswalKHSController::class, 'index']);
     Route::get("/khsPerwalian/{angkatan}", [DoswalKHSController::class, 'listMhsAngkatan']);
-    Route::get('/khsPerwalian/{angkatan}/{nim}', [DoswalKHSController::class, 'showKHSMhs']);
-    Route::put('/khsPerwalian/{angkatan}/{nim}/update', [DoswalKHSController::class, 'updateKHSMhs']);
+    Route::get('/khsPerwalian/{angkatan}/{mahasiswa}', [DoswalKHSController::class, 'showKHSMhs']);
+    Route::put('/khsPerwalian/{angkatan}/{mahasiswa}/update', [DoswalKHSController::class, 'updateKHSMhs']);
     Route::post("/validateKHS", [DoswalKHSController::class,"validateKHS"]);
     
     Route::get("/pklPerwalian", [DoswalPKLController::class, 'index']);
@@ -140,7 +139,7 @@ Route::middleware(['auth', 'user.role:departemen'])->group(function () {
 
     Route::get("/pencarianProgressStudi", [ProgressStudiMhs::class, 'index']);
     Route::get("/ajaxProgressMHS", [ProgressStudiMhs::class, 'updateTableProgressMhs']);
-    Route::get("/pencarianProgressStudi/{nim}", [ProgressStudiMhs::class, 'showProgressMhs']);
+    Route::get("/pencarianProgressStudi/{mahasiswa}", [ProgressStudiMhs::class, 'showProgressMhs']);
 
     Route::get("/rekapPKL", [RekapListPKLController::class,"rekap"]);
     Route::get("/showListMhsPKL", [RekapListPKLController::class, "showList"]);
@@ -153,7 +152,6 @@ Route::middleware(['auth', 'user.role:departemen'])->group(function () {
     Route::post("/printRekapSkripsi", [RekapListSkripsiController::class, "printRekap"]);
     
     Route::get("/rekapStatus", [RekapListStatusController::class,"rekap"]);
-    // Route::get("/showListMhsStatus/{angkatan}", [RekapListStatusController::class, "showList"]);
     Route::get("/showListMhsStatus/{angkatan}/{status?}", [RekapListStatusController::class, "showList"]);
     Route::post("/printListMhsStatus", [RekapListStatusController::class, "printList"]);
     Route::post("/printRekapStatus", [RekapListStatusController::class, "printRekap"]);

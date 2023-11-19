@@ -33,7 +33,7 @@
       SKSk: {{ $SKSk }}
     </div>
     <div class="col-auto">
-      IPk: {{ $IPk }}
+      IPk: {{ number_format($IPk,2) }}
     </div>
   </div>
 

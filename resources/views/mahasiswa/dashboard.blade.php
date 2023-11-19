@@ -41,11 +41,11 @@
       <div class="d-flex justify-content-center align-items-end" style="height: 2rem"><h5><b>Prestasi Akademik</b></h5></div>
       <div class="d-flex col-12" style="height: 5rem">
         <div class="d-flex col-6 flex-column justify-content-center align-items-center">
-          <div>IPK</div>
+          <div>IPk</div>
           <div>{{ number_format($IPk,2) }}</div>
         </div>
         <div class="d-flex col-6 flex-column justify-content-center align-items-center">
-          <div>SKSK</div>
+          <div>SKSk</div>
           <div>{{ $SKSk }}</div>
         </div>
       </div>
