@@ -159,4 +159,6 @@ class Mahasiswa extends Model
         $data_angkatan = $data_mhs->pluck('angkatan')->unique()->values();
         return $data_angkatan;
     }
+
+    
 }

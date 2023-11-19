@@ -57,7 +57,7 @@
     </div>
   </div>
   <div class="row d-flex justify-content-center align-items-center my-2 mx-2">
-    <div class="col-4 border-end text-center py-3">
+    <div class="col-4 text-center py-3">
       <div class="row">
         <div class="col">
           <h6>Tanggal Seminar</h6>
@@ -70,7 +70,7 @@
       </div>
     </div>
 
-    <div class="col-4 text-center py-3 ">
+    <div class="col-4 text-center py-3 border-end border-start">
       <div class="row">
         <div class="col">
           <h5>Status</h5>
@@ -93,7 +93,7 @@
       </div>
     </div>
     
-    <div class="col-4 text-center py-3 border-start">
+    <div class="col-4 text-center py-3">
       <div class="row">
         <div class="col">
           <h5>Nilai</h5>

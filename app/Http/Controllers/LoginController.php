@@ -72,7 +72,7 @@ class LoginController extends Controller
                 $IPk += $khs->ips;
                 $n++;
             }
-            if(count($arrKHS) > 0){
+            if($n > 0){
                 $IPk = $IPk/$n;
             }
 
