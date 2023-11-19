@@ -30,7 +30,7 @@ $(document).ready(function() {
     linkpdf.attr("href", "/showFile/" + (scanirs));
     $('#scan_irs_old').val(scanirs);
 
-    console.log(scanirs);
+    // console.log(scanirs);
 
     document.getElementById("smt").value = smt;
     document.getElementById("inputsks").value = sks;
