@@ -36,7 +36,7 @@
   <div class="row my-4">
     <div class="col">
       <div class="card bg-body-tertiary">
-        <div id="tabelMHS">
+        <div id="tabelMHS" class="table-responsive">
           <table class="table table-stripped m-0" id="tabel-akun-mhs">
             <tr>
               <th>No</th>

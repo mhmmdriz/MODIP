@@ -22,6 +22,7 @@ use App\Http\Controllers\Departemen\ProgressStudiMhs;
 use App\Http\Controllers\Departemen\RekapListPKLController;
 use App\Http\Controllers\Departemen\RekapListSkripsiController;
 use App\Http\Controllers\Departemen\RekapListStatusController;
+use App\Http\Controllers\DepartemenController;
 
 /*
 |--------------------------------------------------------------------------
@@ -82,6 +83,10 @@ Route::middleware(['auth', 'user.role:operator'])->group(function () {
     Route::post('/akunDosenWali/importExcel', [DosenWaliController::class, 'storeImport']);
     Route::get('/exportAkunDosenWali', [DosenWaliController::class, 'exportData']);
     Route::get('/ajaxAkunDoswal', [DosenWaliController::class,'updateTableDoswal']);
+
+    Route::resource('/akunDepartemen', DepartemenController::class);
+    Route::delete('/akunDepartemen/{nip}', [DepartemenController::class, 'destroy']);
+    Route::get('/akunDepartemen/{nip}/reset', [DepartemenController::class, 'resetPassword']);
 
     Route::get('/download-file/{filename}', [FileController::class, 'downloadFile'])->where('filename', '.*');
 });
