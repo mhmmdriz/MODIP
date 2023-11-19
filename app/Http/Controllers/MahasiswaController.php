@@ -152,7 +152,7 @@ class MahasiswaController extends Controller
             'email_sso' => [
                 'required',
                 Rule::unique('mahasiswa')->ignore(auth()->user()->mahasiswa, 'email_sso'),
-                'regex:/^[a-zA-Z]+@students\.undip\.ac\.id$/',
+                'regex:/^[a-zA-Z0-9._%+-]+@students\.undip\.ac\.id$/i',
             ],
             'alamat' => 'required|max:255',
             'kabupaten_kota' => 'required',
@@ -190,9 +190,6 @@ class MahasiswaController extends Controller
         $rules = [
             'password_lama' => [
                 'required',
-                'min:8',
-                'max:16',
-                'regex:/^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/',
                 function ($attribute, $value, $fail) {
                     if (!Hash::check($value, auth()->user()->password)) {
                         $fail('Password lama salah');

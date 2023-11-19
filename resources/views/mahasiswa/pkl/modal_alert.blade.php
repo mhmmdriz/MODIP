@@ -7,7 +7,7 @@
       </div>
         <div class="modal-body">
           <p>
-            Isi terlebih dahulu <b>IRS untuk semester ini</b> atau isi terlebih dahulu <b>data KHS semester sebelumnya</b>, sebelum mengisi KHS semester ini!
+            Anda belum memenuhi kriteria untuk mengisi data PKL!
           </p>
         </div>
         <div class="modal-footer">

@@ -25,7 +25,7 @@
 <div class="card bg-body-tertiary mb-3">
   <div class="row m-2 position-absolute" style="right: 0">
     <div class="col-auto ms-auto">
-        @if (isset($dataPKL))
+        @if (isset($dataPKL) && $is_eligible)
           @if ($dataPKL->validasi == 0)
           <div class="modalPKLButton" type="button" data-bs-toggle="modal" data-bs-target="#modalPKL" data-status="{{ $dataPKL->status }}" data-semester="{{ $dataPKL->semester }}" data-tanggal-seminar="{{ $dataPKL->tanggal_seminar }}" data-nilai="{{ $dataPKL->nilai }}" data-scan-pkl="{{ $dataPKL->scan_basp }}">
             <h4 class="m-0" >
@@ -40,11 +40,19 @@
           </div>
           @endif
         @else
-          <div class="modalPKLButton" type="button" data-bs-toggle="modal" data-bs-target="#modalPKL" data-status="" data-semester="" data-tanggal-seminar="" data-nilai="" data-scan-pkl="">
-            <h4 class="m-0" >
-              <i class="bi bi-pencil-square"></i>
-            </h4>
-          </div>
+          @if ($is_eligible)
+            <div class="modalPKLButton" type="button" data-bs-toggle="modal" data-bs-target="#modalPKL" data-status="" data-semester="" data-tanggal-seminar="" data-nilai="" data-scan-pkl="">
+              <h4 class="m-0" >
+                <i class="bi bi-pencil-square"></i>
+              </h4>
+            </div>
+          @else
+          <div class="modalAlert" type="button" data-bs-toggle="modal" data-bs-target="#modalAlert"><h4 class="m-0" >
+              <h4 class="m-0" >
+                <i class="bi bi-x-square"></i>
+              </h4>
+            </div>
+          @endif
         @endif
     </div>
   </div>
@@ -112,6 +120,7 @@
 </div>
 
 @include('mahasiswa.pkl.modal_edit_pkl')
+@include('mahasiswa.pkl.modal_alert')
 <script src="/js/modal.js"></script>
 
 @endsection

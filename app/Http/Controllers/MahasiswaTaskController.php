@@ -15,7 +15,7 @@ class MahasiswaTaskController extends Controller
         $rules = [
             'jalur_masuk' => 'required',
             'no_telp' => 'required|max:15|regex:/^[0-9]{1,15}$/',
-            'email_sso' => 'required|unique:mahasiswa|regex:/^[a-zA-Z]+@students\.undip\.ac\.id$/',
+            'email_sso' => 'required|unique:mahasiswa|regex:/^[a-zA-Z0-9._%+-]+@students\.undip\.ac\.id$/i',
             'alamat' => 'required|max:255',
             'kabupaten_kota' => 'required',
             'provinsi' => 'required',

@@ -17,9 +17,22 @@ class PKLController extends Controller
     {
         $mahasiswa = auth()->user()->mahasiswa;
         $dataPKL = $mahasiswa->pkl;
+        $dataKHS = $mahasiswa->khs;
+        $SKSk = 0;
+        $n = 0;
+        foreach($dataKHS as $khs){
+            $SKSk += $khs->sks;
+            $n++;
+        }
+        if ($SKSk >= 120){
+            $is_eligible = True;
+        } else {
+            $is_eligible = False;
+        }
 
         return view('mahasiswa.pkl.index', [
             'dataPKL' => $dataPKL,
+            'is_eligible' => $is_eligible,
         ]);
     }
 

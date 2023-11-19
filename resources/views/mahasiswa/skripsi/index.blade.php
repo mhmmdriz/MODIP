@@ -26,7 +26,7 @@
 <div class="card bg-body-tertiary mb-3">
   <div class="row m-2 position-absolute" style="right: 0">
     <div class="col-auto ms-auto">
-      @if (isset($dataSkripsi))
+      @if (isset($dataSkripsi) && $is_eligible)
         @if ($dataSkripsi->validasi == 0)
         <div class="modalSkripsiButton" type="button" data-bs-toggle="modal" data-bs-target="#modalSkripsi" data-status="{{ $dataSkripsi->status }}" data-semester="{{ $dataSkripsi->semester }}" data-tanggal-sidang="{{ $dataSkripsi->tanggal_sidang }}" data-nilai="{{ $dataSkripsi->nilai }}" data-scan-skripsi="{{ $dataSkripsi->scan_bass }}">
           <h4 class="m-0">
@@ -41,12 +41,20 @@
           </div>
           @endif
       @else
+        @if ($is_eligible)
           <div class="modalSkripsiButton" type="button" data-bs-toggle="modal" data-bs-target="#modalSkripsi" data-status=""
           data-semester="" data-tanggal-sidang="" data-nilai="" data-scan-skripsi="">
-          <h4 class="m-0">
-            <i class="bi bi-pencil-square"></i>
-          </h4>
-        </div>
+            <h4 class="m-0">
+              <i class="bi bi-pencil-square"></i>
+            </h4>
+          </div>
+        @else
+          <div class="modalAlert" type="button" data-bs-toggle="modal" data-bs-target="#modalAlert"><h4 class="m-0" >
+            <h4 class="m-0" >
+              <i class="bi bi-x-square"></i>
+            </h4>
+          </div>
+        @endif
       @endif
     </div>
   </div>
@@ -114,6 +122,7 @@
 </div>
 
 @include('mahasiswa.skripsi.modal_edit_skripsi')
+@include('mahasiswa.skripsi.modal_alert')
 <script src="/js/modal.js"></script>
 
 @endsection
