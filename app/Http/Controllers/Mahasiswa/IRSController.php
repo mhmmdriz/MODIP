@@ -1,7 +1,8 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Mahasiswa;
 
+use App\Http\Controllers\Controller;
 use App\Models\IRS;
 use App\Http\Requests\StoreIRSRequest;
 use App\Http\Requests\UpdateIRSRequest;

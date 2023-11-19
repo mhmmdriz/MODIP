@@ -11,7 +11,7 @@ class Mahasiswa extends Model
     use HasFactory;
 
     protected $table = "mahasiswa";
-    protected $primarykey = "nim";
+    protected $primaryKey = "nim";
     public $timestamps = false;
     protected $guarded = [];
 
@@ -155,4 +155,8 @@ class Mahasiswa extends Model
 
     }
 
+    static public function getAngkatan($data_mhs){
+        $data_angkatan = $data_mhs->pluck('angkatan')->unique()->values();
+        return $data_angkatan;
+    }
 }

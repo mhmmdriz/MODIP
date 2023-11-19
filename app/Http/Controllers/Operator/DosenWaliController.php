@@ -1,7 +1,8 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Operator;
 
+use App\Http\Controllers\Controller;
 use App\Exports\DosenWaliExport;
 use App\Imports\DosenWaliImport;
 use App\Imports\UserImport;

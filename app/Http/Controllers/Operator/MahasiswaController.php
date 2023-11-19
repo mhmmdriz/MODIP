@@ -1,6 +1,7 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Operator;
+use App\Http\Controllers\Controller;
 
 use App\Models\Mahasiswa;
 use App\Http\Requests\UpdateMahasiswaRequest;
@@ -22,7 +23,7 @@ class MahasiswaController extends Controller
     public function index()
     {
         $data_mhs = Mahasiswa::all();
-        $data_angkatan = $data_mhs->pluck('angkatan')->unique()->values();
+        $data_angkatan = Mahasiswa::getAngkatan($data_mhs);
         $data_doswal = DosenWali::all();
 
         return view("operator.akun_mhs.index", [
@@ -37,7 +38,6 @@ class MahasiswaController extends Controller
      */
     public function store(Request $request)
     {
-        // dd();
         $validatedData = $request->validate([
             'nama' => 'required|max:255',
             'nim' => 'required|unique:mahasiswa|min:14|max:14',
@@ -62,30 +62,24 @@ class MahasiswaController extends Controller
 
 
     public function update(Request $request, Mahasiswa $akunMH){
-        // dd($akunMH);
         $rules = [
             'nama_edit' => 'required|max:255',
             'angkatan_edit' => 'required',
             'status_edit' => 'required',
             'dosen_wali_edit' => 'required',
         ];
-
-        // if($request->nim_edit != $akunMH->nim){
-        //     $rules['nim_edit'] = 'required|unique:mahasiswa,nim|min:14|max:14';
-        // }
         
         $validatedData = $request->validate($rules);
 
         $validatedData = [
             'nama' => $validatedData['nama_edit'],
-            // 'nim' => $validatedData['nim_edit'],
             'angkatan' => $validatedData['angkatan_edit'],
             'status' => $validatedData['status_edit'],
             'dosen_wali' => $validatedData['dosen_wali_edit'],
         ];
 
-        Mahasiswa::where('nim', $akunMH->nim)->update($validatedData);
-
+        $akunMH->update($validatedData);
+        
         return redirect('/akunMHS')->with('success',"Akun Mahasiswa dengan NIM $akunMH->nim Berhasil Diubah");
     }
 
@@ -107,24 +101,24 @@ class MahasiswaController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $nim)
+    public function destroy(Mahasiswa $akunMH)
     {
-        User::where('username',$nim)->delete();
+        User::where('username',$akunMH->nim)->delete();
         
-        Mahasiswa::where('nim',$nim)->delete();
+        $akunMH->delete();
 
-        return redirect('/akunMHS')->with('success',"Akun Mahasiswa dengan NIM $nim Berhasil Dihapus");
+        return redirect('/akunMHS')->with('success',"Akun Mahasiswa dengan NIM $akunMH->nim Berhasil Dihapus");
     }
 
-    public function resetPassword(String $nim)
+    public function resetPassword(User $user)
     {
         $userData = [
             'password' => Hash::make("password"),
         ];
 
-        User::where('username', $nim)->update($userData);
+        $user->update($userData);
 
-        return redirect('/akunMHS')->with('success', "Password Akun Mahasiswa dengan NIM $nim Berhasil Direset");
+        return redirect('/akunMHS')->with('success', "Password Akun Mahasiswa dengan NIM $user->username Berhasil Direset");
     }
 
     public function updateTableMhs(Request $request){
