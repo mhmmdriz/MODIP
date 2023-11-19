@@ -51,10 +51,6 @@ class LoginController extends Controller
         return redirect('/login');
     }
 
-    public function dosen(){
-        return view("dosenwali.khususdosen");
-    }
-
     public function dashboard(){
         if(auth()->user()->level == "mahasiswa"){
             $mahasiswa = auth()->user()->mahasiswa;

@@ -22,7 +22,7 @@ $(document).ready(function() {
       url: url,
       data: data,
       success: function(response) {
-        console.log(response.message);
+        // console.log(response.message);
       },
       error: function(response) {
         console.log('Error:', response);
@@ -61,6 +61,6 @@ $(document).ready(function() {
     
     validateData(data, progress);
 
-    console.log(data);
+    // console.log(data);
   });
 });

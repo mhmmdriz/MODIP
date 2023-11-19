@@ -10,10 +10,10 @@ $(document).ready(function() {
       data: {'angkatan':angkatan, 'status':status},
       success: function(response) {
         $('.list-mhs-pkl').html(response.html);
-        console.log(response.html);
+        // console.log(response.html);
       },
       error: function(response) {
-        console.log('Error:', response);
+        // console.log('Error:', response);
       }
     });
   });
@@ -28,10 +28,10 @@ $(document).ready(function() {
       data: {'angkatan':angkatan, 'status':status},
       success: function(response) {
         $('.list-mhs-skripsi').html(response.html);
-        console.log(response.html);
+        // console.log(response.html);
       },
       error: function(response) {
-        console.log('Error:', response);
+        // console.log('Error:', response);
       }
     });
   });
@@ -48,7 +48,7 @@ $(document).ready(function() {
         $('.list-mhs-status').html(response.html);
       },
       error: function(response) {
-        console.log('Error:', response);
+        // console.log('Error:', response);
       }
     });
 
