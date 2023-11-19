@@ -31,7 +31,7 @@
       SKSk: {{ $SKSk }}
     </div>
     <div class="col-auto">
-      IPk: {{ $IPk }}
+      IPk: {{ number_format($IPk, 2) }}
     </div>
   </div>
 
@@ -97,7 +97,7 @@
         </div>
 
         <div class="col-1 bg-body-secondary text-center py-4">
-          @if ($i == 1 || isset($khs[$i-2]))
+          @if (($i == 1 || isset($khs[$i-2])) && isset($irs[$i-1]))
             @if (!isset($khs[$i-1]))
             <div class="modalKHSButton" type="button" data-bs-toggle="modal" data-bs-target="#modalKHS" data-smt="{{ $i }}">
               <h4 class="m-0" >

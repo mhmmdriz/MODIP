@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Models\Operator;
 use App\Http\Requests\StoreOperatorRequest;
 use App\Http\Requests\UpdateOperatorRequest;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Http\Request;
 
 class OperatorController extends Controller
 {
@@ -63,4 +65,5 @@ class OperatorController extends Controller
     {
         //
     }
+
 }

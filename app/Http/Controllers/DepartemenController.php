@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Models\Departemen;
 use App\Http\Requests\StoreDepartemenRequest;
 use App\Http\Requests\UpdateDepartemenRequest;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Http\Request;
 
 class DepartemenController extends Controller
 {
@@ -63,4 +65,5 @@ class DepartemenController extends Controller
     {
         //
     }
+
 }

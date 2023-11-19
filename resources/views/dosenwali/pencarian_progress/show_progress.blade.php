@@ -5,8 +5,8 @@
 <nav aria-label="breadcrumb">
   <ol class="breadcrumb">
     <li class="breadcrumb-item"><a href="/dashboard">Dashboard</a></li>
-    <li class="breadcrumb-item"><a href="/pencarianProgressStudi">Pencarian Progress Studi Mahasiswa</a></li>
-    <li class="breadcrumb-item active" aria-current="page">Progress Studi Mahasiswa</li>
+    <li class="breadcrumb-item"><a href="/pencarianProgressStudiPerwalian">Pencarian Progress Studi Mahasiswa Perwalian</a></li>
+    <li class="breadcrumb-item active" aria-current="page">Progress Studi Mahasiswa Perwalian</li>
   </ol>
 </nav>
 
@@ -88,10 +88,10 @@
 </div>
 
 
-@include('departemen.pencarian_progress.modal_main')
-@include('departemen.pencarian_progress.modal_irs')
-@include('departemen.pencarian_progress.modal_khs')
-@include('departemen.pencarian_progress.modal_pkl')
-@include('departemen.pencarian_progress.modal_skripsi')
+@include('dosenwali.pencarian_progress.modal_main')
+@include('dosenwali.pencarian_progress.modal_irs')
+@include('dosenwali.pencarian_progress.modal_khs')
+@include('dosenwali.pencarian_progress.modal_pkl')
+@include('dosenwali.pencarian_progress.modal_skripsi')
 <script src="/js/progress.js"></script>
 @endsection

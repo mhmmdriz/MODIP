@@ -18,10 +18,22 @@ class SkripsiController extends Controller
         $mahasiswa = auth()->user()->mahasiswa;
        
         $dataSkripsi = $mahasiswa->skripsi;
+        $dataKHS = $mahasiswa->khs;
+        $SKSk = 0;
+        $n = 0;
+        foreach($dataKHS as $khs){
+            $SKSk += $khs->sks;
+            $n++;
+        }
+        if ($SKSk >= 120){
+            $is_eligible = True;
+        } else {
+            $is_eligible = False;
+        }
 
         return view('mahasiswa.skripsi.index', [
             'dataSkripsi' => $dataSkripsi,
-
+            'is_eligible' => $is_eligible,
         ]);
     }
 

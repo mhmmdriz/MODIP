@@ -23,6 +23,7 @@ class KHSController extends Controller
         // $SKSk = $dataKHS['SKSk'];
 
         $arrKHS = $mahasiswa->khs;
+        $arrIRS = $mahasiswa->irs;
 
         $SKSk = 0;
         $IPk = 0;
@@ -32,12 +33,13 @@ class KHSController extends Controller
             $IPk += $khs->ips;
             $n++;
         }
-        if(count($arrKHS) > 0){
+        if ($n != 0){
             $IPk = $IPk/$n;
         }
 
         return view('mahasiswa.khs.index', [
             'khs' => $arrKHS,
+            'irs' => $arrIRS,
             'semester' => $semester,
             // 'smtKhsArray' => $smtKhsArray,
             'SKSk' => $SKSk,

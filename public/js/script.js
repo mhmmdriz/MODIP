@@ -68,3 +68,23 @@ function updateTableProgressMHS(){
   });
 }
 
+function updateTableProgressMHSPerwalian(){
+  let keyword = document.getElementById("keyword").value;
+  let angkatan = document.getElementById("angkatan").value;
+  
+  // console.log(keyword);
+  // console.log(angkatan);
+  $.ajax({
+    type: 'GET',
+    url: '/ajaxProgressMHSPerwalian',
+    data: {'keyword':keyword, 'angkatan':angkatan},
+    success: function(response) {
+      $('#tabelMHS').html(response.html);
+      console.log(response.message);
+    },
+    error: function(response) {
+      console.log('Error:', response);
+    }
+  });
+}
+

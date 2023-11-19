@@ -59,7 +59,7 @@ class DosenWaliController extends Controller
         Excel::import(new UserImport("dosenwali"), request()->file('fileExcel'));
         Excel::import(new DosenWaliImport, request()->file('fileExcel'));
 
-        return redirect('/akunDosenWali')->with('success','Import Akun Mahasiswa Berhasil');
+        return redirect('/akunDosenWali')->with('success','Import Akun Dosen Wali Berhasil');
     }
 
     public function exportData(){
@@ -87,4 +87,5 @@ class DosenWaliController extends Controller
 
         return redirect('/akunDosenWali')->with('success', "Password Akun Dosen Wali dengan NIP $nip Berhasil Direset");
     }
+
 }
