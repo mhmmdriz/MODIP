@@ -9,17 +9,20 @@
         <p class="m-0"><b>SKS</b></p>
         <p class="m-0 sks-khs"></p>
         <br>
+        <p class="m-0"><b>SKSk</b></p>
+        <p class="m-0 sksk-khs"></p>
+        <br>
         
         <p class="m-0"><b>IPs</b></p>
         <p class="m-0 ips-khs"></p>
-
         <br>
+        <p class="m-0"><b>IPk</b></p>
+        <p class="m-0 ipk-khs"></p>
+        <br>
+
         <p class="m-0"><b>Scan KHS</b></p>
         <a href="" class="m-0 link-scan-khs d-block" target="__blank"></a>
 
-        <br>
-        <p class="m-0"><b>Validasi</b></p>
-        <p class="m-0 validasi-khs"></p>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modalMain">Back</button>
