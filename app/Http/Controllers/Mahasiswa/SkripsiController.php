@@ -1,22 +1,24 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Mahasiswa;
 
-use App\Models\PKL;
-use App\Http\Requests\StorePKLRequest;
-use App\Http\Requests\UpdatePKLRequest;
+use App\Http\Controllers\Controller;
+use App\Models\Skripsi;
+use App\Http\Requests\StoreSkripsiRequest;
+use App\Http\Requests\UpdateSkripsiRequest;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 
-class PKLController extends Controller
+class SkripsiController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
-    public function index() 
-    {
+    public function index()
+    {   
         $mahasiswa = auth()->user()->mahasiswa;
-        $dataPKL = $mahasiswa->pkl;
+       
+        $dataSkripsi = $mahasiswa->skripsi;
         $dataKHS = $mahasiswa->khs;
         $SKSk = 0;
         $n = 0;
@@ -30,8 +32,8 @@ class PKLController extends Controller
             $is_eligible = False;
         }
 
-        return view('mahasiswa.pkl.index', [
-            'dataPKL' => $dataPKL,
+        return view('mahasiswa.skripsi.index', [
+            'dataSkripsi' => $dataSkripsi,
             'is_eligible' => $is_eligible,
         ]);
     }
@@ -45,18 +47,18 @@ class PKLController extends Controller
         $validasi = 0;
         // dd($request->status_old);
         if ($status == ""){
-            return redirect('/pkl');
+            return redirect('/skripsi');
         }
         //else
         $rules = [ 
             'semester' => 'required',
-            'tanggal_seminar' => 'required',
+            'tanggal_sidang' => 'required',
             'nilai' => 'required',
         ];
-        if ($request->scan_basp_old == null) {
-            $rules['scan_basp'] = 'required|mimes:pdf|max:10000';
+        if ($request->scan_bass_old == null) {
+            $rules['scan_bass'] = 'required|mimes:pdf|max:10000';
         }else{
-            Storage::delete($request->scan_basp_old);
+            Storage::delete($request->scan_bass_old);
         }
         $validatedData = $request->validate($rules);
 
@@ -65,23 +67,22 @@ class PKLController extends Controller
             $validatedData['nama'] = $nama;
             $validatedData['status'] = $status;
             $validatedData['validasi'] = $validasi;
-            if($request->scan_basp != null){
-                $validatedData ["scan_basp"] = $request->file('scan_basp')->store('private/pkl');
+            if($request->scan_bass != null){
+                $validatedData ["scan_bass"] = $request->file('scan_bass')->store('private/skripsi');
             }
-            PKL::create($validatedData);
+            Skripsi::create($validatedData);
         }
         else {
             // $validatedData['nim'] = $nim; 1
             // $validatedData['nama'] = $nama; 2
             $validatedData['status'] = $status;
             // $validatedData['validasi'] = $validasi; 3
-            if($request->scan_basp != null){
-                $validatedData ["scan_basp"] = $request->file('scan_basp')->store('private/pkl');
+            if($request->scan_bass != null){
+                $validatedData ["scan_bass"] = $request->file('scan_bass')->store('private/skripsi');
             }
-            PKL::where("nim", $nim)->update($validatedData);
+            Skripsi::where("nim", $nim)->update($validatedData);
         }
 
-        return redirect('/pkl')->with('success', "Data PKL Berhasil Diubah!");
-    }
+        return redirect('/skripsi')->with('success', "Data Skripsi Berhasil Diubah!");
+     }
 }
-

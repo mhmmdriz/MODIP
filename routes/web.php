@@ -1,28 +1,30 @@
 <?php
-
-use App\Http\Controllers\DosenWaliController;
-use App\Http\Controllers\SkripsiController;
-// use App\Http\Controllers\DepartemenController;
-// use App\Http\Controllers\OperatorController;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\IRSController;
-use App\Http\Controllers\KHSController;
 use App\Http\Controllers\FileController;
-use App\Http\Controllers\MahasiswaController;
-use App\Http\Controllers\Login\LoginController;
+use App\Http\Controllers\LoginController;
 use App\Http\Controllers\ProfileController;
-use App\Http\Controllers\MahasiswaTaskController;
-use App\Http\Controllers\PKLController;
+
+use App\Http\Controllers\Operator\DosenWaliController;
+use App\Http\Controllers\Operator\DepartemenController;
+use App\Http\Controllers\Operator\MahasiswaController;
+
+use App\Http\Controllers\Mahasiswa\IRSController;
+use App\Http\Controllers\Mahasiswa\KHSController;
+use App\Http\Controllers\Mahasiswa\SkripsiController;
+use App\Http\Controllers\Mahasiswa\MahasiswaTaskController;
+use App\Http\Controllers\Mahasiswa\PKLController;
+
 use App\Http\Controllers\DosenWali\IRSController as DoswalIRSController;
 use App\Http\Controllers\DosenWali\KHSController as DoswalKHSController;
 use App\Http\Controllers\DosenWali\PKLController as DoswalPKLController;
 use App\Http\Controllers\DosenWali\SkripsiController as DoswalSkripsiController;
 use App\Http\Controllers\DosenWali\ProgressStudiMhs as DoswalProgressStudiMhs;
+
 use App\Http\Controllers\Departemen\ProgressStudiMhs;
 use App\Http\Controllers\Departemen\RekapListPKLController;
 use App\Http\Controllers\Departemen\RekapListSkripsiController;
 use App\Http\Controllers\Departemen\RekapListStatusController;
-use App\Http\Controllers\DepartemenController;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -70,9 +72,7 @@ Route::middleware('auth')->group(function () {
 Route::middleware(['auth', 'user.role:operator'])->group(function () {
 
     Route::resource('/akunMHS', MahasiswaController::class);
-    // Route::put('/akunMHS', [MahasiswaController::class, 'update']);
-    Route::delete('/akunMHS/{nim}', [MahasiswaController::class, 'destroy']);
-    Route::get('/akunMHS/{nim}/reset', [MahasiswaController::class, 'resetPassword']);
+    Route::get('/akunMHS/{user}/reset', [MahasiswaController::class, 'resetPassword']);
     Route::post('/akunMHS/importExcel', [MahasiswaController::class, 'storeImport']);
     Route::post('/akunMHS/exportExcel', [MahasiswaController::class, 'exportData']);
     Route::get('/ajaxAkunMHS', [MahasiswaController::class,'updateTableMhs']);
