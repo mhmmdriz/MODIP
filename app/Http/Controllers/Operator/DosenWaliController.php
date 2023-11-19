@@ -70,23 +70,23 @@ class DosenWaliController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(String $nip)
+    public function destroy(DosenWali $akunDosenWali)
     {
-        DosenWali::where('nip', $nip)->delete();
-        User::where('username', $nip)->delete();
+        $akunDosenWali->delete();
+        User::where('username', $akunDosenWali->nip)->delete();
 
-        return redirect('/akunDosenWali')->with('success',"Akun Dosen Wali dengan NIP $nip Berhasil Dihapus");
+        return redirect('/akunDosenWali')->with('success',"Akun Dosen Wali dengan NIP $akunDosenWali->nip Berhasil Dihapus");
     }
 
-    public function resetPassword(String $nip)
+    public function resetPassword(User $user)
     {
         $userData = [
             'password' => Hash::make("password"),
         ];
 
-        User::where('username', $nip)->update($userData);
+        $user->update($userData);
 
-        return redirect('/akunDosenWali')->with('success', "Password Akun Dosen Wali dengan NIP $nip Berhasil Direset");
+        return redirect('/akunDosenWali')->with('success', "Password Akun Dosen Wali dengan NIP $user->username Berhasil Direset");
     }
 
     public function updateTableDoswal(Request $request){

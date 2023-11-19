@@ -11,7 +11,7 @@ class DosenWali extends Model
 
     public $timestamps = false;
     protected $table = "dosen_wali";
-    protected $primarykey = "nip";
+    protected $primaryKey = "nip";
     protected $guarded = [];
 
     public function user()
@@ -22,4 +22,6 @@ class DosenWali extends Model
     public function mahasiswa(){
         return $this->hasMany(Mahasiswa::class, 'nip', 'dosen_wali');
     }
+
+    
 }
