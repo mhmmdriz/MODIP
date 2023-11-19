@@ -34,7 +34,7 @@ class DosenWaliController extends Controller
             'nama' => 'required|max:255',
             'nip' => 'required|unique:dosen_wali|min:14|max:14',
             'no_telp' => 'required',
-            'email_sso' => 'required|unique:dosen_wali|regex:/^[a-zA-Z]+@lecturers\.undip\.ac\.id$/',
+            'email_sso' => 'required|unique:dosen_wali|regex:/^[a-zA-Z0-9._%+-]+@lecturers\.undip\.ac\.id$/i',
         ]);
 
         DosenWali::create($validatedData);
@@ -86,6 +86,14 @@ class DosenWaliController extends Controller
         User::where('username', $nip)->update($userData);
 
         return redirect('/akunDosenWali')->with('success', "Password Akun Dosen Wali dengan NIP $nip Berhasil Direset");
+    }
+
+    public function updateTableDoswal(Request $request){
+        $data_doswal = DosenWali::whereRaw("nip LIKE '%$request->keyword%' OR nama LIKE '%$request->keyword%'")->get();
+
+        $view = view('operator.ajax.update_doswal')->with('data_doswal', $data_doswal)->render();
+
+        return response()->json(['html' => $view]);
     }
 
 }

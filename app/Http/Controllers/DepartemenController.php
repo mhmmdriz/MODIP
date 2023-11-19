@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\User;
 use App\Models\Departemen;
 use App\Http\Requests\StoreDepartemenRequest;
 use App\Http\Requests\UpdateDepartemenRequest;
@@ -15,7 +16,11 @@ class DepartemenController extends Controller
      */
     public function index()
     {
-        //
+        $data_departemen = Departemen::all();
+
+        return view("operator.akun_departemen.index", [
+            "data_departemen" => $data_departemen,
+        ]);
     }
 
     /**
@@ -29,9 +34,26 @@ class DepartemenController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(StoreDepartemenRequest $request)
+    public function store(Request $request)
     {
-        //
+        $validatedData = $request->validate([
+            'departemen_id' => 'required|unique:departemen|max:14',
+            'no_telp' => 'required',
+            'email_sso' => 'required|unique:departemen|regex:/^[a-zA-Z0-9._%+-]+@lecturers\.undip\.ac\.id$/i',
+        ]);
+
+        Departemen::create($validatedData);
+
+        $userData = [
+            'username'=> $validatedData['departemen_id'],
+            'level' => 'departemen',
+            'password' => Hash::make("password"),
+            'status'=> 1,
+        ];
+
+        User::create($userData);
+
+        return redirect('/akunDepartemen')->with('success','Akun Departemen Berhasil Ditambahkan');
     }
 
     /**
@@ -61,9 +83,23 @@ class DepartemenController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Departemen $departemen)
+    public function destroy(String $departemen_id)
     {
-        //
+        Departemen::where('departemen_id', $departemen_id)->delete();
+        User::where('username', $departemen_id)->delete();
+
+        return redirect('/akunDepartemen')->with('success',"Akun Departemen dengan Departemen ID $departemen_id Berhasil Dihapus");
+    }
+
+    public function resetPassword(String $departemen_id)
+    {
+        $userData = [
+            'password' => Hash::make("password"),
+        ];
+
+        User::where('username', $departemen_id)->update($userData);
+
+        return redirect('/akunDepartemen')->with('success', "Password Akun Departemen dengan Departemen ID $departemen_id Berhasil Direset");
     }
 
 }

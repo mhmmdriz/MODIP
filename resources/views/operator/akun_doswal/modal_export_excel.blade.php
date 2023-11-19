@@ -8,21 +8,7 @@
       </div>
       <form action="/akunDosenWali/exportExcel" method="POST" enctype="multipart/form-data">
       <div class="modal-body">
-          @csrf
-          <div class="mb-3">
-            <label for="angkatanExport" class="form-label">Pilih angkatan yang ingin di export</label>
-            <select class="form-select" name="angkatanExport" id="angkatanExport">
-              <option selected value="">Semua Angkatan</option>
-              @foreach ($data_angkatan as $angkatan)
-                <option value="{{ $angkatan }}">{{ $angkatan }}</option>
-              @endforeach
-            </select>
-            @error('angkatanExport')
-                <div class="invalid-feedback">
-                  {{ $message }}
-                </div>
-            @enderror
-          </div>
+          
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>

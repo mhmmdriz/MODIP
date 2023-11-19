@@ -3,25 +3,16 @@
   <div class="modal-dialog modal-dialog-centered">
     <div class="modal-content">
       <div class="modal-header">
-        <h1 class="modal-title fs-5" id="exampleModalLabel">Generate Akun Dosen Wali</h1>
+        <h1 class="modal-title fs-5" id="exampleModalLabel">Generate Akun Departemen</h1>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
-      <form action="/akunDosenWali" method="POST">
+      <form action="/akunDepartemen" method="POST">
       <div class="modal-body">
           @csrf
           <div class="mb-3">
-            <label for="nama" class="form-label">Nama</label>
-            <input type="text" class="form-control @error('nama') is-invalid @enderror" name="nama" value="{{ old('nama') }}">
-            @error('nama')
-              <div class="invalid-feedback">
-                {{ $message }}
-              </div>
-            @enderror
-          </div>
-          <div class="mb-3">
-            <label for="nip" class="form-label">NIP</label>
-            <input type="text" class="form-control @error('nip') is-invalid @enderror" name="nip" value="{{ old('nip') }}">
-            @error('nip')
+            <label for="departemen_id" class="form-label">Departemen ID</label>
+            <input type="text" class="form-control @error('departemen_id') is-invalid @enderror" name="departemen_id" value="{{ old('departemen_id') }}">
+            @error('departemen_id')
               <div class="invalid-feedback">
                 {{ $message }}
               </div>
@@ -55,7 +46,7 @@
   </div>
 </div>
 
-@if($errors->has('nama') OR $errors->has('nip') OR $errors->has('no_telp') OR $errors->has('email_sso'))
+@if($errors->has('departemen_id') OR $errors->has('no_telp') OR $errors->has('email_sso'))
   <script>
     $(document).ready(function () {
       $('#modalGenerate').modal('show');
