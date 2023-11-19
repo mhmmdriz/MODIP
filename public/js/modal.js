@@ -87,7 +87,6 @@ $(document).ready(function() {
 
 $('.modalSkripsiButton').click(function() {
   // reset setelah validasi dilanggar
-  $('#status').removeClass("is-invalid");
   $('#semester').removeClass("is-invalid");
   $('#scan_bass').removeClass("is-invalid");
   $('#tanggal_sidang').removeClass("is-invalid");
@@ -129,45 +128,9 @@ $('.modalSkripsiButton').click(function() {
 
   // console.log(scanskripsi);
 
-  document.getElementById("status").value = status;
   document.getElementById("semester").value = semester;
   document.getElementById("tanggal_sidang").value = tanggalsidang;
   document.getElementById("nilai").value = nilai;
-
-  var statusSelect = document.getElementById("status");
-  var semesterContainer = document.getElementById("semester-container");
-  var tanggalSidangContainer = document.getElementById("tanggal-sidang-container");
-  var scanContainer = document.getElementById("scan-container");
-  var nilaiContainer = document.getElementById("nilai-container");
-
-  // Atur awal visibilitas elemen tanggal lulus
-  if (statusSelect.value === "") {
-      semesterContainer.style.display = "none";
-      nilaiContainer.style.display = "none";
-      tanggalSidangContainer.style.display = "none";
-      scanContainer.style.display = "none";
-  } else if (statusSelect.value === "Lulus") {
-      semesterContainer.style.display = "block";
-      nilaiContainer.style.display = "block";
-      tanggalSidangContainer.style.display = "block";
-      scanContainer.style.display = "block";
-  }
- 
-  
-  statusSelect.addEventListener("change", function() {
-      if (statusSelect.value === "Lulus") {
-        semesterContainer.style.display = "block";
-        nilaiContainer.style.display = "block";
-        tanggalSidangContainer.style.display = "block";
-        scanContainer.style.display = "block";
-    } else {
-        semesterContainer.style.display = "none";
-        nilaiContainer.style.display = "none";
-        tanggalSidangContainer.style.display = "none";
-        scanContainer.style.display = "none";
-    }
-
-  });
 
 });
 
@@ -204,43 +167,10 @@ $('.modalPKLButton').click(function() {
   $('#scan_basp_old').val(scanpkl);
   // console.log(scanpkl);
 
-  document.getElementById("status").value = status;
   document.getElementById("semester").value = semester;
   document.getElementById("tanggal_seminar").value = tanggalseminar;
   document.getElementById("nilai").value = nilai;
 
-  var statusSelect = document.getElementById("status");
-  var semesterContainer = document.getElementById("semester-container");
-  var tanggalSeminarContainer = document.getElementById("tanggal-seminar-container");
-  var scanContainer = document.getElementById("scan-container");
-  var nilaiContainer = document.getElementById("nilai-container");
-
-  // Atur awal visibilitas elemen
-  if (statusSelect.value === "") {
-    semesterContainer.style.display = "none";
-    nilaiContainer.style.display = "none";
-    tanggalSeminarContainer.style.display = "none";
-    scanContainer.style.display = "none";
-  } else if (statusSelect.value === "Lulus") {
-    semesterContainer.style.display = "block";
-    nilaiContainer.style.display = "block";
-    tanggalSeminarContainer.style.display = "block";
-    scanContainer.style.display = "block";
-  }
-
-  statusSelect.addEventListener("change", function() {
-    if (statusSelect.value === "Lulus") {
-      semesterContainer.style.display = "block";
-      nilaiContainer.style.display = "block";
-      tanggalSeminarContainer.style.display = "block";
-      scanContainer.style.display = "block";
-    } else {
-      semesterContainer.style.display = "none";
-      nilaiContainer.style.display = "none";
-      tanggalSeminarContainer.style.display = "none";
-      scanContainer.style.display = "none";
-    }
-  });
 });
 
 // console.log("TES");
