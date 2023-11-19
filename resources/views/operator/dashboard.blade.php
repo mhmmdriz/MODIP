@@ -11,7 +11,7 @@
 <div class="row d-flex justify-content-center">
   <div class="col my-3">
     <div class="card mb-3 bg-body-tertiary">
-      <a href="/profile-op" style="text-decoration: none; color: inherit;" class="bi bi-pencil-square position-absolute end-0 m-2"></a>
+      <a href="/profile" style="text-decoration: none; color: inherit;" class="bi bi-pencil-square position-absolute end-0 m-2"></a>
       <div class="row">
         <div class="col-md-auto m-4">
           @if (auth()->user()->operator->foto_profil == null)

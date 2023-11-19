@@ -42,8 +42,8 @@
           <td class="bg-transparent">: {{ auth()->user()->operator->email_sso }}</td>
         </tr>
       </table>
-      <a href="/profile-op/edit" class="btn btn-primary me-2" role="button">Edit Profil</a>
-      <a href="/profile-op/edit-password" class="btn btn-secondary" role="button">Ganti Password</a>
+      <a href="/profile/edit" class="btn btn-primary me-2" role="button">Edit Profil</a>
+      <a href="/profile/edit-password" class="btn btn-secondary" role="button">Ganti Password</a>
     </div>
   </div>
 </div>

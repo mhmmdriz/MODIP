@@ -5,7 +5,7 @@
 <nav aria-label="breadcrumb">
   <ol class="breadcrumb">
     <li class="breadcrumb-item"><a href="/dashboard">Dashboard</a></li>
-    <li class="breadcrumb-item"><a href="/profile-op">Profile</a></li>
+    <li class="breadcrumb-item"><a href="/profile">Profile</a></li>
     <li class="breadcrumb-item active" aria-current="page">Edit Password</li>
   </ol>
 </nav>
@@ -14,7 +14,7 @@
   <div class="card p-0 mb-3">
     <div class="card-header">Edit Password</div>
     <div class="card-body">
-      <form action="/profile-op/edit-password" method="POST" class="needs-validation">
+      <form action="/profile/edit-password" method="POST" class="needs-validation">
         @csrf
         @method('put')
         <div class="mb-3">
@@ -46,7 +46,7 @@
         </div>
 
         <button type="submit" class="btn btn-primary me-2">Simpan</button>
-        <a href="/profile-op" class="btn btn-danger">Batal</a>
+        <a href="/profile" class="btn btn-danger">Batal</a>
     </div>
   </div>
 {{-- </div> --}}

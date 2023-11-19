@@ -2,12 +2,15 @@
 
 use App\Http\Controllers\DosenWaliController;
 use App\Http\Controllers\SkripsiController;
+// use App\Http\Controllers\DepartemenController;
+// use App\Http\Controllers\OperatorController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\IRSController;
 use App\Http\Controllers\KHSController;
 use App\Http\Controllers\FileController;
 use App\Http\Controllers\MahasiswaController;
 use App\Http\Controllers\Login\LoginController;
+use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\MahasiswaTaskController;
 use App\Http\Controllers\PKLController;
 use App\Http\Controllers\DosenWali\IRSController as DoswalIRSController;
@@ -19,8 +22,6 @@ use App\Http\Controllers\Departemen\ProgressStudiMhs;
 use App\Http\Controllers\Departemen\RekapListPKLController;
 use App\Http\Controllers\Departemen\RekapListSkripsiController;
 use App\Http\Controllers\Departemen\RekapListStatusController;
-use App\Http\Controllers\DepartemenController;
-use App\Http\Controllers\OperatorController;
 
 /*
 |--------------------------------------------------------------------------
@@ -46,6 +47,11 @@ Route::middleware('guest')-> group(function () {
 
 Route::middleware('auth')->group(function () {
     Route::get('/dashboard', [LoginController::class,'dashboard'])->middleware('is.first.login');
+    Route::get('/profile', [ProfileController::class,'viewProfile']);
+    Route::get('/profile/edit', [ProfileController::class, 'editProfile']);
+    Route::put('/profile/edit', [ProfileController::class, 'updateProfile']);
+    Route::get('/profile/edit-password', [ProfileController::class, 'editPassword']);
+    Route::put('/profile/edit-password', [ProfileController::class, 'updatePassword']);
 
     Route::post('/logout', [LoginController::class, 'logout']);
 
@@ -61,11 +67,6 @@ Route::middleware('auth')->group(function () {
 });
 
 Route::middleware(['auth', 'user.role:operator'])->group(function () {
-    Route::get('/profile-op', [OperatorController::class, 'viewProfile']);
-    Route::get('/profile-op/edit', [OperatorController::class, 'editProfile']);
-    Route::put('/profile-op/edit', [OperatorController::class, 'updateProfile']);
-    Route::get('/profile-op/edit-password', [OperatorController::class, 'editPassword']);
-    Route::put('/profile-op/edit-password', [OperatorController::class, 'updatePassword']);
 
     Route::resource('/akunMHS', MahasiswaController::class);
     // Route::put('/akunMHS', [MahasiswaController::class, 'update']);
@@ -90,12 +91,6 @@ Route::middleware(['auth','user.role:mahasiswa'])->group(function () {
     Route::get('/firstLogin', [MahasiswaTaskController::class,'firstLogin'])->middleware('is.datapribadiupdated');
    
     Route::put('/firstLogin', [MahasiswaTaskController::class, 'updateDataPribadi']);
-
-    Route::get('/profile', [MahasiswaController::class, 'viewProfile']);
-    Route::get('/profile/edit', [MahasiswaController::class, 'editProfile']);
-    Route::put('/profile/edit', [MahasiswaController::class, 'updateProfile']);
-    Route::get('/profile/edit-password', [MahasiswaController::class, 'editPassword']);
-    Route::put('/profile/edit-password', [MahasiswaController::class, 'updatePassword']);
     
     Route::get('/irs', [IRSController::class, 'index']);
     Route::put('/irs', [IRSController::class, 'updateOrInsert']);
@@ -109,11 +104,6 @@ Route::middleware(['auth','user.role:mahasiswa'])->group(function () {
 });
 
 Route::middleware(['auth', 'user.role:dosenwali'])->group(function () {
-    Route::get('/profile', [DosenWaliController::class, 'viewProfile']);
-    Route::get('/profile/edit', [DosenWaliController::class, 'editProfile']);
-    Route::put('/profile/edit', [DosenWaliController::class, 'updateProfile']);
-    Route::get('/profile/edit-password', [DosenWaliController::class, 'editPassword']);
-    Route::put('/profile/edit-password', [DosenWaliController::class, 'updatePassword']);
 
     Route::get("/pencarianProgressStudiPerwalian", [DoswalProgressStudiMhs::class, 'index']);
     Route::get("/ajaxProgressMHSPerwalian", [DoswalProgressStudiMhs::class, 'updateTableProgressMhs']);
@@ -146,11 +136,6 @@ Route::middleware(['auth', 'user.role:dosenwali'])->group(function () {
 });
 
 Route::middleware(['auth', 'user.role:departemen'])->group(function () {
-    Route::get('/profile', [DepartemenController::class, 'viewProfile']);
-    Route::get('/profile/edit', [DepartemenController::class, 'editProfile']);
-    Route::put('/profile/edit', [DepartemenController::class, 'updateProfile']);
-    Route::get('/profile/edit-password', [DepartemenController::class, 'editPassword']);
-    Route::put('/profile/edit-password', [DepartemenController::class, 'updatePassword']);
 
     Route::get("/pencarianProgressStudi", [ProgressStudiMhs::class, 'index']);
     Route::get("/ajaxProgressMHS", [ProgressStudiMhs::class, 'updateTableProgressMhs']);
