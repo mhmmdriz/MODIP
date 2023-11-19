@@ -11,7 +11,8 @@ class Departemen extends Model
     
     public $timestamps = false;
     protected $table = "departemen";
-    protected $primarykey = "departemen_id";
+    protected $primaryKey = "departemen_id";
+    public $incrementing = false;
     protected $guarded = [];
 
     public function user()

@@ -47,7 +47,7 @@
             Belum Validasi: 0
             @endif
           </div>
-          <div class="col-2 py-4 text-center ">
+          <div class="col-auto py-4 text-center ">
             @if (isset($rekap_khs[$angkatan]["belum_entry"]))
             Belum Entry Data: {{ $rekap_khs[$angkatan]["belum_entry"] }}
             @else

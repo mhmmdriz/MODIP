@@ -18,7 +18,7 @@ class ProgressStudiMhs extends Controller
     public function index()
     {   
         $data_mhs = Mahasiswa::get()->where("dosen_wali", auth()->user()->username);
-        $data_angkatan = $data_mhs->pluck('angkatan')->unique()->values();
+        $data_angkatan = Mahasiswa::getAngkatan($data_mhs);
 
         return view("dosenwali.pencarian_progress.index",[
             "data_mhs" => $data_mhs,
@@ -42,8 +42,7 @@ class ProgressStudiMhs extends Controller
         return response()->json(['html' => $view, 'message' => $whereQuery]);
     }
 
-    public function showProgressMhs($nim){
-        $mahasiswa = Mahasiswa::where('nim', $nim)->first();
+    public function showProgressMhs(Mahasiswa $mahasiswa){
         $semesterInfo = $mahasiswa->calculateSemesterAndThnAjar();
         $semester = $semesterInfo['semester'];
 
@@ -55,15 +54,19 @@ class ProgressStudiMhs extends Controller
 
         $arrKHS = $mahasiswa->khs;
         $SKSkKHS = 0;
-        $IPK = 0;
+        $IPk = 0;
+        $n = 0;
         foreach($arrKHS as $khs){
             $SKSkKHS += $khs->sks;
-            $IPK += $khs->ips;
+            $IPk += $khs->ips;
+            $n++;
+        }
+        if ($n > 0){
+            $IPk = $IPk/$n;
         }
 
-        $data_skripsi = Skripsi::where('nim', $nim)->first();
-        $data_pkl = PKL::where('nim', $nim)->first();
-        // dd($mahasiswa->dosenwali);
+        $data_skripsi = $mahasiswa->skripsi;
+        $data_pkl = $mahasiswa->pkl;
         // dd($data_skripsi, $data_pkl, $arrIRS, $arrKHS);
 
         return view("dosenwali.pencarian_progress.show_progress",[
@@ -75,6 +78,7 @@ class ProgressStudiMhs extends Controller
             "arrKHS" => $arrKHS,
             "SKSkIRS" => $SKSkIRS,
             "SKSkKHS" => $SKSkKHS,
+            "IPk" => $IPk,
         ]);
     }
 }

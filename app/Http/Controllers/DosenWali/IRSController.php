@@ -57,11 +57,8 @@ class IRSController extends Controller
     public function listMhsAngkatan(String $angkatan)
     {
         $data_mhs = Mahasiswa::get()->where("dosen_wali", auth()->user()->username)->where("angkatan", $angkatan);
-        $data_irs = IRS::get()->groupBy('nim')->map(function($item) {
-            return [
-                'sksk' => $item->sum('sks'),
-        ];
-        });
+        $data_nim = $data_mhs->pluck("nim");
+        $data_irs = IRS::getSKSkList($data_nim);
         // dd($data_irs);
 
         return view("dosenwali.irs.list_mhs",[
@@ -71,45 +68,41 @@ class IRSController extends Controller
         ]);
     }
 
-    public function showIRSMhs($angkatan, $nim){
-        $mahasiswa = Mahasiswa::where("nim", $nim)->first();
+    public function showIRSMhs($angkatan, Mahasiswa $mahasiswa){
         $semesterInfo = $mahasiswa->calculateSemesterAndThnAjar();
         $semester = $semesterInfo['semester'];
         
-        $dataIRS = $mahasiswa->getIRSArray($semester);
-        // $smtIRSArray = $dataIRS['smtIRSArray'];
-        $arrIRS = $dataIRS['arrIRS'];
-        $SKSk = $dataIRS['SKSk'];
-
-        // dump($SKSk);
-        // // dump($smtIRSArray);
-        // dd($arrIRS);
+        $arrIRS = $mahasiswa->irs;
+        $SKSk = 0;
+        foreach($arrIRS as $irs){
+            $SKSk += $irs->sks;
+        }
 
         return view('dosenwali.irs.show_irs', [
-            'nim' => $nim,
+            'nim' => $mahasiswa->nim,
+            'mahasiswa' => $mahasiswa,
             'irs' => $arrIRS,
             'semester' => $semester,
-            // 'smtIRSArray' => $smtIRSArray,
             'SKSk' => $SKSk,
-            'angkatan'=> $angkatan
+            'angkatan'=> $angkatan,
         ]);
     }
 
-    public function updateIRSMhs($angkatan, $nim, Request $request){
+    public function updateIRSMhs($angkatan, Mahasiswa $mahasiswa, Request $request){
         $validated_data = $request->validate([
             'sks' => 'required',
         ]);
 
-        IRS::where('nim','=',$nim)->where('smt', '=', $request->smt)->update($validated_data);
+        $mahasiswa->irs()->where('smt', $request->smt)->update($validated_data);
 
-        return redirect("/irsPerwalian/$angkatan/$nim")->with('success', "Data IRS Semester $request->smt Berhasil Diubah!");
+        return redirect("/irsPerwalian/$angkatan/$mahasiswa->nim")->with('success', "Data IRS Semester $request->smt Berhasil Diubah!");
     }
 
     public function validateIRS(){
         if(request('validasi') == 1){
-            IRS::where('nim', '=', request('nim'))->where('smt', '=', request('smt'))->update(['validasi' => 1]);
+            IRS::where('nim', request('nim'))->where('smt', request('smt'))->update(['validasi' => 1]);
         }else{
-            IRS::where('nim', '=', request('nim'))->where('smt', '=', request('smt'))->update(['validasi' => 0]);
+            IRS::where('nim', request('nim'))->where('smt', request('smt'))->update(['validasi' => 0]);
         }
 
         return response()->json([

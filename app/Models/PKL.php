@@ -11,8 +11,9 @@ class PKL extends Model
     use HasFactory;
 
     protected $table = 'pkl';
-    protected $primarykey = "nim";
+    protected $primaryKey = "nim";
     public $timestamps = false;
+    public $incrementing = false;
     protected $guarded = [];
 
     public function mahasiswa()
