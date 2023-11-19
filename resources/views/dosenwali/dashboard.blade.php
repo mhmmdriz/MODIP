@@ -41,7 +41,7 @@
 <div class="row d-flex gx-4 gy-4 mb-2">
   <div class="col-md-4 col-sm-6">
     <a href="/pencarianProgressStudiPerwalian" style="text-decoration: none">
-      <div class="card bg-body-tertiary d-flex align-items-center text-center py-2">  
+      <div class="card bg-body-tertiary d-flex justify-content-center align-items-center text-center py-2 h-100">  
         <h5><b>Pencarian Progress Studi Mahasiswa Perwalian</b></h5>
         <i class="bi bi-search" style="font-size:70px;"></i>
       </div>
@@ -50,7 +50,7 @@
 
   <div class="col-md-4 col-sm-6">
     <a href="/irsPerwalian" style="text-decoration: none">
-      <div class="card bg-body-tertiary d-flex align-items-center text-center py-2">  
+      <div class="card bg-body-tertiary d-flex justify-content-center align-items-center text-center py-2 h-100">  
         <h5><b>IRS Mahasiswa Perwalian</b></h5>
         <i class="bi bi-book-fill" style="font-size:70px;"></i>
       </div>
@@ -58,7 +58,7 @@
   </div>
   <div class="col-md-4 col-sm-6">
     <a href="/khsPerwalian" style="text-decoration: none">
-      <div class="card bg-body-tertiary d-flex align-items-center text-center py-2">      
+      <div class="card bg-body-tertiary d-flex justify-content-center align-items-center text-center py-2 h-100">      
         <h5><b>KHS Mahasiswa Perwalian</b></h5>
         <i class="bi bi-file-earmark-text-fill" style="font-size:70px;"></i>
       </div>
@@ -66,7 +66,7 @@
   </div>
   <div class="col-md-4 col-sm-6">
     <a href="/pklPerwalian" style="text-decoration: none">
-      <div class="card bg-body-tertiary d-flex align-items-center text-center py-2">      
+      <div class="card bg-body-tertiary d-flex justify-content-center align-items-center text-center py-2 h-100">      
         <h5><b>PKL Mahasiswa Perwalian</b></h5>
         <i class="bi bi-person-workspace" style="font-size:70px;"></i>
       </div>
@@ -74,7 +74,7 @@
   </div>
   <div class="col-md-4 col-sm-6">
     <a href="/skripsiPerwalian" style="text-decoration: none">
-      <div class="card bg-body-tertiary d-flex align-items-center text-center py-2">      
+      <div class="card bg-body-tertiary d-flex justify-content-center align-items-center text-center py-2 h-100">      
         <h5><b>Skripsi Mahasiswa Perwalian</b></h5>
         <i class="bi bi-journal-text" style="font-size:70px;"></i>
       </div>

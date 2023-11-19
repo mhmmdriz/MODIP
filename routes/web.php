@@ -58,8 +58,6 @@ Route::middleware('auth')->group(function () {
 
     Route::post('/logout', [LoginController::class, 'logout']);
 
-    Route::get('/dosen', [LoginController::class, 'dosen'])->middleware('user.role:dosenwali');
-
     Route::get('/photo/{photoname}', [FileController::class, 'showProfilePhoto'])->where('photoname', '.*');
     Route::get('/scan-irs/{filename}', [FileController::class, 'showIRS'])->where('filename', '.*');
     Route::get('/scan-khs/{filename}', [FileController::class, 'showKHS'])->where('filename', '.*');
@@ -104,7 +102,6 @@ Route::middleware(['auth','user.role:mahasiswa'])->group(function () {
     Route::put('/pkl', [PKLController::class, 'updateOrInsert']);
     Route::get('/skripsi', [SkripsiController::class, 'index']);
     Route::put('/skripsi', [SkripsiController::class, 'updateOrInsert']);
-    // Route::get('/scan-irs/irs/{filename}', [IRSController::class, 'showIRS']);
 });
 
 Route::middleware(['auth', 'user.role:dosenwali'])->group(function () {

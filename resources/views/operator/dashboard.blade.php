@@ -49,7 +49,7 @@
   </div>
   <div class="col-md-4 col-sm-6">
     <a href="/akunDosenWali" style="text-decoration: none">
-      <div class="card bg-body-tertiary d-flex align-items-center text-center py-2">      
+      <div class="card bg-body-tertiary d-flex justify-content-center align-items-center text-center py-2 h-100">      
         <h5><b>Akun Dosen Wali</b></h5>
         <i class="bi bi-suitcase-lg-fill" style="font-size:70px;"></i>
       </div>
@@ -57,7 +57,7 @@
   </div>
   <div class="col-md-4 col-sm-6">
     <a href="/akunDepartemen" style="text-decoration: none">
-      <div class="card bg-body-tertiary d-flex align-items-center text-center py-2">      
+      <div class="card bg-body-tertiary d-flex justify-content-center align-items-center text-center py-2 h-100">      
         <h5><b>Akun Departemen</b></h5>
         <i class="bi bi-building-fill" style="font-size:70px;"></i>
       </div>
@@ -65,7 +65,7 @@
   </div>
   <div class="col-md-4 col-sm-6">
     <a href="" style="text-decoration: none">
-      <div class="card bg-body-tertiary d-flex align-items-center text-center py-2">      
+      <div class="card bg-body-tertiary d-flex justify-content-center align-items-center text-center py-2 h-100">      
         <h5><b>Kunci Pengisian Data</b></h5>
         <i class="bi bi-lock-fill" style="font-size:70px;"></i>
       </div>
@@ -73,7 +73,7 @@
   </div>
   <div class="col-md-4 col-sm-6">
     <a href="" style="text-decoration: none">
-      <div class="card bg-body-tertiary d-flex align-items-center text-center py-2">      
+      <div class="card bg-body-tertiary d-flex justify-content-center align-items-center text-center py-2 h-100">      
         <h5><b>Kirim Notifikasi</b></h5>
         <i class="bi bi-bell-fill" style="font-size:70px;"></i>
       </div>
