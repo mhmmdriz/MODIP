@@ -11,12 +11,39 @@ class PKLController extends Controller
 {
     public function index()
     {
-        $data_mhs = Mahasiswa::where("dosen_wali", auth()->user()->username)->get()->groupBy("angkatan")->map(function($item){
+        $data_mhs = Mahasiswa::where("dosen_wali", auth()->user()->username)->orderBy("angkatan")->get()->groupBy("angkatan")->map(function($item){
             return $item->count(); 
         });
 
+        $mhs_pkl = PKL::selectRaw("mahasiswa.nim as mhs_nim, pkl.nim as pkl_nim, validasi, angkatan")
+        ->join("mahasiswa", "mahasiswa.nim", "=", "pkl.nim")
+        ->where("dosen_wali", auth()->user()->username)
+        ->get();
+
+        $rekap_pkl = [];
+        foreach($data_mhs as $angkatan => $jumlah){
+            $rekap_pkl[$angkatan] = [
+                'sudah' => 0,
+                'belum' => 0,
+                'belum_entry'=> 0,
+            ];
+        }
+
+        foreach($mhs_pkl as $mhs){
+            if($mhs->validasi == 1){
+                $rekap_pkl[$mhs->angkatan]['sudah']++;
+            }else{
+                $rekap_pkl[$mhs->angkatan]['belum']++;
+            }
+        }
+
+        foreach($rekap_pkl as $key => $value){
+            $rekap_pkl[$key]['belum_entry'] = $data_mhs[$key] - $value['sudah'] - $value['belum'];
+        }
+
         return view("dosenwali.pkl.index",[
             "data_mhs" => $data_mhs,
+            "rekap_pkl" => $rekap_pkl,
         ]);
     }
 

@@ -27,11 +27,32 @@
     <div class="row mx-3 mb-3">
       <div class="col bg-light-subtle rounded border">
         <div class="row">
-          <div class="col-auto border-end py-4 text-center" >
+          <div class="col-2 border-end py-4 text-center" >
             Angkatan {{ $angkatan }}
           </div>
-          <div class="col-auto py-4 text-center ">
-            Jumlah Mahasiswa: {{ $jumlah_mhs }}
+          <div class="col-2 py-4 text-center ">
+            Mahasiswa: {{ $jumlah_mhs }}
+          </div>
+          <div class="col-2 py-4 text-center ">
+            @if (isset($rekap_skripsi[$angkatan]["sudah"]))
+            Sudah Validasi: {{ $rekap_skripsi[$angkatan]["sudah"] }}
+            @else
+            Sudah Validasi: 0
+            @endif
+          </div>
+          <div class="col-2 py-4 text-center ">
+            @if (isset($rekap_skripsi[$angkatan]["belum"]))
+            Belum Validasi: {{ $rekap_skripsi[$angkatan]["belum"] }}
+            @else
+            Belum Validasi: 0
+            @endif
+          </div>
+          <div class="col-2 py-4 text-center ">
+            @if (isset($rekap_skripsi[$angkatan]["belum_entry"]))
+            Belum Entry Data: {{ $rekap_skripsi[$angkatan]["belum_entry"] }}
+            @else
+            Belum Entry Data: 0
+            @endif
           </div>
         </div>
       </div>

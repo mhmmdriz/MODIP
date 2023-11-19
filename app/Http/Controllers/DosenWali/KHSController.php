@@ -17,10 +17,40 @@ class KHSController extends Controller
         $data_mhs = Mahasiswa::where("dosen_wali", auth()->user()->username)->get()->groupBy("angkatan")->map(function($item){
             return $item->count(); 
         });
-        // dd($data_mhs);
+        
+        $mhs_khs = KHS::selectRaw("angkatan, khs.nim, 
+        COUNT(CASE WHEN validasi = 0 THEN 1 ELSE NULL END) as count_validasi_0")
+        ->join("mahasiswa", "mahasiswa.nim", "=", "khs.nim")
+        ->where("dosen_wali", auth()->user()->username)
+        ->groupBy("angkatan", "khs.nim")
+        ->get();
+
+        // dd($mhs_khs);
+
+        $rekap_khs = [];
+        foreach($data_mhs as $angkatan => $jumlah){
+            $rekap_khs[$angkatan] = [
+                'sudah' => 0,
+                'belum' => 0,
+                'belum_entry'=> 0,
+            ];
+        }
+
+        foreach($mhs_khs as $mhs){
+            if($mhs->count_validasi_0 == 0){
+                $rekap_khs[$mhs->angkatan]['sudah']++;
+            }else{
+                $rekap_khs[$mhs->angkatan]['belum']++;
+            }
+        }
+
+        foreach($rekap_khs as $key => $value){
+            $rekap_khs[$key]['belum_entry'] = $data_mhs[$key] - $value['sudah'] - $value['belum'];
+        }
 
         return view("dosenwali.khs.index",[
             "data_mhs" => $data_mhs,
+            "rekap_khs" => $rekap_khs,
         ]);
     }
 
