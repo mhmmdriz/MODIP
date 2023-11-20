@@ -5,8 +5,9 @@
 <nav aria-label="breadcrumb">
   <ol class="breadcrumb">
     <li class="breadcrumb-item"><a href="/dashboard">Dashboard</a></li>
-    <li class="breadcrumb-item"><a href="/irsPerwalian">IRS Mahasiswa Perwalian</a></li>
-    <li class="breadcrumb-item"><a href="/irsPerwalian/{{ $angkatan }}">Daftar Mahasiswa Perwalian</a></li>
+    <li class="breadcrumb-item"><a href="/validasiProgress">Validasi Progress Studi</a></li>
+    <li class="breadcrumb-item"><a href="/validasiIRS">IRS</a></li>
+    <li class="breadcrumb-item"><a href="/validasiIRS/{{ $angkatan }}">Angkatan {{ $angkatan }}</a></li>
     <li class="breadcrumb-item active" aria-current="page">Detail IRS Mahasiswa Perwalian</li>
   </ol>
 </nav>
@@ -17,11 +18,6 @@
     <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
   </div>
 @endif
-
-<div class="card p-2 ps-3 mb-2 bg-body-tertiary">
-  <div>Nama: {{ $mahasiswa->nama }}</div>
-  <div>NIM: {{ $nim }}</div>
-</div>
 
 <div class="card bg-body-tertiary my-2">
   <div class="row d-flex justify-content-center mt-3">
@@ -114,8 +110,8 @@
 </div>
 
 <script src="/js/modal.js"></script>
-@include('dosenwali.irs.modal_edit_irs')
-<script src="/js/validasi.js"></script>
+@include('operator.validasi_progress_studi.irs.modal_edit_irs')
+<script src="/js/operator.js"></script>
 
 @endsection
 

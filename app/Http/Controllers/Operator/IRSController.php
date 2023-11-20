@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\DosenWali;
+namespace App\Http\Controllers\Operator;
 
 use App\Http\Controllers\Controller;
 use App\Models\IRS;
@@ -14,13 +14,38 @@ class IRSController extends Controller
      */
     public function index()
     {
-        $data_mhs = Mahasiswa::where("dosen_wali", auth()->user()->username)->get()->groupBy("angkatan")->map(function($item){
+        $data_mhs = Mahasiswa::get()->groupBy("angkatan")->map(function($item){
             return $item->count(); 
         });
         
-        $rekap_irs = IRS::getRekapIRSAngkatan($data_mhs, auth()->user()->username);
+        $mhs_irs = IRS::selectRaw("angkatan, irs.nim, 
+        COUNT(CASE WHEN validasi = 0 THEN 1 ELSE NULL END) as count_validasi_0")
+        ->join("mahasiswa", "mahasiswa.nim", "=", "irs.nim")
+        ->groupBy("angkatan", "irs.nim")
+        ->get();
 
-        return view("dosenwali.irs.index",[
+        $rekap_irs = [];
+        foreach($data_mhs as $angkatan => $jumlah){
+            $rekap_irs[$angkatan] = [
+                'sudah' => 0,
+                'belum' => 0,
+                'belum_entry'=> 0,
+            ];
+        }
+
+        foreach($mhs_irs as $mhs){
+            if($mhs->count_validasi_0 == 0){
+                $rekap_irs[$mhs->angkatan]['sudah']++;
+            }else{
+                $rekap_irs[$mhs->angkatan]['belum']++;
+            }
+        }
+
+        foreach($rekap_irs as $key => $value){
+            $rekap_irs[$key]['belum_entry'] = $data_mhs[$key] - $value['sudah'] - $value['belum'];
+        }
+
+        return view("operator.validasi_progress_studi.irs.index",[
             "data_mhs" => $data_mhs,
             "rekap_irs" => $rekap_irs,
         ]);
@@ -28,12 +53,11 @@ class IRSController extends Controller
 
     public function listMhsAngkatan(String $angkatan)
     {
-        $data_mhs = Mahasiswa::get()->where("dosen_wali", auth()->user()->username)->where("angkatan", $angkatan);
+        $data_mhs = Mahasiswa::get()->where("angkatan", $angkatan);
         $data_nim = $data_mhs->pluck("nim");
         $data_irs = IRS::getSKSkList($data_nim);
-        // dd($data_irs);
 
-        return view("dosenwali.irs.list_mhs",[
+        return view("operator.validasi_progress_studi.irs.list_mhs",[
             "data_mhs"=> $data_mhs,
             "data_irs"=> $data_irs,
             "angkatan"=> $angkatan,
@@ -50,7 +74,7 @@ class IRSController extends Controller
             $SKSk += $irs->sks;
         }
 
-        return view('dosenwali.irs.show_irs', [
+        return view('operator.validasi_progress_studi.irs.show_irs', [
             'nim' => $mahasiswa->nim,
             'mahasiswa' => $mahasiswa,
             'irs' => $arrIRS,
@@ -67,7 +91,7 @@ class IRSController extends Controller
 
         $mahasiswa->irs()->where('smt', $request->smt)->update($validated_data);
 
-        return redirect("/irsPerwalian/$angkatan/$mahasiswa->nim")->with('success', "Data IRS Semester $request->smt Berhasil Diubah!");
+        return redirect("/validasiIRS/$angkatan/$mahasiswa->nim")->with('success', "Data IRS Semester $request->smt Berhasil Diubah!");
     }
 
     public function validateIRS(){

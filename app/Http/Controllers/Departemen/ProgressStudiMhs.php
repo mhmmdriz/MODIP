@@ -27,27 +27,9 @@ class ProgressStudiMhs extends Controller
     }
 
     public function updateTableProgressMhs(Request $request){
-        $whereQuery = "";
-        if($request->keyword != ""){
-            $whereQuery .= "nim LIKE '%$request->keyword%' OR nama LIKE '%$request->keyword%'";
-        }
-        if($request->angkatan != ""){
-            if($whereQuery != ""){
-                $whereQuery .= " AND angkatan = '$request->angkatan'";
-            }else{
-                $whereQuery .= "angkatan = '$request->angkatan'";
-            }
-        }
+        $view = Mahasiswa::updateViewProgressMhs($request);
 
-        if($whereQuery != ""){
-            $data_mhs = Mahasiswa::whereRaw($whereQuery)->get();
-        }else{
-            $data_mhs = Mahasiswa::all();
-        }
-        
-        $view = view('departemen.pencarian_progress.update_mhs')->with('data_mhs', $data_mhs)->render();
-
-        return response()->json(['html' => $view, 'message' => $whereQuery]);
+        return response()->json(['html' => $view]);
     }
 
     public function showProgressMhs(Mahasiswa $mahasiswa){

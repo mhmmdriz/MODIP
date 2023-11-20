@@ -48,4 +48,44 @@ class IRS extends Model
             ];
         });
     }
+
+    public static function getRekapIRSAngkatan($data_mhs, $doswal = null){
+        if($doswal == null){
+            $mhs_irs = IRS::selectRaw("angkatan, irs.nim, 
+            COUNT(CASE WHEN validasi = 0 THEN 1 ELSE NULL END) as count_validasi_0")
+            ->join("mahasiswa", "mahasiswa.nim", "=", "irs.nim")
+            ->groupBy("angkatan", "irs.nim")
+            ->get();
+        }else{
+            $mhs_irs = IRS::selectRaw("angkatan, irs.nim, 
+            COUNT(CASE WHEN validasi = 0 THEN 1 ELSE NULL END) as count_validasi_0")
+            ->join("mahasiswa", "mahasiswa.nim", "=", "irs.nim")
+            ->where("dosen_wali", auth()->user()->username)
+            ->groupBy("angkatan", "irs.nim")
+            ->get();
+        }
+
+        $rekap_irs = [];
+        foreach($data_mhs as $angkatan => $jumlah){
+            $rekap_irs[$angkatan] = [
+                'sudah' => 0,
+                'belum' => 0,
+                'belum_entry'=> 0,
+            ];
+        }
+
+        foreach($mhs_irs as $mhs){
+            if($mhs->count_validasi_0 == 0){
+                $rekap_irs[$mhs->angkatan]['sudah']++;
+            }else{
+                $rekap_irs[$mhs->angkatan]['belum']++;
+            }
+        }
+
+        foreach($rekap_irs as $key => $value){
+            $rekap_irs[$key]['belum_entry'] = $data_mhs[$key] - $value['sudah'] - $value['belum'];
+        }
+
+        return $rekap_irs;
+    }
 }

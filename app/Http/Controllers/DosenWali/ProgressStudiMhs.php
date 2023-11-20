@@ -27,19 +27,9 @@ class ProgressStudiMhs extends Controller
     }
 
     public function updateTableProgressMhs(Request $request){
-        $whereQuery = "dosen_wali = ". auth()->user()->username;
-        if($request->keyword != ""){
-            $whereQuery .= " AND nim LIKE '%$request->keyword%' OR nama LIKE '%$request->keyword%'";
-        }
-        if($request->angkatan != ""){
-            $whereQuery .= " AND angkatan = '$request->angkatan'";
-        }
+        $view = Mahasiswa::updateViewProgressMhs($request);
 
-        $data_mhs = Mahasiswa::whereRaw($whereQuery)->get();
-        
-        $view = view('departemen.pencarian_progress.update_mhs')->with('data_mhs', $data_mhs)->render();
-
-        return response()->json(['html' => $view, 'message' => $whereQuery]);
+        return response()->json(['html' => $view]);
     }
 
     public function showProgressMhs(Mahasiswa $mahasiswa){
@@ -53,21 +43,11 @@ class ProgressStudiMhs extends Controller
         }
 
         $arrKHS = $mahasiswa->khs;
-        $SKSkKHS = 0;
-        $IPk = 0;
-        $n = 0;
-        foreach($arrKHS as $khs){
-            $SKSkKHS += $khs->sks;
-            $IPk += $khs->ips;
-            $n++;
-        }
-        if ($n > 0){
-            $IPk = $IPk/$n;
-        }
+        
+        $dataKHS = KHS::rekapKHS($arrKHS);
 
         $data_skripsi = $mahasiswa->skripsi;
         $data_pkl = $mahasiswa->pkl;
-        // dd($data_skripsi, $data_pkl, $arrIRS, $arrKHS);
 
         return view("dosenwali.pencarian_progress.show_progress",[
             "mahasiswa" => $mahasiswa,
@@ -77,8 +57,8 @@ class ProgressStudiMhs extends Controller
             "arrIRS" => $arrIRS,
             "arrKHS" => $arrKHS,
             "SKSkIRS" => $SKSkIRS,
-            "SKSkKHS" => $SKSkKHS,
-            "IPk" => $IPk,
+            'SKSkKHS' => $dataKHS['SKSk'],
+            'IPk' => $dataKHS['IPk'],
         ]);
     }
 }

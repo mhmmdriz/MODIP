@@ -161,5 +161,40 @@ class Mahasiswa extends Model
         return $data_angkatan;
     }
 
+    public static function updateViewProgressMhs($request){
+        $whereQuery = "";
+
+        if(auth()->user()->level == "dosenwali"){
+           $whereQuery .= "dosen_wali = ". auth()->user()->username;
+        }
+
+        if($request->keyword != ""){
+            if($whereQuery != ""){
+                $whereQuery .= " AND nim LIKE '%$request->keyword%' OR nama LIKE '%$request->keyword%'";
+            }else{
+                $whereQuery .= "nim LIKE '%$request->keyword%' OR nama LIKE '%$request->keyword%'";
+            }
+        }
+        if($request->angkatan != ""){
+            if($whereQuery != ""){
+                $whereQuery .= " AND angkatan = '$request->angkatan'";
+            }else{
+                $whereQuery .= "angkatan = '$request->angkatan'";
+            }
+        }
+
+        if($whereQuery != ""){
+            $data_mhs = Mahasiswa::whereRaw($whereQuery)->get();
+        }else{
+            $data_mhs = Mahasiswa::all();
+        }
+
+        if(auth()->user()->level == "dosenwali"){
+            $view = view('dosenwali.pencarian_progress.update_mhs')->with('data_mhs', $data_mhs)->render();
+        }elseif(auth()->user()->level == "departemen"){
+            $view = view('departemen.pencarian_progress.update_mhs')->with('data_mhs', $data_mhs)->render();
+        }
     
+        return $view;
+    }
 }
