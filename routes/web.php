@@ -7,6 +7,11 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\Operator\DosenWaliController;
 use App\Http\Controllers\Operator\DepartemenController;
 use App\Http\Controllers\Operator\MahasiswaController;
+use App\Http\Controllers\Operator\IRSController as OperatorIRSController;
+use App\Http\Controllers\Operator\KHSController as OperatorKHSController;
+use App\Http\Controllers\Operator\PKLController as OperatorPKLController;
+use App\Http\Controllers\Operator\SkripsiController as OperatorSkripsiController;
+use App\Http\Controllers\Operator\ProgressStudiMhs as OperatorProgressStudiMhs;
 
 use App\Http\Controllers\Mahasiswa\IRSController;
 use App\Http\Controllers\Mahasiswa\KHSController;
@@ -83,6 +88,14 @@ Route::middleware(['auth', 'user.role:operator'])->group(function () {
 
     Route::resource('/akunDepartemen', DepartemenController::class);
     Route::get('/akunDepartemen/{user}/reset', [DepartemenController::class, 'resetPassword']);
+
+    Route::get("/validasiIRS", [OperatorIRSController::class, 'index']);
+    Route::get("/validasiIRS/{angkatan}", [OperatorIRSController::class, 'listMhsAngkatan']);
+    Route::get('/validasiIRS/{angkatan}/{mahasiswa}', [OperatorIRSController::class, 'showIRSMhs']);
+    Route::put('/validasiIRS/{angkatan}/{mahasiswa}/update', [OperatorIRSController::class, 'updateIRSMhs']);
+    Route::post("/validasiIRS/validate", [OperatorIRSController::class,"validateIRS"]);
+
+    Route::get('/validasiProgress', fn() => view('operator.validasi_progress_studi.index'));
 
     Route::get('/download-file/{filename}', [FileController::class, 'downloadFile'])->where('filename', '.*');
 });

@@ -39,7 +39,7 @@ function updateMhsTable(keyword){
     data: {'keyword':keyword},
     success: function(response) {
       $('#tabelMHS').html(response.html);
-      // console.log(response.html);
+      console.log(response.message);
     },
     error: function(response) {
       console.log('Error:', response);
@@ -93,7 +93,7 @@ function updateTableProgressMHSPerwalian(){
     data: {'keyword':keyword, 'angkatan':angkatan},
     success: function(response) {
       $('#tabelMHS').html(response.html);
-      // console.log(response.message);
+      console.log(response.message);
     },
     error: function(response) {
       console.log('Error:', response);

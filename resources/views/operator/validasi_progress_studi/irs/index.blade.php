@@ -5,13 +5,14 @@
 <nav aria-label="breadcrumb">
   <ol class="breadcrumb">
     <li class="breadcrumb-item"><a href="/dashboard">Dashboard</a></li>
-    <li class="breadcrumb-item active" aria-current="page">IRS Mahasiswa Perwalian</li>
+    <li class="breadcrumb-item"><a href="/validasiProgress">Validasi Progress Studi</a></li>
+    <li class="breadcrumb-item active" aria-current="page">IRS</li>
   </ol>
 </nav>
 
 <div class="row d-flex justify-content-center my-3">
   <div class="col-auto">
-    <h5>Data IRS Mahasiswa Perwalian</h5>
+    <h5>Data IRS Mahasiswa</h5>
   </div>
 </div>
 
@@ -23,7 +24,7 @@
   </div>
 
   @foreach ($data_mhs as $angkatan => $jumlah_mhs)
-  <a href="/irsPerwalian/{{ $angkatan }}" class="text-decoration-none" style="color:inherit;">
+  <a href="/validasiIRS/{{ $angkatan }}" class="text-decoration-none" style="color:inherit;">
     <div class="row mx-3 mb-3">
       <div class="col bg-light-subtle rounded border">
         <div class="row">
@@ -63,8 +64,8 @@
 
 </div>
 
-{{-- @include('mahasiswa.irs.modal_edit_irs')
-@include('mahasiswa.irs.modal_alert') --}}
+@include('mahasiswa.irs.modal_edit_irs')
+@include('mahasiswa.irs.modal_alert')
 <script src="js/modal.js"></script>
 
 @endsection
