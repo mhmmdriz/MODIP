@@ -89,13 +89,14 @@ Route::middleware(['auth', 'user.role:operator'])->group(function () {
     Route::resource('/akunDepartemen', DepartemenController::class);
     Route::get('/akunDepartemen/{user}/reset', [DepartemenController::class, 'resetPassword']);
 
+    Route::get('/validasiProgress', fn() => view('operator.validasi_progress_studi.index'));
+
     Route::get("/validasiIRS", [OperatorIRSController::class, 'index']);
     Route::get("/validasiIRS/{angkatan}", [OperatorIRSController::class, 'listMhsAngkatan']);
     Route::get('/validasiIRS/{angkatan}/{mahasiswa}', [OperatorIRSController::class, 'showIRSMhs']);
     Route::put('/validasiIRS/{angkatan}/{mahasiswa}/update', [OperatorIRSController::class, 'updateIRSMhs']);
     Route::post("/validasiIRS/validate", [OperatorIRSController::class,"validateIRS"]);
 
-    Route::get('/validasiProgress', fn() => view('operator.validasi_progress_studi.index'));
 
     Route::get('/download-file/{filename}', [FileController::class, 'downloadFile'])->where('filename', '.*');
 });
@@ -145,6 +146,9 @@ Route::middleware(['auth', 'user.role:dosenwali'])->group(function () {
     Route::get('/skripsiPerwalian/{angkatan}/{nim}', [DoswalSkripsiController::class, 'showSkripsiMhs']);
     Route::put('/skripsiPerwalian/{angkatan}/{nim}/update', [DoswalSkripsiController::class, 'updateSkripsiMhs']);
     Route::get("/skripsiPerwalian/{angkatan}/{nim}/validateSkripsi/{validate}", [DoswalSkripsiController::class,"validateSkripsi"]);
+
+    Route::get('/validasiProgress', fn() => view('operator.validasi_progress_studi.index'));
+    
 
 });
 

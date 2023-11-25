@@ -21,14 +21,8 @@ class PKL extends Model
         return $this->belongsTo(Mahasiswa::class, 'nim', 'nim');
     }
 
-    static public function isEligible($dataKHS){
-        $SKSk = 0;
-        $n = 0;
-        foreach($dataKHS as $khs){
-            $SKSk += $khs->sks;
-            $n++;
-        }
-        if ($SKSk >= 100){
+    static public function isEligible($semester){
+        if ($semester >= 6){
             $is_eligible = True;
         } else {
             $is_eligible = False;

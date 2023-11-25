@@ -119,8 +119,11 @@
   </div>
 </div>
 
+@if ($is_eligible)
 @include('mahasiswa.pkl.modal_edit_pkl')
+@else
 @include('mahasiswa.pkl.modal_alert')
+@endif
 <script src="/js/modal.js"></script>
 
 @endsection
