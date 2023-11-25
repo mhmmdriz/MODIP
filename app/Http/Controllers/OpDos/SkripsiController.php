@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\DosenWali;
+namespace App\Http\Controllers\OpDos;
 
 use App\Http\Controllers\Controller;
 use App\Models\Skripsi;
@@ -15,7 +15,7 @@ class SkripsiController extends Controller
             return $item->count(); 
         });
 
-        $rekap_skripsi = Skripsi::getRekapSkripsiAngkatan($data_mhs, auth()->user()->username);
+        $rekap_skripsi = Skripsi::getRekapValidasiSkripsi($data_mhs, auth()->user()->username);
 
         return view("dosenwali.skripsi.index",[
             "data_mhs" => $data_mhs,

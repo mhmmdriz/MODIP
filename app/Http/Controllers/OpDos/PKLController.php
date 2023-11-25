@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\DosenWali;
+namespace App\Http\Controllers\OpDos;
 
 use App\Http\Controllers\Controller;
 use App\Models\PKL;
@@ -15,7 +15,7 @@ class PKLController extends Controller
             return $item->count(); 
         });
 
-        $rekap_pkl = PKL::getRekapPKLAngkatan($data_mhs, auth()->user()->username);
+        $rekap_pkl = PKL::getRekapValidasiPKL($data_mhs, auth()->user()->username);
 
         
         return view("dosenwali.pkl.index",[

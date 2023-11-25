@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\DosenWali;
+namespace App\Http\Controllers\OpDos;
 
 use App\Http\Controllers\Controller;
 use App\Models\KHS;

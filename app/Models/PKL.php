@@ -56,7 +56,7 @@ class PKL extends Model
         }
     }
 
-    public static function getRekapPKLAngkatan($data_mhs, $doswal = null){
+    public static function getRekapValidasiPKL($data_mhs, $doswal = null){
         if($doswal == null){
             $mhs_pkl = PKL::selectRaw("mahasiswa.nim as mhs_nim, pkl.nim as pkl_nim, validasi, angkatan")
             ->join("mahasiswa", "mahasiswa.nim", "=", "pkl.nim")
@@ -91,4 +91,57 @@ class PKL extends Model
 
         return $rekap_pkl;
     }
+
+    public static function getRekapPKL(){
+        if(auth()->user()->level == "dosenwali"){
+            $mhs_pkl = self::selectRaw("mahasiswa.nim as mhs_nim, pkl.nim as pkl_nim, validasi, angkatan")
+            ->rightJoin("mahasiswa", "mahasiswa.nim", "=", "pkl.nim")
+            ->where("dosen_wali", auth()->user()->username)
+            ->get();
+        }else{
+            $mhs_pkl = self::selectRaw("mahasiswa.nim as mhs_nim, pkl.nim as pkl_nim, validasi, angkatan")
+            ->rightJoin("mahasiswa", "mahasiswa.nim", "=", "pkl.nim")
+            ->get();
+        }
+
+        $rekap_pkl = $mhs_pkl->pluck('angkatan')->unique()->mapWithKeys(function ($angkatan) {
+            return [$angkatan => [
+                'sudah_pkl' => 0,
+                'belum_pkl' => 0,
+            ]];
+        })->all();
+
+        foreach($mhs_pkl as $mhs){
+            if($mhs->validasi == 1){
+                $rekap_pkl[$mhs->angkatan]['sudah_pkl']++;
+            }else{
+                $rekap_pkl[$mhs->angkatan]['belum_pkl']++;
+            }
+        }
+
+        return $rekap_pkl;
+    }
+
+    public static function getListRekapMhsPKL($request){
+        if($request->status == "Sudah"){
+            $data_mhs = self::join("mahasiswa","mahasiswa.nim","=", "pkl.nim")->where("angkatan", $request->angkatan)
+            ->where("validasi", 1);
+        }else{
+            $data_mhs = self::Rightjoin("mahasiswa","mahasiswa.nim","=", "pkl.nim")->where("angkatan", $request->angkatan)
+            ->where(function($query) {
+                $query->where('validasi', 0)
+                      ->orWhereNull('validasi');
+            });
+        }
+
+        if(auth()->user()->level == "dosenwali"){
+            $data_mhs = $data_mhs->where("dosen_wali", auth()->user()->username);
+        }
+
+        $data_mhs = $data_mhs->get();
+
+        return $data_mhs;
+    }
+
+    
 }
