@@ -5,6 +5,12 @@
 <nav aria-label="breadcrumb">
   <ol class="breadcrumb">
     <li class="breadcrumb-item"><a href="/dashboard">Dashboard</a></li>
+    @if (auth()->user()->level == 'dosenwali')
+    <li class="breadcrumb-item"><a href="/rekapMhsPerwalian">Rekap Mahasiswa Perwalian</a></li>
+    @endif
+    @if (auth()->user()->level == 'operator')
+    <li class="breadcrumb-item"><a href="/rekapMhs">Rekap Mahasiswa</a></li>
+    @endif
     <li class="breadcrumb-item active" aria-current="page">Rekap PKL Mahasiswa</li>
   </ol>
 </nav>
@@ -45,8 +51,8 @@
       <td class="point rekap-pkl" data-angkatan="{{ $i }}" data-status="Sudah">{{ $rekap_pkl[$i]["sudah_pkl"] }}</td>
       <td class="point rekap-pkl" data-angkatan="{{ $i }}" data-status="Belum">{{ $rekap_pkl[$i]["belum_pkl"] }}</td>
       @else
-      <td>~</td>
-      <td>~</td>  
+      <td>0</td>
+      <td>0</td>  
       @endif
     @endfor
     </tr>

@@ -12,22 +12,16 @@ use Carbon\Carbon;
 class RekapListSkripsiController extends Controller
 {
     public function rekap(){
-        // $rekap_skripsi = Skripsi::rightJoin("mahasiswa", "mahasiswa.nim", "=", "skripsi.nim")
-        // ->groupBy("angkatan")
-        // ->selectRaw("angkatan, count(skripsi.nim) as jumlah_sudah, count(mahasiswa.nim) as jumlah_total")
-        // ->get()
-        // ->groupBy('angkatan') // Mengelompokkan berdasarkan angkatan
-        // ->map(function ($group) {
-        //     // Mengonversi setiap kelompok menjadi array asosiatif
-        //     return [
-        //         'sudah_skripsi' => $group->sum('jumlah_sudah'),
-        //         'belum_skripsi' => $group->sum('jumlah_total') - $group->sum('jumlah_sudah'),
-        //     ];
-        // });
-
-        $mhs_skripsi = Skripsi::selectRaw("mahasiswa.nim as mhs_nim, skripsi.nim as skripsi_nim, validasi, angkatan")
-        ->rightJoin("mahasiswa", "mahasiswa.nim", "=", "skripsi.nim")
-        ->get();
+        if(auth()->user()->level == "dosenwali"){
+            $mhs_skripsi = Skripsi::selectRaw("mahasiswa.nim as mhs_nim, skripsi.nim as skripsi_nim, validasi, angkatan")
+            ->rightJoin("mahasiswa", "mahasiswa.nim", "=", "skripsi.nim")
+            ->where("dosen_wali", auth()->user()->username)
+            ->get();
+        }else{
+            $mhs_skripsi = Skripsi::selectRaw("mahasiswa.nim as mhs_nim, skripsi.nim as skripsi_nim, validasi, angkatan")
+            ->rightJoin("mahasiswa", "mahasiswa.nim", "=", "skripsi.nim")
+            ->get();
+        }
 
         $rekap_skripsi = $mhs_skripsi->pluck('angkatan')->unique()->mapWithKeys(function ($angkatan) {
             return [$angkatan => [
@@ -54,22 +48,22 @@ class RekapListSkripsiController extends Controller
     }
 
     public function showList(Request $request){
-        // if($request->status == "Sudah"){
-        //     $data_mhs = Skripsi::join("mahasiswa","mahasiswa.nim","=", "skripsi.nim")->where("angkatan", $request->angkatan)->get();
-        // }else{
-        //     $data_mhs = Mahasiswa::whereDoesntHave('skripsi')->where("angkatan", $request->angkatan)->get();
-        // }
         if($request->status == "Sudah"){
             $data_mhs = Skripsi::join("mahasiswa","mahasiswa.nim","=", "skripsi.nim")->where("angkatan", $request->angkatan)
-            ->where("validasi", 1)->get();
+            ->where("validasi", 1);
         }else{
             $data_mhs = Skripsi::Rightjoin("mahasiswa","mahasiswa.nim","=", "skripsi.nim")->where("angkatan", $request->angkatan)
             ->where(function($query) {
                 $query->where('validasi', 0)
                       ->orWhereNull('validasi');
-            })
-            ->get();
+            });
         }
+
+        if(auth()->user()->level == "dosenwali"){
+            $data_mhs = $data_mhs->where("dosen_wali", auth()->user()->username);
+        }
+
+        $data_mhs = $data_mhs->get();
 
         $view = view('departemen.rekap_skripsi.listMhs',[
             'data_mhs'=> $data_mhs,
@@ -78,7 +72,6 @@ class RekapListSkripsiController extends Controller
         ])->render();
 
         return response()->json(['html' => $view]);
-        // return response()->json(["message"=>$view]);
     }
 
     public function printList(Request $request){

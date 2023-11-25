@@ -45,8 +45,8 @@
       <td class="point rekap-skripsi" data-angkatan="{{ $i }}" data-status="Sudah">{{ $rekap_skripsi[$i]["sudah_skripsi"] }}</td>
       <td class="point rekap-skripsi" data-angkatan="{{ $i }}" data-status="Belum">{{ $rekap_skripsi[$i]["belum_skripsi"] }}</td>
       @else
-      <td>~</td>
-      <td>~</td>  
+      <td>0</td>
+      <td>0</td>  
       @endif
     @endfor
     </tr>

@@ -27,7 +27,6 @@
             @elseif(auth()->user()->level == "dosenwali")
               Welcome back,  {{ auth()->user()->dosen_wali->nama }}
             @elseif(auth()->user()->level == "departemen")
-              {{-- Welcome back,  {{ auth()->user()->departemen->nama }} --}}
               Welcome back, Departemen Informatika
             @else
               Welcome back,  {{ auth()->user()->operator->nama }}
@@ -47,7 +46,7 @@
       @endauth
     </div>
   </nav>
-  <div class="container mt-4">
+  <div class="container my-4">
     @yield('container')
   </div>
 
