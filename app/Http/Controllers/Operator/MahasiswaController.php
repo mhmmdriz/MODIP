@@ -15,6 +15,7 @@ use App\Imports\UserImport;
 use App\Imports\MahasiswaImport;
 use App\Exports\MahasiswaExport;
 use App\Models\DosenWali;
+use Carbon\Carbon;
 
 class MahasiswaController extends Controller
 {
@@ -27,10 +28,14 @@ class MahasiswaController extends Controller
         $data_angkatan = Mahasiswa::getAngkatan($data_mhs);
         $data_doswal = DosenWali::all();
 
+        $current_year = Carbon::now()->year;
+        $semua_angkatan = range($current_year, $current_year-6);
+
         return view("operator.akun_mhs.index", [
             "data_mhs" => $data_mhs,
             "data_angkatan" => $data_angkatan,
             "data_doswal" => $data_doswal,
+            "semua_angkatan" => $semua_angkatan,
         ]);
     }
 

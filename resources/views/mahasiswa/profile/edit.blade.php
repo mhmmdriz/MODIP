@@ -14,7 +14,7 @@
   <div class="card p-0 mb-3">
     <div class="card-header">Edit Profile</div>
     <div class="card-body">
-      <form action="/profile/edit" method="POST" class="needs-validation" enctype="multipart/form-data">
+      <form id="form" action="/profile/edit" method="POST" class="needs-validation" enctype="multipart/form-data">
         @csrf
         @method('put')
         <div class="mb-3">
@@ -51,28 +51,38 @@
               </div>
           @enderror
         </div>
+        
         <div class="mb-3">
-          <label for="alamat" class="form-label">Alamat</label>
-          <input type="text" class="form-control @error('alamat') is-invalid @enderror" id="alamat" name="alamat" value="{{ old('alamat', auth()->user()->mahasiswa->alamat) }}">
-          @error('alamat')
+          <input type="hidden" name="provinsi_hidden" id="provinsi_hidden" value="{{ old('provinsi', auth()->user()->mahasiswa->provinsi) }}">
+
+          <label for="provinsi" class="form-label">Provinsi</label>
+          <select class="form-control @error('provinsi') is-invalid @enderror" id="provinsi" name="provinsi" aria-label="Default select example">
+            <option value="" selected>Pilih Provinsi</option>
+          </select>
+          @error('provinsi')
               <div class="invalid-feedback">
                   {{ $message }}
               </div>
           @enderror
         </div>
         <div class="mb-3">
+          <input type="hidden" name="kabupaten_kota_hidden" id="kabupaten_kota_hidden" value="{{ old('kabupaten_kota', auth()->user()->mahasiswa->kabupaten_kota) }}">
+
           <label for="kabupaten_kota" class="form-label">Kabupaten/Kota</label>
-          <input type="text" class="form-control @error('kabupaten_kota') is-invalid @enderror" id="kabupaten_kota" name="kabupaten_kota" value="{{ old('kabupaten_kota', auth()->user()->mahasiswa->kabupaten_kota) }}">
+          <select class="form-control @error('kabupaten_kota') is-invalid @enderror" id="kabupaten_kota" name="kabupaten_kota" aria-label="Default select example">
+            <option value="" selected>Pilih Kabupaten/Kota</option>
+          </select>
           @error('kabupaten_kota')
               <div class="invalid-feedback">
                   {{ $message }}
               </div>
           @enderror
         </div>
+
         <div class="mb-3">
-          <label for="provinsi" class="form-label">Provinsi</label>
-          <input type="text" class="form-control @error('provinsi') is-invalid @enderror" id="provinsi" name="provinsi" value="{{ old('provinsi', auth()->user()->mahasiswa->provinsi) }}">
-          @error('provinsi')
+          <label for="alamat" class="form-label">Alamat</label>
+          <input type="text" class="form-control @error('alamat') is-invalid @enderror" id="alamat" name="alamat" value="{{ old('alamat', auth()->user()->mahasiswa->alamat) }}">
+          @error('alamat')
               <div class="invalid-feedback">
                   {{ $message }}
               </div>
@@ -107,5 +117,6 @@
     }
   }
 </script>
+<script src="/js/api_wilayah.js"></script>
 
 @endsection

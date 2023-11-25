@@ -20,8 +20,14 @@
           </div>
           <input type="hidden" class="form-control" name="nim_edit" value="{{ old('nim_edit') }}" id="nim_edit">
           <div class="mb-3">
+            
             <label for="angkatan_edit" class="form-label">Angkatan</label>
-            <input type="text" class="form-control @error('angkatan_edit') is-invalid @enderror" name="angkatan_edit" value="{{ old('angkatan_edit') }}" id="angkatan_edit">
+            <select class="form-control @error('angkatan_edit') is-invalid @enderror" id="angkatan_edit" name="angkatan_edit" aria-label="Default select example">
+              <option value="" selected>Pilih Angkatan</option>
+              @foreach ($semua_angkatan as $angkatan)
+                <option value="{{ $angkatan }}" {{ (old('angkatan_edit') == $angkatan)?"selected":"" }}>{{ $angkatan }}</option>
+              @endforeach
+            </select>
             @error('angkatan_edit')
               <div class="invalid-feedback">
                 {{ $message }}
