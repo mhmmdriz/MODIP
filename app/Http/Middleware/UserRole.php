@@ -13,9 +13,9 @@ class UserRole
      *
      * @param  \Closure(\Illuminate\Http\Request): (\Symfony\Component\HttpFoundation\Response)  $next
      */
-    public function handle(Request $request, Closure $next, $role): Response
+    public function handle(Request $request, Closure $next, $role1, $role2="", $role3=""): Response
     {
-        if (auth()->user()->level == $role) {
+        if (auth()->user()->level == $role1 || auth()->user()->level == $role2 || auth()->user()->level == $role3) {
             return $next($request);
         }
         return redirect("/");

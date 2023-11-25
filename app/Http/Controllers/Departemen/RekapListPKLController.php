@@ -13,35 +13,16 @@ use Carbon\Carbon;
 class RekapListPKLController extends Controller
 {
     public function rekap(){
-        // $rekap_pkl = PKL::rightJoin("mahasiswa", "mahasiswa.nim", "=", "pkl.nim")
-        // ->groupBy("angkatan")
-        // ->selectRaw("angkatan, count(pkl.nim) as jumlah_sudah, count(mahasiswa.nim) as jumlah_total")
-        // ->get()
-        // ->groupBy('angkatan') // Mengelompokkan berdasarkan angkatan
-        // ->map(function ($group) {
-        //     // Mengonversi setiap kelompok menjadi array asosiatif
-        //     return [
-        //         'sudah_pkl' => $group->sum('jumlah_sudah'),
-        //         'belum_pkl' => $group->sum('jumlah_total') - $group->sum('jumlah_sudah'),
-        //     ];
-        // });
-
-        // $rekap_pkl = PKL::rightJoin("mahasiswa", "mahasiswa.nim", "=", "pkl.nim")
-        // ->groupBy("angkatan")
-        // ->selectRaw("angkatan, 
-        //             COUNT(CASE WHEN pkl.validasi = 1 THEN pkl.nim ELSE NULL END) as jumlah_sudah,
-        //             COUNT(mahasiswa.nim) as jumlah_total")
-        // ->get()
-        // ->groupBy('angkatan')
-        // ->map(function ($group) {
-        //     return [
-        //         'sudah_pkl' => $group->sum('jumlah_sudah'),
-        //         'belum_pkl' => $group->sum('jumlah_total') - $group->sum('jumlah_sudah'),
-        //     ];
-        // });
-        $mhs_pkl = PKL::selectRaw("mahasiswa.nim as mhs_nim, pkl.nim as pkl_nim, validasi, angkatan")
-        ->rightJoin("mahasiswa", "mahasiswa.nim", "=", "pkl.nim")
-        ->get();
+        if(auth()->user()->level == "dosenwali"){
+            $mhs_pkl = PKL::selectRaw("mahasiswa.nim as mhs_nim, pkl.nim as pkl_nim, validasi, angkatan")
+            ->rightJoin("mahasiswa", "mahasiswa.nim", "=", "pkl.nim")
+            ->where("dosen_wali", auth()->user()->username)
+            ->get();
+        }else{
+            $mhs_pkl = PKL::selectRaw("mahasiswa.nim as mhs_nim, pkl.nim as pkl_nim, validasi, angkatan")
+            ->rightJoin("mahasiswa", "mahasiswa.nim", "=", "pkl.nim")
+            ->get();
+        }
 
         $rekap_pkl = $mhs_pkl->pluck('angkatan')->unique()->mapWithKeys(function ($angkatan) {
             return [$angkatan => [
@@ -71,15 +52,20 @@ class RekapListPKLController extends Controller
     public function showList(Request $request){
         if($request->status == "Sudah"){
             $data_mhs = PKL::join("mahasiswa","mahasiswa.nim","=", "pkl.nim")->where("angkatan", $request->angkatan)
-            ->where("validasi", 1)->get();
+            ->where("validasi", 1);
         }else{
             $data_mhs = PKL::Rightjoin("mahasiswa","mahasiswa.nim","=", "pkl.nim")->where("angkatan", $request->angkatan)
             ->where(function($query) {
                 $query->where('validasi', 0)
                       ->orWhereNull('validasi');
-            })
-            ->get();
+            });
         }
+
+        if(auth()->user()->level == "dosenwali"){
+            $data_mhs = $data_mhs->where("dosen_wali", auth()->user()->username);
+        }
+
+        $data_mhs = $data_mhs->get();
 
         $view = view('departemen.rekap_pkl.listMhs',[
             'data_mhs'=> $data_mhs,
@@ -100,6 +86,7 @@ class RekapListPKLController extends Controller
             'angkatan' => $request->angkatan,
         ]);
     }
+    
     public function printRekap(Request $request){
         $rekap_pkl = json_decode($request->input('rekap_pkl'), true);
         // dd($rekap_pkl, $request->input('status'), $request->angkatan);

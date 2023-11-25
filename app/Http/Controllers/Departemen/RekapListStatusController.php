@@ -12,10 +12,13 @@ class RekapListStatusController extends Controller
 {
     public function rekap(){
         $rekap_status = Mahasiswa::groupBy('angkatan', 'status')
-        ->selectRaw('angkatan, status, count(nim) as jumlah')
-        ->get()
-        ->groupBy('angkatan')
-        ->map(function ($group) {
+        ->selectRaw('angkatan, status, count(nim) as jumlah');
+
+        if(auth()->user()->level == "dosenwali"){
+            $rekap_status = $rekap_status->where("dosen_wali", auth()->user()->username);
+        }
+        
+        $rekap_status = $rekap_status->get()->groupBy('angkatan')->map(function ($group) {
             return $group->pluck('jumlah', 'status');
         });
 
@@ -28,25 +31,27 @@ class RekapListStatusController extends Controller
         ]);
     }
 
-    public function showList($angkatan, $status=null){
-        // dd($angkatan, $status);
+    // public function showList($angkatan, $status=null){
+    //     $whereQuery = "angkatan = $angkatan";
+    //     if($status!=null){
+    //         $whereQuery .= " AND status = '$status'";
+    //     }
+    //     if(auth()->user()->level == "dosenwali"){
+    //         $whereQuery .= " AND dosen_wali = '".auth()->user()->username."'";
+    //     }
 
-        $whereQuery = "angkatan = $angkatan";
-        if($status!=null){
-            $whereQuery .= " AND status = '$status'";
-        }
-        $data_mhs = Mahasiswa::whereRaw($whereQuery)->get();
-        // dd($data_mhs);
+    //     $data_mhs = Mahasiswa::whereRaw($whereQuery)->get();
+    //     // dd($data_mhs);
 
-        $current_year = Carbon::now()->year;
+    //     $current_year = Carbon::now()->year;
         
-        return view("departemen.rekap_status.listMhs",[
-            "data_mhs"=>$data_mhs,
-            "status"=>$status,
-            "angkatan"=>$angkatan,
-            "current_year"=>$current_year
-        ]);
-    }
+    //     return view("departemen.rekap_status.listMhs",[
+    //         "data_mhs"=>$data_mhs,
+    //         "status"=>$status,
+    //         "angkatan"=>$angkatan,
+    //         "current_year"=>$current_year
+    //     ]);
+    // }
 
     public function showListAjax(Request $request){
         $angkatan = $request->angkatan;
@@ -55,6 +60,9 @@ class RekapListStatusController extends Controller
 
         if($request->status != null){
             $whereQuery .= " AND status = '".$request->status."'";
+        }
+        if(auth()->user()->level == "dosenwali"){
+            $whereQuery .= " AND dosen_wali = '".auth()->user()->username."'";
         }
 
         $data_mhs = Mahasiswa::whereRaw($whereQuery)->get();

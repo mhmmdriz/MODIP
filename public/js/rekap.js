@@ -10,7 +10,7 @@ $(document).ready(function() {
       data: {'angkatan':angkatan, 'status':status},
       success: function(response) {
         $('.list-mhs-pkl').html(response.html);
-        // console.log(response.html);
+        console.log(response.message);
       },
       error: function(response) {
         // console.log('Error:', response);

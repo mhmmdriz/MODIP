@@ -80,6 +80,14 @@
       </div>
     </a>
   </div>
+  <div class="col-md-4 col-sm-6">
+    <a href="/rekapMhsPerwalian" style="text-decoration: none">
+      <div class="card bg-body-tertiary d-flex justify-content-center align-items-center text-center py-2 h-100">      
+        <h5><b>Rekap Mahasiswa Perwalian</b></h5>
+        <i class="bi bi-file-earmark-ruled" style="font-size:70px;"></i>
+      </div>
+    </a>
+  </div>
 </div>
 @endsection
 
