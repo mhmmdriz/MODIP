@@ -28,30 +28,60 @@
       <div class="col bg-light-subtle rounded border">
         <div class="row">
           <div class="col-2 border-end py-4 text-center" >
-            Angkatan {{ $angkatan }}
+            <h6 class="m-0 p-0">
+              <b>Angkatan {{ $angkatan }}</b>
+            </h6>
           </div>
           <div class="col-2 py-4 text-center ">
-            Mahasiswa: {{ $jumlah_mhs }}
+            <h5 class="m-0 p-0">
+              <span class="badge text-bg-secondary">
+                Mahasiswa: {{ $jumlah_mhs }}
+              </span>
+            </h5>
           </div>
           <div class="col-2 py-4 text-center ">
             @if (isset($rekap_irs[$angkatan]["sudah"]))
-            Sudah Validasi: {{ $rekap_irs[$angkatan]["sudah"] }}
+            <h5 class="m-0 p-0">
+              <span class="badge text-bg-success">
+                Sudah Validasi: {{ $rekap_irs[$angkatan]["sudah"] }}
+              </span>
+            </h5>
             @else
-            Sudah Validasi: 0
+            <h5 class="m-0 p-0">
+              <span class="badge text-bg-success">
+                Sudah Validasi: 0
+              </span>
+            </h5>
             @endif
           </div>
           <div class="col-2 py-4 text-center ">
             @if (isset($rekap_irs[$angkatan]["belum"]))
-            Belum Validasi: {{ $rekap_irs[$angkatan]["belum"] }}
+            <h5 class="m-0 p-0">
+              <span class="badge text-bg-warning">
+                Belum Validasi: {{ $rekap_irs[$angkatan]["belum"] }}
+              </span>
+            </h5>
             @else
-            Belum Validasi: 0
+            <h5 class="m-0 p-0">
+              <span class="badge text-bg-warning">
+                Belum Validasi: 0
+              </span>
+            </h5>
             @endif
           </div>
           <div class="col-auto py-4 text-center ">
             @if (isset($rekap_irs[$angkatan]["belum_entry"]))
-            Belum Entry Data: {{ $rekap_irs[$angkatan]["belum_entry"] }}
+            <h5 class="m-0 p-0">
+              <span class="badge text-bg-danger">
+                Belum Entry Data: {{ $rekap_irs[$angkatan]["belum_entry"] }}
+              </span>
+            </h5>
             @else
-            Belum Entry Data: 0
+            <h5 class="m-0 p-0">
+              <span class="badge text-bg-danger">
+                Belum Entry Data: 0
+              </span>
+            </h5>
             @endif
           </div>
         </div>
@@ -63,8 +93,6 @@
 
 </div>
 
-{{-- @include('mahasiswa.irs.modal_edit_irs')
-@include('mahasiswa.irs.modal_alert') --}}
 <script src="js/modal.js"></script>
 
 @endsection

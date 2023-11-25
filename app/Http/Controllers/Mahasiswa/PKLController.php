@@ -18,9 +18,10 @@ class PKLController extends Controller
     {
         $mahasiswa = auth()->user()->mahasiswa;
         $dataPKL = $mahasiswa->pkl;
-        $dataKHS = $mahasiswa->khs;
+        $semesterInfo = $mahasiswa->calculateSemesterAndThnAjar();
+        $semester = $semesterInfo['semester'];
         
-        $is_eligible = PKL::isEligible($dataKHS);
+        $is_eligible = PKL::isEligible($semester);
 
         return view('mahasiswa.pkl.index', [
             'dataPKL' => $dataPKL,
