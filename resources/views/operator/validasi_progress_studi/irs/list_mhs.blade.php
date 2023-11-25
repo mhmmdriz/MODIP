@@ -6,8 +6,8 @@
   <ol class="breadcrumb">
     <li class="breadcrumb-item"><a href="/dashboard">Dashboard</a></li>
     <li class="breadcrumb-item"><a href="/validasiProgress">Validasi Progress Studi</a></li>
-    <li class="breadcrumb-item"><a href="/validasiIRS">IRS</a></li>
-    <li class="breadcrumb-item active" aria-current="page">Angkatan {{ $angkatan }}</li>
+    <li class="breadcrumb-item"><a href="/validasiProgress/validasiIRS">Validasi IRS</a></li>
+    <li class="breadcrumb-item active" aria-current="page">List Angkatan {{ $angkatan }}</li>
   </ol>
 </nav>
 
@@ -52,7 +52,7 @@
               <td>~</td>
             @endif
             <td>
-              <a class="btn btn-primary btn-sm" href="/validasiIRS/{{ $angkatan }}/{{ $mhs->nim }}">Detail IRS</a>
+              <a class="btn btn-primary btn-sm" href="/validasiProgress/validasiIRS/{{ $angkatan }}/{{ $mhs->nim }}">Detail IRS</a>
             </td>
           </tr>
         @endforeach

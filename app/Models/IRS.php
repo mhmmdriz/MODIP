@@ -49,18 +49,18 @@ class IRS extends Model
         });
     }
 
-    public static function getRekapIRSAngkatan($data_mhs, $doswal = null){
-        if($doswal == null){
-            $mhs_irs = IRS::selectRaw("angkatan, irs.nim, 
-            COUNT(CASE WHEN validasi = 0 THEN 1 ELSE NULL END) as count_validasi_0")
-            ->join("mahasiswa", "mahasiswa.nim", "=", "irs.nim")
-            ->groupBy("angkatan", "irs.nim")
-            ->get();
-        }else{
-            $mhs_irs = IRS::selectRaw("angkatan, irs.nim, 
+    public static function getRekapValidasiIRS($data_mhs){
+        if(auth()->user()->level == "dosenwali"){
+            $mhs_irs = self::selectRaw("angkatan, irs.nim, 
             COUNT(CASE WHEN validasi = 0 THEN 1 ELSE NULL END) as count_validasi_0")
             ->join("mahasiswa", "mahasiswa.nim", "=", "irs.nim")
             ->where("dosen_wali", auth()->user()->username)
+            ->groupBy("angkatan", "irs.nim")
+            ->get();
+        }else{
+            $mhs_irs = self::selectRaw("angkatan, irs.nim, 
+            COUNT(CASE WHEN validasi = 0 THEN 1 ELSE NULL END) as count_validasi_0")
+            ->join("mahasiswa", "mahasiswa.nim", "=", "irs.nim")
             ->groupBy("angkatan", "irs.nim")
             ->get();
         }
@@ -73,6 +73,7 @@ class IRS extends Model
                 'belum_entry'=> 0,
             ];
         }
+
 
         foreach($mhs_irs as $mhs){
             if($mhs->count_validasi_0 == 0){
