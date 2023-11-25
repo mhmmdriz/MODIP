@@ -197,4 +197,36 @@ class Mahasiswa extends Model
     
         return $view;
     }
+
+    public static function getRekapStatus(){
+        $rekap_status = self::groupBy('angkatan', 'status')
+        ->selectRaw('angkatan, status, count(nim) as jumlah');
+
+        if(auth()->user()->level == "dosenwali"){
+            $rekap_status = $rekap_status->where("dosen_wali", auth()->user()->username);
+        }
+        
+        $rekap_status = $rekap_status->get()->groupBy('angkatan')->map(function ($group) {
+            return $group->pluck('jumlah', 'status');
+        });
+
+        return $rekap_status;
+    }
+
+    public static function getListRekapStatus($request){
+        $angkatan = $request->angkatan;
+
+        $whereQuery = "angkatan = $angkatan";
+
+        if($request->status != null){
+            $whereQuery .= " AND status = '".$request->status."'";
+        }
+        if(auth()->user()->level == "dosenwali"){
+            $whereQuery .= " AND dosen_wali = '".auth()->user()->username."'";
+        }
+
+        $data_mhs = self::whereRaw($whereQuery)->get();
+
+        return $data_mhs;
+    }
 }

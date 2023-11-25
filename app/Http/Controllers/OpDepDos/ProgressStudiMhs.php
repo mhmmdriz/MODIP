@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Departemen;
+namespace App\Http\Controllers\OpDepDos;
 
 use App\Http\Controllers\Controller;
 use App\Models\IRS;

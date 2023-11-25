@@ -7,11 +7,7 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\Operator\DosenWaliController;
 use App\Http\Controllers\Operator\DepartemenController;
 use App\Http\Controllers\Operator\MahasiswaController;
-use App\Http\Controllers\Operator\IRSController as OperatorIRSController;
-use App\Http\Controllers\Operator\KHSController as OperatorKHSController;
-use App\Http\Controllers\Operator\PKLController as OperatorPKLController;
-use App\Http\Controllers\Operator\SkripsiController as OperatorSkripsiController;
-use App\Http\Controllers\Operator\ProgressStudiMhs as OperatorProgressStudiMhs;
+// use App\Http\Controllers\Operator\IRSController as OperatorIRSController;
 
 use App\Http\Controllers\Mahasiswa\IRSController;
 use App\Http\Controllers\Mahasiswa\KHSController;
@@ -19,16 +15,16 @@ use App\Http\Controllers\Mahasiswa\SkripsiController;
 use App\Http\Controllers\Mahasiswa\MahasiswaTaskController;
 use App\Http\Controllers\Mahasiswa\PKLController;
 
-use App\Http\Controllers\DosenWali\IRSController as DoswalIRSController;
-use App\Http\Controllers\DosenWali\KHSController as DoswalKHSController;
-use App\Http\Controllers\DosenWali\PKLController as DoswalPKLController;
-use App\Http\Controllers\DosenWali\SkripsiController as DoswalSkripsiController;
-use App\Http\Controllers\DosenWali\ProgressStudiMhs as DoswalProgressStudiMhs;
+use App\Http\Controllers\OpDos\IRSController as IRSValidationController;
+use App\Http\Controllers\OpDos\KHSController as KHSValidationController;
+use App\Http\Controllers\OpDos\PKLController as PKLValidationController;
+use App\Http\Controllers\OpDos\SkripsiController as SkripsiValidationController;
+// use App\Http\Controllers\OpDos\ProgressStudiMhs as ProgressStudiMhs;
 
-use App\Http\Controllers\Departemen\ProgressStudiMhs;
-use App\Http\Controllers\Departemen\RekapListPKLController;
-use App\Http\Controllers\Departemen\RekapListSkripsiController;
-use App\Http\Controllers\Departemen\RekapListStatusController;
+use App\Http\Controllers\OpDepDos\ProgressStudiMhs;
+use App\Http\Controllers\OpDepDos\RekapListPKLController;
+use App\Http\Controllers\OpDepDos\RekapListSkripsiController;
+use App\Http\Controllers\OpDepDos\RekapListStatusController;
 
 
 /*
@@ -121,33 +117,33 @@ Route::middleware(['auth','user.role:mahasiswa'])->group(function () {
 
 Route::middleware(['auth', 'user.role:dosenwali'])->group(function () {
 
-    Route::get("/pencarianProgressStudiPerwalian", [DoswalProgressStudiMhs::class, 'index']);
-    Route::get("/ajaxProgressMHSPerwalian", [DoswalProgressStudiMhs::class, 'updateTableProgressMhs']);
-    Route::get("/pencarianProgressStudiPerwalian/{mahasiswa}", [DoswalProgressStudiMhs::class, 'showProgressMhs']);
+    Route::get("/pencarianProgressStudiPerwalian", [ProgressStudiMhs::class, 'index']);
+    Route::get("/ajaxProgressMHSPerwalian", [ProgressStudiMhs::class, 'updateTableProgressMhs']);
+    Route::get("/pencarianProgressStudiPerwalian/{mahasiswa}", [ProgressStudiMhs::class, 'showProgressMhs']);
 
-    Route::get("/irsPerwalian", [DoswalIRSController::class, 'index']);
-    Route::get("/irsPerwalian/{angkatan}", [DoswalIRSController::class, 'listMhsAngkatan']);
-    Route::get('/irsPerwalian/{angkatan}/{mahasiswa}', [DoswalIRSController::class, 'showIRSMhs']);
-    Route::put('/irsPerwalian/{angkatan}/{mahasiswa}/update', [DoswalIRSController::class, 'updateIRSMhs']);
-    Route::post("/validateIRS", [DoswalIRSController::class,"validateIRS"]);
+    Route::get("/irsPerwalian", [IRSValidationController::class, 'index']);
+    Route::get("/irsPerwalian/{angkatan}", [IRSValidationController::class, 'listMhsAngkatan']);
+    Route::get('/irsPerwalian/{angkatan}/{mahasiswa}', [IRSValidationController::class, 'showIRSMhs']);
+    Route::put('/irsPerwalian/{angkatan}/{mahasiswa}/update', [IRSValidationController::class, 'updateIRSMhs']);
+    Route::post("/validateIRS", [IRSValidationController::class,"validateIRS"]);
 
-    Route::get("/khsPerwalian", [DoswalKHSController::class, 'index']);
-    Route::get("/khsPerwalian/{angkatan}", [DoswalKHSController::class, 'listMhsAngkatan']);
-    Route::get('/khsPerwalian/{angkatan}/{mahasiswa}', [DoswalKHSController::class, 'showKHSMhs']);
-    Route::put('/khsPerwalian/{angkatan}/{mahasiswa}/update', [DoswalKHSController::class, 'updateKHSMhs']);
-    Route::post("/validateKHS", [DoswalKHSController::class,"validateKHS"]);
+    Route::get("/khsPerwalian", [KHSValidationController::class, 'index']);
+    Route::get("/khsPerwalian/{angkatan}", [KHSValidationController::class, 'listMhsAngkatan']);
+    Route::get('/khsPerwalian/{angkatan}/{mahasiswa}', [KHSValidationController::class, 'showKHSMhs']);
+    Route::put('/khsPerwalian/{angkatan}/{mahasiswa}/update', [KHSValidationController::class, 'updateKHSMhs']);
+    Route::post("/validateKHS", [KHSValidationController::class,"validateKHS"]);
     
-    Route::get("/pklPerwalian", [DoswalPKLController::class, 'index']);
-    Route::get("/pklPerwalian/{angkatan}", [DoswalPKLController::class, 'listMhsAngkatan']);
-    Route::get('/pklPerwalian/{angkatan}/{nim}', [DoswalPKLController::class, 'showPKLMhs']);
-    Route::put('/pklPerwalian/{angkatan}/{nim}/update', [DoswalPKLController::class, 'updatePKLMhs']);
-    Route::get("/pklPerwalian/{angkatan}/{nim}/validatePKL/{validate}", [DoswalPKLController::class,"validatePKL"]);
+    Route::get("/pklPerwalian", [PKLValidationController::class, 'index']);
+    Route::get("/pklPerwalian/{angkatan}", [PKLValidationController::class, 'listMhsAngkatan']);
+    Route::get('/pklPerwalian/{angkatan}/{nim}', [PKLValidationController::class, 'showPKLMhs']);
+    Route::put('/pklPerwalian/{angkatan}/{nim}/update', [PKLValidationController::class, 'updatePKLMhs']);
+    Route::get("/pklPerwalian/{angkatan}/{nim}/validatePKL/{validate}", [PKLValidationController::class,"validatePKL"]);
     
-    Route::get("/skripsiPerwalian", [DoswalSkripsiController::class, 'index']);
-    Route::get("/skripsiPerwalian/{angkatan}", [DoswalSkripsiController::class, 'listMhsAngkatan']);
-    Route::get('/skripsiPerwalian/{angkatan}/{nim}', [DoswalSkripsiController::class, 'showSkripsiMhs']);
-    Route::put('/skripsiPerwalian/{angkatan}/{nim}/update', [DoswalSkripsiController::class, 'updateSkripsiMhs']);
-    Route::get("/skripsiPerwalian/{angkatan}/{nim}/validateSkripsi/{validate}", [DoswalSkripsiController::class,"validateSkripsi"]);
+    Route::get("/skripsiPerwalian", [SkripsiValidationController::class, 'index']);
+    Route::get("/skripsiPerwalian/{angkatan}", [SkripsiValidationController::class, 'listMhsAngkatan']);
+    Route::get('/skripsiPerwalian/{angkatan}/{nim}', [SkripsiValidationController::class, 'showSkripsiMhs']);
+    Route::put('/skripsiPerwalian/{angkatan}/{nim}/update', [SkripsiValidationController::class, 'updateSkripsiMhs']);
+    Route::get("/skripsiPerwalian/{angkatan}/{nim}/validateSkripsi/{validate}", [SkripsiValidationController::class,"validateSkripsi"]);
 
     Route::get('/rekapMhsPerwalian', fn() => view('dosenwali.rekap_mhs.index'));
     Route::get("/rekapMhsPerwalian/rekapPKL", [RekapListPKLController::class,"rekap"]);
