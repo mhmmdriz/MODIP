@@ -17,10 +17,16 @@ class ProgressStudiMhs extends Controller
      */
     public function index()
     {   
-        $data_mhs = Mahasiswa::all();
+        if(auth()->user()->level=="dosenwali"){
+            $data_mhs = Mahasiswa::get()->where("dosen_wali", auth()->user()->username);
+            $path = "dosenwali.pencarian_progress.index";
+        }else{
+            $data_mhs = Mahasiswa::all();
+            $path = "departemen.pencarian_progress.index";
+        }
         $data_angkatan = Mahasiswa::getAngkatan($data_mhs);
 
-        return view("departemen.pencarian_progress.index",[
+        return view($path,[
             "data_mhs" => $data_mhs,
             "data_angkatan" => $data_angkatan,
         ]);
@@ -37,23 +43,9 @@ class ProgressStudiMhs extends Controller
         $semester = $semesterInfo['semester'];
 
         $arrIRS = $mahasiswa->irs;
-        $SKSkIRS = 0;
-        foreach($arrIRS as $irs){
-            $SKSkIRS += $irs->sks;
-        }
 
         $arrKHS = $mahasiswa->khs;
-        $SKSkKHS = 0;
-        $IPk = 0;
-        $n = 0;
-        foreach($arrKHS as $khs){
-            $SKSkKHS += $khs->sks;
-            $IPk += $khs->ips;
-            $n++;
-        }
-        if ($n > 0){
-            $IPk = $IPk/$n;
-        }
+        $data_khs = KHS::rekapKHS($arrKHS);
 
         $data_skripsi = $mahasiswa->skripsi;
         $data_pkl = $mahasiswa->pkl;
@@ -66,9 +58,8 @@ class ProgressStudiMhs extends Controller
             "data_pkl" => $data_pkl,
             "arrIRS" => $arrIRS,
             "arrKHS" => $arrKHS,
-            "SKSkIRS" => $SKSkIRS,
-            "SKSkKHS" => $SKSkKHS,
-            "IPk" => $IPk,
+            "SKSk" => $data_khs['SKSk'],
+            "IPk" => $data_khs['IPk'],
         ]);
     }
 }

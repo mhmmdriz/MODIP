@@ -22,7 +22,11 @@
     <div class="card mb-3 bg-body-tertiary">
       <div class="row">
         <div class="col-md-auto m-4">
-          <img src="/photo/private/profile_photo/default.jpg" alt="" style="border-radius:50%; width:120px">
+          @if ($mahasiswa->foto_profil == null)
+            <img src="/showFile/private/profile_photo/default.jpg" alt="" style="border-radius: 50%; width: 120px; height: 120px; object-fit: cover; display: block;">
+          @else
+            <img src="/showFile/{{ $mahasiswa->foto_profil }}" alt="" style="border-radius: 50%; width: 120px; height: 120px; object-fit: cover; display: block;">
+          @endif
         </div>
         <div class="col m-4">
           <div class="row">
@@ -52,7 +56,7 @@
     </p>
   </div>
   <div class="mb-1">
-      SKSk IRS: {{ $SKSkIRS }} | SKSk KHS: {{ $SKSkKHS }} | IPk: {{ number_format($IPk, 2) }}
+    SKSk: {{ $SKSk }} | IPk: {{ number_format($IPk, 2) }}
   </div>
 </div>
 

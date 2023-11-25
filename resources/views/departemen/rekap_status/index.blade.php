@@ -5,6 +5,9 @@
 <nav aria-label="breadcrumb">
   <ol class="breadcrumb">
     <li class="breadcrumb-item"><a href="/dashboard">Dashboard</a></li>
+    @if (auth()->user()->level == 'operator')
+    <li class="breadcrumb-item"><a href="/rekapMhs">Rekap Mahasiswa</a></li>
+    @endif
     <li class="breadcrumb-item active" aria-current="page">Rekap Status Mahasiswa</li>
   </ol>
 </nav>

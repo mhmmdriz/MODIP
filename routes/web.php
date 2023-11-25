@@ -19,7 +19,6 @@ use App\Http\Controllers\OpDos\IRSController as IRSValidationController;
 use App\Http\Controllers\OpDos\KHSController as KHSValidationController;
 use App\Http\Controllers\OpDos\PKLController as PKLValidationController;
 use App\Http\Controllers\OpDos\SkripsiController as SkripsiValidationController;
-// use App\Http\Controllers\OpDos\ProgressStudiMhs as ProgressStudiMhs;
 
 use App\Http\Controllers\OpDepDos\ProgressStudiMhs;
 use App\Http\Controllers\OpDepDos\RekapListPKLController;
@@ -95,6 +94,10 @@ Route::middleware(['auth', 'user.role:operator'])->group(function () {
     Route::put('/validasiIRS/{angkatan}/{mahasiswa}/update', [OperatorIRSController::class, 'updateIRSMhs']);
     Route::post("/validasiIRS/validate", [OperatorIRSController::class,"validateIRS"]);
 
+    Route::get('/rekapMhs', fn() => view('operator.rekap_mhs.index'));
+    Route::get("/rekapMhs/rekapPKL", [RekapListPKLController::class,"rekap"]);
+    Route::get("/rekapMhs/rekapSkripsi", [RekapListSkripsiController::class,"rekap"]);
+    Route::get("/rekapMhs/rekapStatus", [RekapListStatusController::class,"rekap"]);
 
     Route::get('/download-file/{filename}', [FileController::class, 'downloadFile'])->where('filename', '.*');
 });
@@ -170,7 +173,6 @@ Route::middleware(['auth', 'user.role:departemen,dosenwali,operator'])->group(fu
     Route::post("/printListMhsSkripsi", [RekapListSkripsiController::class, "printList"]);
     Route::post("/printRekapSkripsi", [RekapListSkripsiController::class, "printRekap"]);
     
-    // Route::get("/showListMhsStatus/{angkatan}/{status?}", [RekapListStatusController::class, "showList"]);
     Route::post("/printListMhsStatus", [RekapListStatusController::class, "printList"]);
     Route::post("/printRekapStatus", [RekapListStatusController::class, "printRekap"]);
     Route::get("/showListStatusAjax", [RekapListStatusController::class, "showListAjax"]);

@@ -64,9 +64,9 @@
     </a>
   </div>
   <div class="col-md-4 col-sm-6">
-    <a href="/pencarianProgressStudiPerwalian" style="text-decoration: none">
+    <a href="/pencarianProgressStudi" style="text-decoration: none">
       <div class="card bg-body-tertiary d-flex justify-content-center align-items-center text-center py-2 h-100">  
-        <h5><b>Pencarian Progress Studi Mahasiswa Perwalian</b></h5>
+        <h5><b>Pencarian Progress Studi Mahasiswa</b></h5>
         <i class="bi bi-search" style="font-size:70px;"></i>
       </div>
     </a>
@@ -76,6 +76,14 @@
       <div class="card bg-body-tertiary d-flex justify-content-center align-items-center text-center py-2 h-100">      
         <h5><b>Validasi Progress Studi MHS</b></h5>
         <i class="bi bi-file-earmark-check-fill" style="font-size:70px;"></i>
+      </div>
+    </a>
+  </div>
+  <div class="col-md-4 col-sm-6">
+    <a href="/rekapMhs" style="text-decoration: none">
+      <div class="card bg-body-tertiary d-flex justify-content-center align-items-center text-center py-2 h-100">      
+        <h5><b>Rekap Mahasiswa</b></h5>
+        <i class="bi bi-file-earmark-ruled" style="font-size:70px;"></i>
       </div>
     </a>
   </div>
