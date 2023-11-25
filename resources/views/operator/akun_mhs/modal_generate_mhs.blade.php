@@ -29,7 +29,13 @@
           </div>
           <div class="mb-3">
             <label for="angkatan" class="form-label">Angkatan</label>
-            <input type="text" class="form-control @error('angkatan') is-invalid @enderror" name="angkatan" value="{{ old('angkatan') }}">
+
+            <select class="form-control @error('angkatan') is-invalid @enderror" name="angkatan" aria-label="Default select example">
+              <option value="" selected>Pilih Angkatan</option>
+              @foreach ($semua_angkatan as $angkatan)
+                <option value="{{ $angkatan }}" {{ (old('angkatan') == $angkatan)?"selected":"" }}>{{ $angkatan }}</option>
+              @endforeach
+            </select>
             @error('angkatan')
               <div class="invalid-feedback">
                 {{ $message }}
@@ -40,8 +46,7 @@
             <label for="status" class="form-label">Status</label>
 
             <select class="form-control @error('status') is-invalid @enderror" name="status" aria-label="Default select example">
-              <option value="" selected>Pilih status</option>
-              <option value="Aktif" {{ (old('status') == "Aktif")?"selected":"" }}>Aktif</option>
+              <option value="Aktif" {{ (old('status') == "Aktif")?"selected":"" }} selected>Aktif</option>
               <option value="Cuti" {{ (old('status') == "Cuti")?"selected":"" }}>Cuti</option>
               <option value="Mangkir" {{ (old('status') == "Mangkir")?"selected":"" }}>Mangkir</option>
               <option value="DO" {{ (old('status') == "DO")?"selected":"" }}>DO</option>

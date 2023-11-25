@@ -16,7 +16,11 @@ $(document).ready(function() {
 
     $('#nama_edit').val(nama);
     $('#nim_edit').val(nim);
-    $('#angkatan_edit').val(angkatan);
+    $('#angkatan_edit').find('option').each(function() {
+      if ($(this).val() == angkatan) {
+        $(this).attr('selected', 'selected');
+      }
+    });
     
     var selectStatus = $('#status_edit');
     var selectDoswal = $('#doswal');
