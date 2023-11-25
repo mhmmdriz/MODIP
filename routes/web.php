@@ -24,9 +24,6 @@ use App\Http\Controllers\DosenWali\KHSController as DoswalKHSController;
 use App\Http\Controllers\DosenWali\PKLController as DoswalPKLController;
 use App\Http\Controllers\DosenWali\SkripsiController as DoswalSkripsiController;
 use App\Http\Controllers\DosenWali\ProgressStudiMhs as DoswalProgressStudiMhs;
-use App\Http\Controllers\DosenWali\RekapListPKLController as RekapListPKLPerwalianController;
-use App\Http\Controllers\DosenWali\RekapListSkripsiController as RekapListSkripsiPerwalianController;
-use App\Http\Controllers\DosenWali\RekapListStatusController as RekapListStatusPerwalianController;
 
 use App\Http\Controllers\Departemen\ProgressStudiMhs;
 use App\Http\Controllers\Departemen\RekapListPKLController;
@@ -154,10 +151,14 @@ Route::middleware(['auth', 'user.role:dosenwali'])->group(function () {
 
     Route::get('/rekapMhsPerwalian', fn() => view('dosenwali.rekap_mhs.index'));
     Route::get("/rekapMhsPerwalian/rekapPKL", [RekapListPKLController::class,"rekap"]);
-    
     Route::get("/rekapMhsPerwalian/rekapSkripsi", [RekapListSkripsiController::class,"rekap"]);
-
     Route::get("/rekapMhsPerwalian/rekapStatus", [RekapListStatusController::class,"rekap"]);
+});
+
+Route::middleware(['auth', 'user.role:departemen'])->group(function () {
+    Route::get("/rekapPKL", [RekapListPKLController::class,"rekap"]);
+    Route::get("/rekapSkripsi", [RekapListSkripsiController::class,"rekap"]);
+    Route::get("/rekapStatus", [RekapListStatusController::class,"rekap"]);
 });
 
 Route::middleware(['auth', 'user.role:departemen,dosenwali,operator'])->group(function () {
@@ -165,17 +166,14 @@ Route::middleware(['auth', 'user.role:departemen,dosenwali,operator'])->group(fu
     Route::get("/ajaxProgressMHS", [ProgressStudiMhs::class, 'updateTableProgressMhs']);
     Route::get("/pencarianProgressStudi/{mahasiswa}", [ProgressStudiMhs::class, 'showProgressMhs']);
 
-    Route::get("/rekapPKL", [RekapListPKLController::class,"rekap"]);
     Route::get("/showListMhsPKL", [RekapListPKLController::class, "showList"]);
     Route::post("/printListMhsPKL", [RekapListPKLController::class, "printList"]);
     Route::post("/printRekapPKL", [RekapListPKLController::class, "printRekap"]);
     
-    Route::get("/rekapSkripsi", [RekapListSkripsiController::class,"rekap"]);
     Route::get("/showListMhsSkripsi", [RekapListSkripsiController::class, "showList"]);
     Route::post("/printListMhsSkripsi", [RekapListSkripsiController::class, "printList"]);
     Route::post("/printRekapSkripsi", [RekapListSkripsiController::class, "printRekap"]);
     
-    Route::get("/rekapStatus", [RekapListStatusController::class,"rekap"]);
     // Route::get("/showListMhsStatus/{angkatan}/{status?}", [RekapListStatusController::class, "showList"]);
     Route::post("/printListMhsStatus", [RekapListStatusController::class, "printList"]);
     Route::post("/printRekapStatus", [RekapListStatusController::class, "printRekap"]);
