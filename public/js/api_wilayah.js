@@ -21,10 +21,14 @@ fetch(apiUrl).then(response => response.json()).then(response => {
     selectProvinsi.innerHTML = options;
 
     const provId = selectProvinsi.options[selectProvinsi.selectedIndex].dataset.prov;
+    if (provId == undefined) {
+        return;
+    }
     fetch(`https://api.goapi.io/regional/kota?provinsi_id=${provId}&api_key=${apiKey}`)
     .then(response => response.json())
     .then(response => {
         var cities = response.data;
+        console.log(response.data);
         var options = '<option>Pilih Kabupaten/Kota</option>';
     
         const oldKota = document.getElementById('kabupaten_kota_hidden').value;
