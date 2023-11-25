@@ -157,7 +157,7 @@ class Mahasiswa extends Model
     }
 
     static public function getAngkatan($data_mhs){
-        $data_angkatan = $data_mhs->pluck('angkatan')->unique()->values();
+        $data_angkatan = $data_mhs->pluck('angkatan')->unique()->values()->sort();
         return $data_angkatan;
     }
 
@@ -191,7 +191,7 @@ class Mahasiswa extends Model
 
         if(auth()->user()->level == "dosenwali"){
             $view = view('dosenwali.pencarian_progress.update_mhs')->with('data_mhs', $data_mhs)->render();
-        }elseif(auth()->user()->level == "departemen"){
+        }else{
             $view = view('departemen.pencarian_progress.update_mhs')->with('data_mhs', $data_mhs)->render();
         }
     
