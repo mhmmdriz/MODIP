@@ -10,6 +10,7 @@ use App\Models\User;
 use App\Models\DosenWali;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Maatwebsite\Excel\Facades\Excel;
 
 class DosenWaliController extends Controller
@@ -54,13 +55,23 @@ class DosenWaliController extends Controller
 
     public function storeImport(Request $request){
         $validatedData = $request->validate([
-            'fileExcel' => 'required',
+            'fileExcel' => 'required|mimes:xlsx,xls',
         ]);
 
-        Excel::import(new UserImport("dosenwali"), request()->file('fileExcel'));
-        Excel::import(new DosenWaliImport, request()->file('fileExcel'));
-
-        return redirect('/akunDosenWali')->with('success','Import Akun Dosen Wali Berhasil');
+        DB::beginTransaction();
+        $import1 = new UserImport("dosenwali");
+        $import1->import(request()->file('fileExcel'));
+        $import2 = new DosenWaliImport;
+        $import2->import(request()->file('fileExcel'));
+        
+        if($import1->failures() || $import2->failures()){
+            DB::rollback();
+            $failures = $import1->failures()->merge($import2->failures());
+            return redirect('/akunDosenWali')->with('error', $failures);
+        } else {
+            DB::commit();
+            return redirect('/akunDosenWali')->with('success','Import Akun Dosen Wali Berhasil');
+        }
     }
 
     public function exportData(){
@@ -72,9 +83,16 @@ class DosenWaliController extends Controller
      */
     public function destroy(DosenWali $akunDosenWali)
     {
-        $akunDosenWali->delete();
-        User::where('username', $akunDosenWali->nip)->delete();
+        try {
+            DB::beginTransaction();
+            User::where('username', $akunDosenWali->nip)->delete();
+            $akunDosenWali->delete();
 
+        } catch (\Illuminate\Database\QueryException $e) {
+            DB::rollback();
+            return redirect('/akunDosenWali')->with('errorDelete',"Akun Dosen Wali dengan NIP $akunDosenWali->nip Gagal Dihapus karena sudah memiliki mahasiswa perwalian");
+        }
+        DB::commit();
         return redirect('/akunDosenWali')->with('success',"Akun Dosen Wali dengan NIP $akunDosenWali->nip Berhasil Dihapus");
     }
 

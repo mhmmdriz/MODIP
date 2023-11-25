@@ -5,6 +5,7 @@ use App\Http\Controllers\Controller;
 
 use App\Models\Mahasiswa;
 use App\Http\Requests\UpdateMahasiswaRequest;
+use Maatwebsite\Excel\Validators\ValidationException;
 use App\Models\User;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
@@ -85,13 +86,23 @@ class MahasiswaController extends Controller
 
     public function storeImport(Request $request){
         $validatedData = $request->validate([
-            'fileExcel' => 'required',
+            'fileExcel' => 'required|mimes:xlsx,xls',
         ]);
 
-        Excel::import(new UserImport("mahasiswa"), request()->file('fileExcel'));
-        Excel::import(new MahasiswaImport, request()->file('fileExcel'));
-
-        return redirect('/akunMHS')->with('success','Import Akun Mahasiswa Berhasil');
+        DB::beginTransaction();
+        $import1 = new UserImport("mahasiswa");
+        $import1->import(request()->file('fileExcel'));
+        $import2 = new MahasiswaImport;
+        $import2->import(request()->file('fileExcel'));
+        
+        if($import1->failures() || $import2->failures()){
+            DB::rollback();
+            $failures = $import1->failures()->merge($import2->failures());
+            return redirect('/akunMHS')->with('error', $failures);
+        } else {
+            DB::commit();
+            return redirect('/akunMHS')->with('success', 'Import Akun Mahasiswa Berhasil');
+        }
     }
 
     public function exportData(Request $request){
@@ -103,10 +114,16 @@ class MahasiswaController extends Controller
      */
     public function destroy(Mahasiswa $akunMH)
     {
-        User::where('username',$akunMH->nim)->delete();
+        try {
+            DB::beginTransaction();
+            User::where('username',$akunMH->nim)->delete();
+            $akunMH->delete();
+        } catch (\Illuminate\Database\QueryException $e) {
+            DB::rollback();
+            return redirect('/akunMHS')->with('errorDelete',"Akun Mahasiswa dengan NIM $akunMH->nim Gagal Dihapus karena sudah memiliki data di tabel lain");
+        }
         
-        $akunMH->delete();
-
+        DB::commit();
         return redirect('/akunMHS')->with('success',"Akun Mahasiswa dengan NIM $akunMH->nim Berhasil Dihapus");
     }
 

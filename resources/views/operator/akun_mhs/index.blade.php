@@ -21,6 +21,31 @@
       <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
     </div>
   @endif
+  @if (session()->has('error'))
+    <div class="alert alert-danger alert-dismissible fade show col-md-auto" role="alert">
+      <h5>Gagal Melakukan Import Data</h5>
+      <table class="w-100">
+        <tr>
+          <th style="width: 5%">Row</th>
+          <th>Error</th>
+        </tr>
+        @foreach (session('error') as $error)
+          <tr>
+            <td>{{ $error->row() }}</td>
+            <td>{{ $error->errors()[0] }}</td>
+          </tr>
+        @endforeach
+      </table>
+      <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+  @endif
+
+  @if (session()->has('errorDelete'))
+    <div class="alert alert-danger alert-dismissible fade show col-md-auto" role="alert">
+      {{ session('errorDelete') }}
+      <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+  @endif
 
   <div class="row">
     <div class="col-md-4">
