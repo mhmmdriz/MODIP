@@ -2,13 +2,13 @@ $(document).ready(function() {
   function validateData(data, progress){
     let url = "";
     if(progress == "khs"){
-      url = "/validasiKHS/validate";
+      url = "/validasiProgress/validasiKHS/validate";
     }else if(progress == "irs"){
-      url = "/validasiIRS/validate";
+      url = "/validasiProgress/validasiIRS/validate";
     }else if(progress == "pkl"){
-      url = "/validasiPKL/validate";
+      url = "/validasiProgress/validasiPKL/validate";
     }else if(progress == "skripsi"){
-      url = "/validasiSkripsi/validate";
+      url = "/validasiProgress/validasiSkripsi/validate";
     }
 
     $.ajaxSetup({

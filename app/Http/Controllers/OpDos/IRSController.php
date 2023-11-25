@@ -14,13 +14,25 @@ class IRSController extends Controller
      */
     public function index()
     {
-        $data_mhs = Mahasiswa::where("dosen_wali", auth()->user()->username)->get()->groupBy("angkatan")->map(function($item){
-            return $item->count(); 
-        });
+        if(auth()->user()->level == "dosenwali"){
+            $data_mhs = Mahasiswa::where("dosen_wali", auth()->user()->username)->get()->groupBy("angkatan")->map(function($item){
+                return $item->count(); 
+            });
+        }else{
+            $data_mhs = Mahasiswa::get()->groupBy("angkatan")->map(function($item){
+                return $item->count(); 
+            });
+        }
         
-        $rekap_irs = IRS::getRekapIRSAngkatan($data_mhs, auth()->user()->username);
+        $rekap_irs = IRS::getRekapValidasiIRS($data_mhs);
 
-        return view("dosenwali.irs.index",[
+        if(auth()->user()->level == "dosenwali"){
+            $path = "dosenwali.irs.index";
+        }else{
+            $path = "operator.validasi_progress_studi.irs.index";
+        }
+
+        return view($path,[
             "data_mhs" => $data_mhs,
             "rekap_irs" => $rekap_irs,
         ]);
@@ -28,12 +40,17 @@ class IRSController extends Controller
 
     public function listMhsAngkatan(String $angkatan)
     {
-        $data_mhs = Mahasiswa::get()->where("dosen_wali", auth()->user()->username)->where("angkatan", $angkatan);
+        $data_mhs = Mahasiswa::getListMhsAngkatan($angkatan);
         $data_nim = $data_mhs->pluck("nim");
         $data_irs = IRS::getSKSkList($data_nim);
-        // dd($data_irs);
 
-        return view("dosenwali.irs.list_mhs",[
+        if(auth()->user()->level == "dosenwali"){
+            $path = "dosenwali.irs.list_mhs";
+        }else{
+            $path = "operator.validasi_progress_studi.irs.list_mhs";
+        }
+
+        return view($path,[
             "data_mhs"=> $data_mhs,
             "data_irs"=> $data_irs,
             "angkatan"=> $angkatan,
@@ -50,7 +67,13 @@ class IRSController extends Controller
             $SKSk += $irs->sks;
         }
 
-        return view('dosenwali.irs.show_irs', [
+        if(auth()->user()->level == "dosenwali"){
+            $path = "dosenwali.irs.show_irs";
+        }else{
+            $path = "operator.validasi_progress_studi.irs.show_irs";
+        }
+
+        return view($path,[
             'nim' => $mahasiswa->nim,
             'mahasiswa' => $mahasiswa,
             'irs' => $arrIRS,
@@ -67,7 +90,13 @@ class IRSController extends Controller
 
         $mahasiswa->irs()->where('smt', $request->smt)->update($validated_data);
 
-        return redirect("/irsPerwalian/$angkatan/$mahasiswa->nim")->with('success', "Data IRS Semester $request->smt Berhasil Diubah!");
+        if(auth()->user()->level == "dosenwali"){
+            $path = "/irsPerwalian/";
+        }else{
+            $path = "/validasiProgress/validasiIRS/";
+        }
+
+        return redirect($path . "$angkatan/$mahasiswa->nim")->with('success', "Data IRS Semester $request->smt Berhasil Diubah!");
     }
 
     public function validateIRS(){

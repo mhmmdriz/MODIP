@@ -229,4 +229,13 @@ class Mahasiswa extends Model
 
         return $data_mhs;
     }
+    
+    public static function getListMhsAngkatan($angkatan){
+        if(auth()->user()->level == "dosenwali"){
+            $data_mhs = Mahasiswa::get()->where("dosen_wali", auth()->user()->username)->where("angkatan", $angkatan);
+        }else{
+            $data_mhs = Mahasiswa::get()->where("angkatan", $angkatan);
+        }
+        return $data_mhs;
+    }
 }

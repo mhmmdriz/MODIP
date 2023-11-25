@@ -88,11 +88,11 @@ Route::middleware(['auth', 'user.role:operator'])->group(function () {
 
     Route::get('/validasiProgress', fn() => view('operator.validasi_progress_studi.index'));
 
-    Route::get("/validasiIRS", [OperatorIRSController::class, 'index']);
-    Route::get("/validasiIRS/{angkatan}", [OperatorIRSController::class, 'listMhsAngkatan']);
-    Route::get('/validasiIRS/{angkatan}/{mahasiswa}', [OperatorIRSController::class, 'showIRSMhs']);
-    Route::put('/validasiIRS/{angkatan}/{mahasiswa}/update', [OperatorIRSController::class, 'updateIRSMhs']);
-    Route::post("/validasiIRS/validate", [OperatorIRSController::class,"validateIRS"]);
+    Route::get("/validasiProgress/validasiIRS", [IRSValidationController::class, 'index']);
+    Route::get("/validasiProgress/validasiIRS/{angkatan}", [IRSValidationController::class, 'listMhsAngkatan']);
+    Route::get('/validasiProgress/validasiIRS/{angkatan}/{mahasiswa}', [IRSValidationController::class, 'showIRSMhs']);
+    Route::put('/validasiProgress/validasiIRS/{angkatan}/{mahasiswa}/update', [IRSValidationController::class, 'updateIRSMhs']);
+    Route::post("/validasiProgress/validasiIRS/validate", [IRSValidationController::class,"validateIRS"]);
 
     Route::get('/rekapMhs', fn() => view('operator.rekap_mhs.index'));
     Route::get("/rekapMhs/rekapPKL", [RekapListPKLController::class,"rekap"]);
