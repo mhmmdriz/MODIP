@@ -39,10 +39,10 @@
   <div class="row mx-3 mb-3">
     <div class="col bg-light-subtle rounded border">
       <div class="row">
-        <div class="col-2 border-end py-4 text-center">
+        <div class="col-2 border-end d-flex justify-content-center align-items-center">
           Semester {{ $i }}
         </div>
-        <div class="col-2 py-4 text-center ">
+        <div class="col-2 py-4 d-flex justify-content-center align-items-center flex-column">
           <div>
             @if (!isset($khs[$i-1]))
               SKS: ~
@@ -59,19 +59,19 @@
           </div>
         </div>
         
-        <div class="col-2 py-4 text-center ">
+        <div class="col-2 py-4 d-flex justify-content-center align-items-center flex-column">
           <div>
             @if (!isset($khs[$i-1]))
               IPs: ~
             @else
-              IPs: {{ $khs[$i-1]->ips }}
+              IPs: {{ number_format($khs[$i-1]->ips,2) }}
             @endif
           </div>
           <div>
             @if (!isset($khs[$i-1]))
               IPk: ~
             @else
-              IPk: {{ $khs[$i-1]->ipk }}
+              IPk: {{ number_format($khs[$i-1]->ipk,2) }}
             @endif
           </div>
         </div>

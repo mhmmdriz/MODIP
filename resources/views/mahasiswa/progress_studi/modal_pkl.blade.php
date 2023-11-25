@@ -20,9 +20,6 @@
         <br>
         <p class="m-0"><b>Scan Berita Acara Seminar PKL</b></p>
         <a href="" class="m-0 link-scan-pkl d-block" target="__blank"></a>
-        <br>
-        <p class="m-0"><b>Validasi</b></p>
-        <p class="m-0 validasi-pkl"></p>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modalMain">Back</button>
