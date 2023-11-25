@@ -115,7 +115,7 @@
 </div>
 
 <script src="/js/modal.js"></script>
-@include('dosenwali.irs.modal_edit_irs')
+@include('operator.validasi_progress_studi.irs.modal_edit_irs')
 <script src="/js/validasi.js"></script>
 
 @endsection

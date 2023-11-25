@@ -92,7 +92,7 @@ Route::middleware(['auth', 'user.role:operator'])->group(function () {
     Route::get("/validasiProgress/validasiIRS/{angkatan}", [IRSValidationController::class, 'listMhsAngkatan']);
     Route::get('/validasiProgress/validasiIRS/{angkatan}/{mahasiswa}', [IRSValidationController::class, 'showIRSMhs']);
     Route::put('/validasiProgress/validasiIRS/{angkatan}/{mahasiswa}/update', [IRSValidationController::class, 'updateIRSMhs']);
-    Route::post("/validasiProgress/validasiIRS/validate", [IRSValidationController::class,"validateIRS"]);
+    // Route::post("/validasiProgress/validasiIRS/validate", [IRSValidationController::class,"validateIRS"]);
 
     Route::get('/rekapMhs', fn() => view('operator.rekap_mhs.index'));
     Route::get("/rekapMhs/rekapPKL", [RekapListPKLController::class,"rekap"]);
@@ -128,7 +128,7 @@ Route::middleware(['auth', 'user.role:dosenwali'])->group(function () {
     Route::get("/irsPerwalian/{angkatan}", [IRSValidationController::class, 'listMhsAngkatan']);
     Route::get('/irsPerwalian/{angkatan}/{mahasiswa}', [IRSValidationController::class, 'showIRSMhs']);
     Route::put('/irsPerwalian/{angkatan}/{mahasiswa}/update', [IRSValidationController::class, 'updateIRSMhs']);
-    Route::post("/validateIRS", [IRSValidationController::class,"validateIRS"]);
+    
 
     Route::get("/khsPerwalian", [KHSValidationController::class, 'index']);
     Route::get("/khsPerwalian/{angkatan}", [KHSValidationController::class, 'listMhsAngkatan']);
@@ -153,6 +153,11 @@ Route::middleware(['auth', 'user.role:dosenwali'])->group(function () {
     Route::get("/rekapMhsPerwalian/rekapSkripsi", [RekapListSkripsiController::class,"rekap"]);
     Route::get("/rekapMhsPerwalian/rekapStatus", [RekapListStatusController::class,"rekap"]);
 });
+
+Route::middleware(['auth', 'user.role:dosenwali,operator'])->group(function () {
+    Route::post("/validateIRS", [IRSValidationController::class,"validateIRS"]);
+});
+
 
 Route::middleware(['auth', 'user.role:departemen'])->group(function () {
     Route::get("/rekapPKL", [RekapListPKLController::class,"rekap"]);
