@@ -105,8 +105,9 @@ class MahasiswaController extends Controller
         $import2 = new MahasiswaImport;
         $import2->import(request()->file('fileExcel'));
         
-        if($import1->failures() || $import2->failures()){
+        if($import1->failures()->count() != 0 || $import2->failures()->count() != 0){
             DB::rollback();
+            dd("error");
             $failures = $import1->failures()->merge($import2->failures());
             return redirect('/akunMHS')->with('error', $failures);
         } else {
