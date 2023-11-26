@@ -3,6 +3,12 @@
   font-family: 'Quicksand', sans-serif;
 }
 
+body {
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
 .profil-mhs p span {
   display: inline-block;
   width: 100px;

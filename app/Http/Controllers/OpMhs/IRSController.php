@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Mahasiswa;
+namespace App\Http\Controllers\OpMhs;
 
 use App\Http\Controllers\Controller;
 use App\Models\IRS;

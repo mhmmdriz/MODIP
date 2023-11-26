@@ -87,6 +87,14 @@
       </div>
     </a>
   </div>
+  <div class="col-md-4 col-sm-6">
+    <a href="/entryProgress" style="text-decoration: none">
+      <div class="card bg-body-tertiary d-flex justify-content-center align-items-center text-center py-2 h-100">      
+        <h5><b>Validasi Progress Studi MHS</b></h5>
+        <i class="bi bi-file-earmark-check-fill" style="font-size:70px;"></i>
+      </div>
+    </a>
+  </div>
   {{-- <div class="col-md-4 col-sm-6">
     <a href="" style="text-decoration: none">
       <div class="card bg-body-tertiary d-flex justify-content-center align-items-center text-center py-2 h-100">      
