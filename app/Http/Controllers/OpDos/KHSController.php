@@ -32,7 +32,7 @@ class KHSController extends Controller
 
     public function listMhsAngkatan(String $angkatan)
     {
-        $data_mhs = Mahasiswa::getListMhsAngkatan($angkatan);
+        $data_mhs = Mahasiswa::getListMhsAngkatan($angkatan, request()->keyword);
         $data_nim = $data_mhs->pluck("nim");
         $data_khs = KHS::getSKSkIPkList($data_nim);
         

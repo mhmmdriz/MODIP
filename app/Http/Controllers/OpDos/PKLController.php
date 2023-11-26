@@ -29,7 +29,7 @@ class PKLController extends Controller
 
     public function listMhsAngkatan(String $angkatan)
     {
-        $data_mhs = Mahasiswa::getListMhsAngkatan($angkatan);
+        $data_mhs = Mahasiswa::getListMhsAngkatan($angkatan, request()->keyword);
 
         $data_pkl = PKL::pluck('validasi', 'nim')->toArray();
         

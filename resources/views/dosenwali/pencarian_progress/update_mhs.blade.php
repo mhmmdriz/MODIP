@@ -20,7 +20,7 @@
       <td>{{ $mhs->angkatan}}</td>
       <td>{{ $mhs->status}}</td>
       <td>
-        <a class="btn btn-primary btn-sm" href="/pencarianProgressStudi/{{ $mhs->nim }}">Detail Progress Studi</a>
+        <a class="btn btn-primary btn-sm" href="/pencarianProgressStudiPerwalian/{{ $mhs->nim }}">Detail Progress Studi</a>
       </td>
     </tr>
   @endforeach
