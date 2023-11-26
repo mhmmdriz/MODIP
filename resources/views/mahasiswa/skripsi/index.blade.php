@@ -5,6 +5,9 @@
 <nav aria-label="breadcrumb">
   <ol class="breadcrumb">
     <li class="breadcrumb-item"><a href="/dashboard">Dashboard</a></li>
+    @if (auth()->user()->level == 'operator')
+      <li class="breadcrumb-item"><a href="/entryProgress">Entry Progress Studi</a></li>
+    @endif
     <li class="breadcrumb-item active" aria-current="page">Skripsi</li>
   </ol>
 </nav>
@@ -16,12 +19,18 @@
   </div>
 @endif
 
-
 <div class="row justify-content-center mb-3">
   <div class="col-auto">
     <h4>Skripsi</h4>
   </div>
 </div>
+
+@if (auth()->user()->level == 'operator')
+  <div class="card p-2 ps-3 mb-2 bg-body-tertiary">
+    <div>Nama: {{ $mahasiswa->nama }}</div>
+    <div>NIM: {{ $mahasiswa->nim }}</div>
+  </div>
+@endif
 
 <div class="card bg-body-tertiary mb-3">
   <div class="row m-2 position-absolute" style="right: 0">

@@ -9,11 +9,12 @@ use App\Http\Controllers\Operator\DepartemenController;
 use App\Http\Controllers\Operator\MahasiswaController;
 // use App\Http\Controllers\Operator\IRSController as OperatorIRSController;
 
-use App\Http\Controllers\Mahasiswa\IRSController;
-use App\Http\Controllers\Mahasiswa\KHSController;
-use App\Http\Controllers\Mahasiswa\SkripsiController;
 use App\Http\Controllers\Mahasiswa\MahasiswaTaskController;
-use App\Http\Controllers\Mahasiswa\PKLController;
+
+use App\Http\Controllers\OpMhs\IRSController;
+use App\Http\Controllers\OpMhs\KHSController;
+use App\Http\Controllers\OpMhs\SkripsiController;
+use App\Http\Controllers\OpMhs\PKLController;
 
 use App\Http\Controllers\OpDos\IRSController as IRSValidationController;
 use App\Http\Controllers\OpDos\KHSController as KHSValidationController;
@@ -117,23 +118,33 @@ Route::middleware(['auth', 'user.role:operator'])->group(function () {
     Route::get("/rekapMhs/rekapSkripsi", [RekapListSkripsiController::class,"rekap"]);
     Route::get("/rekapMhs/rekapStatus", [RekapListStatusController::class,"rekap"]);
 
+    Route::get('/entryProgress', [MahasiswaController::class, 'entryProgressIndex']);
+    Route::get('/entryProgress/entryIRS/{mahasiswa}', [IRSController::class, 'index']);
+    Route::get('/entryProgress/entryKHS/{mahasiswa}', [KHSController::class, 'index']);
+    Route::get('/entryProgress/entryPKL/{mahasiswa}', [PKLController::class, 'index']);
+    Route::get('/entryProgress/entrySkripsi/{mahasiswa}', [SkripsiController::class, 'index']);
+
     Route::get('/download-file/{filename}', [FileController::class, 'downloadFile'])->where('filename', '.*');
 });
 
+Route::middleware(['auth','user.role:mahasiswa,operator'])->group(function () {
+
+    Route::put('/irs/{mahasiswa}/update', [IRSController::class, 'updateOrInsert']);
+    Route::put('/khs/{mahasiswa}/update', [KHSController::class, 'updateOrInsert']);
+    Route::put('/pkl/{mahasiswa}/update', [PKLController::class, 'updateOrInsert']);
+    Route::put('/skripsi/{mahasiswa}/update', [SkripsiController::class, 'updateOrInsert']);
+
+});
 
 Route::middleware(['auth','user.role:mahasiswa'])->group(function () {
     Route::get('/firstLogin', [MahasiswaTaskController::class,'firstLogin'])->middleware('is.datapribadiupdated');
-   
     Route::put('/firstLogin', [MahasiswaTaskController::class, 'updateDataPribadi']);
     
     Route::get('/irs', [IRSController::class, 'index']);
-    Route::put('/irs', [IRSController::class, 'updateOrInsert']);
     Route::get('/khs', [KHSController::class, 'index']);
-    Route::put('/khs', [KHSController::class, 'updateOrInsert']);
     Route::get('/pkl', [PKLController::class, 'index']);
-    Route::put('/pkl', [PKLController::class, 'updateOrInsert']);
     Route::get('/skripsi', [SkripsiController::class, 'index']);
-    Route::put('/skripsi', [SkripsiController::class, 'updateOrInsert']);
+
 });
 
 Route::middleware(['auth', 'user.role:dosenwali'])->group(function () {

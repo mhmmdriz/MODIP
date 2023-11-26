@@ -1,16 +1,19 @@
 <?php
 
-namespace App\Http\Controllers\Mahasiswa;
+namespace App\Http\Controllers\OpMhs;
 
 use App\Http\Controllers\Controller;
 use App\Models\KHS;
+use App\Models\Mahasiswa;
 use Illuminate\Http\Request;
 
 class KHSController extends Controller
 {
-    public function index()
+    public function index(Mahasiswa $mahasiswa)
     {
-        $mahasiswa = auth()->user()->mahasiswa;
+        if (auth()->user()->level == "mahasiswa") {
+            $mahasiswa = auth()->user()->mahasiswa;
+        }
         $semesterInfo = $mahasiswa->calculateSemesterAndThnAjar();
         $semester = $semesterInfo['semester'];
 
@@ -20,6 +23,7 @@ class KHSController extends Controller
         $dataKHS = KHS::rekapKHS($arrKHS);
 
         return view('mahasiswa.khs.index', [
+            'mahasiswa' => $mahasiswa,
             'khs' => $arrKHS,
             'irs' => $arrIRS,
             'semester' => $semester,
@@ -31,9 +35,8 @@ class KHSController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function updateOrInsert(Request $request)
+    public function updateOrInsert(Mahasiswa $mahasiswa, Request $request)
     {
-        // dd($request->all());
         $rules = [
             'sks' => 'required',
             'sksk' => 'required',
@@ -47,8 +50,12 @@ class KHSController extends Controller
 
         $validatedData = $request->validate($rules);
 
-        KHS::updateOrInsert($request, $validatedData);
+        KHS::updateOrInsert($mahasiswa, $request, $validatedData);
 
-        return redirect('/khs')->with('success', "Data KHS Semester $request->smt Berhasil Diubah!");
+        if (auth()->user()->level == "mahasiswa") {
+            return redirect('/khs')->with('success', "Data KHS Semester $request->smt Berhasil Diubah!");
+        } else {
+            return redirect('/entryProgress/entryKHS/' . $mahasiswa->nim)->with('success', "Data KHS Semester $request->smt Berhasil Diubah!");
+        }
     }
 }

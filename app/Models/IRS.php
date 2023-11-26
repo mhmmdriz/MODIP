@@ -22,8 +22,10 @@ class IRS extends Model
         return $this->belongsTo(Mahasiswa::class, 'nim', 'nim');
     }
 
-    static public function updateOrInsert($request, $validatedData){
-        $mahasiswa = auth()->user()->mahasiswa;
+    static public function updateOrInsert($mahasiswa, $request, $validatedData){
+        if (auth()->user()->level == "mahasiswa") {
+            $mahasiswa = auth()->user()->mahasiswa;
+        }
         
         $validatedData['nama'] = $mahasiswa->nama;
         if($request->scan_irs != null){
