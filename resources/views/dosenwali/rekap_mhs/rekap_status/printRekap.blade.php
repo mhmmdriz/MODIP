@@ -8,7 +8,7 @@
 </style>
 
 
-<h2>Rekap Skripsi Mahasiswa per Angkatan</h2>
+<h2>Rekap Skripsi Mahasiswa Perwalian per Angkatan</h2>
 
 <table class="table">
 

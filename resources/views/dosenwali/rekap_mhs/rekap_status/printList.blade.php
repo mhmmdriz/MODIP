@@ -8,9 +8,9 @@ table, th, td {
 </style>
 
 @if ($status != null)
-<h2>Daftar Mahasiswa Informatika Angkatan {{ $angkatan }} Status {{ $status }}</h2>
+<h2>Daftar Mahasiswa Perwalian Informatika Angkatan {{ $angkatan }} Status {{ $status }}</h2>
 @else
-<h2>Daftar Mahasiswa Informatika Angkatan {{ $angkatan }} Semua Status</h2>
+<h2>Daftar Mahasiswa Perwalian Informatika Angkatan {{ $angkatan }} Semua Status</h2>
 @endif
 
 <div class="col">

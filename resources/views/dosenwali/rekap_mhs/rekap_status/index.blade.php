@@ -11,7 +11,7 @@
 </nav>
 
 <div class="row text-center mb-2">
-  <h4>Rekap Status Mahasiswa</h4>
+  <h4>Rekap Status Mahasiswa Perwalian</h4>
 </div>
 
 <div class="row mb-2">

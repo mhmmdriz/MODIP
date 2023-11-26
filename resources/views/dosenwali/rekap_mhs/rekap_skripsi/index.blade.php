@@ -11,7 +11,7 @@
 </nav>
 
 <div class="row text-center mb-3">
-  <h4>Rekap Progress Skripsi Mahasiswa Informatika</h4>
+  <h4>Rekap Progress Skripsi Mahasiswa Perwalian Informatika</h4>
 </div>
 
 <div class="card bg-body-tertiary table-responsive" id="rekap-skripsi-main">
