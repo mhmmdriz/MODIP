@@ -69,6 +69,10 @@ class Mahasiswa extends Model
             $semester -= 2;
         }
 
+        if($this->semester_akhir != 0){
+            $semester = $this->semester_akhir;
+        }
+
         return [
             'smt' => $smt,
             'thn_ajar' => $thn_ajar,

@@ -74,6 +74,10 @@ class MahasiswaController extends Controller
             'status_edit' => 'required',
             'dosen_wali_edit' => 'required',
         ];
+
+        if($request->status_edit == "Lulus" || $request->status_edit == "DO" || $request->status_edit == "Meninggal Dunia" || $request->status_edit == "Undur Diri"){
+            $rules['semester_akhir'] = 'required';
+        }
         
         $validatedData = $request->validate($rules);
 
@@ -82,6 +86,7 @@ class MahasiswaController extends Controller
             'angkatan' => $validatedData['angkatan_edit'],
             'status' => $validatedData['status_edit'],
             'dosen_wali' => $validatedData['dosen_wali_edit'],
+            'semester_akhir' => $request->semester_akhir??0,
         ];
 
         $akunMH->update($validatedData);
