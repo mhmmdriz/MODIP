@@ -64,7 +64,7 @@ class DosenWaliController extends Controller
         $import2 = new DosenWaliImport;
         $import2->import(request()->file('fileExcel'));
         
-        if($import1->failures() || $import2->failures()){
+        if($import1->failures()->count() != 0 || $import2->failures()->count() != 0){
             DB::rollback();
             $failures = $import1->failures()->merge($import2->failures());
             return redirect('/akunDosenWali')->with('error', $failures);
