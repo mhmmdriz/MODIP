@@ -6,8 +6,8 @@
   <ol class="breadcrumb">
     <li class="breadcrumb-item"><a href="/dashboard">Dashboard</a></li>
     <li class="breadcrumb-item"><a href="/khsPerwalian">KHS Mahasiswa Perwalian</a></li>
-    <li class="breadcrumb-item"><a href="/khsPerwalian/{{ $angkatan }}">Daftar Mahasiswa Perwalian</a></li>
-    <li class="breadcrumb-item active" aria-current="page">Detail KHS Mahasiswa Perwalian</li>
+    <li class="breadcrumb-item"><a href="/khsPerwalian/{{ $angkatan }}">Daftar Angkatan {{ $angkatan }}</a></li>
+    <li class="breadcrumb-item active" aria-current="page">Detail KHS {{ $nim }}</li>
   </ol>
 </nav>
 

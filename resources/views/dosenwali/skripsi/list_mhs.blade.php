@@ -5,7 +5,7 @@
 <nav aria-label="breadcrumb">
   <ol class="breadcrumb">
     <li class="breadcrumb-item"><a href="/dashboard">Dashboard</a></li>
-    <li class="breadcrumb-item"><a href="/skripsiPerwalian">Skripsi Mahasiswa Perwalian</a></li>
+    <li class="breadcrumb-item"><a href="/skripsiPerwalian">Daftar Angkatan {{ $angkatan }}</a></li>
     <li class="breadcrumb-item active" aria-current="page">Daftar Mahasiswa Perwalian</li>
   </ol>
 </nav>
