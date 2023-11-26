@@ -27,7 +27,6 @@ class IRS extends Model
             $mahasiswa = auth()->user()->mahasiswa;
         }
         
-        $validatedData['nama'] = $mahasiswa->nama;
         if($request->scan_irs != null){
             $validatedData ["scan_irs"] = $request->file('scan_irs')->store('private/irs');
         }

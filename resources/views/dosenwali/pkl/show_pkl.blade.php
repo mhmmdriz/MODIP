@@ -79,8 +79,8 @@
         </div>
       </div>
       <div class="row mb-3 justify-content-center">
-        <div class="col-auto {{ (isset($dataPKL->status) && $dataPKL->status == "Lulus")?"bg-success":"bg-body-secondary" }} rounded border text-white">
-          <h3 class="my-1">{{ (isset($dataPKL->status))?$dataPKL->status:"~" }}</h3>
+        <div class="col-auto {{ (isset($dataPKL))?"bg-success":"bg-body-secondary" }} rounded border text-white">
+          <h3 class="my-1">{{ (isset($dataPKL))?"Lulus":"~" }}</h3>
         </div>
       </div>
       <div class="row">
