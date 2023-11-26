@@ -46,16 +46,14 @@
 
   <div class="row m-2 position-absolute" style="bottom: 0;right: 0">
     @if (isset($dataSkripsi))
-      @if ($dataSkripsi->status == "Lulus")
-        @if ($dataSkripsi->validasi == 0)
-          <a href="/validateSkripsi/{{ $nim }}/1" class="btn btn-success btn-sm" type="button">
-            Validasi
-          </a>
-        @else
-          <a href="/validateSkripsi/{{ $nim }}/0" class="btn btn-danger btn-sm" type="button">
-            Batal Validasi
-          </a>
-        @endif
+      @if ($dataSkripsi->validasi == 0)
+        <a href="/validateSkripsi/{{ $nim }}/1" class="btn btn-success btn-sm" type="button">
+          Validasi
+        </a>
+      @else
+        <a href="/validateSkripsi/{{ $nim }}/0" class="btn btn-danger btn-sm" type="button">
+          Batal Validasi
+        </a>
       @endif
     @endif
   </div>
@@ -81,8 +79,8 @@
         </div>
       </div>
       <div class="row mb-3 justify-content-center">
-        <div class="col-auto {{ (isset($dataSkripsi->status) && $dataSkripsi->status == "Lulus")?"bg-success":"bg-body-secondary" }} rounded border text-white">
-          <h3 class="my-1">{{ (isset($dataSkripsi->status))?$dataSkripsi->status:"~" }}</h3>
+        <div class="col-auto {{ (isset($dataSkripsi))?"bg-success":"bg-body-secondary" }} rounded border text-white">
+          <h3 class="my-1">{{ (isset($dataSkripsi))?"Lulus":"~" }}</h3>
         </div>
       </div>
       <div class="row">
