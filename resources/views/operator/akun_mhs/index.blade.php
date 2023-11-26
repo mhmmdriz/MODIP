@@ -96,7 +96,7 @@
                     </button>
                   </form>
                   <div class="btn btn-sm btn-secondary btn-edit-data" data-bs-toggle="modal" data-bs-target="#modalEdit"
-                  data-nama="{{ $mhs->nama }}" data-nim="{{ $mhs->nim }}" data-angkatan="{{ $mhs->angkatan }}" data-status="{{ $mhs->status }}" data-doswal="{{ $mhs->dosen_wali }}">
+                  data-nama="{{ $mhs->nama }}" data-nim="{{ $mhs->nim }}" data-angkatan="{{ $mhs->angkatan }}" data-status="{{ $mhs->status }}" data-doswal="{{ $mhs->dosen_wali }}" data-smt-akhir="{{ $mhs->semester_akhir }}">
                     Edit Data
                   </div>
                 </td>
