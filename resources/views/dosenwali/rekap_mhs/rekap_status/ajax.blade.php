@@ -1,9 +1,9 @@
 <div class="modal-header">
   <h1 class="modal-title fs-5" id="modalListStatusLabel">
     @if ($status != null)
-    <h5>List Mahasiswa Angkatan {{ $angkatan }} Status {{ $status }}</h5>
+    <h5>List Mahasiswa Perwalian Angkatan {{ $angkatan }} Status {{ $status }}</h5>
     @else
-    <h5>List Mahasiswa Angkatan {{ $angkatan }}</h5>
+    <h5>List Mahasiswa Perwalian Angkatan {{ $angkatan }}</h5>
     @endif
   </h1>
   <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>

@@ -5,9 +5,9 @@
 <div class="row d-flex justify-content-center my-2">
   <div class="col-md-auto">
     @if ($status != null)
-    <h5>List Mahasiswa Angkatan {{ $angkatan }} Status {{ $status }}</h5>
+    <h5>List Mahasiswa Perwalian Angkatan {{ $angkatan }} Status {{ $status }}</h5>
     @else
-    <h5>List Mahasiswa Angkatan {{ $angkatan }}</h5>
+    <h5>List Mahasiswa Perwalian Angkatan {{ $angkatan }}</h5>
     @endif
   </div>
 </div>
