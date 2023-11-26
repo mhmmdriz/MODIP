@@ -114,6 +114,24 @@
   @include('operator.akun_mhs.modal_export_excel')
   @include('operator.akun_mhs.modal_edit_data')
 
-  <script src="/js/akun.js"></script>
+  {{-- <script src="/js/akun.js"></script> --}}
+
+  <script>
+    function updateMhsTable(keyword){
+    $.ajax({
+      type: 'GET',
+      url: '/ajaxAkunMHS',
+      data: {'keyword':keyword},
+      success: function(response) {
+        $('#tabelMHS').html(response.html);
+        console.log(response.message);
+      },
+      error: function(response) {
+        console.log('Error:', response);
+      }
+    });
+  }
+    updateMhsTable("");
+  </script>
 
 @endsection

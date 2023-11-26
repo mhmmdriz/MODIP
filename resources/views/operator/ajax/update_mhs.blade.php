@@ -4,6 +4,7 @@
     <th>Nama Mahasiswa</th>
     <th>NIM/Username</th>
     <th>Angkatan</th>
+    <th>Dosen Wali</th>
     <th>Status</th>
     <th>Action</th>
   </tr>
@@ -13,22 +14,30 @@
   @endphp
 
   @foreach ($data_mhs as $mhs)
-    <tr>
-      <td>{{ ++$i }}</td>
-      <td>{{ $mhs->nama }}</td>
-      <td>{{ $mhs->nim }}</td>
-      <td>{{ $mhs->angkatan}}</td>
-      <td>{{ $mhs->status}}</td>
-      <td>
-        <a class="btn btn-warning btn-sm" href="/buku/{{ $mhs->isbn }}/edit">Reset Password</a>
-        <form action="/buku/{{ $mhs->isbn }}" method="post" class="d-inline">
-          @method('delete')
-          @csrf
-          <button class="btn btn-danger btn-sm" onclick="return confirm('Are you sure?')">
-            Hapus Akun
-          </button>
-        </form>
-      </td>
-    </tr>
+  {{-- @dd($mhs->user->password) --}}
+  <tr>
+    <td>{{ ++$i }}</td>
+    <td>{{ $mhs->nama }}</td>
+    <td>{{ $mhs->nim }}</td>
+    <td>{{ $mhs->angkatan}}</td>
+    <td>{{ $mhs->dosenwali->nama}}</td>
+    <td>{{ $mhs->status}}</td>
+    <td>
+      <a class="btn btn-warning btn-sm" href="/akunMHS/{{ $mhs->nim }}/reset">Reset Password</a>
+      <form action="/akunMHS/{{ $mhs->nim }}" method="post" class="d-inline">
+        @method('delete')
+        @csrf
+        <button class="btn btn-danger btn-sm" onclick="return confirm('Are you sure?')">
+          Hapus Akun
+        </button>
+      </form>
+      <div class="btn btn-sm btn-secondary btn-edit-data" data-bs-toggle="modal" data-bs-target="#modalEdit"
+      data-nama="{{ $mhs->nama }}" data-nim="{{ $mhs->nim }}" data-angkatan="{{ $mhs->angkatan }}" data-status="{{ $mhs->status }}" data-doswal="{{ $mhs->dosen_wali }}" data-smt-akhir="{{ $mhs->semester_akhir }}">
+        Edit Data
+      </div>
+    </td>
+  </tr>
   @endforeach
 </table>
+
+<script src="/js/akun.js"></script>
