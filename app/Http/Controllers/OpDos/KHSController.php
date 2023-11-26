@@ -14,13 +14,17 @@ class KHSController extends Controller
      */
     public function index()
     {
-        $data_mhs = Mahasiswa::where("dosen_wali", auth()->user()->username)->get()->groupBy("angkatan")->map(function($item){
-            return $item->count(); 
-        });
+        $data_mhs = Mahasiswa::countMahasiswaPerAngkatan();
 
-        $rekap_khs = KHS::getRekapKHSAngkatan($data_mhs, auth()->user()->username);
+        $rekap_khs = KHS::getRekapValidasiKHS($data_mhs);
 
-        return view("dosenwali.khs.index",[
+        if(auth()->user()->level == "dosenwali"){
+            $path = "dosenwali.khs.index";
+        }else{
+            $path = "operator.validasi_progress_studi.khs.index";
+        }
+
+        return view($path,[
             "data_mhs" => $data_mhs,
             "rekap_khs" => $rekap_khs,
         ]);
@@ -28,12 +32,17 @@ class KHSController extends Controller
 
     public function listMhsAngkatan(String $angkatan)
     {
-        $data_mhs = Mahasiswa::get()->where("dosen_wali", auth()->user()->username)->where("angkatan", $angkatan);
+        $data_mhs = Mahasiswa::getListMhsAngkatan($angkatan);
         $data_nim = $data_mhs->pluck("nim");
         $data_khs = KHS::getSKSkIPkList($data_nim);
-        // dd($data_khs);
         
-        return view("dosenwali.khs.list_mhs",[
+        if(auth()->user()->level == "dosenwali"){
+            $path = "dosenwali.khs.list_mhs";
+        }else{
+            $path = "operator.validasi_progress_studi.khs.list_mhs";
+        }
+
+        return view($path,[
             "data_mhs"=> $data_mhs,
             "data_khs"=> $data_khs,
             "angkatan"=> $angkatan,
@@ -47,7 +56,13 @@ class KHSController extends Controller
         $arrKHS = $mahasiswa->khs;
         $dataKHS = KHS::rekapKHS($arrKHS);
 
-        return view('dosenwali.khs.show_khs', [
+        if(auth()->user()->level == "dosenwali"){
+            $path = "dosenwali.khs.show_khs";
+        }else{
+            $path = "operator.validasi_progress_studi.khs.show_khs";
+        }
+
+        return view($path,[
             'nim' => $mahasiswa->nim,
             'nama' => $mahasiswa->nama,
             'mahasiswa' => $mahasiswa,
@@ -69,15 +84,17 @@ class KHSController extends Controller
 
         $mahasiswa->khs()->where('smt', $request->smt)->update($validated_data);
 
-        return redirect("/khsPerwalian/$angkatan/$mahasiswa->nim")->with('success', "Data KHS Semester $request->smt Berhasil Diubah!");
+        if(auth()->user()->level == "dosenwali"){
+            $path = "/khsPerwalian/";
+        }else{
+            $path = "/validasiProgress/validasiKHS/";
+        }
+
+        return redirect($path . "$angkatan/$mahasiswa->nim")->with('success', "Data KHS Semester $request->smt Berhasil Diubah!");
     }
 
     public function validateKHS(){
-        if(request('validasi') == 1){
-            KHS::where('nim', request('nim'))->where('smt', request('smt'))->update(['validasi' => 1]);
-        }else{
-            KHS::where('nim', request('nim'))->where('smt', request('smt'))->update(['validasi' => 0]);
-        }
+        KHS::validateKHS(request('validasi'));
 
         return response()->json([
             'status' => 'success',

@@ -93,6 +93,24 @@ Route::middleware(['auth', 'user.role:operator'])->group(function () {
     Route::get('/validasiProgress/validasiIRS/{angkatan}/{mahasiswa}', [IRSValidationController::class, 'showIRSMhs']);
     Route::put('/validasiProgress/validasiIRS/{angkatan}/{mahasiswa}/update', [IRSValidationController::class, 'updateIRSMhs']);
     // Route::post("/validasiProgress/validasiIRS/validate", [IRSValidationController::class,"validateIRS"]);
+    
+    Route::get("/validasiProgress/validasiKHS", [KHSValidationController::class, 'index']);
+    Route::get("/validasiProgress/validasiKHS/{angkatan}", [KHSValidationController::class, 'listMhsAngkatan']);
+    Route::get('/validasiProgress/validasiKHS/{angkatan}/{mahasiswa}', [KHSValidationController::class, 'showKHSMhs']);
+    Route::put('/validasiProgress/validasiKHS/{angkatan}/{mahasiswa}/update', [KHSValidationController::class, 'updateKHSMhs']);
+    // Route::post("/validasiProgress/validasiKHS/validate", [KHSValidationController::class,"validateKHS"]);
+
+    Route::get("/validasiProgress/validasiPKL", [PKLValidationController::class, 'index']);
+    Route::get("/validasiProgress/validasiPKL/{angkatan}", [PKLValidationController::class, 'listMhsAngkatan']);
+    Route::get('/validasiProgress/validasiPKL/{angkatan}/{mahasiswa}', [PKLValidationController::class, 'showPKLMhs']);
+    Route::put('/validasiProgress/validasiPKL/{angkatan}/{mahasiswa}/update', [PKLValidationController::class, 'updatePKLMhs']);
+    // Route::post("/validasiProgress/validasiPKL/validate", [PKLValidationController::class,"validatePKL"]);
+
+    Route::get("/validasiProgress/validasiSkripsi", [SkripsiValidationController::class, 'index']);
+    Route::get("/validasiProgress/validasiSkripsi/{angkatan}", [SkripsiValidationController::class, 'listMhsAngkatan']);
+    Route::get('/validasiProgress/validasiSkripsi/{angkatan}/{mahasiswa}', [SkripsiValidationController::class, 'showSkripsiMhs']);
+    Route::put('/validasiProgress/validasiSkripsi/{angkatan}/{mahasiswa}/update', [SkripsiValidationController::class, 'updateSkripsiMhs']);
+    // Route::post("/validasiProgress/validasiSkripsi/validate", [SkripsiValidationController::class,"validateSkripsi"]);
 
     Route::get('/rekapMhs', fn() => view('operator.rekap_mhs.index'));
     Route::get("/rekapMhs/rekapPKL", [RekapListPKLController::class,"rekap"]);
@@ -138,15 +156,13 @@ Route::middleware(['auth', 'user.role:dosenwali'])->group(function () {
     
     Route::get("/pklPerwalian", [PKLValidationController::class, 'index']);
     Route::get("/pklPerwalian/{angkatan}", [PKLValidationController::class, 'listMhsAngkatan']);
-    Route::get('/pklPerwalian/{angkatan}/{nim}', [PKLValidationController::class, 'showPKLMhs']);
-    Route::put('/pklPerwalian/{angkatan}/{nim}/update', [PKLValidationController::class, 'updatePKLMhs']);
-    Route::get("/pklPerwalian/{angkatan}/{nim}/validatePKL/{validate}", [PKLValidationController::class,"validatePKL"]);
+    Route::get('/pklPerwalian/{angkatan}/{mahasiswa}', [PKLValidationController::class, 'showPKLMhs']);
+    Route::put('/pklPerwalian/{angkatan}/{mahasiswa}/update', [PKLValidationController::class, 'updatePKLMhs']);
     
     Route::get("/skripsiPerwalian", [SkripsiValidationController::class, 'index']);
     Route::get("/skripsiPerwalian/{angkatan}", [SkripsiValidationController::class, 'listMhsAngkatan']);
-    Route::get('/skripsiPerwalian/{angkatan}/{nim}', [SkripsiValidationController::class, 'showSkripsiMhs']);
-    Route::put('/skripsiPerwalian/{angkatan}/{nim}/update', [SkripsiValidationController::class, 'updateSkripsiMhs']);
-    Route::get("/skripsiPerwalian/{angkatan}/{nim}/validateSkripsi/{validate}", [SkripsiValidationController::class,"validateSkripsi"]);
+    Route::get('/skripsiPerwalian/{angkatan}/{mahasiswa}', [SkripsiValidationController::class, 'showSkripsiMhs']);
+    Route::put('/skripsiPerwalian/{angkatan}/{mahasiswa}/update', [SkripsiValidationController::class, 'updateSkripsiMhs']);
 
     Route::get('/rekapMhsPerwalian', fn() => view('dosenwali.rekap_mhs.index'));
     Route::get("/rekapMhsPerwalian/rekapPKL", [RekapListPKLController::class,"rekap"]);
@@ -156,6 +172,10 @@ Route::middleware(['auth', 'user.role:dosenwali'])->group(function () {
 
 Route::middleware(['auth', 'user.role:dosenwali,operator'])->group(function () {
     Route::post("/validateIRS", [IRSValidationController::class,"validateIRS"]);
+    Route::post("/validateKHS", [KHSValidationController::class,"validateKHS"]);
+    Route::get("/validatePKL/{mahasiswa}/{validate}", [PKLValidationController::class,"validatePKL"]);
+    Route::get("/validateSkripsi/{mahasiswa}/{validate}", [SkripsiValidationController::class,"validateSkripsi"]);
+
 });
 
 

@@ -11,6 +11,7 @@ $(document).ready(function() {
       url = "/validasiProgress/validasiSkripsi/validate";
     }
 
+    // console.log(data);
     $.ajaxSetup({
       headers: {
         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')

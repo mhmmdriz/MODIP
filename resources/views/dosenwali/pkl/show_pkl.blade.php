@@ -35,10 +35,9 @@
       <h4 class="m-0" >
         @if (isset($dataPKL))
           <div class="modalPKLButton" type="button" data-bs-toggle="modal" data-bs-target="#modalPKL" data-status="{{ $dataPKL->status }}" data-semester="{{ $dataPKL->semester }}" data-tanggal-seminar="{{ $dataPKL->tanggal_seminar }}" data-nilai="{{ $dataPKL->nilai }}" data-scan-pkl="{{ $dataPKL->scan_basp }}">
-        @else
-          <div class="modalPKLButton" type="button" data-bs-toggle="modal" data-bs-target="#modalPKL" data-status="" data-semester="" data-tanggal-seminar="" data-nilai="" data-scan-pkl="">
+            <i class="bi bi-pencil-square"></i>
+          </div>
         @endif
-        <i class="bi bi-pencil-square"></i>
       </h4>
     </div>
   </div>
@@ -47,11 +46,11 @@
     @if (isset($dataPKL))
       @if ($dataPKL->status == "Lulus")
         @if ($dataPKL->validasi == 0)
-          <a href="/pklPerwalian/{{ $angkatan }}/{{ $nim }}/validatePKL/1" class="btn btn-success btn-sm" type="button">
+          <a href="/validatePKL/{{ $nim }}/1" class="btn btn-success btn-sm" type="button">
             Validasi
           </a>
         @else
-          <a href="/pklPerwalian/{{ $angkatan }}/{{ $nim }}/validatePKL/0" class="btn btn-danger btn-sm" type="button">
+          <a href="/validatePKL/{{ $nim }}/0" class="btn btn-danger btn-sm" type="button">
             Batal Validasi
           </a>
         @endif
@@ -111,11 +110,11 @@
       <div class="row mt-3">
         @if (isset($dataPKL) && !is_null($dataPKL->scan_basp))
           <div class="col">
-            <h6 class="m-0">Scan BASS: <a href="/showFile/{{ $dataPKL->scan_basp }}">scan-basp.pdf</a></h6>
+            <h6 class="m-0">Scan BASP: <a href="/showFile/{{ $dataPKL->scan_basp }}">scan-basp.pdf</a></h6>
           </div>
         @else
           <div class="col">
-            <h6 class="m-0">Scan BASS: ~</h6>
+            <h6 class="m-0">Scan BASP: ~</h6>
           </div>
         @endif
       </div>

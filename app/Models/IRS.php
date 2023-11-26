@@ -89,4 +89,12 @@ class IRS extends Model
 
         return $rekap_irs;
     }
+
+    public static function validateIRS($request){
+        if($request == 1){
+            IRS::where('nim', request('nim'))->where('smt', request('smt'))->update(['validasi' => 1]);
+        }else{
+            IRS::where('nim', request('nim'))->where('smt', request('smt'))->update(['validasi' => 0]);
+        }
+    }
 }
