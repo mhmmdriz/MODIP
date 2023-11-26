@@ -14,15 +14,7 @@ class IRSController extends Controller
      */
     public function index()
     {
-        if(auth()->user()->level == "dosenwali"){
-            $data_mhs = Mahasiswa::where("dosen_wali", auth()->user()->username)->get()->groupBy("angkatan")->map(function($item){
-                return $item->count(); 
-            });
-        }else{
-            $data_mhs = Mahasiswa::get()->groupBy("angkatan")->map(function($item){
-                return $item->count(); 
-            });
-        }
+        $data_mhs = Mahasiswa::countMahasiswaPerAngkatan();
         
         $rekap_irs = IRS::getRekapValidasiIRS($data_mhs);
 
@@ -100,11 +92,7 @@ class IRSController extends Controller
     }
 
     public function validateIRS(){
-        if(request('validasi') == 1){
-            IRS::where('nim', request('nim'))->where('smt', request('smt'))->update(['validasi' => 1]);
-        }else{
-            IRS::where('nim', request('nim'))->where('smt', request('smt'))->update(['validasi' => 0]);
-        }
+        IRS::validateIRS(request('validasi'));
 
         return response()->json([
             'status' => 'success',

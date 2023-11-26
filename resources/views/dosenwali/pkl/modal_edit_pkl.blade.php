@@ -9,20 +9,6 @@
         @csrf
         @method('put')
         <div class="modal-body">
-          <div class="mb-3">
-            <input type="hidden" name="status_old" id="status_old" value="{{ old('status_old') }}">
-            <label for="status" class="form-label">Status</label>
-            <select class="form-control @error('status') is-invalid @enderror" name="status" id="status" aria-label="Default select example">
-              <option value="" selected>Pilih status</option>
-              <option value="Lulus" {{ (old('status') == "Lulus")?"selected":"" }}>Lulus</option>
-            </select>
-            @error('status')
-              <div class="invalid-feedback">
-                {{ $message }}
-              </div>
-            @enderror
-          </div>
-
           <div class="mb-3" id="semester-container">
             <label for="semester" class="form-label">Semester</label>
             <input type="number" class="form-control @error('semester') is-invalid @enderror" name="semester" value="{{ old('semester') }}" id="semester">

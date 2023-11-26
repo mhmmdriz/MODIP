@@ -56,15 +56,15 @@ class PKL extends Model
         }
     }
 
-    public static function getRekapValidasiPKL($data_mhs, $doswal = null){
-        if($doswal == null){
-            $mhs_pkl = PKL::selectRaw("mahasiswa.nim as mhs_nim, pkl.nim as pkl_nim, validasi, angkatan")
-            ->join("mahasiswa", "mahasiswa.nim", "=", "pkl.nim")
-            ->get();
-        }else{
-            $mhs_pkl = PKL::selectRaw("mahasiswa.nim as mhs_nim, pkl.nim as pkl_nim, validasi, angkatan")
+    public static function getRekapValidasiPKL($data_mhs){
+        if(auth()->user()->level == "dosenwali"){
+            $mhs_pkl = self::selectRaw("mahasiswa.nim as mhs_nim, pkl.nim as pkl_nim, validasi, angkatan")
             ->join("mahasiswa", "mahasiswa.nim", "=", "pkl.nim")
             ->where("dosen_wali", auth()->user()->username)
+            ->get();
+        }else{
+            $mhs_pkl = self::selectRaw("mahasiswa.nim as mhs_nim, pkl.nim as pkl_nim, validasi, angkatan")
+            ->join("mahasiswa", "mahasiswa.nim", "=", "pkl.nim")
             ->get();
         }
 
@@ -143,5 +143,8 @@ class PKL extends Model
         return $data_mhs;
     }
 
+    public static function validatePKL($mahasiswa, $validate){
+        self::where('nim', '=', $mahasiswa->nim)->update(['validasi' => $validate]);
+    }
     
 }

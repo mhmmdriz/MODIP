@@ -51,7 +51,7 @@ class Skripsi extends Model
             if($request->scan_bass != null){
                 $validatedData ["scan_bass"] = $request->file('scan_bass')->store('private/skripsi');
             }
-            Skripsi::create($validatedData);
+            self::create($validatedData);
         }
         else {
             $validatedData['status'] = "Lulus";
@@ -59,19 +59,19 @@ class Skripsi extends Model
                 Storage::delete($request->scan_bass_old);
                 $validatedData ["scan_bass"] = $request->file('scan_bass')->store('private/skripsi');
             }
-            Skripsi::where("nim", $nim)->update($validatedData);
+            self::where("nim", $nim)->update($validatedData);
         }
     }
 
     public static function getRekapValidasiSkripsi($data_mhs, $doswal = null){
-        if($doswal == null){
-            $mhs_skripsi = Skripsi::selectRaw("mahasiswa.nim as mhs_nim, skripsi.nim as skripsi_nim, validasi, angkatan")
-            ->join("mahasiswa", "mahasiswa.nim", "=", "skripsi.nim")
-            ->get();
-        }else{
-            $mhs_skripsi = Skripsi::selectRaw("mahasiswa.nim as mhs_nim, skripsi.nim as skripsi_nim, validasi, angkatan")
+        if(auth()->user()->level == "dosenwali"){
+            $mhs_skripsi = self::selectRaw("mahasiswa.nim as mhs_nim, skripsi.nim as skripsi_nim, validasi, angkatan")
             ->join("mahasiswa", "mahasiswa.nim", "=", "skripsi.nim")
             ->where("dosen_wali", auth()->user()->username)
+            ->get();
+        }else{
+            $mhs_skripsi = self::selectRaw("mahasiswa.nim as mhs_nim, skripsi.nim as skripsi_nim, validasi, angkatan")
+            ->join("mahasiswa", "mahasiswa.nim", "=", "skripsi.nim")
             ->get();
         }
 
@@ -131,10 +131,10 @@ class Skripsi extends Model
 
     public static function getListRekapMhsSkripsi($request){
         if($request->status == "Sudah"){
-            $data_mhs = Skripsi::join("mahasiswa","mahasiswa.nim","=", "skripsi.nim")->where("angkatan", $request->angkatan)
+            $data_mhs = self::join("mahasiswa","mahasiswa.nim","=", "skripsi.nim")->where("angkatan", $request->angkatan)
             ->where("validasi", 1);
         }else{
-            $data_mhs = Skripsi::Rightjoin("mahasiswa","mahasiswa.nim","=", "skripsi.nim")->where("angkatan", $request->angkatan)
+            $data_mhs = self::Rightjoin("mahasiswa","mahasiswa.nim","=", "skripsi.nim")->where("angkatan", $request->angkatan)
             ->where(function($query) {
                 $query->where('validasi', 0)
                       ->orWhereNull('validasi');
@@ -148,5 +148,9 @@ class Skripsi extends Model
         $data_mhs = $data_mhs->get();
 
         return $data_mhs;
+    }
+
+    public static function validateSkripsi($mahasiswa, $validate){
+        self::where('nim', '=', $mahasiswa->nim)->update(['validasi' => $validate]);
     }
 }

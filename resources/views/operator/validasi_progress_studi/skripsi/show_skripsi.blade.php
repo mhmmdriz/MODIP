@@ -5,9 +5,10 @@
 <nav aria-label="breadcrumb">
   <ol class="breadcrumb">
     <li class="breadcrumb-item"><a href="/dashboard">Dashboard</a></li>
-    <li class="breadcrumb-item"><a href="/skripsiPerwalian">Skripsi Mahasiswa Perwalian</a></li>
-    <li class="breadcrumb-item"><a href="/skripsiPerwalian/{{ $angkatan }}">Daftar Mahasiswa Perwalian</a></li>
-    <li class="breadcrumb-item active" aria-current="page">Detail Skripsi Mahasiswa Perwalian</li>
+    <li class="breadcrumb-item"><a href="/validasiProgress">Validasi Progress Studi</a></li>
+    <li class="breadcrumb-item"><a href="/validasiProgress/validasiSkripsi">Validasi Skripsi</a></li>
+    <li class="breadcrumb-item"><a href="/validasiProgress/validasiSkripsi/{{ $angkatan }}">List Angkatan {{ $angkatan }}</a></li>
+    <li class="breadcrumb-item active" aria-current="page">Detail Skripsi {{ $mahasiswa->nim }}</li>
   </ol>
 </nav>
 
@@ -135,7 +136,9 @@
   </div>
 </div>
 
-@include('dosenwali.skripsi.modal_edit_skripsi')
+@include('operator.validasi_progress_studi.skripsi.modal_edit_skripsi')
 <script src="/js/modal.js"></script>
-
+@if ($errors->any())
+    @dump($errors)
+@endif
 @endsection

@@ -232,10 +232,24 @@ class Mahasiswa extends Model
     
     public static function getListMhsAngkatan($angkatan){
         if(auth()->user()->level == "dosenwali"){
-            $data_mhs = Mahasiswa::get()->where("dosen_wali", auth()->user()->username)->where("angkatan", $angkatan);
+            $data_mhs = self::get()->where("dosen_wali", auth()->user()->username)->where("angkatan", $angkatan);
         }else{
-            $data_mhs = Mahasiswa::get()->where("angkatan", $angkatan);
+            $data_mhs = self::get()->where("angkatan", $angkatan);
         }
         return $data_mhs;
+    }
+
+    public static function countMahasiswaPerAngkatan(){
+        if(auth()->user()->level == "dosenwali"){
+            $data_mhs = self::where("dosen_wali", auth()->user()->username)->get()->groupBy("angkatan")->map(function($item){
+                return $item->count(); 
+            });
+        }else{
+            $data_mhs = self::get()->groupBy("angkatan")->map(function($item){
+                return $item->count(); 
+            });
+        }
+
+        return $data_mhs->sortKeys();
     }
 }

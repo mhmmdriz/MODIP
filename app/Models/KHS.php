@@ -70,18 +70,18 @@ class KHS extends Model
         });
     }
 
-    public static function getRekapKHSAngkatan($data_mhs, $doswal = null){
-        if($doswal == null){
-            $mhs_khs = KHS::selectRaw("angkatan, khs.nim, 
-            COUNT(CASE WHEN validasi = 0 THEN 1 ELSE NULL END) as count_validasi_0")
-            ->join("mahasiswa", "mahasiswa.nim", "=", "khs.nim")
-            ->groupBy("angkatan", "khs.nim")
-            ->get();
-        }else{
-            $mhs_khs = KHS::selectRaw("angkatan, khs.nim, 
+    public static function getRekapValidasiKHS($data_mhs){
+        if(auth()->user()->level == "dosenwali"){
+            $mhs_khs = self::selectRaw("angkatan, khs.nim, 
             COUNT(CASE WHEN validasi = 0 THEN 1 ELSE NULL END) as count_validasi_0")
             ->join("mahasiswa", "mahasiswa.nim", "=", "khs.nim")
             ->where("dosen_wali", auth()->user()->username)
+            ->groupBy("angkatan", "khs.nim")
+            ->get();
+        }else{
+            $mhs_khs = self::selectRaw("angkatan, khs.nim, 
+            COUNT(CASE WHEN validasi = 0 THEN 1 ELSE NULL END) as count_validasi_0")
+            ->join("mahasiswa", "mahasiswa.nim", "=", "khs.nim")
             ->groupBy("angkatan", "khs.nim")
             ->get();
         }
@@ -108,5 +108,13 @@ class KHS extends Model
         }
 
         return $rekap_khs;
+    }
+
+    public static function validateKHS($request){
+        if($request == 1){
+            self::where('nim', request('nim'))->where('smt', request('smt'))->update(['validasi' => 1]);
+        }else{
+            self::where('nim', request('nim'))->where('smt', request('smt'))->update(['validasi' => 0]);
+        }
     }
 }
