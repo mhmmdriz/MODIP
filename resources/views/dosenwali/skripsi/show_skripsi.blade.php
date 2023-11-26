@@ -80,8 +80,8 @@
         </div>
       </div>
       <div class="row mb-3 justify-content-center">
-        <div class="col-auto {{ (isset($dataSkripsi->status) && $dataSkripsi->status == "Lulus")?"bg-success":"bg-body-secondary" }} rounded border text-white">
-          <h3 class="my-1">{{ (isset($dataSkripsi->status))?$dataSkripsi->status:"~" }}</h3>
+        <div class="col-auto {{ (isset($dataSkripsi))?"bg-success":"bg-body-secondary" }} rounded border text-white">
+          <h3 class="my-1">{{ (isset($dataSkripsi))?"Lulus":"~" }}</h3>
         </div>
       </div>
       <div class="row">

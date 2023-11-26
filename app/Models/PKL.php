@@ -37,13 +37,10 @@ class PKL extends Model
         }
         
         $nim = $mahasiswa->nim;
-        $nama = $mahasiswa->nama;
         $validasi = 0;
 
         if ($request->status_old == null){
             $validatedData['nim'] = $nim;
-            $validatedData['nama'] = $nama;
-            $validatedData['status'] = "Lulus";
             $validatedData['validasi'] = $validasi;
             if($request->scan_basp != null){
                 $validatedData ["scan_basp"] = $request->file('scan_basp')->store('private/pkl');
