@@ -47,7 +47,6 @@ class KHS extends Model
             $mahasiswa = auth()->user()->mahasiswa;
         }
         
-        $validatedData['nama'] = $mahasiswa->nama;
         if($request->scan_khs != null){
             $validatedData ["scan_khs"] = $request->file('scan_khs')->store('private/khs');
         }

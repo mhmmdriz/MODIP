@@ -42,13 +42,10 @@ class Skripsi extends Model
             $mahasiswa = auth()->user()->mahasiswa;
         }
         $nim = $mahasiswa->nim;
-        $nama = $mahasiswa->nama;
         $validasi = 0;
 
         if ($request->status_old == null){
             $validatedData['nim'] = $nim;
-            $validatedData['nama'] = $nama;
-            $validatedData['status'] = "Lulus";
             $validatedData['validasi'] = $validasi;
             if($request->scan_bass != null){
                 $validatedData ["scan_bass"] = $request->file('scan_bass')->store('private/skripsi');
@@ -56,7 +53,6 @@ class Skripsi extends Model
             self::create($validatedData);
         }
         else {
-            $validatedData['status'] = "Lulus";
             if($request->scan_bass != null){
                 Storage::delete($request->scan_bass_old);
                 $validatedData ["scan_bass"] = $request->file('scan_bass')->store('private/skripsi');

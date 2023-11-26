@@ -70,14 +70,14 @@
                 @if (!isset($khs[$i-1]))
                   IPs: ~
                 @else
-                  IPs: {{ $khs[$i-1]->ips }}
+                  IPs: {{ number_format($khs[$i-1]->ips,2) }}
                 @endif
               </div>
               <div>
                 @if (!isset($khs[$i-1]))
                   IPk: ~
                 @else
-                  IPk: {{ $khs[$i-1]->ipk }}
+                  IPk: {{ number_format($khs[$i-1]->ipk,2) }}
                 @endif
               </div>
             </div>
