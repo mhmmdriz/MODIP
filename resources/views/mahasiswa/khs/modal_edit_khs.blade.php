@@ -5,7 +5,7 @@
         <h1 class="modal-title fs-5" id="modalLabel"></h1>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
-      <form action="/khs/" method="POST" enctype="multipart/form-data">
+      <form action="/khs/{{ $mahasiswa->nim }}/update" method="POST" enctype="multipart/form-data">
         @csrf
         @method('put')
         <div class="modal-body">

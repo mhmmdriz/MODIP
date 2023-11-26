@@ -31,8 +31,11 @@ class PKL extends Model
         return $is_eligible;
     }
 
-    static public function updateOrInsert($request, $validatedData){
-        $mahasiswa = auth()->user()->mahasiswa;
+    static public function updateOrInsert($mahasiswa, $request, $validatedData){
+        if (auth()->user()->level == "mahasiswa") {
+            $mahasiswa = auth()->user()->mahasiswa;
+        }
+        
         $nim = $mahasiswa->nim;
         $nama = $mahasiswa->nama;
         $validasi = 0;

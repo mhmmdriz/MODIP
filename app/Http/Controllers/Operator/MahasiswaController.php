@@ -156,4 +156,13 @@ class MahasiswaController extends Controller
         return response()->json(['html' => $view]);
     }
 
+    
+    public function entryProgressIndex(){
+        $data_mhs = Mahasiswa::all();
+        $data_angkatan = Mahasiswa::getAngkatan($data_mhs);
+        return view('operator.entry_progress_studi.index',[
+            "data_mhs" => $data_mhs,
+            "data_angkatan" => $data_angkatan,
+        ]);
+    }
 }

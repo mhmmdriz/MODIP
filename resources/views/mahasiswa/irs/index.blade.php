@@ -5,6 +5,9 @@
 <nav aria-label="breadcrumb">
   <ol class="breadcrumb">
     <li class="breadcrumb-item"><a href="/dashboard">Dashboard</a></li>
+    @if (auth()->user()->level == 'operator')
+      <li class="breadcrumb-item"><a href="/entryProgress">Entry Progress Studi</a></li>
+    @endif
     <li class="breadcrumb-item active" aria-current="page">IRS</li>
   </ol>
 </nav>
@@ -13,6 +16,13 @@
   <div class="alert alert-success alert-dismissible fade show" role="alert">
     {{ session('success') }}
     <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+  </div>
+@endif
+
+@if (auth()->user()->level == 'operator')
+  <div class="card p-2 ps-3 mb-2 bg-body-tertiary">
+    <div>Nama: {{ $mahasiswa->nama }}</div>
+    <div>NIM: {{ $mahasiswa->nim }}</div>
   </div>
 @endif
 
@@ -112,6 +122,6 @@
 
 @include('mahasiswa.irs.modal_edit_irs')
 @include('mahasiswa.irs.modal_alert')
-<script src="js/modal.js"></script>
+<script src="/js/modal.js"></script>
 
 @endsection

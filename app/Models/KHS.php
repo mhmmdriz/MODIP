@@ -42,8 +42,10 @@ class KHS extends Model
         ];
     }
 
-    static public function updateOrInsert($request, $validatedData){
-        $mahasiswa = auth()->user()->mahasiswa;
+    static public function updateOrInsert($mahasiswa, $request, $validatedData){
+        if (auth()->user()->level == "mahasiswa") {
+            $mahasiswa = auth()->user()->mahasiswa;
+        }
         
         $validatedData['nama'] = $mahasiswa->nama;
         if($request->scan_khs != null){
@@ -54,10 +56,10 @@ class KHS extends Model
             $validatedData['smt'] = $request->smt;
             $validatedData['nim'] = $mahasiswa->nim;
             $validatedData['validasi'] = 0;
-            KHS::create($validatedData);
+            self::create($validatedData);
         }else{
             Storage::delete($request->scan_khs_old);
-            KHS::where("smt", $request->smt)->where("nim",$mahasiswa->nim)->update($validatedData);
+            self::where("smt", $request->smt)->where("nim",$mahasiswa->nim)->update($validatedData);
         }
     }
     

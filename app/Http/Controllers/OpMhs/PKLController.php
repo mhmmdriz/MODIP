@@ -4,19 +4,19 @@ namespace App\Http\Controllers\OpMhs;
 
 use App\Http\Controllers\Controller;
 use App\Models\PKL;
-use App\Http\Requests\StorePKLRequest;
-use App\Http\Requests\UpdatePKLRequest;
+use App\Models\Mahasiswa;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Storage;
 
 class PKLController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
-    public function index() 
+    public function index(Mahasiswa $mahasiswa) 
     {
-        $mahasiswa = auth()->user()->mahasiswa;
+        if (auth()->user()->level == "mahasiswa") {
+            $mahasiswa = auth()->user()->mahasiswa;
+        }
         $dataPKL = $mahasiswa->pkl;
         $semesterInfo = $mahasiswa->calculateSemesterAndThnAjar();
         $semester = $semesterInfo['semester'];
@@ -24,12 +24,13 @@ class PKLController extends Controller
         $is_eligible = PKL::isEligible($semester);
 
         return view('mahasiswa.pkl.index', [
+            'mahasiswa' => $mahasiswa,
             'dataPKL' => $dataPKL,
             'is_eligible' => $is_eligible,
         ]);
     }
 
-    public function updateOrInsert(Request $request)
+    public function updateOrInsert(Mahasiswa $mahasiswa, Request $request)
     {
         $rules = [ 
             'semester' => 'required',
@@ -41,9 +42,13 @@ class PKLController extends Controller
         }
         $validatedData = $request->validate($rules);
 
-        PKL::updateOrInsert($request, $validatedData);
+        PKL::updateOrInsert($mahasiswa, $request, $validatedData);
 
-        return redirect('/pkl')->with('success', "Data PKL Berhasil Diubah!");
+        if (auth()->user()->level == "mahasiswa") {
+            return redirect('/pkl')->with('success', "Data PKL Berhasil Diubah!");
+        } else {
+            return redirect('/entryProgress/entryPKL/' . $mahasiswa->nim)->with('success', "Data PKL Berhasil Diubah!");
+        }
     }
 }
 

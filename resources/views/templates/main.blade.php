@@ -50,7 +50,7 @@
     @yield('container')
   </div>
 
-  <footer class="footer bg-body-tertiary w-100 mt-auto">
+  <footer class="footer bg-body-tertiary w-100 mt-auto pt-1">
     <div class="container">
       <div class="text-center">
         <p>Mercenaries &copy; 2023 MODIP , All rights reserved.</p>
