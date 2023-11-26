@@ -29,7 +29,7 @@ class SkripsiController extends Controller
 
     public function listMhsAngkatan(String $angkatan)
     {
-        $data_mhs = Mahasiswa::getListMhsAngkatan($angkatan);
+        $data_mhs = Mahasiswa::getListMhsAngkatan($angkatan, request()->keyword);
 
         $data_skripsi = Skripsi::pluck('validasi', 'nim')->toArray();
         

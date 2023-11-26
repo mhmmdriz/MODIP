@@ -109,4 +109,6 @@
 @include('operator.akun_doswal.modal_generate_doswal')
 @include('operator.akun_doswal.modal_import_excel')
 
+<script src="/js/ajax.js"></script>
+
 @endsection

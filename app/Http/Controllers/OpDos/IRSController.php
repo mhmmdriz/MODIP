@@ -32,7 +32,7 @@ class IRSController extends Controller
 
     public function listMhsAngkatan(String $angkatan)
     {
-        $data_mhs = Mahasiswa::getListMhsAngkatan($angkatan);
+        $data_mhs = Mahasiswa::getListMhsAngkatan($angkatan, request()->keyword);
         $data_nim = $data_mhs->pluck("nim");
         $data_irs = IRS::getSKSkList($data_nim);
 

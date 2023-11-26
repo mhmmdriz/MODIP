@@ -19,7 +19,9 @@
 
 <div class="row">
   <div class="col-md-4">
-    <input type="text" class="form-control" id="search-akun-mhs" onkeyup="updateMhsTable(this.value)" placeholder="Cari Akun">
+    <form action="/validasiProgress/validasiKHS/{{ $angkatan }}" method="get">
+      <input type="text" class="form-control" id="keyword" name="keyword" placeholder="Cari Akun">
+    </form>
   </div>
 </div>
 
