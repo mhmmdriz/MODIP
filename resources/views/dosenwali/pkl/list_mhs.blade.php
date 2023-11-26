@@ -6,7 +6,7 @@
   <ol class="breadcrumb">
     <li class="breadcrumb-item"><a href="/dashboard">Dashboard</a></li>
     <li class="breadcrumb-item"><a href="/pklPerwalian">PKL Mahasiswa Perwalian</a></li>
-    <li class="breadcrumb-item active" aria-current="page">Daftar Mahasiswa Perwalian</li>
+    <li class="breadcrumb-item active" aria-current="page">Daftar Angkatan {{ $angkatan }}</li>
   </ol>
 </nav>
 
