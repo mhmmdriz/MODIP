@@ -44,16 +44,14 @@
 
   <div class="row m-2 position-absolute" style="bottom: 0;right: 0">
     @if (isset($dataPKL))
-      @if ($dataPKL->status == "Lulus")
-        @if ($dataPKL->validasi == 0)
-          <a href="/validatePKL/{{ $nim }}/1" class="btn btn-success btn-sm" type="button">
-            Validasi
-          </a>
-        @else
-          <a href="/validatePKL/{{ $nim }}/0" class="btn btn-danger btn-sm" type="button">
-            Batal Validasi
-          </a>
-        @endif
+      @if ($dataPKL->validasi == 0)
+        <a href="/validatePKL/{{ $nim }}/1" class="btn btn-success btn-sm" type="button">
+          Validasi
+        </a>
+      @else
+        <a href="/validatePKL/{{ $nim }}/0" class="btn btn-danger btn-sm" type="button">
+          Batal Validasi
+        </a>
       @endif
     @endif
   </div>
