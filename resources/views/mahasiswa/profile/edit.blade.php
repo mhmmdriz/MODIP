@@ -50,6 +50,10 @@
           <label for="status" class="form-label">Status</label>
           <input type="text" class="form-control @error('status') is-invalid @enderror" id="status" name="status" value="{{ auth()->user()->mahasiswa->status }}" disabled>
         </div>
+        <div class="mb-3">
+          <label for="dosenwali" class="form-label">Dosen Wali</label>
+          <input type="text" class="form-control @error('dosenwali') is-invalid @enderror" id="dosenwali" name="dosenwali" value="{{ auth()->user()->mahasiswa->dosenwali->nama }}" disabled>
+        </div>
 
         <div class="mb-3">
           <label for="no_telp" class="form-label">No Telp</label>

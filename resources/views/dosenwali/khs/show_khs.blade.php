@@ -18,6 +18,11 @@
   </div>
 @endif
 
+<div class="card p-2 ps-3 mb-2 bg-body-tertiary">
+  <div>Nama: {{ $mahasiswa->nama }}</div>
+  <div>NIM: {{ $nim }}</div>
+</div>
+
 <div class="card bg-body-tertiary my-2">
   <div class="row d-flex justify-content-center mt-3">
     <div class="col-auto">

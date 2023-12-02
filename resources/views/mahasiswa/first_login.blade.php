@@ -9,6 +9,27 @@
       @csrf
       @method('put')
       <div class="mb-3">
+        <div class="mb-3">
+          <label for="nama" class="form-label">Nama</label>
+          <input type="text" class="form-control @error('nama') is-invalid @enderror" id="nama" name="nama" value="{{ auth()->user()->mahasiswa->nama }}" disabled>
+        </div>
+        <div class="mb-3">
+          <label for="nim" class="form-label">NIM</label>
+          <input type="text" class="form-control @error('nim') is-invalid @enderror" id="nim" name="nim" value="{{ auth()->user()->mahasiswa->nim }}" disabled>
+        </div>
+        <div class="mb-3">
+          <label for="angkatan" class="form-label">Angkatan</label>
+          <input type="text" class="form-control @error('angkatan') is-invalid @enderror" id="angkatan" name="angkatan" value="{{ auth()->user()->mahasiswa->angkatan }}" disabled>
+        </div>
+        <div class="mb-3">
+          <label for="status" class="form-label">Status</label>
+          <input type="text" class="form-control @error('status') is-invalid @enderror" id="status" name="status" value="{{ auth()->user()->mahasiswa->status }}" disabled>
+        </div>
+        <div class="mb-3">
+          <label for="dosenwali" class="form-label">Dosen Wali</label>
+          <input type="text" class="form-control @error('dosenwali') is-invalid @enderror" id="dosenwali" name="dosenwali" value="{{ auth()->user()->mahasiswa->dosenwali->nama }}" disabled>
+        </div>
+
         <label for="jalur_masuk" class="form-label">Jalur Masuk</label>
         <select class="form-control @error('jalur_masuk') is-invalid @enderror" id="jalur_masuk" name="jalur_masuk" aria-label="Default select example">
           <option value="" selected>Pilih Jalur Masuk</option>
