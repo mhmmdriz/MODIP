@@ -38,6 +38,24 @@
   </div>
 </div>
 
+<div class="row d-flex justify-content-center">
+  <div class="col mb-2">
+    <div class="card mb-3 bg-body-tertiary">
+      <div class="row my-2 mx-2">
+        <div class="col-12 col-md-4">
+          <canvas id="rekapStatus" class="chartJS" width="300" height="300"></canvas>
+        </div>
+        <div class="col-4">
+          <canvas id="rekapPKL" class="chartJS" width="300" height="300"></canvas>
+        </div>
+        <div class="col-4">
+          <canvas id="rekapSkripsi" class="chartJS" width="300" height="300"></canvas>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
 <div class="row d-flex gx-4 gy-4 mb-2">
   <div class="col-md-3 col-sm-6">
     <a href="/pencarianProgressStudiPerwalian" style="text-decoration: none">
@@ -89,5 +107,120 @@
     </a>
   </div>
 </div>
+
+<script>
+  Chart.defaults.color = '#808080';
+  Chart.defaults.font.size = 14;
+  // Mendapatkan elemen canvas
+  var ctx = document.getElementById("rekapStatus").getContext("2d");
+  var rekapStatus = {!! $rekap_status !!}
+  
+  var label = [];
+  var data = [];
+  rekapStatus.forEach(element => {
+    label.push(element.status);
+    data.push(element.jumlah);
+  });
+
+  var data = {
+    labels: label,
+    datasets: [{
+      data: data,
+      backgroundColor: ["#4CAF50", "#2196F3", "#F44336", "#9C27B0", "#FF5722", "#607D8B", "#795548"]
+    }]
+  };
+
+  var options = {
+    responsive: true,
+    maintainAspectRatio: false,
+    plugins: {
+      legend: {
+        display:false,
+        position: 'bottom',
+      },
+      title: {
+        display: true,
+        text: 'Rekap Status Mahasiswa'
+      }
+    }
+  };
+
+  // Membuat instance Pie Chart
+  var myChart = new Chart(ctx, {
+    type: 'bar',
+    data: data,
+    options: options
+  });
+
+  var ctx = document.getElementById("rekapPKL").getContext("2d");
+  var rekapPKL = {!! json_encode($rekap_pkl) !!}
+  console.log(rekapPKL);
+  var label = ['Sudah PKL', 'Belum PKL'];
+  var data = [rekapPKL.sudah, rekapPKL.belum];
+
+  var data = {
+    labels: label,
+    datasets: [{
+      data: data,
+      backgroundColor: ["#4CAF50", "#2196F3"]
+    }]
+  };
+
+  var options = {
+    responsive: true,
+    maintainAspectRatio: false,
+    plugins: {
+      legend: {
+        position: 'bottom',
+      },
+      title: {
+        display: true,
+        text: 'Rekap Status Mahasiswa'
+      }
+    }
+  };
+
+  // Membuat instance Pie Chart
+  var myChart = new Chart(ctx, {
+    type: 'pie',
+    data: data,
+    options: options
+  });
+  
+  var ctx = document.getElementById("rekapSkripsi").getContext("2d");
+  var rekapSkripsi = {!! json_encode($rekap_skripsi) !!}
+  console.log(rekapSkripsi);
+  var label = ['Sudah Skripsi', 'Belum Skripsi'];
+  var data = [rekapSkripsi.sudah, rekapSkripsi.belum];
+
+  var data = {
+    labels: label,
+    datasets: [{
+      data: data,
+      backgroundColor: ["#4CAF50", "#2196F3"]
+    }]
+  };
+  
+  var options = {
+    responsive: true,
+    maintainAspectRatio: false,
+    plugins: {
+      legend: {
+        position: 'bottom',
+      },
+      title: {
+        display: true,
+        text: 'Rekap Status Mahasiswa'
+      }
+    }
+  };
+
+  // Membuat instance Pie Chart
+  var myChart = new Chart(ctx, {
+    type: 'pie',
+    data: data,
+    options: options
+  });
+</script>
 @endsection
 
