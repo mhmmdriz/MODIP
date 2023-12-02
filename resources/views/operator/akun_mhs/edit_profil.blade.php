@@ -5,8 +5,8 @@
 <nav aria-label="breadcrumb">
   <ol class="breadcrumb">
     <li class="breadcrumb-item"><a href="/dashboard">Dashboard</a></li>
-    <li class="breadcrumb-item"><a href="/profile">Profile</a></li>
-    <li class="breadcrumb-item active" aria-current="page">Edit Profile</li>
+    <li class="breadcrumb-item"><a href="/akunMHS">Akun Mahasiswa</a></li>
+    <li class="breadcrumb-item active" aria-current="page">Edit Profile Mahasiswa</li>
   </ol>
 </nav>
 
@@ -33,6 +33,24 @@
               </div>
           @enderror
         </div>
+
+        <div class="mb-3">
+          <label for="nama" class="form-label">Nama</label>
+          <input type="text" class="form-control @error('nama') is-invalid @enderror" id="nama" name="nama" value="{{ $mahasiswa->nama }}" disabled>
+        </div>
+        <div class="mb-3">
+          <label for="nim" class="form-label">NIM</label>
+          <input type="text" class="form-control @error('nim') is-invalid @enderror" id="nim" name="nim" value="{{ $mahasiswa->nim }}" disabled>
+        </div>
+        <div class="mb-3">
+          <label for="angkatan" class="form-label">Angkatan</label>
+          <input type="text" class="form-control @error('angkatan') is-invalid @enderror" id="angkatan" name="angkatan" value="{{ $mahasiswa->angkatan }}" disabled>
+        </div>
+        <div class="mb-3">
+          <label for="status" class="form-label">Status</label>
+          <input type="text" class="form-control @error('status') is-invalid @enderror" id="status" name="status" value="{{ $mahasiswa->status }}" disabled>
+        </div>
+
         <div class="mb-3">
           <label for="no_telp" class="form-label">No Telp</label>
           <input type="text" class="form-control @error('no_telp') is-invalid @enderror" id="no_telp" name="no_telp" value="{{ old('no_telp', $mahasiswa->no_telp) }}">
@@ -90,7 +108,7 @@
         </div>
 
         <button type="submit" class="btn btn-primary me-2">Simpan Perubahan</button>
-        <a href="/profile" class="btn btn-danger">Batal</a>
+        <a href="/akunMHS" class="btn btn-danger">Batal</a>
       </form>
     </div>
   </div>

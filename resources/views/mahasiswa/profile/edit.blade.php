@@ -18,7 +18,7 @@
         @csrf
         @method('put')
         <div class="mb-3">
-          <label for="no_telp" class="form-label">Ubah Foto Profil</label>
+          <label class="form-label">Ubah Foto Profil</label>
 
           @if (auth()->user()->mahasiswa->foto_profil == null)
             <img src="/showFile/private/profile_photo/default.jpg" alt="" style="border-radius: 50%; width: 120px; height: 120px; object-fit: cover; display: block;" class="img-preview">
@@ -33,6 +33,24 @@
               </div>
           @enderror
         </div>
+
+        <div class="mb-3">
+          <label for="nama" class="form-label">Nama</label>
+          <input type="text" class="form-control @error('nama') is-invalid @enderror" id="nama" name="nama" value="{{ auth()->user()->mahasiswa->nama }}" disabled>
+        </div>
+        <div class="mb-3">
+          <label for="nim" class="form-label">NIM</label>
+          <input type="text" class="form-control @error('nim') is-invalid @enderror" id="nim" name="nim" value="{{ auth()->user()->mahasiswa->nim }}" disabled>
+        </div>
+        <div class="mb-3">
+          <label for="angkatan" class="form-label">Angkatan</label>
+          <input type="text" class="form-control @error('angkatan') is-invalid @enderror" id="angkatan" name="angkatan" value="{{ auth()->user()->mahasiswa->angkatan }}" disabled>
+        </div>
+        <div class="mb-3">
+          <label for="status" class="form-label">Status</label>
+          <input type="text" class="form-control @error('status') is-invalid @enderror" id="status" name="status" value="{{ auth()->user()->mahasiswa->status }}" disabled>
+        </div>
+
         <div class="mb-3">
           <label for="no_telp" class="form-label">No Telp</label>
           <input type="text" class="form-control @error('no_telp') is-invalid @enderror" id="no_telp" name="no_telp" value="{{ old('no_telp', auth()->user()->mahasiswa->no_telp) }}">
