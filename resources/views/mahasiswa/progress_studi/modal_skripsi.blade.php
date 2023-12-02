@@ -21,8 +21,6 @@
         <p class="m-0"><b>Scan Berita Acara Sidang Skripsi</b></p>
         <a href="" class="m-0 link-scan-skripsi d-block" target="__blank"></a>
         <br>
-        <p class="m-0"><b>Validasi</b></p>
-        <p class="m-0 validasi-skripsi"></p>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modalMain">Back</button>

@@ -30,6 +30,7 @@
           <div>NIM: {{ auth()->user()->mahasiswa->nim }}</div>
           <div>Angkatan: {{ auth()->user()->mahasiswa->angkatan }}</div>
           <div>Dosen Wali: {{ auth()->user()->mahasiswa->dosenwali->nama }}</div>
+          <div>Fakultas Sains dan Matematika</div>
         </div>
       </div>
     </div>
@@ -76,7 +77,7 @@
       <div class="row">
         <div class="col mb-1">
           <p class="text-secondary">
-            *Semua data yang tampil disini sudah divalidasi
+            *Semua data yang tampil di sini sudah divalidasi
           </p>
         </div>
       </div>

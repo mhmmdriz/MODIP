@@ -27,11 +27,8 @@
             </div>
           </div>
           <hr>
-          <div class="row">
-            <div class="col">
-              Fakultas Sains dan Matematika
-            </div>
-          </div>
+          <div>Departemen ID : {{ auth()->user()->username }}</div>
+          <div>Fakultas Sains dan Matematika</div>
         </div>
       </div>
     </div>
