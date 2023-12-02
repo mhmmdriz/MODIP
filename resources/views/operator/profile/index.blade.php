@@ -30,6 +30,10 @@
       <hr>
       <table class="table">
         <tr>
+          <td class="bg-transparent">Nama Operator</td>
+          <td class="bg-transparent">: {{ auth()->user()->operator->nama }}</td>
+        </tr>
+        <tr>
           <td class="bg-transparent">Operator ID</td>
           <td class="bg-transparent">: {{ auth()->user()->operator->operator_id }}</td>
         </tr>
