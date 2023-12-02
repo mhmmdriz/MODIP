@@ -144,6 +144,20 @@
     </div>
     @endfor
   </div>
+  <div class="row">
+    <div class="col mb-1 my-4">
+      <p class="text-secondary">
+        Keterangan
+      </p>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col mb-1">
+      <p class="text-secondary">
+        *Semua data yang tampil disini sudah divalidasi
+      </p>
+    </div>
+  </div>
 </div>
 
 @include('mahasiswa.progress_studi.modal_main')
