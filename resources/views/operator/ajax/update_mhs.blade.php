@@ -35,6 +35,7 @@
         data-nama="{{ $mhs->nama }}" data-nim="{{ $mhs->nim }}" data-angkatan="{{ $mhs->angkatan }}" data-status="{{ $mhs->status }}" data-doswal="{{ $mhs->dosen_wali }}" data-smt-akhir="{{ $mhs->semester_akhir }}">
           Edit Data
         </div>
+        <a class="btn btn-secondary btn-sm mt-1" href="/akunMHS/{{ $mhs->nim }}/editProfil">Edit Profil</a>
       </td>
     </tr>
   @endforeach

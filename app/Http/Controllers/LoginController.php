@@ -95,12 +95,46 @@ class LoginController extends Controller
             ]);
         }
         if(auth()->user()->level == "dosenwali"){
-            return view("dosenwali.dashboard");
+            $total_mahasiswa = Mahasiswa::selectRaw('count(mahasiswa.nim) as jumlah')->where("dosen_wali", auth()->user()->username)->first();
+            $rekap_status = Mahasiswa::selectRaw('status, count(mahasiswa.nim) as jumlah')->groupBy('status')->where("dosen_wali", auth()->user()->username)->get();
+            $lulus_pkl = PKL::selectRaw('count(mahasiswa.nim) as jumlah')->where("validasi", "1")->join("mahasiswa", "mahasiswa.nim", "pkl.nim")->where("dosen_wali", auth()->user()->username)->first();
+            $rekap_pkl = [
+                "sudah" => $lulus_pkl->jumlah,
+                "belum" => $total_mahasiswa->jumlah - $lulus_pkl->jumlah
+            ];
+            
+            $lulus_skripsi = Skripsi::selectRaw('count(mahasiswa.nim) as jumlah')->where("validasi", "1")->join("mahasiswa", "mahasiswa.nim", "skripsi.nim")->where("dosen_wali", auth()->user()->username)->first();
+            $rekap_skripsi = [
+                "sudah" => $lulus_skripsi->jumlah,
+                "belum" => $total_mahasiswa->jumlah - $lulus_skripsi->jumlah
+            ];
+            
+            return view("dosenwali.dashboard", [
+                "rekap_status" => $rekap_status,
+                "rekap_pkl" => $rekap_pkl,
+                "rekap_skripsi" => $rekap_skripsi
+            ]);
         }
         if(auth()->user()->level == "departemen"){
-            $rekap_status = Mahasiswa::selectRaw('status, count(*) as count')->groupBy('status')->get();
+            $total_mahasiswa = Mahasiswa::selectRaw('count(*) as jumlah')->first();
+            $rekap_status = Mahasiswa::selectRaw('status, count(*) as jumlah')->groupBy('status')->get();
+            $lulus_pkl = PKL::selectRaw('count(*) as jumlah')->where("validasi", "1")->first();
+            $rekap_pkl = [
+                "sudah" => $lulus_pkl->jumlah,
+                "belum" => $total_mahasiswa->jumlah - $lulus_pkl->jumlah
+            ];
+            
+            $lulus_skripsi = Skripsi::selectRaw('count(*) as jumlah')->where("validasi", "1")->first();
+            $rekap_skripsi = [
+                "sudah" => $lulus_skripsi->jumlah,
+                "belum" => $total_mahasiswa->jumlah - $lulus_skripsi->jumlah
+            ];
+
+            
             return view("departemen.dashboard", [
-                "rekap_status" => $rekap_status
+                "rekap_status" => $rekap_status,
+                "rekap_pkl" => $rekap_pkl,
+                "rekap_skripsi" => $rekap_skripsi
             ]);
         }
         if(auth()->user()->level == "operator"){

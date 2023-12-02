@@ -43,13 +43,13 @@
     <div class="card mb-3 bg-body-tertiary">
       <div class="row my-2">
         <div class="col-12 col-md-4">
-          <canvas id="rekapStatus" width="200" height="200"></canvas>
+          <canvas id="rekapStatus" width="300" height="300"></canvas>
         </div>
         <div class="col-4">
-          <canvas id="rekapPKL" width="200" height="200"></canvas>
+          <canvas id="rekapPKL" width="300" height="300"></canvas>
         </div>
         <div class="col-4">
-          <canvas id="rekapSkripsi" width="200" height="200"></canvas>
+          <canvas id="rekapSkripsi" width="300" height="300"></canvas>
         </div>
       </div>
     </div>
@@ -100,33 +100,109 @@
   var label = [];
   var data = [];
   rekapStatus.forEach(element => {
-    
+    label.push(element.status);
+    data.push(element.jumlah);
   });
 
-  // Data untuk Pie Chart
   var data = {
-    labels: ["Label 1", "Label 2", "Label 3", "Label 3", "Label 3", "Label 3"],
+    labels: label,
     datasets: [{
-      data: [30, 50, 20],
-      backgroundColor: ["#FF6384", "#36A2EB", "#FFCE56"]
+      data: data,
+      backgroundColor: ["#4CAF50", "#2196F3", "#F44336", "#9C27B0", "#FF5722", "#607D8B", "#795548"]
     }]
   };
 
-    // Konfigurasi untuk Pie Chart
-    var options = {
-      responsive: true,
-      maintainAspectRatio: false
-    };
+  var options = {
+    responsive: true,
+    maintainAspectRatio: false,
+    plugins: {
+      legend: {
+        display:false,
+        position: 'bottom',
+      },
+      title: {
+        display: true,
+        text: 'Rekap Status Mahasiswa'
+      }
+    }
+  };
 
-    
+  // Membuat instance Pie Chart
+  var myChart = new Chart(ctx, {
+    type: 'bar',
+    data: data,
+    options: options
+  });
 
-    // Membuat instance Pie Chart
-    var myChart = new Chart(ctx, {
-      type: 'pie',
+  var ctx = document.getElementById("rekapPKL").getContext("2d");
+  var rekapPKL = {!! json_encode($rekap_pkl) !!}
+  console.log(rekapPKL);
+  var label = ['Sudah PKL', 'Belum PKL'];
+  var data = [rekapPKL.sudah, rekapPKL.belum];
+
+  var data = {
+    labels: label,
+    datasets: [{
       data: data,
-      options: options
-    });
+      backgroundColor: ["#4CAF50", "#2196F3"]
+    }]
+  };
+
+  var options = {
+    responsive: true,
+    maintainAspectRatio: false,
+    plugins: {
+      legend: {
+        position: 'bottom',
+      },
+      title: {
+        display: true,
+        text: 'Rekap Status Mahasiswa'
+      }
+    }
+  };
+
+  // Membuat instance Pie Chart
+  var myChart = new Chart(ctx, {
+    type: 'pie',
+    data: data,
+    options: options
+  });
   
+  var ctx = document.getElementById("rekapSkripsi").getContext("2d");
+  var rekapSkripsi = {!! json_encode($rekap_skripsi) !!}
+  console.log(rekapSkripsi);
+  var label = ['Sudah Skripsi', 'Belum Skripsi'];
+  var data = [rekapSkripsi.sudah, rekapSkripsi.belum];
+
+  var data = {
+    labels: label,
+    datasets: [{
+      data: data,
+      backgroundColor: ["#4CAF50", "#2196F3"]
+    }]
+  };
+  
+  var options = {
+    responsive: true,
+    maintainAspectRatio: false,
+    plugins: {
+      legend: {
+        position: 'bottom',
+      },
+      title: {
+        display: true,
+        text: 'Rekap Status Mahasiswa'
+      }
+    }
+  };
+
+  // Membuat instance Pie Chart
+  var myChart = new Chart(ctx, {
+    type: 'pie',
+    data: data,
+    options: options
+  });
 </script>
 @endsection
 
