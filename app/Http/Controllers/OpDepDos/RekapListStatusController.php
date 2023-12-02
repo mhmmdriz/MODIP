@@ -28,7 +28,7 @@ class RekapListStatusController extends Controller
     }
 
     public function showListAjax(Request $request){
-        $data_mhs = Mahasiswa::getListRekapStatus($request);
+        $data_mhs = Mahasiswa::getListMhsRekapStatus($request);
 
         if(auth()->user()->level == "dosenwali"){
             $path = "dosenwali.rekap_mhs.rekap_status.ajax";

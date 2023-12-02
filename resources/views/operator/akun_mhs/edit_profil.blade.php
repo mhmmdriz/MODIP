@@ -48,7 +48,7 @@
         </div>
         <div class="mb-3">
           <label for="jalur_masuk" class="form-label">Jalur Masuk</label>
-          <input type="text" class="form-control @error('jalur_masuk') is-invalid @enderror" id="jalur_masuk" name="jalur_masuk" value="{{ auth()->user()->mahasiswa->jalur_masuk }}" disabled>
+          <input type="text" class="form-control @error('jalur_masuk') is-invalid @enderror" id="jalur_masuk" name="jalur_masuk" value="{{ $mahasiswa->jalur_masuk }}" disabled>
         </div>
         <div class="mb-3">
           <label for="status" class="form-label">Status</label>
