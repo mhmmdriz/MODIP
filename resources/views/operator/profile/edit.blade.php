@@ -18,8 +18,7 @@
         @csrf
         @method('put')
         <div class="mb-3">
-          <label for="no_telp" class="form-label">Ubah Foto Profil</label>
-
+          <label class="form-label">Ubah Foto Profil</label>
           @if (auth()->user()->operator->foto_profil == null)
             <img src="/showFile/private/profile_photo/default.jpg" alt="" style="border-radius: 50%; width: 120px; height: 120px; object-fit: cover; display: block;" class="img-preview">
           @else
@@ -33,6 +32,16 @@
               </div>
           @enderror
         </div>
+
+        <div class="mb-3">
+          <label for="nama" class="form-label">Nama</label>
+          <input type="text" class="form-control @error('nama') is-invalid @enderror" id="nama" name="nama" value="{{ auth()->user()->operator->nama }}" disabled>
+        </div>
+        <div class="mb-3">
+          <label for="operator_id" class="form-label">Operator ID</label>
+          <input type="text" class="form-control @error('operator_id') is-invalid @enderror" id="operator_id" name="operator_id" value="{{ auth()->user()->operator->operator_id }}" disabled>
+        </div>
+
         <div class="mb-3">
           <label for="no_telp" class="form-label">No Telp</label>
           <input type="text" class="form-control @error('no_telp') is-invalid @enderror" id="no_telp" name="no_telp" value="{{ old('no_telp', auth()->user()->operator->no_telp) }}">
