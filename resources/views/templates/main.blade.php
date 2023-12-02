@@ -48,7 +48,7 @@
       @endauth
     </div>
   </nav>
-  <div class="container my-2">
+  <div class="container my-3">
     @yield('container')
   </div>
 
