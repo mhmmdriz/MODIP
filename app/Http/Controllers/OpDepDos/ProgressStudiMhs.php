@@ -51,7 +51,13 @@ class ProgressStudiMhs extends Controller
         $data_pkl = $mahasiswa->pkl;
         // dd($data_skripsi, $data_pkl, $arrIRS, $arrKHS);
 
-        return view("departemen.pencarian_progress.show_progress",[
+        if(auth()->user()->level == "dosenwali"){
+            $path = "dosenwali.pencarian_progress.show_progress";
+        }else{
+            $path = "departemen.pencarian_progress.show_progress";
+        }
+
+        return view($path,[
             "mahasiswa" => $mahasiswa,
             "semester" => $semester,
             "data_skripsi" => $data_skripsi,

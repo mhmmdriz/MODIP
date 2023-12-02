@@ -234,11 +234,19 @@ class Mahasiswa extends Model
         return $data_mhs;
     }
     
-    public static function getListMhsAngkatan($angkatan){
+    public static function getListMhsAngkatan($angkatan, $keyword = null){
         if(auth()->user()->level == "dosenwali"){
-            $data_mhs = self::get()->where("dosen_wali", auth()->user()->username)->where("angkatan", $angkatan);
+            if ($keyword != null && $keyword != '') {
+                $data_mhs = self::where("dosen_wali", auth()->user()->username)->where("angkatan", $angkatan)->whereRaw('nama LIKE "%' . $keyword . '%" OR nim LIKE "%' . $keyword . '%"')->get();
+            } else {
+                $data_mhs = self::get()->where("dosen_wali", auth()->user()->username)->where("angkatan", $angkatan);
+            }
         }else{
-            $data_mhs = self::get()->where("angkatan", $angkatan);
+            if ($keyword != null && $keyword != '') {
+                $data_mhs = self::where("angkatan", $angkatan)->whereRaw('nama LIKE "%' . $keyword . '%" OR nim LIKE "%' . $keyword . '%"')->get();
+            } else {
+                $data_mhs = self::get()->where("angkatan", $angkatan);
+            }
         }
         return $data_mhs;
     }

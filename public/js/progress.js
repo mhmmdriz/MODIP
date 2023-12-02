@@ -49,8 +49,8 @@ $(document).ready(function() {
       $(".btn-pkl").removeAttr("hidden");
       $(".btn-pkl").removeClass("disabled");
       $(".semester-pkl").html(pkl.semester);
-      $(".status-pkl").html(pkl.status);
-      $(".tanggal-seminar-pkl").html(pkl.tanggal_lulus);
+      $(".status-pkl").html("Lulus");
+      $(".tanggal-seminar-pkl").html(pkl.tanggal_seminar);
       $(".nilai-pkl").html(pkl.nilai);
       $(".link-scan-pkl").html("scanPKL.pdf");
       $(".link-scan-pkl").attr("href", "/showFile/"+ pkl.scan_basp)
@@ -62,9 +62,8 @@ $(document).ready(function() {
       $(".btn-skripsi").removeAttr("hidden");
       $(".btn-skripsi").removeClass("disabled");
       $(".semester-skripsi").html(skripsi.semester);
-      $(".status-skripsi").html(skripsi.status);
+      $(".status-skripsi").html("Lulus");
       $(".tanggal-sidang-skripsi").html(skripsi.tanggal_sidang);
-      $(".tanggal-lulus-skripsi").html(skripsi.tanggal_lulus);
       $(".nilai-skripsi").html(skripsi.nilai);
       $(".link-scan-skripsi").html("scanSkripsi.pdf");
       $(".link-scan-skripsi").attr("href", "/showFile/"+ skripsi.scan_bass);

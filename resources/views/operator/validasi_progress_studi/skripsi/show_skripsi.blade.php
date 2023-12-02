@@ -110,7 +110,7 @@
       <div class="row mt-3">
         @if (isset($dataSkripsi) && !is_null($dataSkripsi->scan_bass))
           <div class="col">
-            <h6 class="m-0">Scan BASS: <a href="/showFile/{{ $dataSkripsi->scan_bass }}">scan-bass.pdf</a></h6>
+            <h6 class="m-0">Scan BASS: <a href="/showFile/{{ $dataSkripsi->scan_bass }}" target="__blank">scan-bass.pdf</a></h6>
           </div>
         @else
           <div class="col">

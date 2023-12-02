@@ -15,9 +15,6 @@
         <p class="m-0"><b>Tanggal Sidang</b></p>
         <p class="m-0 tanggal-sidang-skripsi"></p>
         <br>
-        <p class="m-0"><b>Tanggal Lulus</b></p>
-        <p class="m-0 tanggal-lulus-skripsi"></p>
-        <br>
         <p class="m-0"><b>Nilai</b></p>
         <p class="m-0 nilai-skripsi"></p>
         <br>
