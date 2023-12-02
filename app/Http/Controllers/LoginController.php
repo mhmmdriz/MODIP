@@ -98,7 +98,7 @@ class LoginController extends Controller
             return view("dosenwali.dashboard");
         }
         if(auth()->user()->level == "departemen"){
-            $rekap_status = Mahasiswa::selectRaw('status, count(*) as count')->groupBy('status')->get();
+            $rekap_status = Mahasiswa::selectRaw('status, count(*) as jumlah')->groupBy('status')->get();
             return view("departemen.dashboard", [
                 "rekap_status" => $rekap_status
             ]);

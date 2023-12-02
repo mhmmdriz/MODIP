@@ -100,25 +100,22 @@
   var label = [];
   var data = [];
   rekapStatus.forEach(element => {
-    
+    label.push(element.status);
+    data.push(element.jumlah);
   });
 
-  // Data untuk Pie Chart
   var data = {
-    labels: ["Label 1", "Label 2", "Label 3", "Label 3", "Label 3", "Label 3"],
+    labels: label,
     datasets: [{
-      data: [30, 50, 20],
-      backgroundColor: ["#FF6384", "#36A2EB", "#FFCE56"]
+      data: data,
+      backgroundColor: ["#4CAF50", "#2196F3", "#F44336", "#9C27B0", "#FF5722", "#607D8B", "#795548"]
     }]
   };
 
-    // Konfigurasi untuk Pie Chart
     var options = {
       responsive: true,
       maintainAspectRatio: false
     };
-
-    
 
     // Membuat instance Pie Chart
     var myChart = new Chart(ctx, {

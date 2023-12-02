@@ -77,6 +77,8 @@ Route::middleware(['auth', 'user.role:operator'])->group(function () {
     Route::post('/akunMHS/importExcel', [MahasiswaController::class, 'storeImport']);
     Route::post('/akunMHS/exportExcel', [MahasiswaController::class, 'exportData']);
     Route::get('/ajaxAkunMHS', [MahasiswaController::class,'updateTableMhs']);
+    Route::get('/akunMHS/{mahasiswa}/editProfil', [ProfileController::class,'editProfileMhsByOperator']);
+    Route::put('/akunMHS/{mahasiswa}/editProfil', [ProfileController::class, 'updateProfileMhsByOperator']);
     
     Route::resource('/akunDosenWali', DosenWaliController::class);
     Route::get('/akunDosenWali/{user}/reset', [DosenWaliController::class, 'resetPassword']);

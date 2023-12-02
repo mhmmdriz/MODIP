@@ -215,4 +215,46 @@ class ProfileController extends Controller
         return redirect('/profile')->with('success', 'Password berhasil diubah');
         
     }
+
+    public function editProfileMhsByOperator(Mahasiswa $mahasiswa){
+        return view('operator.akun_mhs.edit_profil', [
+            "mahasiswa" => $mahasiswa,
+        ]);
+    }
+
+    public function updateProfileMhsByOperator(Mahasiswa $mahasiswa, Request $request){
+        $rules = [
+            'no_telp' => 'required|max:15|regex:/^[0-9]{1,15}$/',
+            'email_sso' => [
+                'required',
+                Rule::unique('mahasiswa')->ignore($mahasiswa, 'email_sso'),
+                'regex:/^[a-zA-Z0-9._%+-]+@students\.undip\.ac\.id$/i',
+            ],
+            'alamat' => 'required|max:255',
+            'kabupaten_kota' => 'required',
+            'provinsi' => 'required',
+        ];
+
+        if($request->file('foto_profil')){
+            $rules['foto_profil'] = 'required|image|mimes:jpeg,png,jpg|max:2048';
+        }
+
+        $errorMassages = [
+            'email_sso.regex' => 'Email SSO harus berakhiran dengan domain students.undip.ac.id',
+        ];
+        
+        $validatedData = $request->validate($rules, $errorMassages);
+
+        $foto = $mahasiswa->foto_profil;
+        if($request->foto_profil){
+            if($foto){
+                Storage::delete($foto);
+            }
+            $validatedData ["foto_profil"] = $request->file('foto_profil')->store('private/profile_photo');
+        }
+
+        Mahasiswa::where('nim', $mahasiswa->nim)->update($validatedData);
+
+        return redirect('/akunMHS')->with('success', "Profile Mahasiswa dengan NIM $mahasiswa->nim berhasil diubah");
+    }
 }
