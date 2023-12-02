@@ -13,7 +13,7 @@
     <div class="card mb-3 bg-body-tertiary">
       <a href="/profile" style="text-decoration: none; color: inherit;" class="bi bi-pencil-square position-absolute end-0 m-2"></a>
       <div class="row">
-        <div class="col-md-auto m-4">
+        <div class="col-md-auto m-4 d-flex align-items-center">
           @if (auth()->user()->departemen->foto_profil == null)
             <img src="/showFile/private/profile_photo/default.jpg" alt="" style="border-radius: 50%; width: 120px; height: 120px; object-fit: cover; display: block;">
           @else

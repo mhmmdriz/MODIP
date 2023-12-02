@@ -65,6 +65,10 @@
           <td class="bg-transparent">Alamat</td>
           <td class="bg-transparent">: {{ auth()->user()->mahasiswa->alamat }}</td>
         </tr>
+        <tr>
+          <td class="bg-transparent">Dosen Wali</td>
+          <td class="bg-transparent">: {{ auth()->user()->mahasiswa->dosenwali->nama }}</td>
+        </tr>
       </table>
       <a href="/profile/edit" class="btn btn-primary me-2" role="button">Edit Profil</a>
       <a href="/profile/edit-password" class="btn btn-secondary" role="button">Ganti Password</a>

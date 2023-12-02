@@ -49,13 +49,15 @@ Route::middleware('guest')-> group(function () {
     Route::post('/login', [LoginController::class, 'authenticate']);
 });
 
-Route::middleware('auth')->group(function () {
-    Route::get('/dashboard', [LoginController::class,'dashboard'])->middleware('is.first.login');
-    Route::get('/profile', [ProfileController::class,'viewProfile']);
-    Route::get('/profile/edit', [ProfileController::class, 'editProfile']);
-    Route::put('/profile/edit', [ProfileController::class, 'updateProfile']);
-    Route::get('/profile/edit-password', [ProfileController::class, 'editPassword']);
-    Route::put('/profile/edit-password', [ProfileController::class, 'updatePassword']);
+Route::middleware(['auth'])->group(function () {
+    Route::middleware(['is.first.login'])->group(function () {
+        Route::get('/dashboard', [LoginController::class,'dashboard']);
+        Route::get('/profile', [ProfileController::class,'viewProfile']);
+        Route::get('/profile/edit', [ProfileController::class, 'editProfile']);
+        Route::put('/profile/edit', [ProfileController::class, 'updateProfile']);
+        Route::get('/profile/edit-password', [ProfileController::class, 'editPassword']);
+        Route::put('/profile/edit-password', [ProfileController::class, 'updatePassword']);
+    });
 
     Route::post('/logout', [LoginController::class, 'logout']);
 
@@ -129,7 +131,7 @@ Route::middleware(['auth', 'user.role:operator'])->group(function () {
     Route::get('/download-file/{filename}', [FileController::class, 'downloadFile'])->where('filename', '.*');
 });
 
-Route::middleware(['auth','user.role:mahasiswa,operator'])->group(function () {
+Route::middleware(['auth','user.role:mahasiswa,operator','is.first.login'])->group(function () {
 
     Route::put('/irs/{mahasiswa}/update', [IRSController::class, 'updateOrInsert']);
     Route::put('/khs/{mahasiswa}/update', [KHSController::class, 'updateOrInsert']);
@@ -141,11 +143,13 @@ Route::middleware(['auth','user.role:mahasiswa,operator'])->group(function () {
 Route::middleware(['auth','user.role:mahasiswa'])->group(function () {
     Route::get('/firstLogin', [MahasiswaTaskController::class,'firstLogin'])->middleware('is.datapribadiupdated');
     Route::put('/firstLogin', [MahasiswaTaskController::class, 'updateDataPribadi']);
-    
-    Route::get('/irs', [IRSController::class, 'index']);
-    Route::get('/khs', [KHSController::class, 'index']);
-    Route::get('/pkl', [PKLController::class, 'index']);
-    Route::get('/skripsi', [SkripsiController::class, 'index']);
+
+    Route::middleware('is.first.login')->group(function () {
+        Route::get('/irs', [IRSController::class, 'index']);
+        Route::get('/khs', [KHSController::class, 'index']);
+        Route::get('/pkl', [PKLController::class, 'index']);
+        Route::get('/skripsi', [SkripsiController::class, 'index']);
+    });
 
 });
 

@@ -13,7 +13,7 @@
     <div class="card mb-3 bg-body-tertiary">
       <a href="/profile" style="text-decoration: none; color: inherit;" class="bi bi-pencil-square position-absolute end-0 m-2"></a>
       <div class="row">
-        <div class="col-md-auto m-4">
+        <div class="col-md-auto m-4 d-flex align-items-center">
           @if (auth()->user()->mahasiswa->foto_profil == null)
             <img src="/showFile/private/profile_photo/default.jpg" alt="" style="border-radius: 50%; width: 120px; height: 120px; object-fit: cover; display: block;">
           @else
@@ -29,6 +29,7 @@
           <hr>
           <div>NIM: {{ auth()->user()->mahasiswa->nim }}</div>
           <div>Angkatan: {{ auth()->user()->mahasiswa->angkatan }}</div>
+          <div>Dosen Wali: {{ auth()->user()->mahasiswa->dosenwali->nama }}</div>
         </div>
       </div>
     </div>
@@ -112,32 +113,32 @@
         @endfor
       </div>
 
-      <div class="row d-flex mt-2">
-        <p class=" m-0">
+      <div class="row d-flex mt-3 text-secondary">
+        <p class="m-0 mb-2">
           Keterangan warna :
         </p>
         <div class="d-flex align-items-center">
-          <div class="card ket-warna bg-danger d-flex align-items-center text-center h-20">
+          <div class="card ket-warna bg-danger d-flex align-items-center text-center">
           </div>
           <p>Belum diisikan IRS dan KHS </p>
         </div>
         <div class="d-flex align-items-center">
-          <div class="card ket-warna bg-info d-flex align-items-center text-center h-20">
+          <div class="card ket-warna bg-info d-flex align-items-center text-center">
           </div>
           <p>Sudah diisikan IRS (Belum KHS)</p>
         </div>
         <div class="d-flex align-items-center">
-          <div class="card ket-warna bg-primary d-flex align-items-center text-center h-20">
+          <div class="card ket-warna bg-primary d-flex align-items-center text-center">
           </div>
           <p>Sudah diisikan IRS dan KHS</p>
         </div>
         <div class="d-flex align-items-center">
-          <div class="card ket-warna bg-warning d-flex align-items-center text-center h-20">
+          <div class="card ket-warna bg-warning d-flex align-items-center text-center">
           </div>
           <p>Sudah diisikan PKL, IRS dan KHS</p>
         </div>
         <div class="d-flex align-items-center">
-          <div class="card ket-warna bg-success text-white d-flex align-items-center text-center h-20">
+          <div class="card ket-warna bg-success text-white d-flex align-items-center text-center">
           </div>
           <p>Sudah diisikan Skripsi, PKL, IRS dan Skripsi</p>
         </div>
