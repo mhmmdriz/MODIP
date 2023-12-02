@@ -169,7 +169,6 @@
 
 
 
-
 @include('mahasiswa.progress_studi.modal_main')
 @include('mahasiswa.progress_studi.modal_irs')
 @include('mahasiswa.progress_studi.modal_khs')
