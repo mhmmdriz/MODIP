@@ -35,7 +35,8 @@
   </div>
 </div>
 
-<div class="row d-flex gx-4 gy-2 mb-2">
+<div class="row d-flex gx-4 gy-4 mb-2">
+  
   <div class="col-md-4 col-sm-5">
     <div class="card bg-body-tertiary d-flex align-items-center py-2">      
       <div class="d-flex justify-content-center align-items-end" style="height: 2rem"><h5><b>Prestasi Akademik</b></h5></div>
@@ -111,75 +112,37 @@
         @endfor
       </div>
 
-      <div class="row mt-2">
-        <div class="col">
-          <p class=" m-0">
-            Keterangan warna :
-          </p>
-        </div>
-      </div>
-
-      <div class="row mt-1">
-        <div class="col-auto ">
-          <div class="card-container">
-            <div class="card ket-warna bg-danger d-flex align-items-center text-center h-20">
-            </div>
-            <p>
-              Belum diisikan IRS dan KHS 
-            </p>
+      <div class="row d-flex mt-2">
+        <p class=" m-0">
+          Keterangan warna :
+        </p>
+        <div class="d-flex align-items-center">
+          <div class="card ket-warna bg-danger d-flex align-items-center text-center h-20">
           </div>
+          <p>Belum diisikan IRS dan KHS </p>
         </div>
-      </div>
-
-      
-      <div class="row">
-        <div class="col-auto">
-          <div class="card-container">
-            <div class="card ket-warna bg-info d-flex align-items-center text-center h-20">
-            </div>
-            <p>
-              Sudah diisikan IRS (Belum KHS)
-            </p>
+        <div class="d-flex align-items-center">
+          <div class="card ket-warna bg-info d-flex align-items-center text-center h-20">
           </div>
+          <p>Sudah diisikan IRS (Belum KHS)</p>
         </div>
-      </div>
-
-      <div class="row">
-        <div class="col-auto">
-          <div class="card-container">
-            <div class="card ket-warna bg-primary d-flex align-items-center text-center h-20">
-            </div>
-            <p>
-              Sudah diisikan IRS dan KHS
-            </p>
+        <div class="d-flex align-items-center">
+          <div class="card ket-warna bg-primary d-flex align-items-center text-center h-20">
           </div>
+          <p>Sudah diisikan IRS dan KHS</p>
         </div>
-      </div>
-
-      <div class="row">
-        <div class="col-auto">
-          <div class="card-container">
-            <div class="card ket-warna bg-warning d-flex align-items-center text-center h-20">
-            </div>
-            <p>
-              Sudah diisikan PKL, IRS dan KHS
-            </p>
+        <div class="d-flex align-items-center">
+          <div class="card ket-warna bg-warning d-flex align-items-center text-center h-20">
           </div>
+          <p>Sudah diisikan PKL, IRS dan KHS</p>
         </div>
-      </div>
-
-      <div class="row">
-        <div class="col-auto">
-          <div class="card-container">
-            <div class="card ket-warna bg-success text-white d-flex align-items-center text-center h-20">
-            </div>
-            <p>
-              Sudah diisikan Skripsi, PKL, IRS dan Skripsi
-            </p>
+        <div class="d-flex align-items-center">
+          <div class="card ket-warna bg-success text-white d-flex align-items-center text-center h-20">
           </div>
+          <p>Sudah diisikan Skripsi, PKL, IRS dan Skripsi</p>
         </div>
       </div>
-      
+    
     </div>
   </div>
 

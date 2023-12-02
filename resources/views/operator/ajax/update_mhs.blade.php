@@ -23,19 +23,19 @@
       <td>{{ $mhs->dosenwali->nama}}</td>
       <td>{{ $mhs->status}}</td>
       <td>
-        <a class="btn btn-warning btn-sm" href="/akunMHS/{{ $mhs->nim }}/reset">Reset Password</a>
+        <a class="btn btn-warning btn-sm mb-1" href="/akunMHS/{{ $mhs->nim }}/reset">Reset Password</a>
         <form action="/akunMHS/{{ $mhs->nim }}" method="post" class="d-inline">
           @method('delete')
           @csrf
-          <button class="btn btn-danger btn-sm" onclick="return confirm('Are you sure?')">
+          <button class="btn btn-danger btn-sm mb-1" onclick="return confirm('Are you sure?')">
             Hapus Akun
           </button>
         </form>
-        <div class="btn btn-sm btn-secondary btn-edit-data" data-bs-toggle="modal" data-bs-target="#modalEdit"
+        <div class="btn btn-secondary btn-sm mb-1 btn-edit-data" data-bs-toggle="modal" data-bs-target="#modalEdit"
         data-nama="{{ $mhs->nama }}" data-nim="{{ $mhs->nim }}" data-angkatan="{{ $mhs->angkatan }}" data-status="{{ $mhs->status }}" data-doswal="{{ $mhs->dosen_wali }}" data-smt-akhir="{{ $mhs->semester_akhir }}">
           Edit Data
         </div>
-        <a class="btn btn-secondary btn-sm mt-1" href="/akunMHS/{{ $mhs->nim }}/editProfil">Edit Profil</a>
+        <a class="btn btn-secondary btn-sm mb-1" href="/akunMHS/{{ $mhs->nim }}/editProfil">Edit Profil</a>
       </td>
     </tr>
   @endforeach

@@ -54,16 +54,16 @@
           <td class="bg-transparent">: {{ auth()->user()->mahasiswa->email_sso }}</td>
         </tr>
         <tr>
-          <td class="bg-transparent">Alamat</td>
-          <td class="bg-transparent">: {{ auth()->user()->mahasiswa->alamat }}</td>
-        </tr>
-        <tr>
           <td class="bg-transparent">Kabupaten/Kota</td>
           <td class="bg-transparent">: {{ auth()->user()->mahasiswa->kabupaten_kota }}</td>
         </tr>
         <tr>
           <td class="bg-transparent">Provinsi</td>
           <td class="bg-transparent">: {{ auth()->user()->mahasiswa->provinsi }}</td>
+        </tr>
+        <tr>
+          <td class="bg-transparent">Alamat</td>
+          <td class="bg-transparent">: {{ auth()->user()->mahasiswa->alamat }}</td>
         </tr>
       </table>
       <a href="/profile/edit" class="btn btn-primary me-2" role="button">Edit Profil</a>
