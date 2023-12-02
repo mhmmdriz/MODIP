@@ -33,7 +33,13 @@ class ProgressStudiMhs extends Controller
     }
 
     public function updateTableProgressMhs(Request $request){
-        $view = Mahasiswa::updateViewProgressMhs($request);
+        $data_mhs = Mahasiswa::updateListMhsProgress($request);
+        
+        if(auth()->user()->level == "dosenwali"){
+            $view = view('dosenwali.pencarian_progress.update_mhs')->with('data_mhs', $data_mhs)->render();
+        }else{
+            $view = view('departemen.pencarian_progress.update_mhs')->with('data_mhs', $data_mhs)->render();
+        }
 
         return response()->json(['html' => $view]);
     }

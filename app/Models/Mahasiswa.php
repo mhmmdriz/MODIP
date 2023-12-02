@@ -165,7 +165,7 @@ class Mahasiswa extends Model
         return $data_angkatan;
     }
 
-    public static function updateViewProgressMhs($request){
+    public static function updateListMhsProgress($request){
         $whereQuery = "";
 
         if(auth()->user()->level == "dosenwali"){
@@ -193,13 +193,7 @@ class Mahasiswa extends Model
             $data_mhs = Mahasiswa::all();
         }
 
-        if(auth()->user()->level == "dosenwali"){
-            $view = view('dosenwali.pencarian_progress.update_mhs')->with('data_mhs', $data_mhs)->render();
-        }else{
-            $view = view('departemen.pencarian_progress.update_mhs')->with('data_mhs', $data_mhs)->render();
-        }
-    
-        return $view;
+        return $data_mhs;
     }
 
     public static function getRekapStatus(){
@@ -217,7 +211,7 @@ class Mahasiswa extends Model
         return $rekap_status;
     }
 
-    public static function getListRekapStatus($request){
+    public static function getListMhsRekapStatus($request){
         $angkatan = $request->angkatan;
 
         $whereQuery = "angkatan = $angkatan";
