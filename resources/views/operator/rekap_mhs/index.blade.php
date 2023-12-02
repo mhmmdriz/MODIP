@@ -9,6 +9,12 @@
   </ol>
 </nav>
 
+<div class="row d-flex justify-content-center my-3">
+  <div class="col-md-auto">
+    <h5>Pilih Jenis Rekap</h5>
+  </div>
+</div>
+
 <div class="row d-flex gx-4 gy-4 mb-2">
   <div class="col-md-4 col-sm-6">
     <a href="/rekapMhs/rekapPKL" style="text-decoration: none">

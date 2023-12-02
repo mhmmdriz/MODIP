@@ -11,6 +11,7 @@
     <link rel="icon" href="/logo-departemen.png">
 <body>
   <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
   <nav class="navbar navbar-expand-lg bg-body-tertiary">
     <div class="container">
@@ -47,7 +48,7 @@
       @endauth
     </div>
   </nav>
-  <div class="container my-4">
+  <div class="container my-2">
     @yield('container')
   </div>
 
