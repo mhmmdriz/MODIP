@@ -61,7 +61,7 @@
 </div>
 
 
-<div class="row d-flex gx-2 gy-2 mb-3">
+<div class="row d-flex gx-4 gy-4 mb-3">
   @for ($i = 0; $i <= 13; $i++)
   <div class="col-md-2 col-sm-6">
     @if ((!isset($arrIRS[$i]) || $arrIRS[$i]->validasi == 0) && (!isset($arrKHS[$i]) || $arrKHS[$i]->validasi == 0))
@@ -105,7 +105,7 @@
 <div class="row mt-1">
   <div class="col-auto ">
     <div class="card-container">
-      <div class="card bg-danger d-flex align-items-center text-center h-20">
+      <div class="card ket-warna bg-danger d-flex align-items-center text-center h-20">
       </div>
       <p>
         Belum diisikan IRS dan KHS 
@@ -118,7 +118,7 @@
 <div class="row">
   <div class="col-auto">
     <div class="card-container">
-      <div class="card bg-info d-flex align-items-center text-center h-20">
+      <div class="card ket-warna bg-info d-flex align-items-center text-center h-20">
       </div>
       <p>
         Sudah diisikan IRS (Belum KHS)
@@ -130,7 +130,7 @@
 <div class="row">
   <div class="col-auto">
     <div class="card-container">
-      <div class="card bg-primary d-flex align-items-center text-center h-20">
+      <div class="card ket-warna bg-primary d-flex align-items-center text-center h-20">
       </div>
       <p>
         Sudah diisikan IRS dan KHS
@@ -142,7 +142,7 @@
 <div class="row">
   <div class="col-auto">
     <div class="card-container">
-      <div class="card bg-warning d-flex align-items-center text-center h-20">
+      <div class="card ket-warna bg-warning d-flex align-items-center text-center h-20">
       </div>
       <p>
         Sudah diisikan PKL, IRS dan KHS
@@ -154,7 +154,7 @@
 <div class="row">
   <div class="col-auto">
     <div class="card-container">
-      <div class="card bg-success text-white d-flex align-items-center text-center h-20">
+      <div class="card ket-warna bg-success text-white d-flex align-items-center text-center h-20">
       </div>
       <p>
         Sudah diisikan Skripsi, PKL, IRS dan KHS
