@@ -27,11 +27,8 @@
             </div>
           </div>
           <hr>
-          <div class="row">
-            <div class="col">
-              NIP : {{ auth()->user()->dosen_wali->nip }}
-            </div>
-          </div>
+          <div>NIP : {{ auth()->user()->dosen_wali->nip }}</div>
+          <div>Fakultas Sains dan Matematika</div>
         </div>
       </div>
     </div>

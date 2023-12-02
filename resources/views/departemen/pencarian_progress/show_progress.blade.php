@@ -53,7 +53,7 @@
   <div class="d-flex flex-row">
     <div class="mb-1 me-auto">
       <p class="text-secondary">
-        *Semua data yang tampil disini sudah divalidasi
+        *Semua data yang tampil di sini sudah divalidasi
       </p>
     </div>
     <div class="mb-1">

@@ -7,7 +7,6 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\Operator\DosenWaliController;
 use App\Http\Controllers\Operator\DepartemenController;
 use App\Http\Controllers\Operator\MahasiswaController;
-// use App\Http\Controllers\Operator\IRSController as OperatorIRSController;
 
 use App\Http\Controllers\Mahasiswa\MahasiswaTaskController;
 
@@ -38,7 +37,7 @@ use App\Http\Controllers\OpDepDos\RekapListStatusController;
 |
 */
 
-
+// Untuk SEMUA user yang belum login
 Route::middleware('guest')-> group(function () {
     Route::get('/', function () {
         return redirect('/login');
@@ -49,7 +48,10 @@ Route::middleware('guest')-> group(function () {
     Route::post('/login', [LoginController::class, 'authenticate']);
 });
 
+
+// Untuk SEMUA user yang sudah login
 Route::middleware(['auth'])->group(function () {
+    // Untuk MAHASISWA yang sudah mengisi data pribadi dan SEMUA user lainnya
     Route::middleware(['is.first.login'])->group(function () {
         Route::get('/dashboard', [LoginController::class,'dashboard']);
         Route::get('/profile', [ProfileController::class,'viewProfile']);
@@ -68,10 +70,11 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/scan-pkl/{filename}', [FileController::class, 'showSkripsi'])->where('filename', '.*');
     Route::get('/template/{filename}', [FileController::class, 'template'])->where('filename', '.*');
     Route::get('/showFile/{filename}', [FileController::class, 'showFile'])->where('filename', '.*');
-
     
 });
 
+
+// Untuk user OPERATOR
 Route::middleware(['auth', 'user.role:operator'])->group(function () {
 
     Route::resource('/akunMHS', MahasiswaController::class);
@@ -97,25 +100,21 @@ Route::middleware(['auth', 'user.role:operator'])->group(function () {
     Route::get("/validasiProgress/validasiIRS/{angkatan}", [IRSValidationController::class, 'listMhsAngkatan']);
     Route::get('/validasiProgress/validasiIRS/{angkatan}/{mahasiswa}', [IRSValidationController::class, 'showIRSMhs']);
     Route::put('/validasiProgress/validasiIRS/{angkatan}/{mahasiswa}/update', [IRSValidationController::class, 'updateIRSMhs']);
-    // Route::post("/validasiProgress/validasiIRS/validate", [IRSValidationController::class,"validateIRS"]);
     
     Route::get("/validasiProgress/validasiKHS", [KHSValidationController::class, 'index']);
     Route::get("/validasiProgress/validasiKHS/{angkatan}", [KHSValidationController::class, 'listMhsAngkatan']);
     Route::get('/validasiProgress/validasiKHS/{angkatan}/{mahasiswa}', [KHSValidationController::class, 'showKHSMhs']);
     Route::put('/validasiProgress/validasiKHS/{angkatan}/{mahasiswa}/update', [KHSValidationController::class, 'updateKHSMhs']);
-    // Route::post("/validasiProgress/validasiKHS/validate", [KHSValidationController::class,"validateKHS"]);
 
     Route::get("/validasiProgress/validasiPKL", [PKLValidationController::class, 'index']);
     Route::get("/validasiProgress/validasiPKL/{angkatan}", [PKLValidationController::class, 'listMhsAngkatan']);
     Route::get('/validasiProgress/validasiPKL/{angkatan}/{mahasiswa}', [PKLValidationController::class, 'showPKLMhs']);
     Route::put('/validasiProgress/validasiPKL/{angkatan}/{mahasiswa}/update', [PKLValidationController::class, 'updatePKLMhs']);
-    // Route::post("/validasiProgress/validasiPKL/validate", [PKLValidationController::class,"validatePKL"]);
 
     Route::get("/validasiProgress/validasiSkripsi", [SkripsiValidationController::class, 'index']);
     Route::get("/validasiProgress/validasiSkripsi/{angkatan}", [SkripsiValidationController::class, 'listMhsAngkatan']);
     Route::get('/validasiProgress/validasiSkripsi/{angkatan}/{mahasiswa}', [SkripsiValidationController::class, 'showSkripsiMhs']);
     Route::put('/validasiProgress/validasiSkripsi/{angkatan}/{mahasiswa}/update', [SkripsiValidationController::class, 'updateSkripsiMhs']);
-    // Route::post("/validasiProgress/validasiSkripsi/validate", [SkripsiValidationController::class,"validateSkripsi"]);
 
     Route::get('/rekapMhs', fn() => view('operator.rekap_mhs.index'));
     Route::get("/rekapMhs/rekapPKL", [RekapListPKLController::class,"rekap"]);
@@ -131,6 +130,8 @@ Route::middleware(['auth', 'user.role:operator'])->group(function () {
     Route::get('/download-file/{filename}', [FileController::class, 'downloadFile'])->where('filename', '.*');
 });
 
+
+// Untuk user MAHASISWA yang sudah mengisi data pribadi dan OPERATOR
 Route::middleware(['auth','user.role:mahasiswa,operator','is.first.login'])->group(function () {
 
     Route::put('/irs/{mahasiswa}/update', [IRSController::class, 'updateOrInsert']);
@@ -140,10 +141,13 @@ Route::middleware(['auth','user.role:mahasiswa,operator','is.first.login'])->gro
 
 });
 
+
+// Untuk user MAHASISWA
 Route::middleware(['auth','user.role:mahasiswa'])->group(function () {
     Route::get('/firstLogin', [MahasiswaTaskController::class,'firstLogin'])->middleware('is.datapribadiupdated');
     Route::put('/firstLogin', [MahasiswaTaskController::class, 'updateDataPribadi']);
 
+    // Untuk user MAHASISWA yang sudah mengisi data pribadi
     Route::middleware('is.first.login')->group(function () {
         Route::get('/irs', [IRSController::class, 'index']);
         Route::get('/khs', [KHSController::class, 'index']);
@@ -153,6 +157,8 @@ Route::middleware(['auth','user.role:mahasiswa'])->group(function () {
 
 });
 
+
+// Untuk user DOSENWALI
 Route::middleware(['auth', 'user.role:dosenwali'])->group(function () {
 
     Route::get("/pencarianProgressStudiPerwalian", [ProgressStudiMhs::class, 'index']);
@@ -164,7 +170,6 @@ Route::middleware(['auth', 'user.role:dosenwali'])->group(function () {
     Route::get('/irsPerwalian/{angkatan}/{mahasiswa}', [IRSValidationController::class, 'showIRSMhs']);
     Route::put('/irsPerwalian/{angkatan}/{mahasiswa}/update', [IRSValidationController::class, 'updateIRSMhs']);
     
-
     Route::get("/khsPerwalian", [KHSValidationController::class, 'index']);
     Route::get("/khsPerwalian/{angkatan}", [KHSValidationController::class, 'listMhsAngkatan']);
     Route::get('/khsPerwalian/{angkatan}/{mahasiswa}', [KHSValidationController::class, 'showKHSMhs']);
@@ -187,6 +192,8 @@ Route::middleware(['auth', 'user.role:dosenwali'])->group(function () {
     Route::get("/rekapMhsPerwalian/rekapStatus", [RekapListStatusController::class,"rekap"]);
 });
 
+
+// Untuk user DOSENWALI dan OPERATOR
 Route::middleware(['auth', 'user.role:dosenwali,operator'])->group(function () {
     Route::post("/validateIRS", [IRSValidationController::class,"validateIRS"]);
     Route::post("/validateKHS", [KHSValidationController::class,"validateKHS"]);
@@ -196,12 +203,15 @@ Route::middleware(['auth', 'user.role:dosenwali,operator'])->group(function () {
 });
 
 
+// Untuk user DEPARTEMEN
 Route::middleware(['auth', 'user.role:departemen'])->group(function () {
     Route::get("/rekapPKL", [RekapListPKLController::class,"rekap"]);
     Route::get("/rekapSkripsi", [RekapListSkripsiController::class,"rekap"]);
     Route::get("/rekapStatus", [RekapListStatusController::class,"rekap"]);
 });
 
+
+// Untuk user DEPARTEMEN, DOSENWALI, dan OPERATOR
 Route::middleware(['auth', 'user.role:departemen,dosenwali,operator'])->group(function () {
     Route::get("/pencarianProgressStudi", [ProgressStudiMhs::class, 'index']);
     Route::get("/ajaxProgressMHS", [ProgressStudiMhs::class, 'updateTableProgressMhs']);
