@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Mahasiswa;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\RedirectResponse;
@@ -97,7 +98,10 @@ class LoginController extends Controller
             return view("dosenwali.dashboard");
         }
         if(auth()->user()->level == "departemen"){
-            return view("departemen.dashboard");
+            $rekap_status = Mahasiswa::selectRaw('status, count(*) as count')->groupBy('status')->get();
+            return view("departemen.dashboard", [
+                "rekap_status" => $rekap_status
+            ]);
         }
         if(auth()->user()->level == "operator"){
             return view("operator.dashboard");
