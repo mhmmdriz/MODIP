@@ -206,7 +206,12 @@ class ProfileController extends Controller
             'konfirmasi_password' => 'required|same:password_baru',
         ];
 
-        $validatedData = $request->validate($rules);
+        $errorMassages = [
+            'password_baru.regex' => 'Password harus mengandung huruf dan angka',
+            'konfirmasi_password.same' => 'Konfirmasi password harus sama dengan password baru',
+        ];
+
+        $validatedData = $request->validate($rules, $errorMassages);
 
         $user = auth()->user();
         $user->password = Hash::make($validatedData['password_baru']);

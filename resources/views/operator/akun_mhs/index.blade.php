@@ -62,7 +62,7 @@
   <div class="col">
     <div class="card bg-body-tertiary">
       <div id="tabelMHS" class="table-responsive">
-        {{-- load update_mhs.blade.php by updateMhsTable("")--}}
+        {{-- load update_mhs.blade.php by updateMhsTable("") --}}
       </div>
 
     </div>
@@ -73,6 +73,8 @@
 @include('operator.akun_mhs.modal_import_excel')
 @include('operator.akun_mhs.modal_export_excel')
 @include('operator.akun_mhs.modal_edit_data')
+@include('operator.akun_mhs.modal_reset_password')
+@include('operator.akun_mhs.modal_delete_akun')
 
 <script src="/js/ajax.js"></script>
 <script>

@@ -173,4 +173,3 @@ $('.modalPKLButton').click(function() {
 
 });
 
-// console.log("TES");
