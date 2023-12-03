@@ -136,7 +136,4 @@
 
 @include('operator.validasi_progress_studi.skripsi.modal_edit_skripsi')
 <script src="/js/modal.js"></script>
-@if ($errors->any())
-    @dump($errors)
-@endif
 @endsection

@@ -71,7 +71,7 @@
 
 <script>
   $("#select_status").change(function() {
-    let angkatan = $(".data-angkatan").data('angkatan');
+    let angkatan = {{ $angkatan }};
     let status = $(this).val();
 
     $.ajax({
