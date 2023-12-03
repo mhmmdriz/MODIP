@@ -24,7 +24,7 @@ use App\Http\Controllers\OpDepDos\ProgressStudiMhs;
 use App\Http\Controllers\OpDepDos\RekapListPKLController;
 use App\Http\Controllers\OpDepDos\RekapListSkripsiController;
 use App\Http\Controllers\OpDepDos\RekapListStatusController;
-
+use App\Models\Mahasiswa;
 
 /*
 |--------------------------------------------------------------------------
