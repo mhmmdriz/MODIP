@@ -152,7 +152,7 @@ class MahasiswaController extends Controller
     public function updateTableMhs(Request $request){
         $data_mhs = Mahasiswa::whereRaw("nim LIKE '%$request->keyword%' OR nama LIKE '%$request->keyword%' OR angkatan LIKE '%$request->keyword%' OR status LIKE '%$request->keyword%'")->get();
 
-        $view = view('operator.ajax.update_mhs')->with('data_mhs', $data_mhs)->render();
+        $view = view('operator.akun_mhs.update_mhs')->with('data_mhs', $data_mhs)->render();
 
         return response()->json(['html' => $view]);
     }
@@ -165,5 +165,13 @@ class MahasiswaController extends Controller
             "data_mhs" => $data_mhs,
             "data_angkatan" => $data_angkatan,
         ]);
+    }
+
+    public function updateTableEntryProgressMhs(Request $request){
+        $data_mhs = Mahasiswa::updateListMhsProgress($request);
+        
+        $view = view('operator.entry_progress_studi.update_mhs')->with('data_mhs', $data_mhs)->render();
+
+        return response()->json(['html' => $view]);
     }
 }

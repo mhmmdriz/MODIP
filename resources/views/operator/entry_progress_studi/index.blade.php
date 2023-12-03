@@ -18,10 +18,10 @@
 
 <div class="row">
   <div class="col-md-4">
-    <input type="text" class="form-control" id="keyword" onkeyup="updateTableProgressMHS()" placeholder="Cari Nama/NIM" autocomplete="off">
+    <input type="text" class="form-control" id="keyword" onkeyup="updateTableEntryProgressMHS()" placeholder="Cari Nama/NIM" autocomplete="off">
   </div>
   <div class="col-md-4">
-    <select name="angkatan" class="form-control" id="angkatan" onchange="updateTableProgressMHS()">
+    <select name="angkatan" class="form-control" id="angkatan" onchange="updateTableEntryProgressMHS()">
       <option value="" selected>Filter Angkatan</option>
       @foreach ($data_angkatan as $angkatan)
         <option value="{{ $angkatan }}">{{ $angkatan }}</option>

@@ -19,7 +19,7 @@ function updateTableProgressMHS(){
 function updateTableProgressMHSPerwalian(){
     let keyword = document.getElementById("keyword").value;
     let angkatan = document.getElementById("angkatan").value;
-
+    
     $.ajax({
         type: 'GET',
         url: '/ajaxProgressMHSPerwalian',
@@ -28,7 +28,7 @@ function updateTableProgressMHSPerwalian(){
             $('#tabelMHS').html(response.html);
             // console.log(response.message);
         },
-            error: function(response) {
+        error: function(response) {
             console.log('Error:', response);
         }
     });
@@ -59,6 +59,24 @@ function updateDoswalTable(keyword){
         success: function(response) {
             $('#tabelDoswal').html(response.html);
             // console.log(response.html);
+        },
+        error: function(response) {
+            console.log('Error:', response);
+        }
+    });
+}
+
+function updateTableEntryProgressMHS(){
+    let keyword = document.getElementById("keyword").value;
+    let angkatan = document.getElementById("angkatan").value;
+
+    $.ajax({
+        type: 'GET',
+        url: '/ajaxEntryProgressMHS',
+        data: {'keyword':keyword, 'angkatan':angkatan},
+        success: function(response) {
+            $('#tabelMHS').html(response.html);
+            // console.log(response.message);
         },
         error: function(response) {
             console.log('Error:', response);
