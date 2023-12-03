@@ -46,8 +46,11 @@ $(document).ready(function() {
     if(pkl == "" || pkl.semester != smt){
       $(".btn-pkl").attr("hidden", "");
     }else{
-      $(".btn-pkl").removeAttr("hidden");
-      $(".btn-pkl").removeClass("disabled");
+      if (pkl.validasi == 0) {
+        $(".btn-pkl").attr("hidden", "");
+      } else {
+        $(".btn-pkl").removeAttr("hidden");
+      }
       $(".semester-pkl").html(pkl.semester);
       $(".status-pkl").html("Lulus");
       $(".tanggal-seminar-pkl").html(pkl.tanggal_seminar);
@@ -59,8 +62,12 @@ $(document).ready(function() {
     if(skripsi == "" || skripsi.semester != smt){
       $(".btn-skripsi").attr("hidden", "");
     }else{
-      $(".btn-skripsi").removeAttr("hidden");
-      $(".btn-skripsi").removeClass("disabled");
+      
+      if (skripsi.validasi == 0) {
+        $(".btn-skripsi").attr("hidden", "");
+      } else {
+        $(".btn-skripsi").removeAttr("hidden");
+      }
       $(".semester-skripsi").html(skripsi.semester);
       $(".status-skripsi").html("Lulus");
       $(".tanggal-sidang-skripsi").html(skripsi.tanggal_sidang);

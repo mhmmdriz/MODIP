@@ -58,13 +58,13 @@
 
 <div class="modal-footer">
   <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-  <form action="/printListMhsStatus" target="__blank" method="post">
+  <form id="printForm" action="/printListMhsStatus" target="__blank" method="post">
     @csrf
     <input type="hidden" name="objects" value="{{ json_encode($data_mhs) }}">
     <input type="hidden" name="angkatan" value="{{ $angkatan }}">
     <input type="hidden" name="status" value="{{ $status }}">
     {{-- @dump(json_encode($data_mhs)) --}}
-    <button class="btn btn-primary" type="submit">Cetak</button>
+    <button class="btn btn-primary" type="submit" onclick="printRekap()">Cetak</button>
   </form>
   {{-- <button type="button" class="btn btn-primary">Save changes</button> --}}
 </div>

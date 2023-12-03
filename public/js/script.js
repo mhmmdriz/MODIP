@@ -37,3 +37,32 @@ $("body").on("submit", "form", function() {
   });
   return true;
 });
+
+function printRekap() {
+    // Dapatkan formulir dan data formulir
+    var form = document.getElementById('printForm');
+    var formData = new FormData(form);
+
+    // Buat objek XMLHttpRequest
+    var xhr = new XMLHttpRequest();
+
+    // Konfigurasikan permintaan AJAX
+    xhr.open('POST', form.action, true);
+    xhr.setRequestHeader('X-CSRF-TOKEN', formData.get('_token'));
+
+    // Atur penanganan kejadian ketika permintaan selesai
+    xhr.onload = function () {
+        if (xhr.status === 200) {
+            // Jika permintaan berhasil, buka jendela baru untuk mencetak
+            var newWindow = window.open('', '_blank');
+            newWindow.document.write(xhr.responseText);
+            // newWindow.print();
+            newWindow.onafterprint = function () {
+                newWindow.close();
+            };
+        }
+    };
+
+    // Kirim permintaan AJAX
+    xhr.send(formData);
+}

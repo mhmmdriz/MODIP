@@ -17,11 +17,11 @@
 <div class="row mb-2">
   <div class="col-auto">
     {{-- <button class="btn btn-primary btn-sm" id="btn-print-rekap">Cetak</button> --}}
-    <form action="/printRekapStatus" target="__blank" method="post">
+    <form id="printForm" action="/printRekapStatus" target="__blank" method="post">
       @csrf
       <input type="hidden" name="rekap_status" value="{{ json_encode($rekap_status) }}">
       <input type="hidden" name="current_year" value="{{ $current_year }}">
-      <button class="btn btn-primary btn-sm mt-2" type="submit">Cetak</button>
+      <button class="btn btn-primary btn-sm mt-2" type="submit" onclick="printRekap()">Cetak</button>
     </form>
   </div>
 </div>
