@@ -26,6 +26,20 @@
     </div>
   </div>
 
+  <div class="row mb-2">
+    <div class="col-auto">
+      {{-- <button class="btn btn-primary btn-sm" id="btn-print-rekap">Cetak</button> --}}
+      <form id="printList" action="/printListMhsStatus" target="__blank" method="post">
+        @csrf
+        <input type="hidden" name="objects" value="{{ json_encode($data_mhs) }}">
+        <input type="hidden" name="angkatan" value="{{ $angkatan }}">
+        <input type="hidden" name="status" value="{{ $status }}">
+        {{-- @dump(json_encode($data_mhs)) --}}
+        <button class="btn btn-primary" type="submit" onclick="printList()">Cetak</button>
+      </form>
+    </div>
+  </div>
+
   <div class="row my-3" id="list-mhs-skripsi-print">
     <div class="col">
 
@@ -58,14 +72,6 @@
 
 <div class="modal-footer">
   <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-  <form id="printForm" action="/printListMhsStatus" target="__blank" method="post">
-    @csrf
-    <input type="hidden" name="objects" value="{{ json_encode($data_mhs) }}">
-    <input type="hidden" name="angkatan" value="{{ $angkatan }}">
-    <input type="hidden" name="status" value="{{ $status }}">
-    {{-- @dump(json_encode($data_mhs)) --}}
-    <button class="btn btn-primary" type="submit" onclick="printRekap()">Cetak</button>
-  </form>
   {{-- <button type="button" class="btn btn-primary">Save changes</button> --}}
 </div>
 
