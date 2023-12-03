@@ -47,17 +47,17 @@ class KHS extends Model
             $mahasiswa = auth()->user()->mahasiswa;
         }
         
-        if($request->scan_khs != null){
-            $validatedData ["scan_khs"] = $request->file('scan_khs')->store('private/khs');
-        }
-
         if($request->scan_khs_old == null){
             $validatedData['smt'] = $request->smt;
             $validatedData['nim'] = $mahasiswa->nim;
             $validatedData['validasi'] = 0;
+            $validatedData ["scan_khs"] = $request->file('scan_khs')->store('private/khs');
             self::create($validatedData);
         }else{
-            Storage::delete($request->scan_khs_old);
+            if($request->scan_khs != null){
+                $validatedData ["scan_khs"] = $request->file('scan_khs')->store('private/khs');
+                Storage::delete($request->scan_khs_old);
+            }
             self::where("smt", $request->smt)->where("nim",$mahasiswa->nim)->update($validatedData);
         }
     }

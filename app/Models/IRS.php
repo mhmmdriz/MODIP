@@ -26,18 +26,20 @@ class IRS extends Model
         if (auth()->user()->level == "mahasiswa") {
             $mahasiswa = auth()->user()->mahasiswa;
         }
+        // dd($request->scan_irs, $request->scan_irs_old);
         
-        if($request->scan_irs != null){
-            $validatedData ["scan_irs"] = $request->file('scan_irs')->store('private/irs');
-        }
 
         if($request->scan_irs_old == null){
             $validatedData['smt'] = $request->smt;
             $validatedData['nim'] = $mahasiswa->nim;
             $validatedData['validasi'] = 0;
+            $validatedData ["scan_irs"] = $request->file('scan_irs')->store('private/irs');
             self::create($validatedData);
         }else{
-            Storage::delete($request->scan_irs_old);
+            if($request->scan_irs != null){
+                $validatedData ["scan_irs"] = $request->file('scan_irs')->store('private/irs');
+                Storage::delete($request->scan_irs_old);
+            }
             self::where("smt", $request->smt)->where("nim",$mahasiswa->nim)->update($validatedData);
         }
     }

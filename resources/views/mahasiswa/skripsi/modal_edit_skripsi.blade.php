@@ -9,8 +9,6 @@
         @csrf
         @method('put')
         <div class="modal-body">
-          <input type="hidden" name="status_old" id="status_old" value="{{ old('status_old') }}">
-
           <div class="mb-3" id="semester-container">
             <label for="semester" class="form-label">Semester</label>
             <input type="number" class="form-control @error('semester') is-invalid @enderror" name="semester" value="{{ old('semester') }}" id="semester">
