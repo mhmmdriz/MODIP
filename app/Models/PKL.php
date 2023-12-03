@@ -39,12 +39,10 @@ class PKL extends Model
         $nim = $mahasiswa->nim;
         $validasi = 0;
 
-        if ($request->status_old == null){
+        if ($request->scan_basp_old == null){
             $validatedData['nim'] = $nim;
             $validatedData['validasi'] = $validasi;
-            if($request->scan_basp != null){
-                $validatedData ["scan_basp"] = $request->file('scan_basp')->store('private/pkl');
-            }
+            $validatedData ["scan_basp"] = $request->file('scan_basp')->store('private/pkl');
             self::create($validatedData);
         }
         else {

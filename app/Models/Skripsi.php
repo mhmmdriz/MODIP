@@ -44,12 +44,10 @@ class Skripsi extends Model
         $nim = $mahasiswa->nim;
         $validasi = 0;
 
-        if ($request->status_old == null){
+        if ($request->scan_bass_old == null){
             $validatedData['nim'] = $nim;
             $validatedData['validasi'] = $validasi;
-            if($request->scan_bass != null){
-                $validatedData ["scan_bass"] = $request->file('scan_bass')->store('private/skripsi');
-            }
+            $validatedData ["scan_bass"] = $request->file('scan_bass')->store('private/skripsi');
             self::create($validatedData);
         }
         else {
