@@ -110,7 +110,7 @@ class DosenWaliController extends Controller
     public function updateTableDoswal(Request $request){
         $data_doswal = DosenWali::whereRaw("nip LIKE '%$request->keyword%' OR nama LIKE '%$request->keyword%'")->get();
 
-        $view = view('operator.ajax.update_doswal')->with('data_doswal', $data_doswal)->render();
+        $view = view('operator.akun_doswal.update_doswal')->with('data_doswal', $data_doswal)->render();
 
         return response()->json(['html' => $view]);
     }

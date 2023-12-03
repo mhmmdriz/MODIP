@@ -127,7 +127,6 @@ Route::middleware(['auth', 'user.role:operator'])->group(function () {
     Route::get('/entryProgress/entryPKL/{mahasiswa}', [PKLController::class, 'index']);
     Route::get('/entryProgress/entrySkripsi/{mahasiswa}', [SkripsiController::class, 'index']);
     Route::get('/ajaxEntryProgressMHS', [MahasiswaController::class, 'updateTableEntryProgressMhs']);
-    
 
     Route::get('/download-file/{filename}', [FileController::class, 'downloadFile'])->where('filename', '.*');
 });
