@@ -33,13 +33,13 @@
   <div class="col-auto ms-auto">
     {{-- <button class="btn btn-primary btn-sm" id="btn-print-list">Cetak</button> --}}
 
-    <form action="/printListMhsSkripsi" target="__blank" method="post">
+    <form id="printForm" action="/printListMhsSkripsi" target="__blank" method="post">
       @csrf
       <input type="hidden" name="objects" value="{{ json_encode($data_mhs) }}">
       <input type="hidden" name="angkatan" value="{{ $angkatan }}">
       <input type="hidden" name="status" value="{{ $status }}">
       {{-- @dump(json_encode($data_mhs)) --}}
-      <button class="btn btn-primary btn-sm mt-2" type="submit">Cetak</button>
+      <button class="btn btn-primary btn-sm mt-2" type="submit" onclick="printRekap()">Cetak</button>
     </form>
   
 
