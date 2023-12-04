@@ -21,15 +21,28 @@
       <td>{{ $doswal->no_telp}}</td>
       <td>{{ $doswal->email_sso}}</td>
       <td>
-        <a class="btn btn-warning btn-sm" href="/akunDosenWali/{{ $doswal->nip }}/reset">Reset Password</a>
-        <form action="/akunDosenWali/{{ $doswal->nip }}" method="post" class="d-inline">
-          @method('delete')
-          @csrf
-          <button class="btn btn-danger btn-sm" onclick="return confirm('Are you sure?')">
-            Hapus Akun
-          </button>
-        </form>
+        <button type="button" class="modalResetPasswordButton btn btn-warning btn-sm mb-1" data-bs-toggle="modal" data-bs-target="#modalResetPassword" data-nip="{{ $doswal->nip }}" data-nama="{{ $doswal->nama }}">Reset Password</button>
+        <button type="button" class="modalDeleteAkunButton btn btn-danger btn-sm mb-1" data-bs-toggle="modal" data-bs-target="#modalDeleteAkun" data-nip="{{ $doswal->nip }}" data-nama="{{ $doswal->nama }}">Hapus Akun</button>
       </td>
     </tr>
   @endforeach
-</table>
+</table>  
+
+<script>
+  $(document).ready(function() {
+    $('.modalResetPasswordButton').click(function() {
+      var nip = $(this).data('nip');
+      var nama = $(this).data('nama');
+      document.getElementById("form-reset-password").setAttribute("action", "/akunDosenWali/"+nip +"/reset");
+      document.getElementById("nama1").innerHTML = nama;
+      document.getElementById("nip1").innerHTML = nip;
+    });
+    $('.modalDeleteAkunButton').click(function() {
+      var nip = $(this).data('nip');
+      var nama = $(this).data('nama');
+      document.getElementById("form-hapus-akun").setAttribute("action", "/akunDosenWali/"+nip);
+      document.getElementById("nama2").innerHTML = nama;
+      document.getElementById("nip2").innerHTML = nip;
+    });
+  });
+</script>
