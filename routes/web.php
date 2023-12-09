@@ -230,3 +230,9 @@ Route::middleware(['auth', 'user.role:departemen,dosenwali,operator'])->group(fu
     Route::post("/printRekapStatus", [RekapListStatusController::class, "printRekap"]);
     Route::get("/showListStatusAjax", [RekapListStatusController::class, "showListAjax"]);
 });
+
+// Route::middleware(['guest', 'auth'])->group(function () {
+//     Route::get('/{any}', function($any){
+//         redirect('/');
+//     })->where('any', '.*');
+// });

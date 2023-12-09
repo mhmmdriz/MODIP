@@ -19,8 +19,9 @@
 
 <div class="row">
   <div class="col-md-4">
-    <form action="/validasiProgress/validasiIRS/{{ $angkatan }}" method="get">
+    <form action="/validasiProgress/validasiIRS/{{ $angkatan }}" method="get" class="d-flex gap-1">
       <input type="text" class="form-control" id="keyword" name="keyword" placeholder="Cari Akun">
+      <button class="btn btn-primary btn-sm" type="submit">Search</button>
     </form>
   </div>
 </div>
