@@ -107,7 +107,7 @@
 
 <script>
   Chart.defaults.color = '#808080';
-  Chart.defaults.font.size = 14;
+  Chart.defaults.font.size = 13;
   // Mendapatkan elemen canvas
   var ctx = document.getElementById("rekapStatus").getContext("2d");
   var rekapStatus = {!! $rekap_status !!}
@@ -172,7 +172,7 @@
       },
       title: {
         display: true,
-        text: 'Rekap Status Mahasiswa'
+        text: 'Rekap PKL Mahasiswa'
       }
     }
   };
@@ -207,7 +207,7 @@
       },
       title: {
         display: true,
-        text: 'Rekap Status Mahasiswa'
+        text: 'Rekap Skripsi Mahasiswa'
       }
     }
   };
