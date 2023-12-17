@@ -30,6 +30,7 @@ if (darkTheme === 'enabled') { //setiap reload
 else {
   disableDarkTheme();
 }
+body.style.visibility = "visible";
 
 $("body").on("submit", "form", function() {
   $(this).submit(function() {
