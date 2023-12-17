@@ -12,7 +12,7 @@
 <div class="modal-body">
   <div class="row my-3">
     <div class="col-md-4">
-      <p>Filter Angkatan :</p>
+      <p>Filter Berdasarkan Status :</p>
       <select name="status" id="select_status" class="form-control">
         <option value="" {{ $status ? '' : 'selected' }}>Semua Status</option>
         <option value="Aktif" {{ $status == 'Aktif' ? 'selected' : '' }}>Aktif</option>
